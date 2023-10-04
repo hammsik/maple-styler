@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:maple_closet/layout_mapbuttons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,17 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color.fromARGB(255, 255, 137, 58),
-                Color.fromARGB(255, 55, 255, 105)
-              ],
-            ),
-          ),
-          padding: const EdgeInsets.only(left: 30, right: 30),
+          padding: const EdgeInsets.only(left: 25, right: 25),
           alignment: Alignment.center,
           child: const Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -34,6 +25,7 @@ class MyApp extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
+              MapButtonLayout(),
             ],
           ),
         ),
