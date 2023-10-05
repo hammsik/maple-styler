@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:maple_closet/data/backgrounds.dart';
 
 class MapButton extends StatelessWidget {
-  late Widget mapIcon;
+  final String backgroundName;
+  final Function() clickEvent;
 
-  MapButton({
+  const MapButton({
     super.key,
-    required String imagePath,
-  }) {
-    if (imagePath == 'normal') {
+    required this.backgroundName,
+    required this.clickEvent,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    Widget mapIcon;
+
+    if (backgroundName == 'normal') {
       mapIcon = Container(
         decoration:
             const BoxDecoration(color: Color.fromARGB(255, 208, 208, 208)),
@@ -15,30 +23,27 @@ class MapButton extends StatelessWidget {
     } else {
       mapIcon = Image.asset(
         fit: BoxFit.cover,
-        imagePath,
+        backgroundsList[backgroundName]![0],
       );
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => print('button has tapped.'),
+      onTap: clickEvent,
       child: Container(
-        width: 60,
-        height: 35,
+        width: 55,
+        height: 32,
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.4),
+              blurRadius: 4,
               spreadRadius: 1,
-              blurRadius: 1,
               offset: const Offset(1, 1),
             ),
           ],
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-              color: const Color.fromARGB(255, 122, 122, 122), width: 0.4),
+              color: const Color.fromARGB(255, 122, 122, 122), width: 0.2),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
