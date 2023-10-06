@@ -16,7 +16,7 @@ class _SearchBox extends State<SearchBox> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(8),
           color: const Color.fromARGB(255, 208, 208, 208),
         ),
       ),

@@ -13,6 +13,7 @@ class CoordinatingTools extends StatelessWidget {
         Row(
           children: [SearchBox(), SizedBox(width: 8), UndoAndRedo()],
         ),
+        SizedBox(height: 10),
         MyTools(),
         // Row(
         //   children: [SelectedItem(), ItemMenu()],
