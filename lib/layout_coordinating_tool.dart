@@ -3,6 +3,10 @@ import 'package:maple_closet/my_search_box.dart';
 import 'package:maple_closet/my_tools.dart';
 import 'package:maple_closet/my_undo_and_redo.dart';
 
+import 'my_item_list.dart';
+import 'my_item_menu.dart';
+import 'my_selected_item.dart';
+
 class CoordinatingTools extends StatelessWidget {
   const CoordinatingTools({super.key});
 
@@ -15,10 +19,12 @@ class CoordinatingTools extends StatelessWidget {
         ),
         SizedBox(height: 10),
         MyTools(),
-        // Row(
-        //   children: [SelectedItem(), ItemMenu()],
-        // ),
-        // ItemList(),
+        SizedBox(height: 10),
+        Row(
+          children: [SelectedItem(), SizedBox(width: 8), ItemMenu()],
+        ),
+        SizedBox(height: 10),
+        Expanded(child: ItemList()),
       ],
     );
   }

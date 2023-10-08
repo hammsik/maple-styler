@@ -10,10 +10,10 @@ class MapleCloset extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         body: Container(
-          padding: const EdgeInsets.all(22),
-          alignment: Alignment.center,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.all(22),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CharacterBoard(),
               SizedBox(height: 14),
@@ -24,7 +24,7 @@ class MapleCloset extends StatelessWidget {
                 color: Color.fromARGB(255, 108, 108, 108),
               ),
               SizedBox(height: 14),
-              CoordinatingTools(),
+              Expanded(child: CoordinatingTools()),
             ],
           ),
         ),
