@@ -28,8 +28,17 @@ class _MapleCloset extends State<MapleCloset> {
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          leadingWidth: 70,
           centerTitle: true,
+          leading: IconButton(
+            padding: EdgeInsets.only(left: 24),
+            onPressed: () {},
+            icon: Icon(
+              Icons.info_outlined,
+              color: Colors.black,
+            ),
+            iconSize: 24,
+            alignment: Alignment.center,
+          ),
           title: Text(
             "MAPLE CLOSET",
             style: GoogleFonts.nanumMyeongjo(
@@ -38,24 +47,14 @@ class _MapleCloset extends State<MapleCloset> {
             ),
             textAlign: TextAlign.end,
           ),
-          leading: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.info_outlined,
-              color: Colors.black,
-              size: 25,
-            ),
-            alignment: Alignment.center,
-          ),
           actions: [
             IconButton(
+              padding: EdgeInsets.only(right: 8),
               onPressed: _openEndDrawer,
               icon: Icon(Icons.account_box),
               color: Colors.black,
+              iconSize: 24,
             ),
-            SizedBox(
-              width: 8,
-            )
           ],
           elevation: 0,
           backgroundColor: const Color.fromARGB(255, 250, 250, 250),
