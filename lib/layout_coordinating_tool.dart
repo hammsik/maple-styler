@@ -12,20 +12,22 @@ class CoordinatingTools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [SearchBox(), SizedBox(width: 8), UndoAndRedo()],
-        ),
-        SizedBox(height: 10),
-        MyTools(),
-        SizedBox(height: 10),
-        Row(
-          children: [SelectedItem(), SizedBox(width: 8), ItemMenu()],
-        ),
-        SizedBox(height: 10),
-        Expanded(child: ItemList()),
-      ],
+    return Expanded(
+      child: Column(
+        children: [
+          Row(
+            children: [SearchBox(), SizedBox(width: 8), UndoAndRedo()],
+          ),
+          SizedBox(height: 10),
+          MyTools(),
+          SizedBox(height: 10),
+          Row(
+            children: [SelectedItem(), SizedBox(width: 8), ItemMenu()],
+          ),
+          SizedBox(height: 10),
+          Expanded(child: ItemList()),
+        ],
+      ),
     );
   }
 }

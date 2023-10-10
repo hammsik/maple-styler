@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 
@@ -20,24 +21,29 @@ class _MapleCloset extends State<MapleCloset> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
 
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
+          leadingWidth: 70,
           centerTitle: true,
-          title: const Text(
+          title: Text(
             "MAPLE CLOSET",
-            style: TextStyle(color: Colors.black),
+            style: GoogleFonts.nanumMyeongjo(
+              color: Colors.black,
+              fontSize: 18,
+            ),
+            textAlign: TextAlign.end,
           ),
           leading: IconButton(
             onPressed: () {},
             icon: Icon(
               Icons.info_outlined,
               color: Colors.black,
-              size: 30,
+              size: 25,
             ),
             alignment: Alignment.center,
           ),
@@ -47,8 +53,11 @@ class _MapleCloset extends State<MapleCloset> {
               icon: Icon(Icons.account_box),
               color: Colors.black,
             ),
+            SizedBox(
+              width: 8,
+            )
           ],
-          elevation: 5,
+          elevation: 0,
           backgroundColor: const Color.fromARGB(255, 250, 250, 250),
         ),
         endDrawer: Drawer(),
@@ -57,7 +66,8 @@ class _MapleCloset extends State<MapleCloset> {
           height: MediaQuery.of(context).size.height,
           decoration:
               const BoxDecoration(color: Color.fromARGB(255, 250, 250, 250)),
-          padding: const EdgeInsets.all(22),
+          padding:
+              const EdgeInsets.only(left: 20, top: 10, right: 20, bottom: 20),
           child: Column(
             children: [
               CharacterBoard(),
@@ -69,7 +79,7 @@ class _MapleCloset extends State<MapleCloset> {
                 color: Color.fromARGB(255, 108, 108, 108),
               ),
               const SizedBox(height: 14),
-              Expanded(child: CoordinatingTools()),
+              CoordinatingTools(),
             ],
           ),
         ),

@@ -16,7 +16,7 @@ class _UndoAndRedo extends State<UndoAndRedo> {
       children: [
         Container(
           width: 55,
-          height: 40,
+          height: 35,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: const Color.fromARGB(255, 208, 208, 208),
@@ -25,7 +25,7 @@ class _UndoAndRedo extends State<UndoAndRedo> {
         SizedBox(width: 8),
         Container(
           width: 55,
-          height: 40,
+          height: 35,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             color: const Color.fromARGB(255, 208, 208, 208),
