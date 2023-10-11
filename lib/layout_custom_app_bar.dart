@@ -24,6 +24,7 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
           child: Icon(
             Icons.info_outlined,
             color: Colors.black,
+            size: 30,
           ),
         ),
         Text(
@@ -38,6 +39,7 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
           child: Icon(
             Icons.account_box,
             color: Colors.black,
+            size: 30,
           ),
         ),
       ],
