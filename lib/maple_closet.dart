@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
@@ -22,7 +21,9 @@ class _MapleCloset extends State<MapleCloset> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
+      const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.dark,
+          statusBarColor: Colors.transparent),
     );
 
     return MaterialApp(
@@ -38,9 +39,9 @@ class _MapleCloset extends State<MapleCloset> {
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Column(
               children: [
-                const SizedBox(height: 14),
+                const SizedBox(height: 20),
                 MyCustomAppBar(clickEvent: _openEndDrawer),
-                const SizedBox(height: 14),
+                const SizedBox(height: 20),
                 CharacterBoard(),
                 const SizedBox(height: 14),
                 Container(
