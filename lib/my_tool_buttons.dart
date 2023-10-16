@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:maple_closet/models/skeleton_tools.dart';
 
-List<String> toolList = ['뷰티', '코디', '악세', '염색', '다운', '문의'];
+class MytoolButtons extends StatefulWidget {
+  final List<MyTool> toolList;
+  final Function buttonClicked;
 
-class MyTools extends StatefulWidget {
-  MyTools({super.key});
+  const MytoolButtons(
+      {required this.toolList, required this.buttonClicked, super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _MyTools();
+    return _MytoolButtons();
   }
 }
 
-class _MyTools extends State<MyTools> {
+class _MytoolButtons extends State<MytoolButtons> {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        ...toolList.map(
+        ...widget.toolList.map(
           (item) => GestureDetector(
-            onTap: () {},
+            onTap: () => widget.buttonClicked(item.idx),
             child: Container(
               alignment: Alignment.center,
               width: 47,
@@ -30,7 +33,7 @@ class _MyTools extends State<MyTools> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                item,
+                item.toolName,
                 style: GoogleFonts.nanumMyeongjo(),
               ),
             ),

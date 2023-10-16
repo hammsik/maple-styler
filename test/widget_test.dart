@@ -1,30 +1,64 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 
-import 'package:maple_closet/main.dart';
+/// Flutter code sample for [MenuAnchor].
 
-void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+// This is the type used by the menu below.
+enum SampleItem { itemOne, itemTwo, itemThree }
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+void main() => runApp(const MenuAnchorApp());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+class MenuAnchorApp extends StatelessWidget {
+  const MenuAnchorApp({super.key});
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(useMaterial3: true),
+      home: const MenuAnchorExample(),
+    );
+  }
+}
+
+class MenuAnchorExample extends StatefulWidget {
+  const MenuAnchorExample({super.key});
+
+  @override
+  State<MenuAnchorExample> createState() => _MenuAnchorExampleState();
+}
+
+class _MenuAnchorExampleState extends State<MenuAnchorExample> {
+  SampleItem? selectedMenu;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('MenuAnchorButton')),
+      body: Center(
+        child: MenuAnchor(
+          builder:
+              (BuildContext context, MenuController controller, Widget? child) {
+            return IconButton(
+              onPressed: () {
+                if (controller.isOpen) {
+                  controller.close();
+                } else {
+                  controller.open();
+                }
+              },
+              icon: const Icon(Icons.more_horiz),
+              tooltip: 'Show menu',
+            );
+          },
+          menuChildren: List<MenuItemButton>.generate(
+            3,
+            (int index) => MenuItemButton(
+              onPressed: () =>
+                  setState(() => selectedMenu = SampleItem.values[index]),
+              child: Text('Item ${index + 1}'),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
