@@ -23,14 +23,14 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
         GestureDetector(
           child: Icon(
             Icons.info_outlined,
-            color: Colors.black,
+            color: Color(0xfff2f2f2),
             size: 24,
           ),
         ),
         Text(
           "MAPLE CLOSET",
           style: GoogleFonts.nanumMyeongjo(
-            color: Colors.black,
+            color: const Color(0xfff2f2f2),
             fontSize: 18,
           ),
         ),
@@ -38,7 +38,7 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
           onTap: widget.clickEvent,
           child: Icon(
             Icons.account_box,
-            color: Colors.black,
+            color: const Color(0xfff2f2f2),
             size: 24,
           ),
         ),

@@ -22,8 +22,8 @@ class _MapleCloset extends State<MapleCloset> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarColor: Colors.transparent),
+          statusBarIconBrightness: Brightness.light,
+          statusBarColor: Color(0xff2B3A55)),
     );
 
     return MaterialApp(
@@ -34,8 +34,7 @@ class _MapleCloset extends State<MapleCloset> {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration:
-                const BoxDecoration(color: Color.fromARGB(255, 250, 250, 250)),
+            decoration: const BoxDecoration(color: Color(0xff2B3A55)),
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Column(
               children: [
@@ -45,10 +44,11 @@ class _MapleCloset extends State<MapleCloset> {
                 CharacterBoard(),
                 const SizedBox(height: 14),
                 Container(
-                  height: 1,
+                  height: 2,
                   width: double.infinity,
                   margin: EdgeInsets.only(left: 7, right: 7),
-                  color: Color.fromARGB(255, 108, 108, 108),
+                  // color: Color.fromARGB(255, 193, 105, 105),
+                  color: Color(0xffCE7777),
                 ),
                 const SizedBox(height: 14),
                 CoordinatingTools(),

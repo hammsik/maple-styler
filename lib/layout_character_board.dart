@@ -34,7 +34,7 @@ class _CharacterBoardState extends State<CharacterBoard> {
     } else {
       characterBox = Container(
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 208, 208, 208),
+          color: Color(0xffF2E5E5),
         ),
       );
     }

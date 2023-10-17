@@ -5,9 +5,13 @@ import 'package:maple_closet/models/skeleton_tools.dart';
 class MytoolButtons extends StatefulWidget {
   final List<MyTool> toolList;
   final Function buttonClicked;
+  final int clickButtonIdx;
 
   const MytoolButtons(
-      {required this.toolList, required this.buttonClicked, super.key});
+      {required this.toolList,
+      required this.buttonClicked,
+      required this.clickButtonIdx,
+      super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -29,12 +33,18 @@ class _MytoolButtons extends State<MytoolButtons> {
               width: 47,
               height: 35,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 208, 208, 208),
+                color: widget.clickButtonIdx == item.idx
+                    ? const Color(0xffCE7777)
+                    : const Color(0xffF2E5E5),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 item.toolName,
-                style: GoogleFonts.nanumMyeongjo(),
+                style: GoogleFonts.nanumMyeongjo(
+                  color: widget.clickButtonIdx == item.idx
+                      ? const Color(0xffF2E5E5)
+                      : const Color(0xff000000),
+                ),
               ),
             ),
           ),

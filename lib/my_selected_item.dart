@@ -16,7 +16,7 @@ class _SelectedItem extends State<SelectedItem> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 208, 208, 208),
+          color: Color(0xffF2E5E5),
           borderRadius: BorderRadius.circular(8),
         ),
       ),

@@ -38,6 +38,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
           const SizedBox(height: 8),
           MytoolButtons(
             toolList: myToolList,
+            clickButtonIdx: currentToolIdx,
             buttonClicked: toolButtonClikced,
           ),
           const SizedBox(height: 8),

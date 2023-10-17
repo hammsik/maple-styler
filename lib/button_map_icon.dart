@@ -17,8 +17,7 @@ class MapButton extends StatelessWidget {
 
     if (backgroundName == 'normal') {
       mapIcon = Container(
-        decoration:
-            const BoxDecoration(color: Color.fromARGB(255, 208, 208, 208)),
+        decoration: const BoxDecoration(color: Color(0xffF2E5E5)),
       );
     } else {
       mapIcon = Image.asset(
@@ -35,15 +34,15 @@ class MapButton extends StatelessWidget {
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.4),
+              color: const Color.fromARGB(255, 36, 36, 36).withOpacity(0.4),
               blurRadius: 4,
               spreadRadius: 1,
               offset: const Offset(1, 1),
             ),
           ],
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-              color: const Color.fromARGB(255, 122, 122, 122), width: 0.2),
+          border:
+              Border.all(color: Color.fromARGB(255, 38, 38, 38), width: 0.2),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),

@@ -24,7 +24,7 @@ class _ItemMenu extends State<ItemMenu> {
       width: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: const Color.fromARGB(255, 208, 208, 208),
+        color: const Color(0xffF2E5E5),
       ),
       child: widget.currentTool.isNeedMenu
           ? MenuAnchor(
@@ -44,17 +44,6 @@ class _ItemMenu extends State<ItemMenu> {
                     ]),
                   ),
                 );
-                // IconButton(
-                //   onPressed: () {
-                //     if (controller.isOpen) {
-                //       controller.close();
-                //     } else {
-                //       controller.open();
-                //     }
-                //   },
-                //   icon: const Icon(Icons.keyboard_arrow_down_sharp),
-                //   tooltip: 'Show menu',
-                // );
               },
               menuChildren: [
                 ...widget.currentTool.menuList!.map((item) => Text(item))

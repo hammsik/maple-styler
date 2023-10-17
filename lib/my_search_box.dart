@@ -17,7 +17,7 @@ class _SearchBox extends State<SearchBox> {
         height: 35,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
-          color: const Color.fromARGB(255, 208, 208, 208),
+          color: const Color(0xffF2E5E5),
         ),
       ),
     );
