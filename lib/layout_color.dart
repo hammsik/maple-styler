@@ -14,7 +14,9 @@ class _ColorLayout extends State<ColorLayout> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Container(
-      decoration: BoxDecoration(color: Color(0xffdddddd)),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 230, 222, 218),
+      ),
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
       child: const Text('해당 기능은 준비중입니다.'),

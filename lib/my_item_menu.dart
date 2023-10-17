@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/models/skeleton_tools.dart';
 
 class ItemMenu extends StatefulWidget {
@@ -16,10 +15,8 @@ class ItemMenu extends StatefulWidget {
 class _ItemMenu extends State<ItemMenu> {
   @override
   Widget build(BuildContext context) {
-    int currentItemIdx = -1;
-    if (widget.currentTool.isNeedMenu == true) {
-      currentItemIdx = 0;
-    }
+    int currentItemIdx = 0;
+
     return widget.currentTool.isNeedMenu
         ? MenuAnchor(
             builder: (BuildContext context, MenuController controller,

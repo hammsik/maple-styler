@@ -17,7 +17,6 @@ class CoordinatingTools extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _CoordinatingTools();
   }
 }
@@ -51,23 +50,26 @@ class _CoordinatingTools extends State<CoordinatingTools> {
           ),
           const SizedBox(height: 8),
           currentToolIdx < 3
-              ? Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      children: [
-                        SelectedItem(),
-                        SizedBox(width: 8),
-                        ItemMenu(
-                          currentTool: myToolList[currentToolIdx],
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Flexible(fit: FlexFit.loose, child: ItemList()),
-                  ],
+              ? Flexible(
+                  fit: FlexFit.loose,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          SelectedItem(),
+                          SizedBox(width: 8),
+                          ItemMenu(
+                            currentTool: myToolList[currentToolIdx],
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Flexible(fit: FlexFit.loose, child: ItemList()),
+                    ],
+                  ),
                 )
-              : AskLayout(),
+              : Flexible(fit: FlexFit.loose, child: AskLayout()),
         ],
       ),
     );
