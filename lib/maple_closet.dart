@@ -48,7 +48,7 @@ class _MapleCloset extends State<MapleCloset> {
                   width: double.infinity,
                   margin: EdgeInsets.only(left: 7, right: 7),
                   // color: Color.fromARGB(255, 193, 105, 105),
-                  color: Color(0xffCE7777),
+                  color: Color.fromARGB(255, 181, 103, 103),
                 ),
                 const SizedBox(height: 14),
                 CoordinatingTools(),

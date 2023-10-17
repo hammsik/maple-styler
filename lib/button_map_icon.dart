@@ -17,7 +17,9 @@ class MapButton extends StatelessWidget {
 
     if (backgroundName == 'normal') {
       mapIcon = Container(
-        decoration: const BoxDecoration(color: Color(0xffF2E5E5)),
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 230, 222, 218),
+        ),
       );
     } else {
       mapIcon = Image.asset(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:maple_closet/data/myTools.dart';
 import 'my_search_box.dart';
@@ -30,30 +31,36 @@ class _CoordinatingTools extends State<CoordinatingTools> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        children: [
-          Row(
-            children: [SearchBox(), SizedBox(width: 8), UndoAndRedo()],
-          ),
-          const SizedBox(height: 8),
-          MytoolButtons(
-            toolList: myToolList,
-            clickButtonIdx: currentToolIdx,
-            buttonClicked: toolButtonClikced,
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              SelectedItem(),
-              SizedBox(width: 8),
-              ItemMenu(
-                currentTool: myToolList[currentToolIdx],
-              )
-            ],
-          ),
-          const SizedBox(height: 8),
-          Expanded(child: ItemList()),
-        ],
+      child: DefaultTextStyle(
+        style: GoogleFonts.nanumMyeongjo(
+            color: Color.fromARGB(255, 0, 0, 0),
+            fontSize: 12,
+            fontWeight: FontWeight.w700),
+        child: Column(
+          children: [
+            Row(
+              children: [SearchBox(), SizedBox(width: 8), UndoAndRedo()],
+            ),
+            const SizedBox(height: 8),
+            MytoolButtons(
+              toolList: myToolList,
+              clickButtonIdx: currentToolIdx,
+              buttonClicked: toolButtonClikced,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                SelectedItem(),
+                SizedBox(width: 8),
+                ItemMenu(
+                  currentTool: myToolList[currentToolIdx],
+                )
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(child: ItemList()),
+          ],
+        ),
       ),
     );
   }

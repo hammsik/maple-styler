@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/models/skeleton_tools.dart';
 
 class ItemMenu extends StatefulWidget {
@@ -19,37 +20,45 @@ class _ItemMenu extends State<ItemMenu> {
     if (widget.currentTool.isNeedMenu == true) {
       currentItemIdx = 0;
     }
-    return Container(
-      height: 40,
-      width: 100,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: const Color(0xffF2E5E5),
-      ),
-      child: widget.currentTool.isNeedMenu
-          ? MenuAnchor(
-              builder: (BuildContext context, MenuController controller,
-                  Widget? child) {
-                return Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      if (controller.isOpen) {
-                        controller.close();
-                      } else {
-                        controller.open();
-                      }
-                    },
-                    child: Row(children: [
-                      Text(widget.currentTool.menuList![currentItemIdx]),
-                    ]),
+    return widget.currentTool.isNeedMenu
+        ? MenuAnchor(
+            builder: (BuildContext context, MenuController controller,
+                Widget? child) {
+              return GestureDetector(
+                onTap: () {
+                  if (controller.isOpen) {
+                    controller.close();
+                  } else {
+                    controller.open();
+                  }
+                },
+                child: Container(
+                  height: 40,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Color.fromARGB(255, 230, 222, 218),
                   ),
-                );
-              },
-              menuChildren: [
-                ...widget.currentTool.menuList!.map((item) => Text(item))
-              ],
-            )
-          : Text('없떠요'),
-    );
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                    Expanded(
+                      child: Text(
+                        widget.currentTool.menuList![currentItemIdx],
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const Icon(Icons.keyboard_arrow_left_sharp),
+                    SizedBox(
+                      width: 8,
+                    )
+                  ]),
+                ),
+              );
+            },
+            menuChildren: [
+              ...widget.currentTool.menuList!.map((item) => Text(item))
+            ],
+          )
+        : Text('없떠요');
   }
 }

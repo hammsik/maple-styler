@@ -16,7 +16,7 @@ class _ItemList extends State<ItemList> {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: const Color(0xffF2E5E5),
+        color: Color.fromARGB(255, 230, 222, 218),
       ),
     );
   }

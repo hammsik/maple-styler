@@ -34,18 +34,16 @@ class _MytoolButtons extends State<MytoolButtons> {
               height: 35,
               decoration: BoxDecoration(
                 color: widget.clickButtonIdx == item.idx
-                    ? const Color(0xffCE7777)
-                    : const Color(0xffF2E5E5),
+                    ? Color.fromARGB(255, 181, 103, 103)
+                    : const Color.fromARGB(255, 230, 222, 218),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Text(
-                item.toolName,
-                style: GoogleFonts.nanumMyeongjo(
-                  color: widget.clickButtonIdx == item.idx
-                      ? const Color(0xffF2E5E5)
-                      : const Color(0xff000000),
-                ),
-              ),
+              child: widget.clickButtonIdx == item.idx
+                  ? Text(
+                      item.toolName,
+                      style: TextStyle(color: Colors.white),
+                    )
+                  : Text(item.toolName),
             ),
           ),
         ),
