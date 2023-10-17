@@ -16,6 +16,7 @@ class _ColorLayout extends State<ColorLayout> {
     return Container(
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 230, 222, 218),
+        borderRadius: BorderRadius.circular(12),
       ),
       alignment: Alignment.center,
       width: MediaQuery.of(context).size.width,
