@@ -13,7 +13,7 @@ class _ItemList extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: Color.fromARGB(255, 230, 222, 218),

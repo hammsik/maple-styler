@@ -14,7 +14,7 @@ List<MyTool> myToolList = [
       toolName: '악세',
       isNeedMenu: true,
       menuList: ['얼굴장식', '눈장식', '귀고리']),
-  MyTool(idx: 3, toolName: '염색', isNeedMenu: false),
+  MyTool(idx: 3, toolName: '컬러', isNeedMenu: false),
   MyTool(idx: 4, toolName: '다운', isNeedMenu: false),
   MyTool(idx: 5, toolName: '문의', isNeedMenu: false),
 ];

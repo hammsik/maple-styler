@@ -37,7 +37,7 @@ class _ItemMenu extends State<ItemMenu> {
                   width: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Color.fromARGB(255, 230, 222, 218),
+                    color: const Color.fromARGB(255, 230, 222, 218),
                   ),
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
@@ -48,7 +48,7 @@ class _ItemMenu extends State<ItemMenu> {
                       ),
                     ),
                     const Icon(Icons.keyboard_arrow_left_sharp),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     )
                   ]),

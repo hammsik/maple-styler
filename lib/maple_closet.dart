@@ -41,7 +41,7 @@ class _MapleCloset extends State<MapleCloset> {
                 const SizedBox(height: 20),
                 MyCustomAppBar(clickEvent: _openEndDrawer),
                 const SizedBox(height: 20),
-                CharacterBoard(),
+                const CharacterBoard(),
                 const SizedBox(height: 14),
                 Container(
                   height: 2,
@@ -51,7 +51,7 @@ class _MapleCloset extends State<MapleCloset> {
                   color: Color.fromARGB(255, 181, 103, 103),
                 ),
                 const SizedBox(height: 14),
-                CoordinatingTools(),
+                const CoordinatingTools(),
               ],
             ),
           ),
