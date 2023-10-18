@@ -51,7 +51,7 @@ class _MapleCloset extends State<MapleCloset> {
                   color: Color.fromARGB(255, 181, 103, 103),
                 ),
                 const SizedBox(height: 14),
-                Flexible(fit: FlexFit.tight, child: const CoordinatingTools()),
+                Flexible(fit: FlexFit.loose, child: const CoordinatingTools()),
               ],
             ),
           ),

@@ -49,10 +49,10 @@ class _CoordinatingTools extends State<CoordinatingTools> {
             buttonClicked: toolButtonClikced,
           ),
           const SizedBox(height: 8),
-          currentToolIdx < 3
-              ? Flexible(
-                  fit: FlexFit.loose,
-                  child: Column(
+          Flexible(
+            fit: FlexFit.loose,
+            child: currentToolIdx < 3
+                ? Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
@@ -67,9 +67,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                       const SizedBox(height: 8),
                       Flexible(fit: FlexFit.loose, child: ItemList()),
                     ],
-                  ),
-                )
-              : Flexible(fit: FlexFit.loose, child: AskLayout()),
+                  )
+                : AskLayout(),
+          ),
         ],
       ),
     );
