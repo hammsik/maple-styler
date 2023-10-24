@@ -14,63 +14,84 @@ class _ItemList extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.vertical(
+      borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12), bottom: Radius.circular(18)),
       child: Container(
         width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.all(5),
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 230, 222, 218),
         ),
-        child: CustomScrollView(
-          physics: BouncingScrollPhysics(),
-          slivers: <Widget>[
-            FutureBuilder<List<List<dynamic>>>(
-              future: APIPractice.getSomething(),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) {
-                  return SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200.0,
-                      mainAxisSpacing: 10.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 3.0,
-                    ),
-                    delegate: SliverChildListDelegate(
-                      [Text('망했어.')],
-                    ),
-                  );
-                } else {
-                  return SliverGrid(
-                    gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200.0,
-                      mainAxisSpacing: 10.0,
-                      crossAxisSpacing: 10.0,
-                      childAspectRatio: 3.0,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      childCount: snapshot.data?.length,
-                      (context, index) => Container(
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: [
-                            Flexible(
-                              fit: FlexFit.loose,
-                              child: Image.network(
-                                  'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon'),
-                            ),
-                            Expanded(child: Text(snapshot.data?[index][1])),
-                          ],
-                        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(10),
+          child: CustomScrollView(
+            physics: const BouncingScrollPhysics(),
+            slivers: <Widget>[
+              FutureBuilder<List<List<dynamic>>>(
+                future: APIPractice.getSomething(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1),
+                      delegate: SliverChildListDelegate(
+                        [const Text('error!')],
                       ),
-                      // Text('망했어.')
-                    ),
-                  );
-                }
-              },
-            ),
-          ],
+                    );
+                  } else {
+                    return SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithMaxCrossAxisExtent(
+                        maxCrossAxisExtent: 200.0,
+                        mainAxisSpacing: 5.0,
+                        crossAxisSpacing: 5.0,
+                        childAspectRatio: 3.0,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        childCount: snapshot.data?.length,
+                        (context, index) => Container(
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 201, 191, 191),
+                              borderRadius: BorderRadius.circular(8)),
+                          alignment: Alignment.center,
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10),
+                              Expanded(
+                                child: Image.network(
+                                  'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon',
+                                ),
+                              ),
+                              SizedBox(width: 5),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                  // color: Color.fromARGB(255, 230, 222, 218),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                width: 95,
+                                height: double.infinity,
+                                margin: EdgeInsets.all(5),
+                                child: Text(
+                                  snapshot.data?[index][1],
+                                  style: TextStyle(fontSize: 10),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        // Text('망했어.')
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
