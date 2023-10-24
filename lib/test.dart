@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'dart:convert';
 
-// ignore: constant_identifier_names
-const API_KEY =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJYLUFwcC1SYXRlLUxpbWl0IjoiNTAwOjEwIiwiYWNjb3VudF9pZCI6IjEyOTIxOTU4NzAiLCJhdXRoX2lkIjoiMiIsImV4cCI6MTcxMzYxMzE1NiwiaWF0IjoxNjk4MDYxMTU2LCJuYmYiOjE2OTgwNjExNTYsInNlcnZpY2VfaWQiOiI0MzAwMTEzOTciLCJ0b2tlbl90eXBlIjoiQWNjZXNzVG9rZW4ifQ.7pcpCzYJHwIq5QTOvmkktcmsISFUZTXPxPnL6pQvlQ0';
 // ignore: constant_identifier_names
 const MAPLE_CUBE_RESULT_BASE_URL = 'https://maplestory.io/api/KMST/1157/item';
-
-class CubeModel {
-  final cubeType;
-  final potentialblabla;
-
-  CubeModel({required this.cubeType, required this.potentialblabla});
-}
 
 class APIPractice {
   static Future<List<List<dynamic>>> getSomething() async {
@@ -25,24 +14,11 @@ class APIPractice {
         'subCategoryFilter': 'Hat',
       },
     );
-    // print('ㅁㄴㅇㄹ');
-    // print(response.data);
-    // print(response.data[0].runtimeType);
 
-    // for (Map<String, dynamic> m in response.data) {
-    //   print('${m['id']} / ${m['name']}');
-    // }
     List<List<dynamic>> myList = List<List<String>>.from(response.data
         .map((data) => [data['id'].toString(), data['name'].toString()]));
     myList.shuffle();
-    // print(dataList);
-    // final List<Map<String, String>> listWithData2 =
-    //     List<Map<String, String>>.from(listWithData);
-    // print('과연 listWithData의 타입은?');
-    // print(listWithData2.runtimeType);
-    // print(ilist[0]['asd']);
-    // print('ㄴㅇㄹ');
-    // print(listWithData.runtimeType);
+
     return myList;
   }
 }

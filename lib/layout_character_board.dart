@@ -82,8 +82,8 @@ class _CharacterBoardState extends State<CharacterBoard> {
               ),
             ),
             Image.network(
-                // 'https://maplestory.io/api/character/{"itemId":2000,"version":"245"},{"itemId":12000,"version":"245"},{"itemId":1010003,"animationName":"default","version":"245"},{"itemId":1102308,"region":"KMST","version":"1157"},{"itemId":1702786,"region":"KMST","version":"1157"}/stand1/0/?renderMode=2'),
-                'https://maplestory.io/api/KMST/1157/item/1000000'),
+                'https://maplestory.io/api/character/{"itemId":2000,"version":"245"},{"itemId":12000,"version":"245"},{"itemId":1010003,"animationName":"default","version":"245"},{"itemId":1102308,"region":"KMST","version":"1157"},{"itemId":1702786,"region":"KMST","version":"1157"}/stand1/0/?renderMode=2'),
+            // 'https://maplestory.io/api/KMST/1157/item/1000000'),
           ],
         ),
       ],
