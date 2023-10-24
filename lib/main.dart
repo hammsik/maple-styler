@@ -4,5 +4,4 @@ import 'package:maple_closet/test.dart';
 
 void main() {
   runApp(const MapleCloset());
-  // runApp(const MaterialApp(home: Scaffold(body: MyTest())));
 }
