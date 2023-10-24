@@ -67,16 +67,24 @@ class _CharacterBoardState extends State<CharacterBoard> {
           ],
         ),
         const SizedBox(height: 14),
-        Container(
-          height: 190,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: characterBox,
-          ),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            Container(
+              height: 190,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: characterBox,
+              ),
+            ),
+            Image.network(
+                // 'https://maplestory.io/api/character/{"itemId":2000,"version":"245"},{"itemId":12000,"version":"245"},{"itemId":1010003,"animationName":"default","version":"245"},{"itemId":1102308,"region":"KMST","version":"1157"},{"itemId":1702786,"region":"KMST","version":"1157"}/stand1/0/?renderMode=2'),
+                'https://maplestory.io/api/KMST/1157/item/1000000'),
+          ],
         ),
       ],
     );
