@@ -81,7 +81,6 @@ class _CharacterBoardState extends State<CharacterBoard> {
                 child: characterBox,
               ),
             ),
-
             Column(
               children: [
                 Image.network(
@@ -91,7 +90,6 @@ class _CharacterBoardState extends State<CharacterBoard> {
                 )
               ],
             ),
-            // 'https://maplestory.io/api/KMST/1157/item/1000000'),
           ],
         ),
       ],
