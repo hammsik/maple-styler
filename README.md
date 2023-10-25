@@ -4,7 +4,7 @@
 
 ## 앱 스크린샷
 
-![스크린샷 1](forREADME\maple closet screen shot - 1.jpg)
+![스크린샷 1](/forREADME/maple closet screen shot - 1.jpg)
 
 <!-- ## 주요 기능
 
@@ -25,6 +25,7 @@
 ## 개발 환경
 
 • Flutter 3.10.0-12.0
+
 • Dart 3.1.0
 
 <!-- ## 기여 방법
