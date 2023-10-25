@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:maple_closet/test.dart';
+import 'package:maple_closet/api_maple_io.dart';
 
 class ItemList extends StatefulWidget {
-  const ItemList({super.key});
+  final String categoryFilter;
+  final String subCategoryFilter;
+
+  const ItemList(
+      {super.key,
+      required this.categoryFilter,
+      required this.subCategoryFilter});
 
   @override
   State<StatefulWidget> createState() {
+    print("나 리스트");
     return _ItemList();
   }
 }
@@ -28,7 +35,8 @@ class _ItemList extends State<ItemList> {
             physics: const BouncingScrollPhysics(),
             slivers: <Widget>[
               FutureBuilder<List<List<dynamic>>>(
-                future: APIPractice.getSomething(),
+                future: APIPractice.getSomething(
+                    widget.categoryFilter, widget.subCategoryFilter),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return SliverGrid(
@@ -86,7 +94,6 @@ class _ItemList extends State<ItemList> {
                             ),
                           ),
                         ),
-                        // Text('망했어.')
                       ),
                     );
                   }

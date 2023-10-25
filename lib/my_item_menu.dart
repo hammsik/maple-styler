@@ -4,8 +4,14 @@ import 'package:maple_closet/models/skeleton_tools.dart';
 
 class ItemMenu extends StatefulWidget {
   final MyTool currentTool;
+  final String currentMenuItem;
+  final Function buttonClicked;
 
-  const ItemMenu({required this.currentTool, super.key});
+  const ItemMenu(
+      {super.key,
+      required this.currentTool,
+      required this.currentMenuItem,
+      required this.buttonClicked});
 
   @override
   State<StatefulWidget> createState() {
@@ -44,7 +50,7 @@ class _ItemMenu extends State<ItemMenu> {
                 child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                   Expanded(
                     child: Text(
-                      widget.currentTool.menuList![currentItemIdx],
+                      widget.currentMenuItem,
                       textAlign: TextAlign.center,
                       style: GoogleFonts.nanumMyeongjo(
                           color: const Color.fromARGB(255, 0, 0, 0),
@@ -69,9 +75,9 @@ class _ItemMenu extends State<ItemMenu> {
                   color: const Color.fromARGB(255, 230, 222, 218),
                   borderRadius: BorderRadius.circular(4)),
               child: MenuItemButton(
-                onPressed: () {},
+                onPressed: () => widget.buttonClicked(item[0], item[1]),
                 child: Text(
-                  item,
+                  item[0],
                   style: GoogleFonts.nanumMyeongjo(
                       color: const Color.fromARGB(255, 0, 0, 0),
                       fontSize: 12,

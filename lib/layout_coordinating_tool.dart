@@ -3,8 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_ask.dart';
-import 'package:maple_closet/layout_color.dart';
-import 'package:maple_closet/layout_download.dart';
 import 'my_search_box.dart';
 import 'my_tool_buttons.dart';
 import 'my_undo_and_redo.dart';
@@ -23,11 +21,33 @@ class CoordinatingTools extends StatefulWidget {
 
 class _CoordinatingTools extends State<CoordinatingTools> {
   int currentToolIdx = 0;
+  int currentMenuIdx = 0;
+
+  String categoryFilter_ko = myToolList[0].toolName_ko;
+  String subCategoryFilter_ko = myToolList[0].menuList![0][0];
+  String categoryFilter_en = myToolList[0].toolName_en!;
+  String subCategoryFilter_en = myToolList[0].menuList![0][1];
 
   void toolButtonClikced(int toolIdx) {
-    print("버튼클릭: $toolIdx");
     setState(() {
       currentToolIdx = toolIdx;
+      if (toolIdx < 3) {
+        categoryFilter_ko = myToolList[toolIdx].toolName_ko;
+        categoryFilter_en = myToolList[toolIdx].toolName_en!;
+        subCategoryFilter_ko = myToolList[toolIdx].menuList![0][0];
+        subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
+      }
+    });
+  }
+
+  void menuItemClicked(
+      String subCategoryFilter_ko, String subCategoryFilter_en) {
+    setState(() {
+      if (subCategoryFilter_en == 'Cash') {
+        categoryFilter_en = 'One-Handed Weapon';
+      }
+      this.subCategoryFilter_ko = subCategoryFilter_ko;
+      this.subCategoryFilter_en = subCategoryFilter_en;
     });
   }
 
@@ -60,18 +80,22 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                           SelectedItem(),
                           const SizedBox(width: 8),
                           ItemMenu(
-                            currentTool: myToolList[currentToolIdx],
-                          )
+                              currentTool: myToolList[currentToolIdx],
+                              currentMenuItem: subCategoryFilter_ko,
+                              buttonClicked: menuItemClicked)
                         ],
                       ),
                       const SizedBox(height: 8),
-                      const Flexible(fit: FlexFit.loose, child: ItemList()),
-                      // Flexible(
-                      //     fit: FlexFit.loose,
-                      //     child: Text(currentToolIdx.toString())),
+                      Flexible(
+                          fit: FlexFit.loose,
+                          child: ItemList(
+                            categoryFilter: categoryFilter_en,
+                            subCategoryFilter: subCategoryFilter_en,
+                          )),
+                      // Flexible(fit: FlexFit.loose, child: AskLayout()),
                     ],
                   )
-                : const AskLayout(),
+                : AskLayout(),
           ),
         ],
       ),

@@ -1,14 +1,16 @@
 import 'package:flutter/src/material/menu_anchor.dart';
 
 class MyTool {
-  final String toolName;
+  final String toolName_ko;
+  final String? toolName_en;
   final int idx;
   final bool isNeedMenu;
-  List<String>? menuList;
+  List<List<String>>? menuList;
 
   MyTool(
-      {required this.toolName,
+      {required this.toolName_ko,
       required this.idx,
       required this.isNeedMenu,
+      this.toolName_en,
       this.menuList});
 }

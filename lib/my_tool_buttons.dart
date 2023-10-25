@@ -39,10 +39,10 @@ class _MytoolButtons extends State<MytoolButtons> {
               ),
               child: widget.clickButtonIdx == item.idx
                   ? Text(
-                      item.toolName,
+                      item.toolName_ko,
                       style: TextStyle(color: Colors.white),
                     )
-                  : Text(item.toolName),
+                  : Text(item.toolName_ko),
             ),
           ),
         ),
