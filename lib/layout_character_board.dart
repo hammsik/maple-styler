@@ -67,30 +67,16 @@ class _CharacterBoardState extends State<CharacterBoard> {
           ],
         ),
         const SizedBox(height: 14),
-        Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            Container(
-              height: 190,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: characterBox,
-              ),
-            ),
-            Column(
-              children: [
-                Image.network(
-                    'https://maplestory.io/api/Character/%7B%22itemId%22%3A12016%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%7D%2C%7B%22itemId%22%3A2016%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A50137%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A68090%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A1053352%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A1702786%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D/stand1/0/?renderMode=2'),
-                SizedBox(
-                  height: 15,
-                )
-              ],
-            ),
-          ],
+        Container(
+          height: 190,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: characterBox,
+          ),
         ),
       ],
     );
