@@ -25,6 +25,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
   int currentToolIdx = 0;
 
   void toolButtonClikced(int toolIdx) {
+    print("버튼클릭: $toolIdx");
     setState(() {
       currentToolIdx = toolIdx;
     });
@@ -53,7 +54,6 @@ class _CoordinatingTools extends State<CoordinatingTools> {
             fit: FlexFit.loose,
             child: currentToolIdx < 3
                 ? Column(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         children: [
@@ -66,6 +66,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                       ),
                       const SizedBox(height: 8),
                       const Flexible(fit: FlexFit.loose, child: ItemList()),
+                      // Flexible(
+                      //     fit: FlexFit.loose,
+                      //     child: Text(currentToolIdx.toString())),
                     ],
                   )
                 : const AskLayout(),
