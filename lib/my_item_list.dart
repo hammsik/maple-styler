@@ -47,6 +47,15 @@ class _ItemList extends State<ItemList> {
                         [const Text('error!')],
                       ),
                     );
+                  } else if (!snapshot.hasData) {
+                    return SliverGrid(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1),
+                      delegate: SliverChildListDelegate(
+                        [const Center(child: CircularProgressIndicator())],
+                      ),
+                    );
                   } else {
                     return SliverGrid(
                       gridDelegate:
@@ -67,7 +76,8 @@ class _ItemList extends State<ItemList> {
                             child: Row(
                               children: [
                                 SizedBox(width: 10),
-                                Expanded(
+                                Flexible(
+                                  fit: FlexFit.loose,
                                   child: Image.network(
                                     'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon',
                                   ),

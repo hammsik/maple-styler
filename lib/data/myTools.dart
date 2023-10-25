@@ -36,7 +36,7 @@ List<MyTool> myToolList = [
       menuList: [
         ['얼굴장식', 'Face Accessory'],
         ['눈장식', 'Eye Decoration'],
-        ['귀고리', 'Earring']
+        ['귀고리', 'Earrings']
       ]),
   MyTool(idx: 3, toolName_ko: '컬러', isNeedMenu: false),
   MyTool(idx: 4, toolName_ko: '다운', isNeedMenu: false),

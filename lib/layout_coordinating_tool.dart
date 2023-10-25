@@ -45,6 +45,8 @@ class _CoordinatingTools extends State<CoordinatingTools> {
     setState(() {
       if (subCategoryFilter_en == 'Cash') {
         categoryFilter_en = 'One-Handed Weapon';
+      } else {
+        categoryFilter_en = myToolList[currentToolIdx].toolName_en!;
       }
       this.subCategoryFilter_ko = subCategoryFilter_ko;
       this.subCategoryFilter_en = subCategoryFilter_en;
