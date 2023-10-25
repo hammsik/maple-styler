@@ -18,7 +18,7 @@ class APIPractice {
 
     List<List<dynamic>> myList = List<List<String>>.from(response.data
         .map((data) => [data['id'].toString(), data['name'].toString()]));
-    myList.shuffle();
+    myList = List.from(myList.reversed);
 
     return myList;
   }

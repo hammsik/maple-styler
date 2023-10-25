@@ -84,9 +84,9 @@ class _CharacterBoardState extends State<CharacterBoard> {
             Column(
               children: [
                 Image.network(
-                    'https://maplestory.io/api/character/{"itemId":2000,"version":"245"},{"itemId":12000,"version":"245"},{"itemId":1010003,"animationName":"default","version":"245"},{"itemId":1102308,"region":"KMST","version":"1157"},{"itemId":1702786,"region":"KMST","version":"1157"}/stand1/0/?renderMode=2'),
+                    'https://maplestory.io/api/Character/%7B%22itemId%22%3A12016%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%7D%2C%7B%22itemId%22%3A2016%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A50137%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A68090%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A1053352%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D%2C%7B%22itemId%22%3A1702786%2C%22version%22%3A%221157%22%2C%22region%22%3A%22KMST%22%2C%22animationName%22%3A%22default%22%7D/stand1/0/?renderMode=2'),
                 SizedBox(
-                  height: 10,
+                  height: 15,
                 )
               ],
             ),
