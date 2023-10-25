@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/api_maple_io.dart';
 
 class ItemList extends StatefulWidget {
@@ -67,41 +68,46 @@ class _ItemList extends State<ItemList> {
                       ),
                       delegate: SliverChildBuilderDelegate(
                         childCount: snapshot.data?.length,
-                        (context, index) => GestureDetector(
-                          onTap: () {},
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 201, 191, 191),
-                                borderRadius: BorderRadius.circular(8)),
-                            child: Row(
-                              children: [
-                                SizedBox(width: 10),
-                                Flexible(
-                                  fit: FlexFit.loose,
-                                  child: Image.network(
-                                    'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon',
-                                  ),
+                        (context, index) => OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.black.withOpacity(0.3),
+                            side: BorderSide.none,
+                            minimumSize: Size.zero,
+                            padding: EdgeInsets.all(0),
+                            backgroundColor: Color.fromARGB(255, 201, 191, 191),
+                          ),
+                          onPressed: () {},
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10),
+                              Flexible(
+                                fit: FlexFit.loose,
+                                child: Image.network(
+                                  'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon',
                                 ),
-                                SizedBox(width: 5),
-                                SizedBox(
-                                  width: 5,
+                              ),
+                              SizedBox(width: 5),
+                              SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                alignment: Alignment.centerLeft,
+                                decoration: BoxDecoration(
+                                  // color: Color.fromARGB(255, 230, 222, 218),
+                                  borderRadius: BorderRadius.circular(5),
                                 ),
-                                Container(
-                                  alignment: Alignment.centerLeft,
-                                  decoration: BoxDecoration(
-                                    // color: Color.fromARGB(255, 230, 222, 218),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  width: 95,
-                                  height: double.infinity,
-                                  margin: EdgeInsets.all(5),
-                                  child: Text(
-                                    snapshot.data?[index][1],
-                                    style: TextStyle(fontSize: 10),
-                                  ),
+                                width: 95,
+                                height: double.infinity,
+                                margin: EdgeInsets.all(5),
+                                child: Text(
+                                  snapshot.data?[index][1],
+                                  style: GoogleFonts.nanumMyeongjo(
+                                      color: const Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w700),
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
