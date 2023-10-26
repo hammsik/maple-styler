@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:maple_closet/button_map_icon.dart';
 import 'package:maple_closet/data/backgrounds.dart';
 
-class CharacterBoard extends StatefulWidget {
+class BackgroundButtons extends StatefulWidget {
   final Function switchBackground;
 
-  CharacterBoard({super.key, required this.switchBackground});
+  BackgroundButtons({super.key, required this.switchBackground});
 
   @override
   State<StatefulWidget> createState() {
-    return _CharacterBoardState();
+    return _BackgroundButtonsState();
   }
 }
 
-class _CharacterBoardState extends State<CharacterBoard> {
+class _BackgroundButtonsState extends State<BackgroundButtons> {
   @override
   Widget build(BuildContext context) {
     return Row(

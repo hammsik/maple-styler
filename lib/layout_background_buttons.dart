@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class BackgroundButtons extends StatefulWidget {
+class CharacterBoard extends StatefulWidget {
   final Widget characterBox;
 
-  const BackgroundButtons({super.key, required this.characterBox});
+  const CharacterBoard({super.key, required this.characterBox});
 
   @override
   State<StatefulWidget> createState() {
-    return _BackgroundButtons();
+    return _CharacterBoard();
   }
 }
 
-class _BackgroundButtons extends State<BackgroundButtons> {
+class _CharacterBoard extends State<CharacterBoard> {
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -60,6 +60,8 @@ class _MapleCloset extends State<MapleCloset> {
       );
     }
 
+    Image characterImage = Image.network(dodo.getMyCharacterURL());
+
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
@@ -76,7 +78,7 @@ class _MapleCloset extends State<MapleCloset> {
                 Column(
                   children: [
                     const SizedBox(height: 110),
-                    BackgroundButtons(characterBox: characterBox),
+                    CharacterBoard(characterBox: characterBox),
                     const SizedBox(height: 14),
                     Container(
                       height: 2,
@@ -90,7 +92,7 @@ class _MapleCloset extends State<MapleCloset> {
                 ),
                 SizedBox(
                   height: 430,
-                  child: Image.network(dodo.getMyCharacterURL()),
+                  child: characterImage,
                   // child: Image.network(
                   //     'https://maplestory.io/api/Character/{"itemId":12009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":2009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":50137,"version":"1157","region":"KMST","animationName":"default"},{"itemId":68090,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1040036,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1060026,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1702565,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1102453,"version":"1157","region":"KMST","animationName":"default"}/stand1/0/?renderMode=2'),
                 ),
@@ -99,7 +101,7 @@ class _MapleCloset extends State<MapleCloset> {
                     const SizedBox(height: 20),
                     MyCustomAppBar(clickEvent: _openEndDrawer),
                     const SizedBox(height: 20),
-                    CharacterBoard(switchBackground: switchBackground),
+                    BackgroundButtons(switchBackground: switchBackground),
                     const SizedBox(height: 235),
                     Flexible(
                         fit: FlexFit.loose,
