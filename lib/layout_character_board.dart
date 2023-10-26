@@ -3,7 +3,9 @@ import 'package:maple_closet/button_map_icon.dart';
 import 'package:maple_closet/data/backgrounds.dart';
 
 class CharacterBoard extends StatefulWidget {
-  const CharacterBoard({super.key});
+  Function switchBackground;
+
+  CharacterBoard({super.key, required this.switchBackground});
 
   @override
   State<StatefulWidget> createState() {
@@ -12,71 +14,30 @@ class CharacterBoard extends StatefulWidget {
 }
 
 class _CharacterBoardState extends State<CharacterBoard> {
-  var background = 'normal';
-
-  void switchBackGround(String background) {
-    if (this.background != background) {
-      setState(() {
-        this.background = background;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    Widget characterBox;
-
-    if (background != 'normal') {
-      characterBox = Image.asset(
-        fit: BoxFit.cover,
-        backgroundsList[background]![1],
-      );
-    } else {
-      characterBox = Container(
-        decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 230, 222, 218),
-        ),
-      );
-    }
-
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            MapButton(
-              backgroundName: 'normal',
-              clickEvent: () => switchBackGround('normal'),
-            ),
-            MapButton(
-              backgroundName: 'henesis',
-              clickEvent: () => switchBackGround('henesis'),
-            ),
-            MapButton(
-              backgroundName: 'kerningcity',
-              clickEvent: () => switchBackGround('kerningcity'),
-            ),
-            MapButton(
-              backgroundName: 'arcana',
-              clickEvent: () => switchBackGround('arcana'),
-            ),
-            MapButton(
-              backgroundName: 'sernium',
-              clickEvent: () => switchBackGround('sernium'),
-            ),
-          ],
+        MapButton(
+          backgroundName: 'normal',
+          clickEvent: () => widget.switchBackground('normal'),
         ),
-        const SizedBox(height: 14),
-        Container(
-          height: 190,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: characterBox,
-          ),
+        MapButton(
+          backgroundName: 'henesis',
+          clickEvent: () => widget.switchBackground('henesis'),
+        ),
+        MapButton(
+          backgroundName: 'kerningcity',
+          clickEvent: () => widget.switchBackground('kerningcity'),
+        ),
+        MapButton(
+          backgroundName: 'arcana',
+          clickEvent: () => widget.switchBackground('arcana'),
+        ),
+        MapButton(
+          backgroundName: 'sernium',
+          clickEvent: () => widget.switchBackground('sernium'),
         ),
       ],
     );

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:maple_closet/layout_character_board.dart';
+import 'package:maple_closet/layout_background_buttons.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 
+import 'data/backgrounds.dart';
+
 class MapleCloset extends StatefulWidget {
-  MyCharacter dodo = MyCharacter();
-  MapleCloset({super.key});
+  const MapleCloset({super.key});
 
   @override
   State<StatefulWidget> createState() => _MapleCloset();
@@ -16,11 +18,22 @@ class MapleCloset extends StatefulWidget {
 class _MapleCloset extends State<MapleCloset> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  MyCharacter dodo = MyCharacter();
+  String background = 'normal';
+
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
   void setMyCharacter() {}
+
+  void switchBackground(String background) {
+    setState(() {
+      if (this.background != background) {
+        this.background = background;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +42,19 @@ class _MapleCloset extends State<MapleCloset> {
           statusBarIconBrightness: Brightness.light,
           statusBarColor: Color(0xff2B3A55)),
     );
+
+    Widget characterBox;
+
+    if (background == 'normal') {
+      characterBox = Container(
+        color: Color.fromARGB(255, 230, 222, 218),
+      );
+    } else {
+      characterBox = Image.asset(
+        fit: BoxFit.cover,
+        backgroundsList[background]![1],
+      );
+    }
 
     return MaterialApp(
       home: Scaffold(
@@ -45,8 +71,8 @@ class _MapleCloset extends State<MapleCloset> {
               children: [
                 Column(
                   children: [
-                    const SizedBox(height: 65),
-                    CharacterBoard(),
+                    const SizedBox(height: 110),
+                    BackgroundButtons(characterBox: characterBox),
                     const SizedBox(height: 14),
                     Container(
                       height: 2,
@@ -56,24 +82,25 @@ class _MapleCloset extends State<MapleCloset> {
                       color: const Color.fromARGB(255, 181, 103, 103),
                     ),
                     const SizedBox(height: 14),
-                    const Flexible(
-                        fit: FlexFit.loose, child: CoordinatingTools()),
                   ],
                 ),
-                Container(
+                SizedBox(
                   height: 430,
-                  // child: Image.network(widget.dodo.getMyCharacterURL()),
-                  child: Image.network(
-                      'https://maplestory.io/api/Character/{"itemId":12009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":2009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":50137,"version":"1157","region":"KMST","animationName":"default"},{"itemId":68090,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1040036,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1060026,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1702565,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1102453,"version":"1157","region":"KMST","animationName":"default"}/stand1/0/?renderMode=2'),
+                  child: Image.network(dodo.getMyCharacterURL()),
+                  // child: Image.network(
+                  //     'https://maplestory.io/api/Character/{"itemId":12009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":2009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":50137,"version":"1157","region":"KMST","animationName":"default"},{"itemId":68090,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1040036,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1060026,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1702565,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1102453,"version":"1157","region":"KMST","animationName":"default"}/stand1/0/?renderMode=2'),
                 ),
                 Column(
                   children: [
                     const SizedBox(height: 20),
                     MyCustomAppBar(clickEvent: _openEndDrawer),
                     const SizedBox(height: 20),
-                    // 여기에 맵 버튼들 추가!!!
+                    CharacterBoard(switchBackground: switchBackground),
+                    const SizedBox(height: 235),
+                    const Flexible(
+                        fit: FlexFit.loose, child: CoordinatingTools()),
                   ],
-                )
+                ),
               ],
             ),
           ),
