@@ -1,74 +1,95 @@
 class MyCharacter {
   // 뷰티
-  final String? skinColor;
-  final String? hair;
-  final String? face;
+  String hair;
+  String face;
+  String head;
+  String body;
   // 장비
-  final String? weapon;
-  final String? overall;
-  final String? hat;
-  final String? top;
-  final String? bottom;
-  final String? cape;
-  final String? glove;
-  final String? shoes;
-  final String? shield;
+  String top;
+  String bottom;
+  String? hat;
+  String? overall;
+  String? cash;
+  String? cape;
+  String? glove;
+  String? shoes;
+  String? shield;
 
-  MyCharacter(
-      {this.skinColor,
-      this.hair,
-      this.face,
-      this.weapon,
-      this.overall,
-      this.hat,
-      this.top,
-      this.bottom,
-      this.cape,
-      this.glove,
-      this.shoes,
-      this.shield});
+  MyCharacter({
+    this.hair = '68090',
+    this.face = '50137',
+    this.head = '12016',
+    this.body = '2016',
+    this.hat,
+    this.overall,
+    this.cash,
+    this.top = '1040036',
+    this.bottom = '1060026',
+    this.cape,
+    this.glove,
+    this.shoes,
+    this.shield,
+  });
+
+  void setMyCharacter({required String subCategory, required String itemId}) {
+    switch (subCategory) {
+      case 'Hair':
+        hair = itemId;
+        break;
+      case 'Face':
+        face = itemId;
+        break;
+      case 'Head':
+        head = itemId;
+        body = itemId.substring(1);
+        break;
+      case 'Top':
+        top = itemId;
+        break;
+      case 'Bottom':
+        bottom = itemId;
+        break;
+      case 'Overall':
+        overall = itemId;
+        break;
+      case 'Cash':
+        cash = itemId;
+        break;
+      case 'Cape':
+        cape = itemId;
+        break;
+      case 'Gloove':
+        glove = itemId;
+        break;
+      case 'Shoes':
+        shoes = itemId;
+        break;
+      default:
+        shield = itemId;
+    }
+  }
 
   String addVersionAndRegion(String item) {
-    return '{"itemId":${item}, "version":"1157","region":"KMST","animationName":"default"},';
+    return '{"itemId":$item, "version":"1157","region":"KMST","animationName":"default"},';
   }
 
   String makeItemsURL() {
     String items = "";
-    if (skinColor != null) {
-      items += addVersionAndRegion(skinColor!.substring(1));
-      items += addVersionAndRegion(skinColor!);
-    } else {
-      items += addVersionAndRegion('2016');
-      items += addVersionAndRegion('12016');
-    }
-    if (hair != null) {
-      items += addVersionAndRegion(hair!);
-    } else {
-      items += addVersionAndRegion('68090');
-    }
-    if (face != null) {
-      items += addVersionAndRegion(face!);
-    } else {
-      items += addVersionAndRegion('50137');
-    }
-    if (top != null) {
-      items += addVersionAndRegion(top!);
-    } else if (overall == null) {
-      items += addVersionAndRegion('1040036');
-    }
-    if (bottom != null) {
-      items += addVersionAndRegion(bottom!);
-    } else if (overall == null) {
-      items += addVersionAndRegion('1060026');
-    }
-    if (weapon != null) {
-      items += addVersionAndRegion(weapon!);
-    }
-    if (overall != null) {
-      items += addVersionAndRegion(overall!);
-    }
+    items += addVersionAndRegion(hair);
+    items += addVersionAndRegion(face);
+    items += addVersionAndRegion(head.substring(1));
+    items += addVersionAndRegion(head);
     if (hat != null) {
       items += addVersionAndRegion(hat!);
+    }
+    if (overall == null) {
+      items += addVersionAndRegion(top);
+      items += addVersionAndRegion(bottom);
+    } else {
+      items += addVersionAndRegion(overall!);
+    }
+    if (cash != null) {
+      items += addVersionAndRegion(cash!);
     }
     if (cape != null) {
       items += addVersionAndRegion(cape!);

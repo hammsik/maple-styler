@@ -5,11 +5,13 @@ import 'package:maple_closet/api_maple_io.dart';
 class ItemList extends StatefulWidget {
   final String categoryFilter;
   final String subCategoryFilter;
+  final Function buttonClicked;
 
   const ItemList(
       {super.key,
       required this.categoryFilter,
-      required this.subCategoryFilter});
+      required this.subCategoryFilter,
+      required this.buttonClicked});
 
   @override
   State<StatefulWidget> createState() {
@@ -76,7 +78,9 @@ class _ItemList extends State<ItemList> {
                             padding: EdgeInsets.all(0),
                             backgroundColor: Color.fromARGB(255, 201, 191, 191),
                           ),
-                          onPressed: () {},
+                          onPressed: () => widget.buttonClicked(
+                              widget.subCategoryFilter,
+                              snapshot.data?[index][0]),
                           child: Row(
                             children: [
                               SizedBox(width: 10),

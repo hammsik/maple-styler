@@ -3,7 +3,7 @@ import 'package:maple_closet/button_map_icon.dart';
 import 'package:maple_closet/data/backgrounds.dart';
 
 class CharacterBoard extends StatefulWidget {
-  Function switchBackground;
+  final Function switchBackground;
 
   CharacterBoard({super.key, required this.switchBackground});
 

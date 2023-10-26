@@ -25,7 +25,11 @@ class _MapleCloset extends State<MapleCloset> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setMyCharacter() {}
+  void setMyCharacter(String inputSubCategory, String inputItemId) {
+    setState(() {
+      dodo.setMyCharacter(subCategory: inputSubCategory, itemId: inputItemId);
+    });
+  }
 
   void switchBackground(String background) {
     setState(() {
@@ -97,8 +101,10 @@ class _MapleCloset extends State<MapleCloset> {
                     const SizedBox(height: 20),
                     CharacterBoard(switchBackground: switchBackground),
                     const SizedBox(height: 235),
-                    const Flexible(
-                        fit: FlexFit.loose, child: CoordinatingTools()),
+                    Flexible(
+                        fit: FlexFit.loose,
+                        child: CoordinatingTools(
+                            listButtonClicked: setMyCharacter)),
                   ],
                 ),
               ],

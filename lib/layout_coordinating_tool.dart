@@ -11,7 +11,9 @@ import 'my_item_menu.dart';
 import 'my_selected_item.dart';
 
 class CoordinatingTools extends StatefulWidget {
-  const CoordinatingTools({super.key});
+  final Function listButtonClicked;
+
+  const CoordinatingTools({super.key, required this.listButtonClicked});
 
   @override
   State<StatefulWidget> createState() {
@@ -93,6 +95,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                           child: ItemList(
                             categoryFilter: categoryFilter_en,
                             subCategoryFilter: subCategoryFilter_en,
+                            buttonClicked: widget.listButtonClicked,
                           )),
                       // Flexible(fit: FlexFit.loose, child: AskLayout()),
                     ],
