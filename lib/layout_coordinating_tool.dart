@@ -12,8 +12,11 @@ import 'my_selected_item.dart';
 
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
-
-  const CoordinatingTools({super.key, required this.listButtonClicked});
+  int clickedButtonIdx;
+  CoordinatingTools(
+      {super.key,
+      required this.listButtonClicked,
+      required this.clickedButtonIdx});
 
   @override
   State<StatefulWidget> createState() {
@@ -38,6 +41,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         categoryFilter_en = myToolList[toolIdx].toolName_en!;
         subCategoryFilter_ko = myToolList[toolIdx].menuList![0][0];
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
+        widget.clickedButtonIdx = -1;
       }
     });
   }
@@ -52,6 +56,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
       }
       this.subCategoryFilter_ko = subCategoryFilter_ko;
       this.subCategoryFilter_en = subCategoryFilter_en;
+      widget.clickedButtonIdx = -1;
     });
   }
 
@@ -96,6 +101,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                             categoryFilter: categoryFilter_en,
                             subCategoryFilter: subCategoryFilter_en,
                             buttonClicked: widget.listButtonClicked,
+                            currentClickedItemIdx: widget.clickedButtonIdx,
                           )),
                       // Flexible(fit: FlexFit.loose, child: AskLayout()),
                     ],

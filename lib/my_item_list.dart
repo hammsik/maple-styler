@@ -6,16 +6,18 @@ class ItemList extends StatefulWidget {
   final String categoryFilter;
   final String subCategoryFilter;
   final Function buttonClicked;
+  final int currentClickedItemIdx;
 
-  const ItemList(
-      {super.key,
-      required this.categoryFilter,
-      required this.subCategoryFilter,
-      required this.buttonClicked});
+  ItemList({
+    super.key,
+    required this.categoryFilter,
+    required this.subCategoryFilter,
+    required this.buttonClicked,
+    required this.currentClickedItemIdx,
+  });
 
   @override
   State<StatefulWidget> createState() {
-    print("나 리스트");
     return _ItemList();
   }
 }
@@ -23,6 +25,7 @@ class ItemList extends StatefulWidget {
 class _ItemList extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
+    print(widget.currentClickedItemIdx);
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12), bottom: Radius.circular(18)),
@@ -70,17 +73,22 @@ class _ItemList extends State<ItemList> {
                       ),
                       delegate: SliverChildBuilderDelegate(
                         childCount: snapshot.data?.length,
-                        (context, index) => OutlinedButton(
-                          style: OutlinedButton.styleFrom(
+                        (context, index) => FilledButton(
+                          style: FilledButton.styleFrom(
                             foregroundColor: Colors.black.withOpacity(0.3),
-                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
                             minimumSize: Size.zero,
                             padding: EdgeInsets.all(0),
-                            backgroundColor: Color.fromARGB(255, 201, 191, 191),
+                            backgroundColor:
+                                widget.currentClickedItemIdx == index
+                                    ? Color.fromARGB(255, 240, 240, 240)
+                                    : Color.fromARGB(255, 201, 191, 191),
                           ),
                           onPressed: () => widget.buttonClicked(
                               widget.subCategoryFilter,
-                              snapshot.data?[index][0]),
+                              snapshot.data?[index][0],
+                              index),
                           child: Row(
                             children: [
                               SizedBox(width: 10),

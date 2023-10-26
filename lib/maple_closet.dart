@@ -20,14 +20,16 @@ class _MapleCloset extends State<MapleCloset> {
 
   MyCharacter dodo = MyCharacter();
   String background = 'normal';
-
+  int clickedListButtonIdx = -1;
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setMyCharacter(String inputSubCategory, String inputItemId) {
+  void setMyCharacter(
+      String inputSubCategory, String inputItemId, int buttonIdx) {
     setState(() {
       dodo.setMyCharacter(subCategory: inputSubCategory, itemId: inputItemId);
+      clickedListButtonIdx = buttonIdx;
     });
   }
 
@@ -106,7 +108,9 @@ class _MapleCloset extends State<MapleCloset> {
                     Flexible(
                         fit: FlexFit.loose,
                         child: CoordinatingTools(
-                            listButtonClicked: setMyCharacter)),
+                          listButtonClicked: setMyCharacter,
+                          clickedButtonIdx: clickedListButtonIdx,
+                        )),
                   ],
                 ),
               ],
