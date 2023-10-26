@@ -22,8 +22,6 @@ class ItemMenu extends StatefulWidget {
 class _ItemMenu extends State<ItemMenu> {
   @override
   Widget build(BuildContext context) {
-    int currentItemIdx = 0;
-
     if (widget.currentTool.isNeedMenu) {
       return MenuAnchor(
         builder:
@@ -70,7 +68,7 @@ class _ItemMenu extends State<ItemMenu> {
         menuChildren: [
           ...widget.currentTool.menuList!.map(
             (item) => Container(
-              margin: EdgeInsets.all(2),
+              margin: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 230, 222, 218),
                   borderRadius: BorderRadius.circular(4)),
@@ -89,7 +87,7 @@ class _ItemMenu extends State<ItemMenu> {
         ],
       );
     } else {
-      return Text('null');
+      return const Text('null');
     }
   }
 }

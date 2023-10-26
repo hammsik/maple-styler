@@ -53,7 +53,7 @@ class _MapleCloset extends State<MapleCloset> {
 
     if (background == 'normal') {
       characterBox = Container(
-        color: Color.fromARGB(255, 230, 222, 218),
+        color: const Color.fromARGB(255, 230, 222, 218),
       );
     } else {
       characterBox = Image.asset(
@@ -95,8 +95,6 @@ class _MapleCloset extends State<MapleCloset> {
                 SizedBox(
                   height: 430,
                   child: characterImage,
-                  // child: Image.network(
-                  //     'https://maplestory.io/api/Character/{"itemId":12009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":2009,"version":"1157","region":"KMST","animationName":"default"},{"itemId":50137,"version":"1157","region":"KMST","animationName":"default"},{"itemId":68090,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1040036,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1060026,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1702565,"version":"1157","region":"KMST","animationName":"default"},{"itemId":1102453,"version":"1157","region":"KMST","animationName":"default"}/stand1/0/?renderMode=2'),
                 ),
                 Column(
                   children: [

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:maple_closet/button_map_icon.dart';
-import 'package:maple_closet/data/backgrounds.dart';
 
 class BackgroundButtons extends StatefulWidget {
   final Function switchBackground;
 
-  BackgroundButtons({super.key, required this.switchBackground});
+  const BackgroundButtons({super.key, required this.switchBackground});
 
   @override
   State<StatefulWidget> createState() {
