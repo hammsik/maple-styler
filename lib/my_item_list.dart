@@ -8,7 +8,7 @@ class ItemList extends StatefulWidget {
   final Function buttonClicked;
   final int currentClickedItemIdx;
 
-  ItemList({
+  const ItemList({
     super.key,
     required this.categoryFilter,
     required this.subCategoryFilter,
@@ -25,13 +25,12 @@ class ItemList extends StatefulWidget {
 class _ItemList extends State<ItemList> {
   @override
   Widget build(BuildContext context) {
-    print(widget.currentClickedItemIdx);
     return ClipRRect(
       borderRadius: const BorderRadius.vertical(
           top: Radius.circular(12), bottom: Radius.circular(18)),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 230, 222, 218),
         ),
@@ -76,14 +75,21 @@ class _ItemList extends State<ItemList> {
                         (context, index) => FilledButton(
                           style: FilledButton.styleFrom(
                             foregroundColor: Colors.black.withOpacity(0.3),
+                            side: widget.currentClickedItemIdx == index
+                                ? BorderSide(
+                                    width: 2,
+                                    // color: Color.fromARGB(255, 181, 103, 103))
+                                    color: Color.fromARGB(255, 85, 56, 43)
+                                        .withOpacity(0.5))
+                                : null,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
                             minimumSize: Size.zero,
-                            padding: EdgeInsets.all(0),
+                            padding: const EdgeInsets.all(0),
                             backgroundColor:
                                 widget.currentClickedItemIdx == index
-                                    ? Color.fromARGB(255, 240, 240, 240)
-                                    : Color.fromARGB(255, 201, 191, 191),
+                                    ? Color.fromARGB(255, 238, 238, 238)
+                                    : const Color.fromARGB(255, 201, 191, 191),
                           ),
                           onPressed: () => widget.buttonClicked(
                               widget.subCategoryFilter,
@@ -91,24 +97,21 @@ class _ItemList extends State<ItemList> {
                               index),
                           child: Row(
                             children: [
-                              SizedBox(width: 10),
+                              const SizedBox(width: 10),
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: Image.network(
                                   'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon',
                                 ),
                               ),
-                              SizedBox(width: 5),
-                              SizedBox(
-                                width: 5,
-                              ),
+                              const SizedBox(width: 5),
                               Container(
                                 alignment: Alignment.centerLeft,
                                 decoration: BoxDecoration(
                                   // color: Color.fromARGB(255, 230, 222, 218),
                                   borderRadius: BorderRadius.circular(5),
                                 ),
-                                width: 95,
+                                width: 100,
                                 height: double.infinity,
                                 margin: EdgeInsets.all(5),
                                 child: Text(
