@@ -19,6 +19,12 @@ class _SelectedItem extends State<SelectedItem> {
           color: Color.fromARGB(255, 230, 222, 218),
           borderRadius: BorderRadius.circular(8),
         ),
+        child: Row(children: [
+          Image.network(widget.itemId),
+          Text(widget.itemName),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline_rounded))
+          IconButton(onPressed: () {}, icon: const Icon(Icons.close_rounded))
+        ]),
       ),
     );
   }
