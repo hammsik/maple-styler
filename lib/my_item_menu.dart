@@ -56,7 +56,7 @@ class _ItemMenu extends State<ItemMenu> {
                           fontWeight: FontWeight.w700),
                     ),
                   ),
-                  const Icon(Icons.keyboard_arrow_left_sharp),
+                  const Icon(Icons.keyboard_arrow_down_rounded),
                   const SizedBox(
                     width: 8,
                   )
