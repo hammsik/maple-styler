@@ -15,17 +15,21 @@ class SelectedItem extends StatefulWidget {
 class _SelectedItem extends State<SelectedItem> {
   @override
   Widget build(BuildContext context) {
-    print(widget.itemId);
     return Expanded(
       child: Container(
-          alignment: Alignment.center,
-          height: 40,
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 230, 222, 218),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: widget.itemId != ''
-              ? Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        alignment: Alignment.center,
+        height: 40,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 230, 222, 218),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: widget.itemId == 'null' ||
+                widget.itemId == '1040036' ||
+                widget.itemId == '1060026'
+            ? const Text('아이템을 선택해주세요')
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
                   const SizedBox(
                     width: 10,
                   ),
@@ -53,8 +57,9 @@ class _SelectedItem extends State<SelectedItem> {
                   const SizedBox(
                     width: 10,
                   ),
-                ])
-              : const Text('아이템을 선택해주세요')),
+                ],
+              ),
+      ),
     );
   }
 }

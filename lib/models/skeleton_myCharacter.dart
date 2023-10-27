@@ -1,23 +1,44 @@
 class MyCharacter {
-  // 뷰티
-  String hair = '68090';
-  String face = '50137';
-  String head = '12016';
-  String body = '2016';
-  // 장비
-  String top = '1040036';
-  String bottom = '1060026';
-  String? hat;
-  String? overall;
-  String? cash;
-  String? cape;
-  String? glove;
-  String? shoes;
-  String? shield;
-  //악세
-  String? faceAccessory;
-  String? eyeDecoration;
-  String? earrings;
+  Map<String, String> itemMap = {
+    //뷰티
+    'Hair': '68090',
+    'Face': '50137',
+    'Head': '12016',
+    'Body': '2016',
+    //장비
+    'Hat': 'null',
+    'Overall': 'null',
+    'Cash': 'null',
+    'Top': '1040036',
+    'Bottom': '1060026',
+    'Cape': 'null',
+    'Glove': 'null',
+    'Shoes': 'null',
+    'Shield': 'null',
+    //악세
+    'Face Accessory': 'null',
+    'Eye Decoration': 'null',
+    'Earrings': 'null',
+  };
+  // // 뷰티
+  // String hair = '68090';
+  // String face = '50137';
+  // String head = '12016';
+  // String body = '2016';
+  // // 장비
+  // String top = '1040036';
+  // String bottom = '1060026';
+  // String? hat;
+  // String? overall;
+  // String? cash;
+  // String? cape;
+  // String? glove;
+  // String? shoes;
+  // String? shield;
+  // //악세
+  // String? faceAccessory;
+  // String? eyeDecoration;
+  // String? earrings;
 
   // MyCharacter({
   //   this.hair = '68090',
@@ -41,54 +62,54 @@ class MyCharacter {
   void setMyCharacter({required String subCategory, required String itemId}) {
     switch (subCategory) {
       case 'Hair':
-        hair = itemId;
+        itemMap['Hair'] = itemId;
         break;
       case 'Face':
-        face = itemId;
+        itemMap['Face'] = itemId;
         break;
       case 'Head':
-        head = itemId;
-        body = itemId.substring(1);
+        itemMap['Head'] = itemId;
+        itemMap['Body'] = itemId.substring(1);
         break;
       case 'Hat':
-        hat = itemId;
+        itemMap['Hat'] = itemId;
         break;
       case 'Overall':
-        overall = itemId;
-        top = '1040036';
-        bottom = '1060026';
+        itemMap['Overall'] = itemId;
+        itemMap['Top'] = '1040036';
+        itemMap['Bottom'] = '1060026';
         break;
       case 'Cash':
-        cash = itemId;
+        itemMap['Cash'] = itemId;
         break;
       case 'Top':
-        top = itemId;
-        overall = null;
+        itemMap['Top'] = itemId;
+        itemMap['Overall'] = 'null';
         break;
       case 'Bottom':
-        bottom = itemId;
-        overall = null;
+        itemMap['Bottom'] = itemId;
+        itemMap['Overall'] = 'null';
         break;
       case 'Cape':
-        cape = itemId;
+        itemMap['Cape'] = itemId;
         break;
       case 'Gloove':
-        glove = itemId;
+        itemMap['Gloove'] = itemId;
         break;
       case 'Shoes':
-        shoes = itemId;
+        itemMap['Shoes'] = itemId;
         break;
       case 'Shield':
-        shield = itemId;
+        itemMap['Shield'] = itemId;
         break;
       case 'Face Accessory':
-        faceAccessory = itemId;
+        itemMap['Face Accessory'] = itemId;
         break;
       case 'Eye Decoration':
-        eyeDecoration = itemId;
+        itemMap['Eye Decoration'] = itemId;
         break;
       default:
-        earrings = itemId;
+        itemMap['Earrings'] = itemId;
     }
   }
 
@@ -98,42 +119,42 @@ class MyCharacter {
 
   String makeItemsURL() {
     String items = "";
-    items += addVersionAndRegion(hair);
-    items += addVersionAndRegion(face);
-    items += addVersionAndRegion(head.substring(1));
-    items += addVersionAndRegion(head);
-    if (hat != null) {
-      items += addVersionAndRegion(hat!);
+    items += addVersionAndRegion(itemMap['Hair']!);
+    items += addVersionAndRegion(itemMap['Face']!);
+    items += addVersionAndRegion(itemMap['Body']!);
+    items += addVersionAndRegion(itemMap['Head']!);
+    if (itemMap['Hat'] != 'null') {
+      items += addVersionAndRegion(itemMap['Hat']!);
     }
-    if (overall == null) {
-      items += addVersionAndRegion(top);
-      items += addVersionAndRegion(bottom);
+    if (itemMap['Overall'] == 'null') {
+      items += addVersionAndRegion(itemMap['Top']!);
+      items += addVersionAndRegion(itemMap['Bottom']!);
     } else {
-      items += addVersionAndRegion(overall!);
+      items += addVersionAndRegion(itemMap['Overall']!);
     }
-    if (cash != null) {
-      items += addVersionAndRegion(cash!);
+    if (itemMap['Cash'] != 'null') {
+      items += addVersionAndRegion(itemMap['Cash']!);
     }
-    if (cape != null) {
-      items += addVersionAndRegion(cape!);
+    if (itemMap['Cape'] != 'null') {
+      items += addVersionAndRegion(itemMap['Cape']!);
     }
-    if (glove != null) {
-      items += addVersionAndRegion(glove!);
+    if (itemMap['Glove'] != 'null') {
+      items += addVersionAndRegion(itemMap['Glove']!);
     }
-    if (shoes != null) {
-      items += addVersionAndRegion(shoes!);
+    if (itemMap['Shoes'] != 'null') {
+      items += addVersionAndRegion(itemMap['Shoes']!);
     }
-    if (shield != null) {
-      items += addVersionAndRegion(shield!);
+    if (itemMap['Shield'] != 'null') {
+      items += addVersionAndRegion(itemMap['Shield']!);
     }
-    if (faceAccessory != null) {
-      items += addVersionAndRegion(faceAccessory!);
+    if (itemMap['Face Accessory'] != 'null') {
+      items += addVersionAndRegion(itemMap['Face Accessory']!);
     }
-    if (eyeDecoration != null) {
-      items += addVersionAndRegion(eyeDecoration!);
+    if (itemMap['Eye Decoration'] != 'null') {
+      items += addVersionAndRegion(itemMap['Eye Decoration']!);
     }
-    if (earrings != null) {
-      items += addVersionAndRegion(earrings!);
+    if (itemMap['Earrings'] != 'null') {
+      items += addVersionAndRegion(itemMap['Earrings']!);
     }
 
     return items;

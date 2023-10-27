@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_ask.dart';
+import 'models/skeleton_myCharacter.dart';
 import 'my_search_box.dart';
 import 'my_tool_buttons.dart';
 import 'my_undo_and_redo.dart';
@@ -12,16 +13,18 @@ import 'my_selected_item.dart';
 
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
-  final String selectedItemId;
-  final String selectedItemName;
-
+  String selectedItemId;
+  String selectedItemName;
+  final MyCharacter currentCharacter;
   int clickedButtonIdx;
+
   CoordinatingTools(
       {super.key,
       required this.listButtonClicked,
       required this.clickedButtonIdx,
       required this.selectedItemId,
-      required this.selectedItemName});
+      required this.selectedItemName,
+      required this.currentCharacter});
 
   @override
   State<StatefulWidget> createState() {
@@ -47,6 +50,10 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         subCategoryFilter_ko = myToolList[toolIdx].menuList![0][0];
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
         widget.clickedButtonIdx = -1;
+        widget.selectedItemId =
+            widget.currentCharacter.itemMap[subCategoryFilter_en]!;
+        widget.selectedItemName =
+            widget.currentCharacter.itemMap[subCategoryFilter_en]!;
       }
     });
   }
@@ -62,6 +69,10 @@ class _CoordinatingTools extends State<CoordinatingTools> {
       this.subCategoryFilter_ko = subCategoryFilter_ko;
       this.subCategoryFilter_en = subCategoryFilter_en;
       widget.clickedButtonIdx = -1;
+      widget.selectedItemId =
+          widget.currentCharacter.itemMap[subCategoryFilter_en]!;
+      widget.selectedItemName =
+          widget.currentCharacter.itemMap[subCategoryFilter_en]!;
     });
   }
 
