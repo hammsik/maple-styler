@@ -15,6 +15,7 @@ class SelectedItem extends StatefulWidget {
 class _SelectedItem extends State<SelectedItem> {
   @override
   Widget build(BuildContext context) {
+    print(widget.itemId);
     return Expanded(
       child: Container(
         height: 40,
@@ -23,7 +24,11 @@ class _SelectedItem extends State<SelectedItem> {
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(children: [
-          Image.network(widget.itemId),
+          Flexible(
+            fit: FlexFit.loose,
+            child: Image.network(
+                'https://maplestory.io/api/KMST/1157/item/${widget.itemId}/icon'),
+          ),
           Text(widget.itemName),
           IconButton(
               onPressed: () {},
