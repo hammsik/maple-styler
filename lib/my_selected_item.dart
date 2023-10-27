@@ -18,24 +18,43 @@ class _SelectedItem extends State<SelectedItem> {
     print(widget.itemId);
     return Expanded(
       child: Container(
-        height: 40,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 230, 222, 218),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(children: [
-          Flexible(
-            fit: FlexFit.loose,
-            child: Image.network(
-                'https://maplestory.io/api/KMST/1157/item/${widget.itemId}/icon'),
+          alignment: Alignment.center,
+          height: 40,
+          decoration: BoxDecoration(
+            color: const Color.fromARGB(255, 230, 222, 218),
+            borderRadius: BorderRadius.circular(8),
           ),
-          Text(widget.itemName),
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.favorite_outline_rounded)),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.close_rounded))
-        ]),
-      ),
+          child: widget.itemId != ''
+              ? Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Image.network(
+                    'https://maplestory.io/api/KMST/1157/item/${widget.itemId}/icon',
+                    width: 25,
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                      child: Text(widget.itemName,
+                          style: const TextStyle(fontSize: 9))),
+                  InkWell(
+                    onTap: () {},
+                    child: const Icon(Icons.favorite_outline_rounded),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: const Icon(Icons.close_rounded),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                ])
+              : const Text('아이템을 선택해주세요')),
     );
   }
 }
