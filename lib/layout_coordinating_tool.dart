@@ -51,9 +51,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
         widget.clickedButtonIdx = -1;
         widget.selectedItemId =
-            widget.currentCharacter.itemMap[subCategoryFilter_en]!;
+            widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
         widget.selectedItemName =
-            widget.currentCharacter.itemMap[subCategoryFilter_en]!;
+            widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
       }
     });
   }
@@ -70,9 +70,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
       this.subCategoryFilter_en = subCategoryFilter_en;
       widget.clickedButtonIdx = -1;
       widget.selectedItemId =
-          widget.currentCharacter.itemMap[subCategoryFilter_en]!;
+          widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
       widget.selectedItemName =
-          widget.currentCharacter.itemMap[subCategoryFilter_en]!;
+          widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
     });
   }
 

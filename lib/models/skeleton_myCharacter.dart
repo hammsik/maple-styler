@@ -1,24 +1,24 @@
 class MyCharacter {
-  Map<String, String> itemMap = {
+  Map<String, List<String>> itemMap = {
     //뷰티
-    'Hair': '68090',
-    'Face': '50137',
-    'Head': '12016',
-    'Body': '2016',
+    'Hair': ['68090', '검은색 허쉬 헤어'],
+    'Face': ['50137', '차차 얼굴'],
+    'Head': ['12016', '홍조 꽃잎 피부'],
+    'Body': ['2016', 'null'],
     //장비
-    'Hat': 'null',
-    'Overall': 'null',
-    'Cash': 'null',
-    'Top': '1040036',
-    'Bottom': '1060026',
-    'Cape': 'null',
-    'Glove': 'null',
-    'Shoes': 'null',
-    'Shield': 'null',
+    'Hat': ['null', 'null'],
+    'Overall': ['null', 'null'],
+    'Cash': ['null', 'null'],
+    'Top': ['1040036', '상의 이너'],
+    'Bottom': ['1060026', '하의 이너'],
+    'Cape': ['null', 'null'],
+    'Glove': ['null', 'null'],
+    'Shoes': ['null', 'null'],
+    'Shield': ['null', 'null'],
     //악세
-    'Face Accessory': 'null',
-    'Eye Decoration': 'null',
-    'Earrings': 'null',
+    'Face Accessory': ['null', 'null'],
+    'Eye Decoration': ['null', 'null'],
+    'Earrings': ['null', 'null'],
   };
   // // 뷰티
   // String hair = '68090';
@@ -62,54 +62,54 @@ class MyCharacter {
   void setMyCharacter({required String subCategory, required String itemId}) {
     switch (subCategory) {
       case 'Hair':
-        itemMap['Hair'] = itemId;
+        itemMap['Hair']![0] = itemId;
         break;
       case 'Face':
-        itemMap['Face'] = itemId;
+        itemMap['Face']![0] = itemId;
         break;
       case 'Head':
-        itemMap['Head'] = itemId;
-        itemMap['Body'] = itemId.substring(1);
+        itemMap['Head']![0] = itemId;
+        itemMap['Body']![0] = itemId.substring(1);
         break;
       case 'Hat':
-        itemMap['Hat'] = itemId;
+        itemMap['Hat']![0] = itemId;
         break;
       case 'Overall':
-        itemMap['Overall'] = itemId;
-        itemMap['Top'] = '1040036';
-        itemMap['Bottom'] = '1060026';
+        itemMap['Overall']![0] = itemId;
+        itemMap['Top']![0] = '1040036';
+        itemMap['Bottom']![0] = '1060026';
         break;
       case 'Cash':
-        itemMap['Cash'] = itemId;
+        itemMap['Cash']![0] = itemId;
         break;
       case 'Top':
-        itemMap['Top'] = itemId;
-        itemMap['Overall'] = 'null';
+        itemMap['Top']![0] = itemId;
+        itemMap['Overall']![0] = 'null';
         break;
       case 'Bottom':
-        itemMap['Bottom'] = itemId;
-        itemMap['Overall'] = 'null';
+        itemMap['Bottom']![0] = itemId;
+        itemMap['Overall']![0] = 'null';
         break;
       case 'Cape':
-        itemMap['Cape'] = itemId;
+        itemMap['Cape']![0] = itemId;
         break;
       case 'Gloove':
-        itemMap['Gloove'] = itemId;
+        itemMap['Gloove']![0] = itemId;
         break;
       case 'Shoes':
-        itemMap['Shoes'] = itemId;
+        itemMap['Shoes']![0] = itemId;
         break;
       case 'Shield':
-        itemMap['Shield'] = itemId;
+        itemMap['Shield']![0] = itemId;
         break;
       case 'Face Accessory':
-        itemMap['Face Accessory'] = itemId;
+        itemMap['Face Accessory']![0] = itemId;
         break;
       case 'Eye Decoration':
-        itemMap['Eye Decoration'] = itemId;
+        itemMap['Eye Decoration']![0] = itemId;
         break;
       default:
-        itemMap['Earrings'] = itemId;
+        itemMap['Earrings']![0] = itemId;
     }
   }
 
@@ -119,42 +119,42 @@ class MyCharacter {
 
   String makeItemsURL() {
     String items = "";
-    items += addVersionAndRegion(itemMap['Hair']!);
-    items += addVersionAndRegion(itemMap['Face']!);
-    items += addVersionAndRegion(itemMap['Body']!);
-    items += addVersionAndRegion(itemMap['Head']!);
-    if (itemMap['Hat'] != 'null') {
-      items += addVersionAndRegion(itemMap['Hat']!);
+    items += addVersionAndRegion(itemMap['Hair']![0]);
+    items += addVersionAndRegion(itemMap['Face']![0]);
+    items += addVersionAndRegion(itemMap['Body']![0]);
+    items += addVersionAndRegion(itemMap['Head']![0]);
+    if (itemMap['Hat']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Hat']![0]);
     }
-    if (itemMap['Overall'] == 'null') {
-      items += addVersionAndRegion(itemMap['Top']!);
-      items += addVersionAndRegion(itemMap['Bottom']!);
+    if (itemMap['Overall']![0] == 'null') {
+      items += addVersionAndRegion(itemMap['Top']![0]);
+      items += addVersionAndRegion(itemMap['Bottom']![0]);
     } else {
-      items += addVersionAndRegion(itemMap['Overall']!);
+      items += addVersionAndRegion(itemMap['Overall']![0]);
     }
-    if (itemMap['Cash'] != 'null') {
-      items += addVersionAndRegion(itemMap['Cash']!);
+    if (itemMap['Cash']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Cash']![0]);
     }
-    if (itemMap['Cape'] != 'null') {
-      items += addVersionAndRegion(itemMap['Cape']!);
+    if (itemMap['Cape']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Cape']![0]);
     }
-    if (itemMap['Glove'] != 'null') {
-      items += addVersionAndRegion(itemMap['Glove']!);
+    if (itemMap['Glove']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Glove']![0]);
     }
-    if (itemMap['Shoes'] != 'null') {
-      items += addVersionAndRegion(itemMap['Shoes']!);
+    if (itemMap['Shoes']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Shoes']![0]);
     }
-    if (itemMap['Shield'] != 'null') {
-      items += addVersionAndRegion(itemMap['Shield']!);
+    if (itemMap['Shield']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Shield']![0]);
     }
-    if (itemMap['Face Accessory'] != 'null') {
-      items += addVersionAndRegion(itemMap['Face Accessory']!);
+    if (itemMap['Face Accessory']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Face Accessory']![0]);
     }
-    if (itemMap['Eye Decoration'] != 'null') {
-      items += addVersionAndRegion(itemMap['Eye Decoration']!);
+    if (itemMap['Eye Decoration']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Eye Decoration']![0]);
     }
-    if (itemMap['Earrings'] != 'null') {
-      items += addVersionAndRegion(itemMap['Earrings']!);
+    if (itemMap['Earrings']![0] != 'null') {
+      items += addVersionAndRegion(itemMap['Earrings']![0]);
     }
 
     return items;
