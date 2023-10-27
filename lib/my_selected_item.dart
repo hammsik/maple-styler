@@ -43,6 +43,9 @@ class _SelectedItem extends State<SelectedItem> {
                   Expanded(
                       child: Text(widget.itemName,
                           style: const TextStyle(fontSize: 9))),
+                  const SizedBox(
+                    width: 10,
+                  ),
                   InkWell(
                     onTap: () {},
                     child: const Icon(Icons.favorite_outline_rounded),

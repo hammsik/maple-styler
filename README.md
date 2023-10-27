@@ -4,7 +4,7 @@
 
 ## 앱 스크린샷
 
-<img src="https://github.com/hammsik/maple-closet/assets/116339092/8d467bc9-f084-4f7b-9176-8d4014825a0e" width="300"/>
+<img src="https://github.com/hammsik/maple-closet/assets/116339092/ee39c3ea-cc3a-4b14-a6c1-ec18459a1f3b" width="300"/>
 
 <!-- ## 주요 기능
 
