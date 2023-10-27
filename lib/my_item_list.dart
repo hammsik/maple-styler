@@ -94,6 +94,7 @@ class _ItemList extends State<ItemList> {
                           onPressed: () => widget.buttonClicked(
                               widget.subCategoryFilter,
                               snapshot.data?[index][0],
+                              snapshot.data?[index][1],
                               index),
                           child: Row(
                             children: [

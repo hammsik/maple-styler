@@ -21,12 +21,15 @@ class _MapleCloset extends State<MapleCloset> {
   MyCharacter dodo = MyCharacter();
   String background = 'normal';
   int clickedListButtonIdx = -1;
+  String selectedItemId = '';
+  String selectedItemName = '';
+
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setMyCharacter(
-      String inputSubCategory, String inputItemId, int buttonIdx) {
+  void setMyCharacter(String inputSubCategory, String inputItemId,
+      String inputItemName, int buttonIdx) {
     setState(() {
       dodo.setMyCharacter(subCategory: inputSubCategory, itemId: inputItemId);
       clickedListButtonIdx = buttonIdx;
@@ -108,6 +111,8 @@ class _MapleCloset extends State<MapleCloset> {
                         child: CoordinatingTools(
                           listButtonClicked: setMyCharacter,
                           clickedButtonIdx: clickedListButtonIdx,
+                          selectedItemId: selectedItemId,
+                          selectedItemName: selectedItemName,
                         )),
                   ],
                 ),

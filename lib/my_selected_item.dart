@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SelectedItem extends StatefulWidget {
-  SelectedItem({super.key});
+  final String itemId;
+  final String itemName;
+
+  const SelectedItem({super.key, required this.itemId, required this.itemName});
 
   @override
   State<StatefulWidget> createState() {
@@ -16,13 +19,15 @@ class _SelectedItem extends State<SelectedItem> {
       child: Container(
         height: 40,
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 230, 222, 218),
+          color: const Color.fromARGB(255, 230, 222, 218),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(children: [
           Image.network(widget.itemId),
           Text(widget.itemName),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.favorite_outline_rounded))
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_outline_rounded)),
           IconButton(onPressed: () {}, icon: const Icon(Icons.close_rounded))
         ]),
       ),
