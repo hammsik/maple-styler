@@ -21,8 +21,8 @@ class _MapleCloset extends State<MapleCloset> {
   MyCharacter dodo = MyCharacter();
   String background = 'normal';
   int clickedListButtonIdx = -1;
-  String selectedItemId = 'null';
-  String selectedItemName = 'null';
+  String selectedItemId = '68090';
+  String selectedItemName = '검은색 허쉬 헤어';
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
