@@ -59,57 +59,80 @@ class MyCharacter {
   //   this.earrings,
   // });
 
-  void setMyCharacter({required String subCategory, required String itemId}) {
+  void setMyCharacter(
+      {required String subCategory,
+      required String itemId,
+      required String itemName}) {
     switch (subCategory) {
       case 'Hair':
         itemMap['Hair']![0] = itemId;
+        itemMap['Hair']![1] = itemName;
         break;
       case 'Face':
         itemMap['Face']![0] = itemId;
+        itemMap['Face']![1] = itemName;
         break;
       case 'Head':
         itemMap['Head']![0] = itemId;
         itemMap['Body']![0] = itemId.substring(1);
+        itemMap['Head']![1] = itemName;
+        itemMap['Body']![1] = itemName.substring(1);
         break;
       case 'Hat':
         itemMap['Hat']![0] = itemId;
+        itemMap['Hat']![1] = itemName;
         break;
       case 'Overall':
         itemMap['Overall']![0] = itemId;
         itemMap['Top']![0] = '1040036';
         itemMap['Bottom']![0] = '1060026';
+        itemMap['Overall']![1] = itemName;
+        itemMap['Top']![1] = '상의 이너';
+        itemMap['Bottom']![1] = '하의 이너';
         break;
       case 'Cash':
         itemMap['Cash']![0] = itemId;
+        itemMap['Cash']![1] = itemName;
         break;
       case 'Top':
         itemMap['Top']![0] = itemId;
         itemMap['Overall']![0] = 'null';
+        itemMap['Top']![1] = itemName;
+        itemMap['Overall']![1] = 'null';
         break;
       case 'Bottom':
         itemMap['Bottom']![0] = itemId;
         itemMap['Overall']![0] = 'null';
+        itemMap['Bottom']![1] = itemName;
+        itemMap['Overall']![1] = 'null';
         break;
       case 'Cape':
         itemMap['Cape']![0] = itemId;
+        itemMap['Cape']![1] = itemName;
         break;
       case 'Gloove':
         itemMap['Gloove']![0] = itemId;
+        itemMap['Gloove']![1] = itemName;
         break;
       case 'Shoes':
         itemMap['Shoes']![0] = itemId;
+        itemMap['Shoes']![1] = itemName;
         break;
       case 'Shield':
         itemMap['Shield']![0] = itemId;
+        itemMap['Shield']![1] = itemName;
         break;
       case 'Face Accessory':
         itemMap['Face Accessory']![0] = itemId;
+        itemMap['Face Accessory']![1] = itemName;
         break;
       case 'Eye Decoration':
         itemMap['Eye Decoration']![0] = itemId;
+        itemMap['Eye Decoration']![1] = itemName;
         break;
       default:
         itemMap['Earrings']![0] = itemId;
+        itemMap['Earrings']![1] = itemName;
     }
   }
 

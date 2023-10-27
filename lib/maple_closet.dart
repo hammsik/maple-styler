@@ -31,7 +31,10 @@ class _MapleCloset extends State<MapleCloset> {
   void setMyCharacter(String inputSubCategory, String inputItemId,
       String inputItemName, int buttonIdx) {
     setState(() {
-      dodo.setMyCharacter(subCategory: inputSubCategory, itemId: inputItemId);
+      dodo.setMyCharacter(
+          subCategory: inputSubCategory,
+          itemId: inputItemId,
+          itemName: inputItemName);
       clickedListButtonIdx = buttonIdx;
       selectedItemId = inputItemId;
       selectedItemName = inputItemName;

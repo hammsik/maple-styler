@@ -53,7 +53,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         widget.selectedItemId =
             widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
         widget.selectedItemName =
-            widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
+            widget.currentCharacter.itemMap[subCategoryFilter_en]![1];
       }
     });
   }
@@ -72,7 +72,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
       widget.selectedItemId =
           widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
       widget.selectedItemName =
-          widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
+          widget.currentCharacter.itemMap[subCategoryFilter_en]![1];
     });
   }
 
