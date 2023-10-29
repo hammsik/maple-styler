@@ -1,11 +1,14 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_background_buttons.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'data/backgrounds.dart';
 
 class MapleCloset extends StatefulWidget {
@@ -23,6 +26,7 @@ class _MapleCloset extends State<MapleCloset> {
   int clickedListButtonIdx = -1;
   String selectedItemId = '68090';
   String selectedItemName = '검은색 허쉬 헤어';
+  // Queue<String> CharacterImageQueue
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
@@ -70,7 +74,7 @@ class _MapleCloset extends State<MapleCloset> {
       );
     }
 
-    Image characterImage = Image.network(dodo.getMyCharacterURL());
+    // Image characterImage = Image.network(dodo.getMyCharacterURL());
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // 세로 방향 고정
@@ -109,9 +113,18 @@ class _MapleCloset extends State<MapleCloset> {
                 // ),
                 SizedBox(
                   height: 430,
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: kTransparentImage,
-                    image: dodo.getMyCharacterURL(),
+                  child: CachedNetworkImage(
+                    imageUrl: dodo.getMyCharacterURL(),
+                    fadeInDuration: const Duration(milliseconds: 400),
+                    fadeOutDuration: const Duration(milliseconds: 400),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.image_not_supported_outlined),
+                    useOldImageOnUrlChange: true,
+                    cacheManager: CacheManager(
+                      Config("character",
+                          stalePeriod: const Duration(days: 7),
+                          maxNrOfCacheObjects: 1),
+                    ),
                   ),
                 ),
                 Column(
