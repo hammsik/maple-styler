@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -24,7 +26,8 @@ class _MapleCloset extends State<MapleCloset> {
   int clickedListButtonIdx = -1;
   String selectedItemId = '68090';
   String selectedItemName = '검은색 허쉬 헤어';
-  // Queue<String> CharacterImageQueue
+  Queue<String> characterImageQueue = Queue<String>();
+  int currentQueueIdx = 0;
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
@@ -37,9 +40,26 @@ class _MapleCloset extends State<MapleCloset> {
           subCategory: inputSubCategory,
           itemId: inputItemId,
           itemName: inputItemName);
+      characterImageQueue.add(dodo.getMyCharacterURL());
+      if (characterImageQueue.length > 5) characterImageQueue.removeFirst();
       clickedListButtonIdx = buttonIdx;
       selectedItemId = inputItemId;
       selectedItemName = inputItemName;
+    });
+  }
+
+  void takeOffItem(String subCategory) {
+    if (subCategory == 'Hair' ||
+        subCategory == 'Face' ||
+        subCategory == 'Head') {
+      return;
+    }
+
+    setState(() {
+      dodo.takeOffItem(subCategory: subCategory);
+      clickedListButtonIdx = -1;
+      selectedItemId = 'null';
+      characterImageQueue.add(dodo.getMyCharacterURL());
     });
   }
 
@@ -60,7 +80,6 @@ class _MapleCloset extends State<MapleCloset> {
     );
 
     Widget characterBox;
-
     if (background == 'normal') {
       characterBox = Container(
         color: const Color.fromARGB(255, 230, 222, 218),
@@ -71,6 +90,8 @@ class _MapleCloset extends State<MapleCloset> {
         backgroundsList[background]![1],
       );
     }
+
+    characterImageQueue.add(dodo.getMyCharacterURL());
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // 세로 방향 고정
@@ -110,7 +131,7 @@ class _MapleCloset extends State<MapleCloset> {
                 SizedBox(
                   height: 430,
                   child: CachedNetworkImage(
-                    imageUrl: dodo.getMyCharacterURL(),
+                    imageUrl: characterImageQueue.last,
                     fadeInDuration: const Duration(milliseconds: 400),
                     fadeOutDuration: const Duration(milliseconds: 400),
                     errorWidget: (context, url, error) =>
@@ -138,6 +159,7 @@ class _MapleCloset extends State<MapleCloset> {
                           selectedItemId: selectedItemId,
                           selectedItemName: selectedItemName,
                           currentCharacter: dodo,
+                          clickedClose: takeOffItem,
                         )),
                   ],
                 ),

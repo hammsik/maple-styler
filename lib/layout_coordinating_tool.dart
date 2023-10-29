@@ -13,6 +13,7 @@ import 'my_selected_item.dart';
 
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
+  final Function clickedClose;
   String selectedItemId;
   String selectedItemName;
   final MyCharacter currentCharacter;
@@ -24,7 +25,8 @@ class CoordinatingTools extends StatefulWidget {
       required this.clickedButtonIdx,
       required this.selectedItemId,
       required this.selectedItemName,
-      required this.currentCharacter});
+      required this.currentCharacter,
+      required this.clickedClose});
 
   @override
   State<StatefulWidget> createState() {
@@ -104,7 +106,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                         children: [
                           SelectedItem(
                               itemId: widget.selectedItemId,
-                              itemName: widget.selectedItemName),
+                              itemName: widget.selectedItemName,
+                              clickCloseButton: widget.clickedClose,
+                              subCategory: subCategoryFilter_en),
                           const SizedBox(width: 8),
                           ItemMenu(
                               currentTool: myToolList[currentToolIdx],

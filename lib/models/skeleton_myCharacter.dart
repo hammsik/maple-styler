@@ -91,6 +91,23 @@ class MyCharacter {
     }
   }
 
+  void takeOffItem({required String subCategory}) {
+    if (subCategory == 'Hair' ||
+        subCategory == 'Face' ||
+        subCategory == 'Head') {
+      return;
+    }
+
+    if (subCategory == 'Top') {
+      itemMap['Top']![0] = '1040036';
+    } else if (subCategory == 'Bottom') {
+      itemMap['Bottom']![0] = '1060026';
+    } else {
+      itemMap[subCategory]![0] = 'null';
+      itemMap[subCategory]![1] = 'null';
+    }
+  }
+
   String addVersionAndRegion(String item) {
     return '{"itemId":$item, "version":"1157","region":"KMST","animationName":"default"},';
   }

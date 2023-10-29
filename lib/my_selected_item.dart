@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 class SelectedItem extends StatefulWidget {
   final String itemId;
   final String itemName;
+  final Function clickCloseButton;
+  final String subCategory;
 
-  const SelectedItem({super.key, required this.itemId, required this.itemName});
+  const SelectedItem(
+      {super.key,
+      required this.itemId,
+      required this.itemName,
+      required this.clickCloseButton,
+      required this.subCategory});
 
   @override
   State<StatefulWidget> createState() {
@@ -49,17 +56,45 @@ class _SelectedItem extends State<SelectedItem> {
                   const SizedBox(
                     width: 10,
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: const Icon(Icons.favorite_outline_rounded),
-                  ),
+                  // FilledButton(
+                  //   onPressed: () {},
+                  //   child: const Icon(
+                  //     Icons.favorite_outline_rounded,
+                  //     size: 20,
+                  //   ),
+                  //   style: FilledButton.styleFrom(
+                  //     foregroundColor: Color.fromARGB(255, 60, 58, 78),
+                  //     backgroundColor: const Color.fromARGB(255, 201, 191, 191),
+                  //     shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(5)),
+                  //     minimumSize: Size.zero,
+                  //     padding: const EdgeInsets.all(0),
+                  //     fixedSize: Size(30, 30),
+                  //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  //   ),
+                  // ),
                   const SizedBox(
-                    width: 10,
+                    width: 8,
                   ),
-                  InkWell(
-                    onTap: () {},
-                    child: const Icon(Icons.close_rounded),
+                  FilledButton(
+                    onPressed: () =>
+                        widget.clickCloseButton(widget.subCategory),
+                    child: const Icon(
+                      Icons.close_rounded,
+                      size: 20,
+                    ),
+                    style: FilledButton.styleFrom(
+                        foregroundColor: Color.fromARGB(255, 60, 58, 78),
+                        backgroundColor:
+                            const Color.fromARGB(255, 201, 191, 191),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5)),
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.all(0),
+                        fixedSize: Size(30, 30),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap),
                   ),
+                  // child: const ,
                   const SizedBox(
                     width: 10,
                   ),
