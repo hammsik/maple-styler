@@ -5,7 +5,7 @@ import 'package:maple_closet/layout_background_buttons.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
-
+import 'package:transparent_image/transparent_image.dart';
 import 'data/backgrounds.dart';
 
 class MapleCloset extends StatefulWidget {
@@ -104,9 +104,15 @@ class _MapleCloset extends State<MapleCloset> {
                     const SizedBox(height: 14),
                   ],
                 ),
+                // SizedBox(
+                //   child: CircularProgressIndicator(),
+                // ),
                 SizedBox(
                   height: 430,
-                  child: characterImage,
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: dodo.getMyCharacterURL(),
+                  ),
                 ),
                 Column(
                   children: [
