@@ -103,6 +103,10 @@ class _ItemList extends State<ItemList> {
                                 fit: FlexFit.loose,
                                 child: Image.network(
                                   'https://maplestory.io/api/KMST/1157/item/${snapshot.data?[index][0]}/icon',
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Icon(
+                                        Icons.image_not_supported_outlined);
+                                  },
                                 ),
                               ),
                               const SizedBox(width: 5),

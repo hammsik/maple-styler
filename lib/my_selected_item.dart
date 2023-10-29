@@ -36,6 +36,9 @@ class _SelectedItem extends State<SelectedItem> {
                   Image.network(
                     'https://maplestory.io/api/KMST/1157/item/${widget.itemId}/icon',
                     width: 25,
+                    errorBuilder: (context, error, stackTrace) {
+                      return const Icon(Icons.image_not_supported_outlined);
+                    },
                   ),
                   const SizedBox(
                     width: 10,
