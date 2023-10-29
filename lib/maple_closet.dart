@@ -120,8 +120,8 @@ class _MapleCloset extends State<MapleCloset> {
                     useOldImageOnUrlChange: true,
                     cacheManager: CacheManager(
                       Config("character",
-                          stalePeriod: const Duration(days: 7),
-                          maxNrOfCacheObjects: 1),
+                          stalePeriod: const Duration(days: 1),
+                          maxNrOfCacheObjects: 20),
                     ),
                   ),
                 ),
