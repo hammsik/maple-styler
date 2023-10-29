@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MyCustomAppBar extends StatefulWidget {
   final Function() clickEvent;
 
-  MyCustomAppBar({super.key, required this.clickEvent});
+  const MyCustomAppBar({super.key, required this.clickEvent});
 
   @override
   State<StatefulWidget> createState() {
@@ -21,7 +21,7 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         GestureDetector(
-          child: Icon(
+          child: const Icon(
             Icons.info_outlined,
             color: Color(0xfff2f2f2),
             size: 24,
@@ -36,9 +36,9 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
         ),
         GestureDetector(
           onTap: widget.clickEvent,
-          child: Icon(
+          child: const Icon(
             Icons.account_box,
-            color: const Color(0xfff2f2f2),
+            color: Color(0xfff2f2f2),
             size: 24,
           ),
         ),

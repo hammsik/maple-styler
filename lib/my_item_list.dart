@@ -79,7 +79,7 @@ class _ItemList extends State<ItemList> {
                                 ? BorderSide(
                                     width: 2,
                                     // color: Color.fromARGB(255, 181, 103, 103))
-                                    color: Color.fromARGB(255, 85, 56, 43)
+                                    color: const Color.fromARGB(255, 85, 56, 43)
                                         .withOpacity(0.5))
                                 : null,
                             shape: RoundedRectangleBorder(
@@ -88,7 +88,7 @@ class _ItemList extends State<ItemList> {
                             padding: const EdgeInsets.all(0),
                             backgroundColor:
                                 widget.currentClickedItemIdx == index
-                                    ? Color.fromARGB(255, 238, 238, 238)
+                                    ? const Color.fromARGB(255, 238, 238, 238)
                                     : const Color.fromARGB(255, 201, 191, 191),
                           ),
                           onPressed: () => widget.buttonClicked(
@@ -118,7 +118,7 @@ class _ItemList extends State<ItemList> {
                                 ),
                                 width: 100,
                                 height: double.infinity,
-                                margin: EdgeInsets.all(5),
+                                margin: const EdgeInsets.all(5),
                                 child: Text(
                                   snapshot.data?[index][1],
                                   style: GoogleFonts.nanumMyeongjo(

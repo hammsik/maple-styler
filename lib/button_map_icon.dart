@@ -43,8 +43,8 @@ class MapButton extends StatelessWidget {
             ),
           ],
           borderRadius: BorderRadius.circular(8),
-          border:
-              Border.all(color: Color.fromARGB(255, 38, 38, 38), width: 0.2),
+          border: Border.all(
+              color: const Color.fromARGB(255, 38, 38, 38), width: 0.2),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),

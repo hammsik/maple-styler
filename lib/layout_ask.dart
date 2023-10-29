@@ -12,10 +12,9 @@ class AskLayout extends StatefulWidget {
 class _AskLayout extends State<AskLayout> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 230, 222, 218),
+        color: const Color.fromARGB(255, 230, 222, 218),
         borderRadius: BorderRadius.circular(12),
       ),
       alignment: Alignment.center,

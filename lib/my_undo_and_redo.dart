@@ -19,16 +19,16 @@ class _UndoAndRedo extends State<UndoAndRedo> {
           height: 35,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Color.fromARGB(255, 230, 222, 218),
+            color: const Color.fromARGB(255, 230, 222, 218),
           ),
         ),
-        SizedBox(width: 8),
+        const SizedBox(width: 8),
         Container(
           width: 55,
           height: 35,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Color.fromARGB(255, 230, 222, 218),
+            color: const Color.fromARGB(255, 230, 222, 218),
           ),
         ),
       ],

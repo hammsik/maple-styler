@@ -72,8 +72,6 @@ class _MapleCloset extends State<MapleCloset> {
       );
     }
 
-    // Image characterImage = Image.network(dodo.getMyCharacterURL());
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // 세로 방향 고정
       DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
