@@ -3,13 +3,13 @@ import 'dart:collection';
 import 'package:path/path.dart';
 
 class MyCharacter {
-  late Queue<String> urlQueue;
-  late int urlQueueIdx;
+  late Queue<Map<String, List<String>>> itemQueue;
+  late int itemQueueIdx;
   late Map<String, List<String>> itemMap;
 
   MyCharacter() {
-    urlQueue = DoubleLinkedQueue();
-    urlQueueIdx = 0;
+    itemQueue = DoubleLinkedQueue();
+    itemQueueIdx = 0;
     itemMap = {
       //뷰티
       'Hair': ['68090', '검은색 허쉬 헤어'],
@@ -31,6 +31,7 @@ class MyCharacter {
       'Eye Decoration': ['null', 'null'],
       'Earrings': ['null', 'null'],
     };
+    itemQueue.add(Map.from(itemMap));
   }
 
   void setMyCharacter(
@@ -63,6 +64,8 @@ class MyCharacter {
       itemMap[subCategory]![0] = itemId;
       itemMap[subCategory]![1] = itemName;
     }
+
+    addItem();
   }
 
   void takeOffItem({required String subCategory}) {
@@ -80,6 +83,8 @@ class MyCharacter {
       itemMap[subCategory]![0] = 'null';
       itemMap[subCategory]![1] = 'null';
     }
+
+    addItem();
   }
 
   String addVersionAndRegion(String item) {
@@ -129,18 +134,18 @@ class MyCharacter {
     return items;
   }
 
-  void addUrl() {
-    if (urlQueueIdx < urlQueue.length - 1) {
-      for (int i = urlQueueIdx + 1; i < urlQueue.length; i++) {
-        urlQueue.removeLast();
+  void addItem() {
+    if (itemQueueIdx < itemQueue.length - 1) {
+      for (int i = itemQueueIdx + 1; i < itemQueue.length; i++) {
+        itemQueue.removeLast();
       }
     }
 
-    urlQueue.add(getUrl());
-    if (urlQueue.length > 5) {
-      urlQueue.removeFirst();
+    itemQueue.add(Map.from(itemMap));
+    if (itemQueue.length > 5) {
+      itemQueue.removeFirst();
     }
-    urlQueueIdx = urlQueue.length - 1;
+    itemQueueIdx = itemQueue.length - 1;
   }
 
   String getUrl() {
@@ -149,6 +154,19 @@ class MyCharacter {
   }
 
   String getMyCharacter() {
-    return urlQueue.elementAt(urlQueueIdx);
+    itemMap = Map.from(itemQueue.elementAt(itemQueueIdx));
+    return getUrl();
+  }
+
+  void undo() {
+    if (itemQueueIdx > 0) {
+      itemQueueIdx--;
+    }
+  }
+
+  void redo() {
+    if (itemQueueIdx < 4) {
+      itemQueueIdx++;
+    }
   }
 }
