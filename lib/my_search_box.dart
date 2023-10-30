@@ -13,12 +13,39 @@ class _SearchBox extends State<SearchBox> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        height: 35,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: const Color.fromARGB(255, 230, 222, 218),
-        ),
+      child: FilledButton(
+        onPressed: () {},
+        style: FilledButton.styleFrom(
+            minimumSize: Size.zero,
+            fixedSize: Size(20, 35),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: const EdgeInsets.all(0),
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            backgroundColor: const Color.fromARGB(255, 230, 222, 218),
+            foregroundColor: Colors.black.withOpacity(0.3)),
+        child: const Row(children: [
+          SizedBox(
+            width: 10,
+          ),
+          Icon(
+            Icons.search_rounded,
+            size: 25,
+            color: Colors.black,
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+              child: Text(
+            '',
+            textAlign: TextAlign.end,
+          )),
+          SizedBox(
+            width: 20,
+          ),
+        ]),
       ),
     );
   }
