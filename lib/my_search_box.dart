@@ -17,7 +17,7 @@ class _SearchBox extends State<SearchBox> {
         onPressed: () {},
         style: FilledButton.styleFrom(
             minimumSize: Size.zero,
-            fixedSize: Size(20, 35),
+            fixedSize: const Size(20, 35),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),

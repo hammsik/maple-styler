@@ -37,7 +37,6 @@ class _MapleCloset extends State<MapleCloset> {
           subCategory: inputSubCategory,
           itemId: inputItemId,
           itemName: inputItemName);
-      dodo.addUrl();
       clickedListButtonIdx = buttonIdx;
       selectedItemId = inputItemId;
       selectedItemName = inputItemName;
@@ -55,7 +54,19 @@ class _MapleCloset extends State<MapleCloset> {
       dodo.takeOffItem(subCategory: subCategory);
       clickedListButtonIdx = -1;
       selectedItemId = 'null';
-      dodo.addUrl();
+    });
+  }
+
+  void undoImage() {
+    print('d');
+    setState(() {
+      dodo.undo();
+    });
+  }
+
+  void redoImage() {
+    setState(() {
+      dodo.redo();
     });
   }
 
@@ -87,8 +98,6 @@ class _MapleCloset extends State<MapleCloset> {
       );
     }
 
-    dodo.addUrl();
-
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // 세로 방향 고정
       DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
@@ -115,7 +124,6 @@ class _MapleCloset extends State<MapleCloset> {
                       height: 2,
                       width: double.infinity,
                       margin: const EdgeInsets.only(left: 7, right: 7),
-                      // color: Color.fromARGB(255, 193, 105, 105),
                       color: const Color.fromARGB(255, 181, 103, 103),
                     ),
                     const SizedBox(height: 14),
@@ -148,15 +156,18 @@ class _MapleCloset extends State<MapleCloset> {
                     BackgroundButtons(switchBackground: switchBackground),
                     const SizedBox(height: 230),
                     Flexible(
-                        fit: FlexFit.loose,
-                        child: CoordinatingTools(
-                          listButtonClicked: setMyCharacter,
-                          clickedButtonIdx: clickedListButtonIdx,
-                          selectedItemId: selectedItemId,
-                          selectedItemName: selectedItemName,
-                          currentCharacter: dodo,
-                          clickedClose: takeOffItem,
-                        )),
+                      fit: FlexFit.loose,
+                      child: CoordinatingTools(
+                        listButtonClicked: setMyCharacter,
+                        clickedButtonIdx: clickedListButtonIdx,
+                        selectedItemId: selectedItemId,
+                        selectedItemName: selectedItemName,
+                        currentCharacter: dodo,
+                        clickedClose: takeOffItem,
+                        undoImage: undoImage,
+                        redoImage: redoImage,
+                      ),
+                    ),
                   ],
                 ),
               ],

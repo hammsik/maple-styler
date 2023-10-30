@@ -14,6 +14,8 @@ import 'my_selected_item.dart';
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
   final Function clickedClose;
+  final Function() undoImage;
+  final Function redoImage;
   String selectedItemId;
   String selectedItemName;
   final MyCharacter currentCharacter;
@@ -26,7 +28,9 @@ class CoordinatingTools extends StatefulWidget {
       required this.selectedItemId,
       required this.selectedItemName,
       required this.currentCharacter,
-      required this.clickedClose});
+      required this.clickedClose,
+      required this.undoImage,
+      required this.redoImage});
 
   @override
   State<StatefulWidget> createState() {
@@ -87,8 +91,15 @@ class _CoordinatingTools extends State<CoordinatingTools> {
           fontWeight: FontWeight.w700),
       child: Column(
         children: [
-          const Row(
-            children: [SearchBox(), SizedBox(width: 8), UndoAndRedo()],
+          Row(
+            children: [
+              SearchBox(),
+              const SizedBox(width: 8),
+              UndoAndRedo(
+                undoImage: widget.undoImage,
+                redoImage: widget.redoImage,
+              )
+            ],
           ),
           const SizedBox(height: 8),
           MytoolButtons(

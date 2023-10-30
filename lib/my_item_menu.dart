@@ -40,7 +40,7 @@ class _ItemMenu extends State<ItemMenu> {
               },
               child: Ink(
                 height: 40,
-                width: 100,
+                width: 101,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   color: const Color.fromARGB(255, 230, 222, 218),
