@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
@@ -26,7 +24,6 @@ class _MapleCloset extends State<MapleCloset> {
   int clickedListButtonIdx = -1;
   String selectedItemId = '68090';
   String selectedItemName = '검은색 허쉬 헤어';
-  Queue<String> characterImageQueue = Queue<String>();
   int currentQueueIdx = 0;
 
   void _openEndDrawer() {
@@ -40,8 +37,7 @@ class _MapleCloset extends State<MapleCloset> {
           subCategory: inputSubCategory,
           itemId: inputItemId,
           itemName: inputItemName);
-      characterImageQueue.add(dodo.getMyCharacterURL());
-      if (characterImageQueue.length > 5) characterImageQueue.removeFirst();
+      dodo.addUrl();
       clickedListButtonIdx = buttonIdx;
       selectedItemId = inputItemId;
       selectedItemName = inputItemName;
@@ -59,7 +55,7 @@ class _MapleCloset extends State<MapleCloset> {
       dodo.takeOffItem(subCategory: subCategory);
       clickedListButtonIdx = -1;
       selectedItemId = 'null';
-      characterImageQueue.add(dodo.getMyCharacterURL());
+      dodo.addUrl();
     });
   }
 
@@ -91,7 +87,7 @@ class _MapleCloset extends State<MapleCloset> {
       );
     }
 
-    characterImageQueue.add(dodo.getMyCharacterURL());
+    dodo.addUrl();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // 세로 방향 고정
@@ -131,7 +127,7 @@ class _MapleCloset extends State<MapleCloset> {
                 SizedBox(
                   height: 430,
                   child: CachedNetworkImage(
-                    imageUrl: characterImageQueue.last,
+                    imageUrl: dodo.getMyCharacter(),
                     fadeInDuration: const Duration(milliseconds: 400),
                     fadeOutDuration: const Duration(milliseconds: 400),
                     errorWidget: (context, url, error) =>

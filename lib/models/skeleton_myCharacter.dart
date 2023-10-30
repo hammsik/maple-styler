@@ -1,63 +1,37 @@
-class MyCharacter {
-  Map<String, List<String>> itemMap = {
-    //뷰티
-    'Hair': ['68090', '검은색 허쉬 헤어'],
-    'Face': ['50137', '차차 얼굴'],
-    'Head': ['12016', '홍조 꽃잎 피부'],
-    'Body': ['2016', 'null'],
-    //장비
-    'Hat': ['null', 'null'],
-    'Overall': ['null', 'null'],
-    'Cash': ['null', 'null'],
-    'Top': ['1040036', '상의 이너'],
-    'Bottom': ['1060026', '하의 이너'],
-    'Cape': ['null', 'null'],
-    'Glove': ['null', 'null'],
-    'Shoes': ['null', 'null'],
-    'Shield': ['null', 'null'],
-    //악세
-    'Face Accessory': ['null', 'null'],
-    'Eye Decoration': ['null', 'null'],
-    'Earrings': ['null', 'null'],
-  };
-  // // 뷰티
-  // String hair = '68090';
-  // String face = '50137';
-  // String head = '12016';
-  // String body = '2016';
-  // // 장비
-  // String top = '1040036';
-  // String bottom = '1060026';
-  // String? hat;
-  // String? overall;
-  // String? cash;
-  // String? cape;
-  // String? glove;
-  // String? shoes;
-  // String? shield;
-  // //악세
-  // String? faceAccessory;
-  // String? eyeDecoration;
-  // String? earrings;
+import 'dart:collection';
 
-  // MyCharacter({
-  //   this.hair = '68090',
-  //   this.face = '50137',
-  //   this.head = '12016',
-  //   this.body = '2016',
-  //   this.hat,
-  //   this.overall,
-  //   this.cash,
-  //   this.top = '1040036',
-  //   this.bottom = '1060026',
-  //   this.cape,
-  //   this.glove,
-  //   this.shoes,
-  //   this.shield,
-  //   this.faceAccessory,
-  //   this.eyeDecoration,
-  //   this.earrings,
-  // });
+import 'package:path/path.dart';
+
+class MyCharacter {
+  late Queue<String> urlQueue;
+  late int urlQueueIdx;
+  late Map<String, List<String>> itemMap;
+
+  MyCharacter() {
+    urlQueue = DoubleLinkedQueue();
+    urlQueueIdx = 0;
+    itemMap = {
+      //뷰티
+      'Hair': ['68090', '검은색 허쉬 헤어'],
+      'Face': ['50137', '차차 얼굴'],
+      'Head': ['12016', '홍조 꽃잎 피부'],
+      'Body': ['2016', 'null'],
+      //장비
+      'Hat': ['null', 'null'],
+      'Overall': ['null', 'null'],
+      'Cash': ['null', 'null'],
+      'Top': ['1040036', '상의 이너'],
+      'Bottom': ['1060026', '하의 이너'],
+      'Cape': ['null', 'null'],
+      'Glove': ['null', 'null'],
+      'Shoes': ['null', 'null'],
+      'Shield': ['null', 'null'],
+      //악세
+      'Face Accessory': ['null', 'null'],
+      'Eye Decoration': ['null', 'null'],
+      'Earrings': ['null', 'null'],
+    };
+  }
 
   void setMyCharacter(
       {required String subCategory,
@@ -155,8 +129,26 @@ class MyCharacter {
     return items;
   }
 
-  String getMyCharacterURL() {
+  void addUrl() {
+    if (urlQueueIdx < urlQueue.length - 1) {
+      for (int i = urlQueueIdx + 1; i < urlQueue.length; i++) {
+        urlQueue.removeLast();
+      }
+    }
+
+    urlQueue.add(getUrl());
+    if (urlQueue.length > 5) {
+      urlQueue.removeFirst();
+    }
+    urlQueueIdx = urlQueue.length - 1;
+  }
+
+  String getUrl() {
     String middle = makeItemsURL();
     return 'https://maplestory.io/api/Character/$middle/stand1/0/?renderMode=2';
+  }
+
+  String getMyCharacter() {
+    return urlQueue.elementAt(urlQueueIdx);
   }
 }
