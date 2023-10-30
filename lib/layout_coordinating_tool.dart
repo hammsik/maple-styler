@@ -125,7 +125,6 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                             buttonClicked: widget.listButtonClicked,
                             currentClickedItemIdx: widget.clickedButtonIdx,
                           )),
-                      // Flexible(fit: FlexFit.loose, child: AskLayout()),
                     ],
                   )
                 : const AskLayout(),
