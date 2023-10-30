@@ -146,7 +146,7 @@ class _MapleCloset extends State<MapleCloset> {
                     MyCustomAppBar(clickEvent: _openEndDrawer),
                     const SizedBox(height: 20),
                     BackgroundButtons(switchBackground: switchBackground),
-                    const SizedBox(height: 235),
+                    const SizedBox(height: 230),
                     Flexible(
                         fit: FlexFit.loose,
                         child: CoordinatingTools(
