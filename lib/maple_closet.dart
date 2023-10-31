@@ -21,10 +21,10 @@ class _MapleCloset extends State<MapleCloset> {
 
   MyCharacter dodo = MyCharacter();
   String background = 'normal';
-  int clickedListButtonIdx = -1;
   String selectedItemId = '68090';
   String selectedItemName = '검은색 허쉬 헤어';
-  int currentQueueIdx = 0;
+  int currentListButtonIdx = -1;
+  String currentSubCategory = 'Hair';
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
@@ -32,15 +32,18 @@ class _MapleCloset extends State<MapleCloset> {
 
   void setMyCharacter(String inputSubCategory, String inputItemId,
       String inputItemName, int buttonIdx) {
-    setState(() {
-      dodo.setMyCharacter(
-          subCategory: inputSubCategory,
-          itemId: inputItemId,
-          itemName: inputItemName);
-      clickedListButtonIdx = buttonIdx;
-      selectedItemId = inputItemId;
-      selectedItemName = inputItemName;
-    });
+    if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
+      setState(() {
+        dodo.setMyCharacter(
+            subCategory: inputSubCategory,
+            itemId: inputItemId,
+            itemName: inputItemName);
+        currentListButtonIdx = buttonIdx;
+        currentSubCategory = inputSubCategory;
+        selectedItemId = dodo.itemMap[inputSubCategory][0];
+        selectedItemName = dodo.itemMap[inputSubCategory][1];
+      });
+    }
   }
 
   void takeOffItem(String subCategory) {
@@ -52,22 +55,32 @@ class _MapleCloset extends State<MapleCloset> {
 
     setState(() {
       dodo.takeOffItem(subCategory: subCategory);
-      clickedListButtonIdx = -1;
+      currentListButtonIdx = -1;
       selectedItemId = 'null';
     });
   }
 
   void undoImage() {
-    print('d');
-    setState(() {
-      dodo.undo();
-    });
+    if (dodo.itemQueueIdx > 0) {
+      setState(() {
+        dodo.undo();
+        selectedItemId = dodo.itemMap[currentSubCategory][0];
+        selectedItemName = dodo.itemMap[currentSubCategory][1];
+        currentListButtonIdx = -1;
+      });
+    }
   }
 
   void redoImage() {
-    setState(() {
-      dodo.redo();
-    });
+    if (dodo.itemQueue.length > dodo.itemQueueIdx + 1 &&
+        dodo.itemQueueIdx < 4) {
+      setState(() {
+        dodo.redo();
+        selectedItemId = dodo.itemMap[currentSubCategory][0];
+        selectedItemName = dodo.itemMap[currentSubCategory][1];
+        currentListButtonIdx = -1;
+      });
+    }
   }
 
   void switchBackground(String background) {
@@ -159,7 +172,7 @@ class _MapleCloset extends State<MapleCloset> {
                       fit: FlexFit.loose,
                       child: CoordinatingTools(
                         listButtonClicked: setMyCharacter,
-                        clickedButtonIdx: clickedListButtonIdx,
+                        clickedButtonIdx: currentListButtonIdx,
                         selectedItemId: selectedItemId,
                         selectedItemName: selectedItemName,
                         currentCharacter: dodo,

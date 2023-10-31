@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class UndoAndRedo extends StatefulWidget {
   final Function() undoImage;
-  final Function redoImage;
+  final Function() redoImage;
   const UndoAndRedo(
       {super.key, required this.undoImage, required this.redoImage});
 
@@ -34,17 +34,9 @@ class _UndoAndRedo extends State<UndoAndRedo> {
             color: Colors.black,
           ),
         ),
-        // Container(
-        //   width: 47,
-        //   height: 35,
-        //   decoration: BoxDecoration(
-        //     borderRadius: BorderRadius.circular(8),
-        //     color: const Color.fromARGB(255, 230, 222, 218),
-        //   ),
-        // ),
         const SizedBox(width: 8),
         FilledButton(
-          onPressed: widget.undoImage,
+          onPressed: widget.redoImage,
           style: FilledButton.styleFrom(
             minimumSize: Size.zero,
             padding: EdgeInsets.all(0),

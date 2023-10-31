@@ -15,7 +15,7 @@ class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
   final Function clickedClose;
   final Function() undoImage;
-  final Function redoImage;
+  final Function() redoImage;
   String selectedItemId;
   String selectedItemName;
   final MyCharacter currentCharacter;

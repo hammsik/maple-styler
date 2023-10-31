@@ -1,11 +1,10 @@
 import 'dart:collection';
-
-import 'package:path/path.dart';
+import 'dart:convert';
 
 class MyCharacter {
-  late Queue<Map<String, List<String>>> itemQueue;
+  late Queue<String> itemQueue;
   late int itemQueueIdx;
-  late Map<String, List<String>> itemMap;
+  late Map<String, dynamic> itemMap;
 
   MyCharacter() {
     itemQueue = DoubleLinkedQueue();
@@ -31,7 +30,7 @@ class MyCharacter {
       'Eye Decoration': ['null', 'null'],
       'Earrings': ['null', 'null'],
     };
-    itemQueue.add(Map.from(itemMap));
+    addItem();
   }
 
   void setMyCharacter(
@@ -140,33 +139,29 @@ class MyCharacter {
         itemQueue.removeLast();
       }
     }
-
-    itemQueue.add(Map.from(itemMap));
+    itemQueue.add(json.encode(itemMap));
     if (itemQueue.length > 5) {
       itemQueue.removeFirst();
     }
     itemQueueIdx = itemQueue.length - 1;
+    print(itemQueue.length);
+    print(itemQueue);
   }
 
-  String getUrl() {
+  String getMyCharacter() {
     String middle = makeItemsURL();
     return 'https://maplestory.io/api/Character/$middle/stand1/0/?renderMode=2';
   }
 
-  String getMyCharacter() {
-    itemMap = Map.from(itemQueue.elementAt(itemQueueIdx));
-    return getUrl();
-  }
-
   void undo() {
-    if (itemQueueIdx > 0) {
-      itemQueueIdx--;
-    }
+    itemMap = json.decode(itemQueue.elementAt(--itemQueueIdx));
+    print(itemQueueIdx);
+    print(itemQueue.length);
   }
 
   void redo() {
-    if (itemQueueIdx < 4) {
-      itemQueueIdx++;
-    }
+    itemMap = json.decode(itemQueue.elementAt(++itemQueueIdx));
+    print(itemQueueIdx);
+    print(itemQueue.length);
   }
 }
