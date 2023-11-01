@@ -144,8 +144,6 @@ class MyCharacter {
       itemQueue.removeFirst();
     }
     itemQueueIdx = itemQueue.length - 1;
-    print(itemQueue.length);
-    print(itemQueue);
   }
 
   String getMyCharacter() {
@@ -155,13 +153,9 @@ class MyCharacter {
 
   void undo() {
     itemMap = json.decode(itemQueue.elementAt(--itemQueueIdx));
-    print(itemQueueIdx);
-    print(itemQueue.length);
   }
 
   void redo() {
     itemMap = json.decode(itemQueue.elementAt(++itemQueueIdx));
-    print(itemQueueIdx);
-    print(itemQueue.length);
   }
 }
