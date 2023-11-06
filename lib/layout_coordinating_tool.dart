@@ -20,6 +20,7 @@ class CoordinatingTools extends StatefulWidget {
   String selectedItemName;
   final MyCharacter currentCharacter;
   int clickedButtonIdx;
+  final List<List<List<dynamic>>> itemApiList;
 
   CoordinatingTools(
       {super.key,
@@ -30,7 +31,8 @@ class CoordinatingTools extends StatefulWidget {
       required this.currentCharacter,
       required this.clickedClose,
       required this.undoImage,
-      required this.redoImage});
+      required this.redoImage,
+      required this.itemApiList});
 
   @override
   State<StatefulWidget> createState() {
@@ -131,10 +133,11 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                       Flexible(
                           fit: FlexFit.loose,
                           child: ItemList(
-                            categoryFilter: categoryFilter_en,
-                            subCategoryFilter: subCategoryFilter_en,
+                            itemList: widget
+                                .itemApiList[currentToolIdx + currentMenuIdx],
                             buttonClicked: widget.listButtonClicked,
                             currentClickedItemIdx: widget.clickedButtonIdx,
+                            subCategoryFilter: subCategoryFilter_en,
                           )),
                     ],
                   )

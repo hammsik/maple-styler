@@ -1,16 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:maple_closet/api_maple_io.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_background_buttons.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:maple_closet/my_item_list.dart';
 import 'data/backgrounds.dart';
 
 class MapleCloset extends StatefulWidget {
-  const MapleCloset({super.key});
+  List<List<List<dynamic>>> itemApiList = [];
+
+  MapleCloset({super.key}) {
+    makeRealList();
+  }
+
+  void makeRealList() async {
+    for (int i = 0; i < 3; i++) {
+      for (int subCategory = 0;
+          subCategory < myToolList[i].menuList!.length;
+          subCategory++) {
+        Future<List<List<dynamic>>> tempList = MapleAPI.getItemList(
+            myToolList[i].toolName_en!,
+            myToolList[i].menuList![subCategory][1]);
+        List<List<dynamic>> realList = await tempList;
+        print(realList.length);
+        itemApiList.add(realList);
+      }
+    }
+  }
 
   @override
   State<StatefulWidget> createState() => _MapleCloset();
@@ -179,6 +201,7 @@ class _MapleCloset extends State<MapleCloset> {
                         clickedClose: takeOffItem,
                         undoImage: undoImage,
                         redoImage: redoImage,
+                        itemApiList: widget.itemApiList,
                       ),
                     ),
                   ],
