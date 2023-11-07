@@ -3,36 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:maple_closet/api_maple_io.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:maple_closet/data/myTools.dart';
+import 'package:maple_closet/layout_map_buttons.dart';
 import 'package:maple_closet/layout_character_board.dart';
-import 'package:maple_closet/layout_background_buttons.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:maple_closet/my_item_list.dart';
 import 'data/backgrounds.dart';
 
 class MapleCloset extends StatefulWidget {
-  List<List<List<dynamic>>> itemApiList = [];
-
-  MapleCloset({super.key}) {
-    makeRealList();
-  }
-
-  void makeRealList() async {
-    for (int i = 0; i < 3; i++) {
-      for (int subCategory = 0;
-          subCategory < myToolList[i].menuList!.length;
-          subCategory++) {
-        Future<List<List<dynamic>>> tempList = MapleAPI.getItemList(
-            myToolList[i].toolName_en!,
-            myToolList[i].menuList![subCategory][1]);
-        List<List<dynamic>> realList = await tempList;
-        print(realList.length);
-        itemApiList.add(realList);
-      }
-    }
-  }
+  const MapleCloset({super.key});
 
   @override
   State<StatefulWidget> createState() => _MapleCloset();
@@ -47,6 +27,28 @@ class _MapleCloset extends State<MapleCloset> {
   String selectedItemName = '검은색 허쉬 헤어';
   int currentListButtonIdx = -1;
   String currentSubCategory = 'Hair';
+  List<List<List<dynamic>>> itemApiList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initItemList();
+  }
+
+  void initItemList() async {
+    List<List<List<dynamic>>> oldList = [];
+    for (int i = 0; i < 3; i++) {
+      for (int subCategory = 0;
+          subCategory < myToolList[i].menuList!.length;
+          subCategory++) {
+        oldList.add(await MapleAPI.getItemList(myToolList[i].toolName_en!,
+            myToolList[i].menuList![subCategory][1]));
+      }
+    }
+    setState(() {
+      itemApiList = oldList;
+    });
+  }
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
@@ -192,17 +194,31 @@ class _MapleCloset extends State<MapleCloset> {
                     const SizedBox(height: 230),
                     Flexible(
                       fit: FlexFit.loose,
-                      child: CoordinatingTools(
-                        listButtonClicked: setMyCharacter,
-                        clickedButtonIdx: currentListButtonIdx,
-                        selectedItemId: selectedItemId,
-                        selectedItemName: selectedItemName,
-                        currentCharacter: dodo,
-                        clickedClose: takeOffItem,
-                        undoImage: undoImage,
-                        redoImage: redoImage,
-                        itemApiList: widget.itemApiList,
-                      ),
+                      child: itemApiList.isNotEmpty
+                          ? CoordinatingTools(
+                              listButtonClicked: setMyCharacter,
+                              clickedButtonIdx: currentListButtonIdx,
+                              selectedItemId: selectedItemId,
+                              selectedItemName: selectedItemName,
+                              currentCharacter: dodo,
+                              clickedClose: takeOffItem,
+                              undoImage: undoImage,
+                              redoImage: redoImage,
+                              itemApiList: itemApiList,
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 230, 222, 218),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator()),
+                            ),
                     ),
                   ],
                 ),

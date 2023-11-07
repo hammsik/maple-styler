@@ -44,17 +44,13 @@ class _CoordinatingTools extends State<CoordinatingTools> {
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
 
-  String categoryFilter_ko = myToolList[0].toolName_ko;
   String subCategoryFilter_ko = myToolList[0].menuList![0][0];
-  String categoryFilter_en = myToolList[0].toolName_en!;
   String subCategoryFilter_en = myToolList[0].menuList![0][1];
 
   void toolButtonClikced(int toolIdx) {
     setState(() {
       currentToolIdx = toolIdx;
       if (toolIdx < 3) {
-        categoryFilter_ko = myToolList[toolIdx].toolName_ko;
-        categoryFilter_en = myToolList[toolIdx].toolName_en!;
         subCategoryFilter_ko = myToolList[toolIdx].menuList![0][0];
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
         widget.clickedButtonIdx = -1;
@@ -62,18 +58,14 @@ class _CoordinatingTools extends State<CoordinatingTools> {
             widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
         widget.selectedItemName =
             widget.currentCharacter.itemMap[subCategoryFilter_en]![1];
+        currentMenuIdx = 0;
       }
     });
   }
 
-  void menuItemClicked(
-      String subCategoryFilter_ko, String subCategoryFilter_en) {
+  void menuItemClicked(String subCategoryFilter_ko, String subCategoryFilter_en,
+      int currentMenuIdx) {
     setState(() {
-      if (subCategoryFilter_en == 'Cash') {
-        categoryFilter_en = 'One-Handed Weapon';
-      } else {
-        categoryFilter_en = myToolList[currentToolIdx].toolName_en!;
-      }
       this.subCategoryFilter_ko = subCategoryFilter_ko;
       this.subCategoryFilter_en = subCategoryFilter_en;
       widget.clickedButtonIdx = -1;
@@ -81,6 +73,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
           widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
       widget.selectedItemName =
           widget.currentCharacter.itemMap[subCategoryFilter_en]![1];
+      this.currentMenuIdx = currentMenuIdx;
     });
   }
 
@@ -133,8 +126,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                       Flexible(
                           fit: FlexFit.loose,
                           child: ItemList(
-                            itemList: widget
-                                .itemApiList[currentToolIdx + currentMenuIdx],
+                            itemList: widget.itemApiList[
+                                myToolList[currentToolIdx].cntIdx! +
+                                    currentMenuIdx],
                             buttonClicked: widget.listButtonClicked,
                             currentClickedItemIdx: widget.clickedButtonIdx,
                             subCategoryFilter: subCategoryFilter_en,

@@ -10,7 +10,8 @@ class MapleAPI {
       MAPLE_CUBE_RESULT_BASE_URL,
       queryParameters: {
         'overallCategoryFilter': 'Equip',
-        'categoryFilter': categoryFilter,
+        'categoryFilter':
+            subCategoryFilter == 'Cash' ? 'One-Handed Weapon' : categoryFilter,
         'subCategoryFilter': subCategoryFilter,
       },
     );

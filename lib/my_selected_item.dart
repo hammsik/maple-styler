@@ -56,43 +56,26 @@ class _SelectedItem extends State<SelectedItem> {
                   const SizedBox(
                     width: 10,
                   ),
-                  // FilledButton(
-                  //   onPressed: () {},
-                  //   child: const Icon(
-                  //     Icons.favorite_outline_rounded,
-                  //     size: 20,
-                  //   ),
-                  //   style: FilledButton.styleFrom(
-                  //     foregroundColor: Color.fromARGB(255, 60, 58, 78),
-                  //     backgroundColor: const Color.fromARGB(255, 201, 191, 191),
-                  //     shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(5)),
-                  //     minimumSize: Size.zero,
-                  //     padding: const EdgeInsets.all(0),
-                  //     fixedSize: Size(30, 30),
-                  //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  //   ),
-                  // ),
                   const SizedBox(
                     width: 8,
                   ),
                   FilledButton(
                     onPressed: () =>
                         widget.clickCloseButton(widget.subCategory),
-                    child: const Icon(
-                      Icons.close_rounded,
-                      size: 20,
-                    ),
                     style: FilledButton.styleFrom(
-                        foregroundColor: Color.fromARGB(255, 60, 58, 78),
+                        foregroundColor: const Color.fromARGB(255, 60, 58, 78),
                         backgroundColor:
                             const Color.fromARGB(255, 201, 191, 191),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5)),
                         minimumSize: Size.zero,
                         padding: const EdgeInsets.all(0),
-                        fixedSize: Size(30, 30),
+                        fixedSize: const Size(30, 30),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                    child: const Icon(
+                      Icons.close_rounded,
+                      size: 20,
+                    ),
                   ),
                   // child: const ,
                   const SizedBox(

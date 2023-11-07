@@ -73,7 +73,8 @@ class _ItemMenu extends State<ItemMenu> {
                   color: const Color.fromARGB(255, 230, 222, 218),
                   borderRadius: BorderRadius.circular(4)),
               child: MenuItemButton(
-                onPressed: () => widget.buttonClicked(item[0], item[1]),
+                onPressed: () =>
+                    widget.buttonClicked(item[0], item[1], int.parse(item[2])),
                 child: Text(
                   item[0],
                   style: GoogleFonts.nanumMyeongjo(

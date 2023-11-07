@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:maple_closet/api_maple_io.dart';
 
 class ItemList extends StatefulWidget {
   final List<List<dynamic>> itemList;
