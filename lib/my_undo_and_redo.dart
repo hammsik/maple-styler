@@ -21,8 +21,8 @@ class _UndoAndRedo extends State<UndoAndRedo> {
           onPressed: widget.undoImage,
           style: FilledButton.styleFrom(
               minimumSize: Size.zero,
-              padding: EdgeInsets.all(0),
-              fixedSize: Size(47, 35),
+              padding: const EdgeInsets.all(0),
+              fixedSize: const Size(47, 35),
               foregroundColor: Colors.black.withOpacity(0.4),
               backgroundColor: const Color.fromARGB(255, 230, 222, 218),
               shape: RoundedRectangleBorder(
@@ -39,8 +39,8 @@ class _UndoAndRedo extends State<UndoAndRedo> {
           onPressed: widget.redoImage,
           style: FilledButton.styleFrom(
             minimumSize: Size.zero,
-            padding: EdgeInsets.all(0),
-            fixedSize: Size(47, 35),
+            padding: const EdgeInsets.all(0),
+            fixedSize: const Size(47, 35),
             foregroundColor: Colors.black.withOpacity(0.4),
             backgroundColor: const Color.fromARGB(255, 230, 222, 218),
             shape: RoundedRectangleBorder(
