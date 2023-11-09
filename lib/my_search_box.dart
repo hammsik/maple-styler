@@ -14,7 +14,7 @@ class _SearchBox extends State<SearchBox> {
   Widget build(BuildContext context) {
     return Expanded(
       child: FilledButton(
-        onPressed: () {},
+        onPressed: () => _buildSearchingBox(context),
         style: FilledButton.styleFrom(
             minimumSize: Size.zero,
             fixedSize: const Size(20, 35),
@@ -47,6 +47,37 @@ class _SearchBox extends State<SearchBox> {
           ),
         ]),
       ),
+    );
+  }
+
+  Future<void> _buildSearchingBox(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('Basic dialog title'),
+          children: <Widget>[
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Disable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                textStyle: Theme.of(context).textTheme.labelLarge,
+              ),
+              child: const Text('Enable'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
