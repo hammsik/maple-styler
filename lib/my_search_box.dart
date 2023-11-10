@@ -55,7 +55,12 @@ class _SearchBox extends State<SearchBox> {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Basic dialog title'),
+          title: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Password',
+            ),
+          ),
           children: <Widget>[
             TextButton(
               style: TextButton.styleFrom(
