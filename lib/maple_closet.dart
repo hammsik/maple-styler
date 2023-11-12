@@ -139,6 +139,7 @@ class _MapleCloset extends State<MapleCloset> {
       DeviceOrientation.portraitUp, // 세로 방향 고정
       DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
     ]);
+
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
