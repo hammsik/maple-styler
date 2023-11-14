@@ -143,6 +143,7 @@ class _MapleCloset extends State<MapleCloset> {
     return MaterialApp(
       home: Scaffold(
         key: _scaffoldKey,
+        resizeToAvoidBottomInset: false,
         endDrawer: Drawer(),
         body: SafeArea(
           child: Container(
