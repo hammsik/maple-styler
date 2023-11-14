@@ -16,8 +16,15 @@ class MapleAPI {
       },
     );
 
-    List<List<dynamic>> myList = List<List<String>>.from(response.data
-        .map((data) => [data['id'].toString(), data['name'].toString()]));
+    List<List<dynamic>> myList = List<List<String>>.from(
+      response.data.map(
+        (data) => [
+          data['id'].toString(),
+          data['name'].toString(),
+          data['typeInfo']['subCategory'].toString()
+        ],
+      ),
+    );
     myList = List.from(myList.reversed);
 
     return myList;
