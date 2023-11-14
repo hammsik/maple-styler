@@ -23,8 +23,6 @@ class _MapleCloset extends State<MapleCloset> {
 
   MyCharacter dodo = MyCharacter();
   String background = 'normal';
-  String selectedItemId = '68090';
-  String selectedItemName = '검은색 허쉬 헤어';
   int currentListButtonIdx = -1;
   String currentSubCategory = 'Hair';
   List<List<List<dynamic>>> itemApiList = [];
@@ -64,8 +62,6 @@ class _MapleCloset extends State<MapleCloset> {
             itemName: inputItemName);
         currentListButtonIdx = buttonIdx;
         currentSubCategory = inputSubCategory;
-        selectedItemId = dodo.itemMap[inputSubCategory][0];
-        selectedItemName = dodo.itemMap[inputSubCategory][1];
       });
     }
   }
@@ -80,7 +76,6 @@ class _MapleCloset extends State<MapleCloset> {
     setState(() {
       dodo.takeOffItem(subCategory: subCategory);
       currentListButtonIdx = -1;
-      selectedItemId = 'null';
     });
   }
 
@@ -88,8 +83,6 @@ class _MapleCloset extends State<MapleCloset> {
     if (dodo.itemQueueIdx > 0) {
       setState(() {
         dodo.undo();
-        selectedItemId = dodo.itemMap[currentSubCategory][0];
-        selectedItemName = dodo.itemMap[currentSubCategory][1];
         currentListButtonIdx = -1;
       });
     }
@@ -100,8 +93,6 @@ class _MapleCloset extends State<MapleCloset> {
         dodo.itemQueueIdx < 4) {
       setState(() {
         dodo.redo();
-        selectedItemId = dodo.itemMap[currentSubCategory][0];
-        selectedItemName = dodo.itemMap[currentSubCategory][1];
         currentListButtonIdx = -1;
       });
     }
@@ -200,8 +191,6 @@ class _MapleCloset extends State<MapleCloset> {
                           ? CoordinatingTools(
                               listButtonClicked: setMyCharacter,
                               clickedButtonIdx: currentListButtonIdx,
-                              selectedItemId: selectedItemId,
-                              selectedItemName: selectedItemName,
                               currentCharacter: dodo,
                               clickedClose: takeOffItem,
                               undoImage: undoImage,

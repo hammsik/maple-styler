@@ -16,8 +16,6 @@ class CoordinatingTools extends StatefulWidget {
   final Function clickedClose;
   final Function() undoImage;
   final Function() redoImage;
-  String selectedItemId;
-  String selectedItemName;
   final MyCharacter currentCharacter;
   int clickedButtonIdx;
   final List<List<List<dynamic>>> itemApiList;
@@ -26,8 +24,6 @@ class CoordinatingTools extends StatefulWidget {
       {super.key,
       required this.listButtonClicked,
       required this.clickedButtonIdx,
-      required this.selectedItemId,
-      required this.selectedItemName,
       required this.currentCharacter,
       required this.clickedClose,
       required this.undoImage,
@@ -54,10 +50,6 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         subCategoryFilter_ko = myToolList[toolIdx].menuList![0][0];
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
         widget.clickedButtonIdx = -1;
-        widget.selectedItemId =
-            widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
-        widget.selectedItemName =
-            widget.currentCharacter.itemMap[subCategoryFilter_en]![1];
         currentMenuIdx = 0;
       }
     });
@@ -69,10 +61,6 @@ class _CoordinatingTools extends State<CoordinatingTools> {
       this.subCategoryFilter_ko = subCategoryFilter_ko;
       this.subCategoryFilter_en = subCategoryFilter_en;
       widget.clickedButtonIdx = -1;
-      widget.selectedItemId =
-          widget.currentCharacter.itemMap[subCategoryFilter_en]![0];
-      widget.selectedItemName =
-          widget.currentCharacter.itemMap[subCategoryFilter_en]![1];
       this.currentMenuIdx = currentMenuIdx;
     });
   }
@@ -114,8 +102,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                       Row(
                         children: [
                           SelectedItem(
-                              itemId: widget.selectedItemId,
-                              itemName: widget.selectedItemName,
+                              currentCharacter: widget.currentCharacter,
                               clickCloseButton: widget.clickedClose,
                               subCategory: subCategoryFilter_en),
                           const SizedBox(width: 8),

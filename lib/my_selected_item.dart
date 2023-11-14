@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:maple_closet/models/skeleton_myCharacter.dart';
 
 class SelectedItem extends StatefulWidget {
-  final String itemId;
-  final String itemName;
+  final MyCharacter currentCharacter;
   final Function clickCloseButton;
   final String subCategory;
 
   const SelectedItem(
       {super.key,
-      required this.itemId,
-      required this.itemName,
+      required this.currentCharacter,
       required this.clickCloseButton,
       required this.subCategory});
 
@@ -30,9 +29,12 @@ class _SelectedItem extends State<SelectedItem> {
           color: const Color.fromARGB(255, 230, 222, 218),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: widget.itemId == 'null' ||
-                widget.itemId == '1040036' ||
-                widget.itemId == '1060026'
+        child: widget.currentCharacter.itemMap[widget.subCategory][0] ==
+                    'null' ||
+                widget.currentCharacter.itemMap[widget.subCategory][0] ==
+                    '1040036' ||
+                widget.currentCharacter.itemMap[widget.subCategory][0] ==
+                    '1060026'
             ? const Text('아이템을 선택해주세요')
             : Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -41,7 +43,7 @@ class _SelectedItem extends State<SelectedItem> {
                     width: 10,
                   ),
                   Image.network(
-                    'https://maplestory.io/api/KMST/1157/item/${widget.itemId}/icon',
+                    'https://maplestory.io/api/KMST/1157/item/${widget.currentCharacter.itemMap[widget.subCategory][0]}/icon',
                     width: 25,
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(Icons.image_not_supported_outlined);
@@ -51,7 +53,9 @@ class _SelectedItem extends State<SelectedItem> {
                     width: 10,
                   ),
                   Expanded(
-                      child: Text(widget.itemName,
+                      child: Text(
+                          widget.currentCharacter.itemMap[widget.subCategory]
+                              [1],
                           style: const TextStyle(fontSize: 9))),
                   const SizedBox(
                     width: 10,
