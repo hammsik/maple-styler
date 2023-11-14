@@ -52,7 +52,6 @@ class _ItemList extends State<ItemList> {
                       side: widget.currentClickedItemIdx == index
                           ? BorderSide(
                               width: 2,
-                              // color: Color.fromARGB(255, 181, 103, 103))
                               color: const Color.fromARGB(255, 85, 56, 43)
                                   .withOpacity(0.5),
                             )
