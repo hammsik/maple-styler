@@ -88,7 +88,10 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         children: [
           Row(
             children: [
-              SearchBox(),
+              SearchBox(
+                itemList: widget.itemApiList,
+                buttonClicked: widget.listButtonClicked,
+              ),
               const SizedBox(width: 8),
               UndoAndRedo(
                 undoImage: widget.undoImage,
