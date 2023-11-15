@@ -1,4 +1,4 @@
-package com.example.maple_closet
+package hammsik.maple.styler
 
 import io.flutter.embedding.android.FlutterActivity
 
