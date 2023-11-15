@@ -28,7 +28,7 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
           ),
         ),
         Text(
-          "MAPLE CLOSET",
+          "MAPLE STYLER",
           style: GoogleFonts.nanumMyeongjo(
             color: const Color(0xfff2f2f2),
             fontSize: 18,
