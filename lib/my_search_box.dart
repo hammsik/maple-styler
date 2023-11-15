@@ -123,7 +123,7 @@ class _DetailScreen extends State<DetailScreen> {
     setState(
       () {
         searchedList = searchedTmpList.isEmpty
-            ? Center(child: Text('검색된 아이템이 없습니다'))
+            ? const Center(child: Text('검색된 아이템이 없습니다'))
             : CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: <Widget>[
@@ -150,7 +150,7 @@ class _DetailScreen extends State<DetailScreen> {
                         ),
                         onPressed: () {
                           Navigator.pop(context);
-                          return widget.buttonClicked(
+                          widget.buttonClicked(
                               searchedTmpList[index][2],
                               searchedTmpList[index][0],
                               searchedTmpList[index][1],
@@ -206,10 +206,10 @@ class _DetailScreen extends State<DetailScreen> {
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+          margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 50,
                 child: Row(
                   children: [
@@ -220,7 +220,7 @@ class _DetailScreen extends State<DetailScreen> {
                       ),
                       child: IconButton(
                         onPressed: () => Navigator.pop(context),
-                        icon: Icon(Icons.arrow_back_ios_new_rounded),
+                        icon: const Icon(Icons.arrow_back_ios_new_rounded),
                         color: Colors.black,
                       ),
                     ),
@@ -236,12 +236,12 @@ class _DetailScreen extends State<DetailScreen> {
                           autofocus: true,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            prefix: SizedBox(width: 10),
+                            prefix: const SizedBox(width: 10),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 myController.clear();
                               },
-                              icon: Icon(Icons.highlight_remove_rounded),
+                              icon: const Icon(Icons.highlight_remove_rounded),
                             ),
                             hintText: '아이템 이름 검색',
                           ),
@@ -251,16 +251,16 @@ class _DetailScreen extends State<DetailScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Expanded(
                 child: ClipRRect(
                   borderRadius: const BorderRadius.vertical(
                       top: Radius.circular(12), bottom: Radius.circular(18)),
                   child: Container(
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 230, 222, 218),
+                    decoration: const BoxDecoration(
+                      color: Color.fromARGB(255, 230, 222, 218),
                     ),
-                    padding: EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
                     child: ClipRRect(
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(12),
@@ -269,7 +269,7 @@ class _DetailScreen extends State<DetailScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
             ],
           ),
         ),
