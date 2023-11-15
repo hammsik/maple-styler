@@ -11,14 +11,14 @@ import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'data/backgrounds.dart';
 
-class MapleCloset extends StatefulWidget {
-  const MapleCloset({super.key});
+class MapleStyler extends StatefulWidget {
+  const MapleStyler({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MapleCloset();
+  State<StatefulWidget> createState() => _MapleStyler();
 }
 
-class _MapleCloset extends State<MapleCloset> {
+class _MapleStyler extends State<MapleStyler> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   MyCharacter dodo = MyCharacter();
