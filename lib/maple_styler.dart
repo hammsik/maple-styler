@@ -135,7 +135,6 @@ class _MapleStyler extends State<MapleStyler> {
       home: Scaffold(
         key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
-        endDrawer: Drawer(),
         body: SafeArea(
           child: Container(
             width: MediaQuery.of(context).size.width,
