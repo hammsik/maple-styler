@@ -94,7 +94,7 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreen extends State<DetailScreen> {
   TextEditingController myController = TextEditingController();
 
-  Widget searchedList = Center(child: Text('검색된 아이템이 없습니다'));
+  Widget searchedList = const Center(child: Text('검색된 아이템이 없습니다'));
 
   @override
   void initState() {
@@ -201,7 +201,7 @@ class _DetailScreen extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.5),
+      backgroundColor: Colors.black.withOpacity(0.6),
       body: SafeArea(
         child: Container(
           width: MediaQuery.of(context).size.width,
@@ -209,21 +209,46 @@ class _DetailScreen extends State<DetailScreen> {
           margin: EdgeInsets.only(top: 20, left: 20, right: 20),
           child: Column(
             children: [
-              Hero(
-                tag: 'myHero',
-                child: Material(
-                  color: Colors.transparent,
-                  child: TextField(
-                    controller: myController,
-                    // style:
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: const Color.fromARGB(255, 230, 222, 218),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(14),
+              Container(
+                height: 50,
+                child: Row(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: const Color.fromARGB(255, 230, 222, 218),
+                      ),
+                      child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(Icons.arrow_back_ios_new_rounded),
+                        color: Colors.black,
                       ),
                     ),
-                  ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 230, 222, 218),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: TextField(
+                          controller: myController,
+                          autofocus: true,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefix: SizedBox(width: 10),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                myController.clear();
+                              },
+                              icon: Icon(Icons.highlight_remove_rounded),
+                            ),
+                            hintText: '아이템 이름 검색',
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               SizedBox(height: 10),
