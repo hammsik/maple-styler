@@ -156,7 +156,6 @@ class _MapleCloset extends State<MapleCloset> {
                       margin: const EdgeInsets.only(left: 7, right: 7),
                       color: const Color.fromARGB(255, 181, 103, 103),
                     ),
-                    const SizedBox(height: 14),
                   ],
                 ),
                 // SizedBox(
