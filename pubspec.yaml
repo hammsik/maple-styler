@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  fluttertoast: ^8.2.4
   dio: ^5.3.3
 
   cached_network_image: ^3.3.0
