@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:maple_closet/my_item_list.dart';
 
 class SearchBox extends StatefulWidget {
   final List<List<List<dynamic>>> itemList;
