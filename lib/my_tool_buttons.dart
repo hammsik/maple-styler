@@ -38,11 +38,21 @@ class _MytoolButtons extends State<MytoolButtons> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: widget.clickButtonIdx == item.idx
-                  ? Text(
-                      item.toolName_ko,
-                      style: const TextStyle(color: Colors.white),
-                    )
-                  : Text(item.toolName_ko),
+                  ? item.toolName_ko == '찜'
+                      ? Icon(
+                          Icons.favorite_rounded,
+                          color: Colors.white,
+                        )
+                      : Text(
+                          item.toolName_ko,
+                          style: const TextStyle(color: Colors.white),
+                        )
+                  : item.toolName_ko == '찜'
+                      ? Icon(
+                          Icons.favorite_rounded,
+                          color: Color.fromARGB(255, 181, 103, 103),
+                        )
+                      : Text(item.toolName_ko),
             ),
           ),
         ),
