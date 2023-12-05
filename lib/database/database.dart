@@ -52,6 +52,7 @@ LazyDatabase _openConnection() {
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets
+      print('New database has been created.');
       final blob = await rootBundle.load('assets/maple_styler_item_db.sqlite');
       final buffer = blob.buffer;
       await file.writeAsBytes(
@@ -60,4 +61,16 @@ LazyDatabase _openConnection() {
 
     return NativeDatabase.createInBackground(file);
   });
+}
+
+void deleteDatabase() async {
+  final dbFolder = await getApplicationDocumentsDirectory();
+  final file = File(path.join(dbFolder.path, 'app.db'));
+
+  if (await file.exists()) {
+    await file.delete();
+    print('존재한다 그러므로 삭제한다');
+  } else {
+    print('ss');
+  }
 }
