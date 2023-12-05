@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:maple_closet/api_maple_io.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:maple_closet/api_maple_io.dart';
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_map_buttons.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/database/database.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'data/backgrounds.dart';
 
@@ -28,6 +29,9 @@ class _MapleStyler extends State<MapleStyler> {
   String currentSubCategory = 'Hair';
   List<List<List<dynamic>>> itemApiList = [];
   DateTime? currentBackPressTime;
+  late List<CharacterItem> characterItemList;
+  late List<ArmorItem> armorItemList;
+  late List<AccessoryItem> accessoryItemList;
 
   @override
   void initState() {
@@ -50,7 +54,12 @@ class _MapleStyler extends State<MapleStyler> {
     });
   }
 
-  Future<bool> onWillPop() async {
+  void initDB() async {
+    final database = AppDatabase();
+    characterItemList = await (database.select(database.characterItems)).get();
+  }
+
+  void onWillPop(bool b) {
     DateTime currentTime = DateTime.now();
 
     if (currentBackPressTime == null ||
@@ -63,9 +72,9 @@ class _MapleStyler extends State<MapleStyler> {
           backgroundColor: const Color(0xff6E6E6E),
           fontSize: 20,
           toastLength: Toast.LENGTH_SHORT);
-      return false;
+      return;
     }
-    return true;
+    SystemNavigator.pop();
   }
 
   void _openEndDrawer() {
@@ -152,8 +161,9 @@ class _MapleStyler extends State<MapleStyler> {
     ]);
 
     return MaterialApp(
-      home: WillPopScope(
-        onWillPop: onWillPop,
+      home: PopScope(
+        canPop: false,
+        onPopInvoked: onWillPop,
         child: Scaffold(
           key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
