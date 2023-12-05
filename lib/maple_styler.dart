@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:maple_closet/api_maple_io.dart';
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_map_buttons.dart';
 import 'package:maple_closet/layout_character_board.dart';
@@ -27,36 +26,56 @@ class _MapleStyler extends State<MapleStyler> {
   String background = 'normal';
   int currentListButtonIdx = -1;
   String currentSubCategory = 'Hair';
-  List<List<List<dynamic>>> itemApiList = [];
+  List<List<List<dynamic>>> itemList = [];
   DateTime? currentBackPressTime;
-  late List<CharacterItem> characterItemList;
-  late List<ArmorItem> armorItemList;
-  late List<AccessoryItem> accessoryItemList;
 
   @override
   void initState() {
     super.initState();
-    initItemList();
-  }
-
-  void initItemList() async {
-    List<List<List<dynamic>>> oldList = [];
-    for (int i = 0; i < 3; i++) {
-      for (int subCategory = 0;
-          subCategory < myToolList[i].menuList!.length;
-          subCategory++) {
-        oldList.add(await MapleAPI.getItemList(myToolList[i].toolName_en!,
-            myToolList[i].menuList![subCategory][1]));
-      }
-    }
-    setState(() {
-      itemApiList = oldList;
-    });
+    initDB();
   }
 
   void initDB() async {
     final database = AppDatabase();
-    characterItemList = await (database.select(database.characterItems)).get();
+    List<List<CharacterItem>> characterItemList = [];
+    List<List<ArmorItem>> armorItemList = [];
+    List<List<AccessoryItem>> accessoryItemList = [];
+
+    for (int characterSubCategory = 0;
+        characterSubCategory < myToolList[0].menuList!.length;
+        characterSubCategory++) {
+      characterItemList.add(List.from((await (database
+                  .select(database.characterItems)
+                ..where((item) => item.subCategory
+                    .equals(myToolList[0].menuList![characterSubCategory][1])))
+              .get())
+          .reversed));
+    }
+    for (int armorSubCategory = 0;
+        armorSubCategory < myToolList[1].menuList!.length;
+        armorSubCategory++) {
+      armorItemList.add(List.from((await (database.select(database.armorItems)
+                ..where((item) => item.subCategory
+                    .equals(myToolList[1].menuList![armorSubCategory][1])))
+              .get())
+          .reversed));
+    }
+    for (int accessorySubCategory = 0;
+        accessorySubCategory < myToolList[2].menuList!.length;
+        accessorySubCategory++) {
+      accessoryItemList.add(List.from((await (database
+                  .select(database.accessoryItems)
+                ..where((item) => item.subCategory
+                    .equals(myToolList[2].menuList![accessorySubCategory][1])))
+              .get())
+          .reversed));
+    }
+
+    setState(() {
+      itemList.add(characterItemList);
+      itemList.add(armorItemList);
+      itemList.add(accessoryItemList);
+    });
   }
 
   void onWillPop(bool b) {
@@ -81,8 +100,8 @@ class _MapleStyler extends State<MapleStyler> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setMyCharacter(String inputSubCategory, String inputItemId,
-      String inputItemName, int buttonIdx) {
+  void setMyCharacter(String inputItemId, String inputItemName,
+      String inputSubCategory, int buttonIdx) {
     if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
       setState(() {
         dodo.setMyCharacter(
@@ -189,9 +208,6 @@ class _MapleStyler extends State<MapleStyler> {
                       ),
                     ],
                   ),
-                  // SizedBox(
-                  //   child: CircularProgressIndicator(),
-                  // ),
                   SizedBox(
                     height: 430,
                     child: CachedNetworkImage(
@@ -217,7 +233,7 @@ class _MapleStyler extends State<MapleStyler> {
                       const SizedBox(height: 230),
                       Flexible(
                         fit: FlexFit.loose,
-                        child: itemApiList.isNotEmpty
+                        child: itemList.isNotEmpty
                             ? CoordinatingTools(
                                 listButtonClicked: setMyCharacter,
                                 clickedButtonIdx: currentListButtonIdx,
@@ -225,7 +241,7 @@ class _MapleStyler extends State<MapleStyler> {
                                 clickedClose: takeOffItem,
                                 undoImage: undoImage,
                                 redoImage: redoImage,
-                                itemApiList: itemApiList,
+                                itemList: itemList,
                               )
                             : Container(
                                 alignment: Alignment.center,

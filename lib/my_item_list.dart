@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ItemList extends StatefulWidget {
-  final List<List<dynamic>> itemList;
+  final List<dynamic> itemList;
   final Function buttonClicked;
   final int currentClickedItemIdx;
-  final String subCategoryFilter;
 
-  const ItemList(
-      {super.key,
-      required this.itemList,
-      required this.buttonClicked,
-      required this.currentClickedItemIdx,
-      required this.subCategoryFilter});
+  const ItemList({
+    super.key,
+    required this.itemList,
+    required this.buttonClicked,
+    required this.currentClickedItemIdx,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -66,9 +65,9 @@ class _ItemList extends State<ItemList> {
                           : const Color.fromARGB(255, 201, 191, 191),
                     ),
                     onPressed: () => widget.buttonClicked(
-                        widget.subCategoryFilter,
-                        widget.itemList[index][0],
-                        widget.itemList[index][1],
+                        widget.itemList[index].id.toString(),
+                        widget.itemList[index].name,
+                        widget.itemList[index].subCategory,
                         index),
                     child: Row(
                       children: [
@@ -76,7 +75,7 @@ class _ItemList extends State<ItemList> {
                         Flexible(
                           fit: FlexFit.loose,
                           child: Image.network(
-                            'https://maplestory.io/api/KMST/1157/item/${widget.itemList[index][0]}/icon',
+                            'https://maplestory.io/api/KMST/1157/item/${widget.itemList[index].id}/icon',
                             errorBuilder: (context, error, stackTrace) {
                               return const Icon(
                                   Icons.image_not_supported_outlined);
@@ -94,7 +93,7 @@ class _ItemList extends State<ItemList> {
                           height: double.infinity,
                           margin: const EdgeInsets.all(5),
                           child: Text(
-                            widget.itemList[index][1],
+                            widget.itemList[index].name,
                             style: GoogleFonts.nanumMyeongjo(
                                 color: const Color.fromARGB(255, 0, 0, 0),
                                 fontSize: 10,
