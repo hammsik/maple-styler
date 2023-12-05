@@ -52,7 +52,7 @@ LazyDatabase _openConnection() {
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets
-      final blob = await rootBundle.load('assets/maple_styler_item_db.db');
+      final blob = await rootBundle.load('assets/maple_styler_item_db.sqlite');
       final buffer = blob.buffer;
       await file.writeAsBytes(
           buffer.asUint8List(blob.offsetInBytes, blob.lengthInBytes));
