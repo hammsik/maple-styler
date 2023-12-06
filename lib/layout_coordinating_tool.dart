@@ -18,7 +18,7 @@ class CoordinatingTools extends StatefulWidget {
   final Function() redoImage;
   final MyCharacter currentCharacter;
   int clickedButtonIdx;
-  final List<List<List<dynamic>>> itemApiList;
+  final List<List<List<dynamic>>> itemList;
 
   CoordinatingTools(
       {super.key,
@@ -28,7 +28,7 @@ class CoordinatingTools extends StatefulWidget {
       required this.clickedClose,
       required this.undoImage,
       required this.redoImage,
-      required this.itemApiList});
+      required this.itemList});
 
   @override
   State<StatefulWidget> createState() {
@@ -77,7 +77,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
           Row(
             children: [
               SearchBox(
-                itemList: widget.itemApiList,
+                itemList: widget.itemList,
                 buttonClicked: widget.listButtonClicked,
               ),
               const SizedBox(width: 8),
@@ -116,12 +116,10 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                       Flexible(
                           fit: FlexFit.loose,
                           child: ItemList(
-                            itemList: widget.itemApiList[
-                                myToolList[currentToolIdx].cntIdx! +
-                                    currentMenuIdx],
+                            itemList: widget.itemList[currentToolIdx]
+                                [currentMenuIdx],
                             buttonClicked: widget.listButtonClicked,
                             currentClickedItemIdx: widget.clickedButtonIdx,
-                            subCategoryFilter: subCategoryFilter_en,
                           )),
                     ],
                   )

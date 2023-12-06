@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:maple_closet/api_maple_io.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_map_buttons.dart';
@@ -9,6 +8,7 @@ import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/database/database.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'data/backgrounds.dart';
 
@@ -26,31 +26,59 @@ class _MapleStyler extends State<MapleStyler> {
   String background = 'normal';
   int currentListButtonIdx = -1;
   String currentSubCategory = 'Hair';
-  List<List<List<dynamic>>> itemApiList = [];
+  List<List<List<dynamic>>> itemList = [];
   DateTime? currentBackPressTime;
 
   @override
   void initState() {
     super.initState();
-    initItemList();
+    initDB();
   }
 
-  void initItemList() async {
-    List<List<List<dynamic>>> oldList = [];
-    for (int i = 0; i < 3; i++) {
-      for (int subCategory = 0;
-          subCategory < myToolList[i].menuList!.length;
-          subCategory++) {
-        oldList.add(await MapleAPI.getItemList(myToolList[i].toolName_en!,
-            myToolList[i].menuList![subCategory][1]));
-      }
+  void initDB() async {
+    final database = AppDatabase();
+    List<List<CharacterItem>> characterItemList = [];
+    List<List<ArmorItem>> armorItemList = [];
+    List<List<AccessoryItem>> accessoryItemList = [];
+
+    for (int characterSubCategory = 0;
+        characterSubCategory < myToolList[0].menuList!.length;
+        characterSubCategory++) {
+      characterItemList.add(List.from((await (database
+                  .select(database.characterItems)
+                ..where((item) => item.subCategory
+                    .equals(myToolList[0].menuList![characterSubCategory][1])))
+              .get())
+          .reversed));
     }
+    for (int armorSubCategory = 0;
+        armorSubCategory < myToolList[1].menuList!.length;
+        armorSubCategory++) {
+      armorItemList.add(List.from((await (database.select(database.armorItems)
+                ..where((item) => item.subCategory
+                    .equals(myToolList[1].menuList![armorSubCategory][1])))
+              .get())
+          .reversed));
+    }
+    for (int accessorySubCategory = 0;
+        accessorySubCategory < myToolList[2].menuList!.length;
+        accessorySubCategory++) {
+      accessoryItemList.add(List.from((await (database
+                  .select(database.accessoryItems)
+                ..where((item) => item.subCategory
+                    .equals(myToolList[2].menuList![accessorySubCategory][1])))
+              .get())
+          .reversed));
+    }
+
     setState(() {
-      itemApiList = oldList;
+      itemList.add(characterItemList);
+      itemList.add(armorItemList);
+      itemList.add(accessoryItemList);
     });
   }
 
-  Future<bool> onWillPop() async {
+  void onWillPop(bool b) {
     DateTime currentTime = DateTime.now();
 
     if (currentBackPressTime == null ||
@@ -63,17 +91,17 @@ class _MapleStyler extends State<MapleStyler> {
           backgroundColor: const Color(0xff6E6E6E),
           fontSize: 20,
           toastLength: Toast.LENGTH_SHORT);
-      return false;
+      return;
     }
-    return true;
+    SystemNavigator.pop();
   }
 
   void _openEndDrawer() {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setMyCharacter(String inputSubCategory, String inputItemId,
-      String inputItemName, int buttonIdx) {
+  void setMyCharacter(String inputItemId, String inputItemName,
+      String inputSubCategory, int buttonIdx) {
     if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
       setState(() {
         dodo.setMyCharacter(
@@ -152,8 +180,9 @@ class _MapleStyler extends State<MapleStyler> {
     ]);
 
     return MaterialApp(
-      home: WillPopScope(
-        onWillPop: onWillPop,
+      home: PopScope(
+        canPop: false,
+        onPopInvoked: onWillPop,
         child: Scaffold(
           key: _scaffoldKey,
           resizeToAvoidBottomInset: false,
@@ -179,9 +208,6 @@ class _MapleStyler extends State<MapleStyler> {
                       ),
                     ],
                   ),
-                  // SizedBox(
-                  //   child: CircularProgressIndicator(),
-                  // ),
                   SizedBox(
                     height: 430,
                     child: CachedNetworkImage(
@@ -207,7 +233,7 @@ class _MapleStyler extends State<MapleStyler> {
                       const SizedBox(height: 230),
                       Flexible(
                         fit: FlexFit.loose,
-                        child: itemApiList.isNotEmpty
+                        child: itemList.isNotEmpty
                             ? CoordinatingTools(
                                 listButtonClicked: setMyCharacter,
                                 clickedButtonIdx: currentListButtonIdx,
@@ -215,7 +241,7 @@ class _MapleStyler extends State<MapleStyler> {
                                 clickedClose: takeOffItem,
                                 undoImage: undoImage,
                                 redoImage: redoImage,
-                                itemApiList: itemApiList,
+                                itemList: itemList,
                               )
                             : Container(
                                 alignment: Alignment.center,

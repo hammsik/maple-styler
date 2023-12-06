@@ -106,13 +106,14 @@ class _DetailScreen extends State<DetailScreen> {
   }
 
   void setItemList() {
-    List<List<dynamic>> searchedTmpList = [];
+    List<dynamic> searchedTmpList = [];
     for (int i = 0; i < widget.itemList.length; i++) {
       for (int j = 0; j < widget.itemList[i].length; j++) {
-        if (myController.text.isNotEmpty &&
-            widget.itemList[i][j][1].contains(myController.text)) {
-          List<dynamic> tmp = widget.itemList[i][j];
-          searchedTmpList.add(tmp);
+        for (int k = 0; k < widget.itemList[i][j].length; k++) {
+          if (myController.text.isNotEmpty &&
+              widget.itemList[i][j][k].name.contains(myController.text)) {
+            searchedTmpList.add(widget.itemList[i][j][k]);
+          }
         }
       }
     }
@@ -148,9 +149,9 @@ class _DetailScreen extends State<DetailScreen> {
                         onPressed: () {
                           Navigator.pop(context);
                           widget.buttonClicked(
-                              searchedTmpList[index][2],
-                              searchedTmpList[index][0],
-                              searchedTmpList[index][1],
+                              searchedTmpList[index].id.toString(),
+                              searchedTmpList[index].name,
+                              searchedTmpList[index].subCategory,
                               -1);
                         },
                         child: Row(
@@ -159,7 +160,7 @@ class _DetailScreen extends State<DetailScreen> {
                             Flexible(
                               fit: FlexFit.loose,
                               child: Image.network(
-                                'https://maplestory.io/api/KMST/1157/item/${searchedTmpList[index][0]}/icon',
+                                'https://maplestory.io/api/KMST/1157/item/${searchedTmpList[index].id}/icon',
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Icon(
                                       Icons.image_not_supported_outlined);
@@ -177,7 +178,7 @@ class _DetailScreen extends State<DetailScreen> {
                               height: double.infinity,
                               margin: const EdgeInsets.all(5),
                               child: Text(
-                                searchedTmpList[index][1],
+                                searchedTmpList[index].name,
                                 style: GoogleFonts.nanumMyeongjo(
                                     color: const Color.fromARGB(255, 0, 0, 0),
                                     fontSize: 10,
