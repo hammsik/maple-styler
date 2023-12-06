@@ -32,7 +32,8 @@ dependencies:
     sdk: flutter
   fluttertoast: ^8.2.4
   dio: ^5.3.3
-
+  drift: ^2.13.0
+  sqlite3_flutter_libs: ^0.5.0
   cached_network_image: ^3.3.0
   flutter_cache_manager: ^3.3.1
   path_provider: ^2.1.1
@@ -53,6 +54,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   change_app_package_name: ^1.1.0
+  drift_dev: ^2.13.0
+  build_runner: ^2.4.6
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -98,6 +101,10 @@ flutter:
     - assets\map\icon\icon_kerningcity.jpg
     - assets\map\icon\icon_arcana.jpg
     - assets\map\icon\icon_sernium.jpg
+
+    # db
+    - assets\maple_styler_item_db.sqlite
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
