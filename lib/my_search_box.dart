@@ -107,12 +107,17 @@ class _DetailScreen extends State<DetailScreen> {
 
   void setItemList() {
     List<dynamic> searchedTmpList = [];
-    for (int i = 0; i < widget.itemList.length; i++) {
-      for (int j = 0; j < widget.itemList[i].length; j++) {
-        for (int k = 0; k < widget.itemList[i][j].length; k++) {
+    for (int category = 0; category < widget.itemList.length; category++) {
+      for (int subCategory = 0;
+          subCategory < widget.itemList[category].length;
+          subCategory++) {
+        for (int item = 0;
+            item < widget.itemList[category][subCategory].length;
+            item++) {
           if (myController.text.isNotEmpty &&
-              widget.itemList[i][j][k].name.contains(myController.text)) {
-            searchedTmpList.add(widget.itemList[i][j][k]);
+              widget.itemList[category][subCategory][item].name
+                  .contains(myController.text)) {
+            searchedTmpList.add(widget.itemList[category][subCategory][item]);
           }
         }
       }
