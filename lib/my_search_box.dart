@@ -115,8 +115,9 @@ class _DetailScreen extends State<DetailScreen> {
             item < widget.itemList[category][subCategory].length;
             item++) {
           if (myController.text.isNotEmpty &&
-              widget.itemList[category][subCategory][item].name
-                  .contains(myController.text)) {
+              (widget.itemList[category][subCategory][item].name
+                      .replaceAll(' ', ''))
+                  .contains(myController.text.replaceAll(' ', ''))) {
             searchedTmpList.add(widget.itemList[category][subCategory][item]);
           }
         }
