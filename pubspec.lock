@@ -725,8 +725,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-<<<<<<< HEAD
-=======
   stream_transform:
     dependency: transitive
     description:
@@ -735,7 +733,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
->>>>>>> d1282260746f4712e2e6b50b2c025e94c53cb948
   string_scanner:
     dependency: transitive
     description:
@@ -768,8 +765,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
-<<<<<<< HEAD
-=======
   timing:
     dependency: transitive
     description:
@@ -778,7 +773,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
->>>>>>> d1282260746f4712e2e6b50b2c025e94c53cb948
   typed_data:
     dependency: transitive
     description:
@@ -819,8 +813,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.0"
-<<<<<<< HEAD
-=======
   web_socket_channel:
     dependency: transitive
     description:
@@ -829,7 +821,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
->>>>>>> d1282260746f4712e2e6b50b2c025e94c53cb948
   win32:
     dependency: transitive
     description:
@@ -863,9 +854,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-<<<<<<< HEAD
-  dart: ">=3.2.0-194.0.dev <4.0.0"
-=======
   dart: ">=3.2.0 <4.0.0"
->>>>>>> d1282260746f4712e2e6b50b2c025e94c53cb948
   flutter: ">=3.10.0"
