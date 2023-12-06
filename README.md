@@ -1,8 +1,8 @@
 # 메이플 스타일러 (MAPLE STYLER)
 
-![메이플 스타일러](https://github.com/hammsik/maple-styler/assets/116339092/c145cf6d-a9dc-4dd1-83ee-c5c3507805df)
+<img src= "https://github.com/hammsik/maple-styler/assets/116339092/c145cf6d-a9dc-4dd1-83ee-c5c3507805df" width = "600">
 
-Play Store: [메이플 스타일러](https://play.google.com/store/apps/details?id=hammsik.maple.styler&pcampaignid=web_share)
+Download from PlayStore! [메이플 스타일러](https://play.google.com/store/apps/details?id=hammsik.maple.styler&pcampaignid=web_share)
 
 메이플스토리 내의 다양한 아이템들로 코디를 해볼 수 있는 시뮬레이션 앱입니다. 핵심 기능 구현을 완료하였고, 부가 기능들은 개발 중에 있습니다.
 
