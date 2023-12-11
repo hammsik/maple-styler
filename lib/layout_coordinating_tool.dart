@@ -20,6 +20,7 @@ class CoordinatingTools extends StatefulWidget {
   final Function() undoImage;
   final Function() redoImage;
   final MyCharacter currentCharacter;
+  final MyCharacter currentCharacter2;
   int clickedButtonIdx;
   final List<List<List<dynamic>>> itemList;
 
@@ -29,6 +30,7 @@ class CoordinatingTools extends StatefulWidget {
       required this.colorButtonClicked,
       required this.clickedButtonIdx,
       required this.currentCharacter,
+      required this.currentCharacter2,
       required this.clickedClose,
       required this.undoImage,
       required this.redoImage,
@@ -61,6 +63,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         if (toolIdx == 3) {
           specialWidget = ColorLayout(
             currentCharacter: widget.currentCharacter,
+            currentCharacter2: widget.currentCharacter2,
             colorButtonClicked: widget.colorButtonClicked,
           );
         } else if (toolIdx == 4) {
