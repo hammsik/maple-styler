@@ -23,6 +23,7 @@ class _ItemMenu extends State<ItemMenu> {
   @override
   Widget build(BuildContext context) {
     return MenuAnchor(
+      style: MenuStyle(alignment: Alignment.centerRight),
       builder:
           (BuildContext context, MenuController controller, Widget? child) {
         return Material(
