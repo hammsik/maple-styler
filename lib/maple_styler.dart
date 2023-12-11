@@ -23,6 +23,7 @@ class _MapleStyler extends State<MapleStyler> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   MyCharacter dodo = MyCharacter();
+  MyCharacter dodo2 = MyCharacter();
   String background = 'normal';
   int currentListButtonIdx = -1;
   String currentSubCategory = 'Hair';
@@ -100,12 +101,20 @@ class _MapleStyler extends State<MapleStyler> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setBeauty(int color, String target) {
+  void setBeauty(int color, int targetCharacter, String targetItem) {
     setState(() {
-      if (target == 'hair') {
-        dodo.setHairColor(color.toString());
+      if (targetCharacter == 2) {
+        if (targetItem == 'hair') {
+          dodo2.setHairColor(color.toString());
+        } else {
+          dodo2.setLensColor(color.toString());
+        }
       } else {
-        dodo.setLensColor(color.toString());
+        if (targetItem == 'hair') {
+          dodo.setHairColor(color.toString());
+        } else {
+          dodo.setLensColor(color.toString());
+        }
       }
     });
   }
@@ -115,6 +124,10 @@ class _MapleStyler extends State<MapleStyler> {
     if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
       setState(() {
         dodo.setMyCharacter(
+            subCategory: inputSubCategory,
+            itemId: inputItemId,
+            itemName: inputItemName);
+        dodo2.setMyCharacter(
             subCategory: inputSubCategory,
             itemId: inputItemId,
             itemName: inputItemName);
@@ -133,6 +146,7 @@ class _MapleStyler extends State<MapleStyler> {
 
     setState(() {
       dodo.takeOffItem(subCategory: subCategory);
+      dodo2.takeOffItem(subCategory: subCategory);
       currentListButtonIdx = -1;
     });
   }
@@ -141,6 +155,7 @@ class _MapleStyler extends State<MapleStyler> {
     if (dodo.itemQueueIdx > 0) {
       setState(() {
         dodo.undo();
+        dodo2.undo();
         currentListButtonIdx = -1;
       });
     }
@@ -151,6 +166,7 @@ class _MapleStyler extends State<MapleStyler> {
         dodo.itemQueueIdx < 4) {
       setState(() {
         dodo.redo();
+        dodo2.redo();
         currentListButtonIdx = -1;
       });
     }
@@ -234,6 +250,25 @@ class _MapleStyler extends State<MapleStyler> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 430,
+                    child: Opacity(
+                      opacity: 0.5,
+                      child: CachedNetworkImage(
+                        imageUrl: dodo2.getMyCharacter(),
+                        fadeInDuration: const Duration(milliseconds: 400),
+                        fadeOutDuration: const Duration(milliseconds: 400),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.image_not_supported_outlined),
+                        useOldImageOnUrlChange: true,
+                        cacheManager: CacheManager(
+                          Config("character",
+                              stalePeriod: const Duration(days: 1),
+                              maxNrOfCacheObjects: 20),
+                        ),
+                      ),
+                    ),
+                  ),
                   Column(
                     children: [
                       const SizedBox(height: 20),
@@ -248,6 +283,7 @@ class _MapleStyler extends State<MapleStyler> {
                                 listButtonClicked: setMyCharacter,
                                 clickedButtonIdx: currentListButtonIdx,
                                 currentCharacter: dodo,
+                                currentCharacter2: dodo2,
                                 clickedClose: takeOffItem,
                                 undoImage: undoImage,
                                 redoImage: redoImage,
