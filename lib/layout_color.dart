@@ -18,8 +18,8 @@ class _ColorLayout extends State<ColorLayout> {
         borderRadius: BorderRadius.circular(12),
       ),
       alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width,
-      child: const Text('해당 기능은 준비중입니다.'),
+      // width: MediaQuery.of(context).size.width,
+      child: const Text('컬러 기능은 준비중입니다.'),
     );
   }
 }

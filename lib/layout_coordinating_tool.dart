@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:maple_closet/data/myTools.dart';
-import 'package:maple_closet/layout_ask.dart';
+import 'package:maple_closet/layout_download.dart';
+import 'package:maple_closet/layout_favorite.dart';
+import 'package:maple_closet/layout_color.dart';
 import 'models/skeleton_myCharacter.dart';
 import 'my_search_box.dart';
 import 'my_tool_buttons.dart';
@@ -37,6 +39,8 @@ class CoordinatingTools extends StatefulWidget {
 }
 
 class _CoordinatingTools extends State<CoordinatingTools> {
+  Widget specialWidget = ColorLayout();
+
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
 
@@ -51,6 +55,14 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
         widget.clickedButtonIdx = -1;
         currentMenuIdx = 0;
+      } else {
+        if (toolIdx == 3) {
+          specialWidget = ColorLayout();
+        } else if (toolIdx == 4) {
+          specialWidget = DownloadLayout();
+        } else {
+          specialWidget = FavoriteLayout();
+        }
       }
     });
   }
@@ -123,7 +135,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                           )),
                     ],
                   )
-                : const AskLayout(),
+                : specialWidget,
           ),
         ],
       ),

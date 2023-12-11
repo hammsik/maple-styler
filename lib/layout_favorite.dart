@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class AskLayout extends StatefulWidget {
-  const AskLayout({super.key});
+class FavoriteLayout extends StatefulWidget {
+  const FavoriteLayout({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _AskLayout();
+    return _FavoriteLayout();
   }
 }
 
-class _AskLayout extends State<AskLayout> {
+class _FavoriteLayout extends State<FavoriteLayout> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,8 +18,7 @@ class _AskLayout extends State<AskLayout> {
         borderRadius: BorderRadius.circular(12),
       ),
       alignment: Alignment.center,
-      width: MediaQuery.of(context).size.width,
-      child: const Text('해당 기능은 준비중입니다.'),
+      child: const Text('❤ 기능은 준비중입니다.'),
     );
   }
 }
