@@ -5,6 +5,8 @@ class MyCharacter {
   late Queue<String> itemQueue;
   late int itemQueueIdx;
   late Map<String, dynamic> itemMap;
+  String _currentHairColor = '0'; // 검정색
+  String _currentLensColor = '0'; // 검정색
 
   MyCharacter() {
     itemQueue = DoubleLinkedQueue();
@@ -33,35 +35,48 @@ class MyCharacter {
     addItem();
   }
 
+  void setHairColor(String hairColor) {
+    String hair = itemMap['Hair'][0];
+    itemMap['Hair'][0] = hair.replaceRange(4, 5, hairColor);
+
+    addItem();
+  }
+
+  void setLensColor(String lensColor) {
+    String lens = itemMap['Face'][0];
+    itemMap['Face'][0] = lens.replaceRange(2, 3, lensColor);
+    addItem();
+  }
+
   void setMyCharacter(
       {required String subCategory,
       required String itemId,
       required String itemName}) {
     if (subCategory == 'Head') {
-      itemMap['Head']![0] = itemId;
-      itemMap['Body']![0] = itemId.substring(1);
-      itemMap['Head']![1] = itemName;
-      itemMap['Body']![1] = itemName.substring(1);
+      itemMap['Head'][0] = itemId;
+      itemMap['Body'][0] = itemId.substring(1);
+      itemMap['Head'][1] = itemName;
+      itemMap['Body'][1] = itemName.substring(1);
     } else if (subCategory == 'Overall') {
-      itemMap['Overall']![0] = itemId;
-      itemMap['Top']![0] = '1040036';
-      itemMap['Bottom']![0] = '1060026';
-      itemMap['Overall']![1] = itemName;
-      itemMap['Top']![1] = '상의 이너';
-      itemMap['Bottom']![1] = '하의 이너';
+      itemMap['Overall'][0] = itemId;
+      itemMap['Top'][0] = '1040036';
+      itemMap['Bottom'][0] = '1060026';
+      itemMap['Overall'][1] = itemName;
+      itemMap['Top'][1] = '상의 이너';
+      itemMap['Bottom'][1] = '하의 이너';
     } else if (subCategory == 'Top') {
-      itemMap['Top']![0] = itemId;
-      itemMap['Overall']![0] = 'null';
-      itemMap['Top']![1] = itemName;
-      itemMap['Overall']![1] = 'null';
+      itemMap['Top'][0] = itemId;
+      itemMap['Overall'][0] = 'null';
+      itemMap['Top'][1] = itemName;
+      itemMap['Overall'][1] = 'null';
     } else if (subCategory == 'Bottom') {
-      itemMap['Bottom']![0] = itemId;
-      itemMap['Overall']![0] = 'null';
-      itemMap['Bottom']![1] = itemName;
-      itemMap['Overall']![1] = 'null';
+      itemMap['Bottom'][0] = itemId;
+      itemMap['Overall'][0] = 'null';
+      itemMap['Bottom'][1] = itemName;
+      itemMap['Overall'][1] = 'null';
     } else {
-      itemMap[subCategory]![0] = itemId;
-      itemMap[subCategory]![1] = itemName;
+      itemMap[subCategory][0] = itemId;
+      itemMap[subCategory][1] = itemName;
     }
 
     addItem();

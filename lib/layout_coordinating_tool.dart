@@ -15,6 +15,7 @@ import 'my_selected_item.dart';
 
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
+  final Function colorButtonClicked;
   final Function clickedClose;
   final Function() undoImage;
   final Function() redoImage;
@@ -25,6 +26,7 @@ class CoordinatingTools extends StatefulWidget {
   CoordinatingTools(
       {super.key,
       required this.listButtonClicked,
+      required this.colorButtonClicked,
       required this.clickedButtonIdx,
       required this.currentCharacter,
       required this.clickedClose,
@@ -39,7 +41,7 @@ class CoordinatingTools extends StatefulWidget {
 }
 
 class _CoordinatingTools extends State<CoordinatingTools> {
-  Widget specialWidget = ColorLayout();
+  late Widget specialWidget;
 
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
@@ -57,7 +59,10 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         currentMenuIdx = 0;
       } else {
         if (toolIdx == 3) {
-          specialWidget = ColorLayout();
+          specialWidget = ColorLayout(
+            currentCharacter: widget.currentCharacter,
+            colorButtonClicked: widget.colorButtonClicked,
+          );
         } else if (toolIdx == 4) {
           specialWidget = DownloadLayout();
         } else {

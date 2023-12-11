@@ -100,6 +100,16 @@ class _MapleStyler extends State<MapleStyler> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
+  void setBeauty(int color, String target) {
+    setState(() {
+      if (target == 'hair') {
+        dodo.setHairColor(color.toString());
+      } else {
+        dodo.setLensColor(color.toString());
+      }
+    });
+  }
+
   void setMyCharacter(String inputItemId, String inputItemName,
       String inputSubCategory, int buttonIdx) {
     if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
@@ -242,6 +252,7 @@ class _MapleStyler extends State<MapleStyler> {
                                 undoImage: undoImage,
                                 redoImage: redoImage,
                                 itemList: itemList,
+                                colorButtonClicked: setBeauty,
                               )
                             : Container(
                                 alignment: Alignment.center,
