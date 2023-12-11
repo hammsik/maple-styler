@@ -19,13 +19,6 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        // GestureDetector(
-        //   child: const Icon(
-        //     Icons.info_outlined,
-        //     color: Color(0xfff2f2f2),
-        //     size: 24,
-        //   ),
-        // ),
         Text(
           "MAPLE STYLER",
           style: GoogleFonts.nanumMyeongjo(
