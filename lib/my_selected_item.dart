@@ -21,6 +21,13 @@ class SelectedItem extends StatefulWidget {
 class _SelectedItem extends State<SelectedItem> {
   @override
   Widget build(BuildContext context) {
+    String targetItemId =
+        widget.currentCharacter.itemMap[widget.subCategory][0];
+    if (widget.subCategory == 'Hair') {
+      targetItemId = targetItemId.replaceRange(4, 5, '0');
+    } else if (widget.subCategory == 'Face') {
+      targetItemId = targetItemId.replaceRange(2, 3, '0');
+    }
     return Expanded(
       child: Container(
         alignment: Alignment.center,
@@ -43,7 +50,7 @@ class _SelectedItem extends State<SelectedItem> {
                     width: 10,
                   ),
                   Image.network(
-                    'https://maplestory.io/api/KMST/1157/item/${widget.currentCharacter.itemMap[widget.subCategory][0]}/icon',
+                    'https://maplestory.io/api/KMST/1157/item/$targetItemId/icon',
                     width: 25,
                     errorBuilder: (context, error, stackTrace) {
                       return const Icon(Icons.image_not_supported_outlined);
