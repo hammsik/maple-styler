@@ -101,15 +101,15 @@ class _CoordinatingTools extends State<CoordinatingTools> {
                     children: [
                       Row(
                         children: [
+                          ItemMenu(
+                              currentTool: myToolList[currentToolIdx],
+                              currentMenuItem: subCategoryFilter_ko,
+                              buttonClicked: menuItemClicked),
+                          const SizedBox(width: 8),
                           SelectedItem(
                               currentCharacter: widget.currentCharacter,
                               clickCloseButton: widget.clickedClose,
                               subCategory: subCategoryFilter_en),
-                          const SizedBox(width: 8),
-                          ItemMenu(
-                              currentTool: myToolList[currentToolIdx],
-                              currentMenuItem: subCategoryFilter_ko,
-                              buttonClicked: menuItemClicked)
                         ],
                       ),
                       const SizedBox(height: 8),
