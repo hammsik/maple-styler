@@ -5,8 +5,8 @@ class MyCharacter {
   late Queue<String> itemQueue;
   late int itemQueueIdx;
   late Map<String, dynamic> itemMap;
-  String _currentHairColor = '0'; // 검정색
-  String _currentLensColor = '0'; // 검정색
+  String currentHairColor = '0'; // 검정색
+  String currentLensColor = '0'; // 검정색
 
   MyCharacter() {
     itemQueue = DoubleLinkedQueue();
@@ -36,15 +36,17 @@ class MyCharacter {
   }
 
   void setHairColor(String hairColor) {
+    currentHairColor = hairColor;
     String hair = itemMap['Hair'][0];
-    itemMap['Hair'][0] = hair.replaceRange(4, 5, hairColor);
+    itemMap['Hair'][0] = hair.replaceRange(4, 5, currentHairColor);
 
     addItem();
   }
 
   void setLensColor(String lensColor) {
+    currentLensColor = lensColor;
     String lens = itemMap['Face'][0];
-    itemMap['Face'][0] = lens.replaceRange(2, 3, lensColor);
+    itemMap['Face'][0] = lens.replaceRange(2, 3, currentLensColor);
     addItem();
   }
 

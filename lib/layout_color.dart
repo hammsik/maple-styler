@@ -3,10 +3,10 @@ import 'package:maple_closet/data/colorPalette.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 
 class ColorLayout extends StatefulWidget {
-  MyCharacter currentCharacter;
-  Function colorButtonClicked;
+  final MyCharacter currentCharacter;
+  final Function colorButtonClicked;
 
-  ColorLayout(
+  const ColorLayout(
       {super.key,
       required this.currentCharacter,
       required this.colorButtonClicked});
@@ -43,12 +43,17 @@ class _ColorLayout extends State<ColorLayout> {
                   fixedSize: Size(MediaQuery.of(context).size.width * 0.08,
                       MediaQuery.of(context).size.width * 0.08),
                 ),
-                onPressed: () =>
-                    widget.colorButtonClicked(colorPick[1], 'hair'),
-                child: const Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
+                onPressed: () {
+                  widget.colorButtonClicked(colorPick[1], 'hair');
+                  setState(() {});
+                },
+                child: widget.currentCharacter.currentHairColor ==
+                        colorPick[1].toString()
+                    ? const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      )
+                    : null,
               ),
             ),
           ],
@@ -69,12 +74,19 @@ class _ColorLayout extends State<ColorLayout> {
                   fixedSize: Size(MediaQuery.of(context).size.width * 0.08,
                       MediaQuery.of(context).size.width * 0.08),
                 ),
-                onPressed: () =>
-                    widget.colorButtonClicked(colorPick[1], 'lens'),
-                child: const Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
+                onPressed: () {
+                  widget.colorButtonClicked(colorPick[1], 'lens');
+                  setState(
+                    () {},
+                  );
+                },
+                child: widget.currentCharacter.currentLensColor ==
+                        colorPick[1].toString()
+                    ? const Icon(
+                        Icons.check,
+                        color: Colors.white,
+                      )
+                    : null,
               ),
             ),
           ],
