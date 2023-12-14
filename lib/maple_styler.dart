@@ -130,11 +130,11 @@ class _MapleStyler extends State<MapleStyler> {
         dodo2.currentLensColor = '0';
       }
       setState(() {
-        dodo.setMyCharacter(
+        dodo.updateMyCharacter(
             subCategory: inputSubCategory,
             itemId: inputItemId,
             itemName: inputItemName);
-        dodo2.setMyCharacter(
+        dodo2.updateMyCharacter(
             subCategory: inputSubCategory,
             itemId: inputItemId,
             itemName: inputItemName);

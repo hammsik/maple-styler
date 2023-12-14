@@ -50,31 +50,31 @@ class MyCharacter {
     addItem();
   }
 
-  void setMyCharacter(
+  void updateMyCharacter(
       {required String subCategory,
       required String itemId,
       required String itemName}) {
     if (subCategory == 'Head') {
       itemMap['Head'][0] = itemId;
-      itemMap['Body'][0] = itemId.substring(1);
       itemMap['Head'][1] = itemName;
+      itemMap['Body'][0] = itemId.substring(1);
       itemMap['Body'][1] = itemName.substring(1);
     } else if (subCategory == 'Overall') {
       itemMap['Overall'][0] = itemId;
-      itemMap['Top'][0] = '1040036';
-      itemMap['Bottom'][0] = '1060026';
       itemMap['Overall'][1] = itemName;
+      itemMap['Top'][0] = '1040036';
       itemMap['Top'][1] = '상의 이너';
+      itemMap['Bottom'][0] = '1060026';
       itemMap['Bottom'][1] = '하의 이너';
     } else if (subCategory == 'Top') {
       itemMap['Top'][0] = itemId;
-      itemMap['Overall'][0] = 'null';
       itemMap['Top'][1] = itemName;
+      itemMap['Overall'][0] = 'null';
       itemMap['Overall'][1] = 'null';
     } else if (subCategory == 'Bottom') {
       itemMap['Bottom'][0] = itemId;
-      itemMap['Overall'][0] = 'null';
       itemMap['Bottom'][1] = itemName;
+      itemMap['Overall'][0] = 'null';
       itemMap['Overall'][1] = 'null';
     } else {
       itemMap[subCategory][0] = itemId;
@@ -104,7 +104,7 @@ class MyCharacter {
   }
 
   String addVersionAndRegion(String item) {
-    return '{"itemId":$item, "version":"1157","region":"KMST","animationName":"default"},';
+    return '{"itemId":$item, "version":"1157","region":"KMST"},';
   }
 
   String makeItemsURL() {
@@ -156,10 +156,13 @@ class MyCharacter {
         itemQueue.removeLast();
       }
     }
+
     itemQueue.add(json.encode(itemMap));
+
     if (itemQueue.length > 5) {
       itemQueue.removeFirst();
     }
+
     itemQueueIdx = itemQueue.length - 1;
   }
 
