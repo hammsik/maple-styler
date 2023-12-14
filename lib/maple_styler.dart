@@ -233,10 +233,13 @@ class _MapleStyler extends State<MapleStyler> {
                       CharacterBoard(characterBox: characterBox),
                       const SizedBox(height: 14),
                       Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(1),
+                          color: const Color.fromARGB(255, 181, 103, 103),
+                        ),
                         height: 2,
                         width: double.infinity,
                         margin: const EdgeInsets.only(left: 7, right: 7),
-                        color: const Color.fromARGB(255, 181, 103, 103),
                       ),
                     ],
                   ),
