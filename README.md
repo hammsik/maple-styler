@@ -14,13 +14,9 @@ Download from PlayStore! [메이플 스타일러](https://play.google.com/store/
 5. 실제 인게임 맵을 배경으로 설정하여 배경 별로 내 코디가 어떤 느낌인지 확인할 수 있습니다.
 
 ## 앱 스크린샷
-![Screenshot_20231212_023417](https://github.com/hammsik/maple-styler/assets/116339092/31a1031c-8492-4025-aea7-7e48edbaa0c2)
-![Screenshot_20231212_023427](https://github.com/hammsik/maple-styler/assets/116339092/2ce721c3-fbbd-4e04-b77f-d20b3e73319f)
-![Screenshot_20231212_024036](https://github.com/hammsik/maple-styler/assets/116339092/3ea1a36e-201d-4a0f-9242-b7557ea118f1)
-
-<img src="https://github.com/hammsik/maple-styler/assets/116339092/31a1031c-8492-4025-aea7-7e48edbaa0c2" width="250"/>
-<img src="https://github.com/hammsik/maple-styler/assets/116339092/2ce721c3-fbbd-4e04-b77f-d20b3e73319f" width="250"/>
-<img src="https://github.com/hammsik/maple-styler/assets/116339092/3ea1a36e-201d-4a0f-9242-b7557ea118f1" width="250"/>
+<img src="https://github.com/hammsik/maple-styler/assets/116339092/31a1031c-8492-4025-aea7-7e48edbaa0c2" width="270"/>
+<img src="https://github.com/hammsik/maple-styler/assets/116339092/2ce721c3-fbbd-4e04-b77f-d20b3e73319f" width="270"/>
+<img src="https://github.com/hammsik/maple-styler/assets/116339092/3ea1a36e-201d-4a0f-9242-b7557ea118f1" width="270"/>
 
 ## 개발 중인 기능
 1. 코디, 아이템을 로컬 DB에 저장하고 불러올 수 있는 기능
