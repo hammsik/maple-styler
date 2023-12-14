@@ -15,18 +15,21 @@ class MyCustomAppBar extends StatefulWidget {
 class _MyCustomAppBar extends State<MyCustomAppBar> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          "MAPLE STYLER",
-          style: GoogleFonts.nanumMyeongjo(
-            color: const Color(0xfff2f2f2),
-            fontSize: 18,
+    return SizedBox(
+      height: 28,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            "MAPLE STYLER",
+            style: GoogleFonts.nanumMyeongjo(
+              color: const Color(0xfff2f2f2),
+              fontSize: 18,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
