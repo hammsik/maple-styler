@@ -169,8 +169,7 @@ class _MapleStyler extends State<MapleStyler> {
   }
 
   void redoImage() {
-    if (dodo.itemQueue.length > dodo.itemQueueIdx + 1 &&
-        dodo.itemQueueIdx < 4) {
+    if (dodo.itemQueue.length > dodo.itemQueueIdx + 1) {
       setState(() {
         dodo.redo();
         dodo2.redo();

@@ -152,7 +152,8 @@ class MyCharacter {
 
   void addItem() {
     if (itemQueueIdx < itemQueue.length - 1) {
-      for (int i = itemQueueIdx + 1; i < itemQueue.length; i++) {
+      int previousLength = itemQueue.length;
+      for (int i = itemQueueIdx + 1; i < previousLength; i++) {
         itemQueue.removeLast();
       }
     }
