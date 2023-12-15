@@ -201,7 +201,7 @@ class _MapleStyler extends State<MapleStyler> {
       );
     } else {
       characterBox = Image.asset(
-        fit: BoxFit.cover,
+        fit: BoxFit.fitHeight,
         backgroundsList[background]![1],
       );
     }
