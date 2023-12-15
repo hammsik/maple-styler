@@ -39,7 +39,7 @@ class _MytoolButtons extends State<MytoolButtons> {
               ),
               child: widget.clickButtonIdx == item.idx
                   ? item.toolName_ko == '찜'
-                      ? Icon(
+                      ? const Icon(
                           Icons.favorite_rounded,
                           color: Colors.white,
                         )
@@ -48,7 +48,7 @@ class _MytoolButtons extends State<MytoolButtons> {
                           style: const TextStyle(color: Colors.white),
                         )
                   : item.toolName_ko == '찜'
-                      ? Icon(
+                      ? const Icon(
                           Icons.favorite_rounded,
                           color: Color.fromARGB(255, 181, 103, 103),
                         )

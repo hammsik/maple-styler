@@ -13,6 +13,7 @@ import 'my_item_list.dart';
 import 'my_item_menu.dart';
 import 'my_selected_item.dart';
 
+// ignore: must_be_immutable
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
   final Function colorButtonClicked;
@@ -67,9 +68,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
             colorButtonClicked: widget.colorButtonClicked,
           );
         } else if (toolIdx == 4) {
-          specialWidget = DownloadLayout();
+          specialWidget = const DownloadLayout();
         } else {
-          specialWidget = FavoriteLayout();
+          specialWidget = const FavoriteLayout();
         }
       }
     });
