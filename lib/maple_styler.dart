@@ -26,7 +26,6 @@ class _MapleStyler extends State<MapleStyler> {
   MyCharacter dodo2 = MyCharacter();
   String background = 'normal';
   int currentListButtonIdx = -1;
-  String currentSubCategory = 'Hair';
   List<List<List<dynamic>>> itemList = [];
   DateTime? currentBackPressTime;
 
@@ -139,7 +138,6 @@ class _MapleStyler extends State<MapleStyler> {
             itemId: inputItemId,
             itemName: inputItemName);
         currentListButtonIdx = buttonIdx;
-        currentSubCategory = inputSubCategory;
       });
     }
   }
