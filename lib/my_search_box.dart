@@ -15,6 +15,8 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBox extends State<SearchBox> {
+  String searchedWord = '제복';
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -25,8 +27,10 @@ class _SearchBox extends State<SearchBox> {
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
                   DetailScreen(
-                      itemList: widget.itemList,
-                      buttonClicked: widget.buttonClicked),
+                itemList: widget.itemList,
+                buttonClicked: widget.buttonClicked,
+                searchedWord: searchedWord,
+              ),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
                 // 페이드 인 애니메이션을 적용
@@ -48,25 +52,25 @@ class _SearchBox extends State<SearchBox> {
             padding: const EdgeInsets.all(0),
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             backgroundColor: const Color.fromARGB(255, 230, 222, 218),
-            foregroundColor: Colors.black.withOpacity(0.3)),
-        child: const Row(children: [
-          SizedBox(
+            foregroundColor: Colors.black),
+        child: Row(children: [
+          const SizedBox(
             width: 10,
           ),
-          Icon(
+          const Icon(
             Icons.search_rounded,
             size: 25,
             color: Colors.black,
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
               child: Text(
-            '',
+            searchedWord,
             textAlign: TextAlign.end,
           )),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
         ]),
@@ -78,9 +82,13 @@ class _SearchBox extends State<SearchBox> {
 class DetailScreen extends StatefulWidget {
   final List<List<List<dynamic>>> itemList;
   final Function buttonClicked;
+  final String searchedWord;
 
   const DetailScreen(
-      {super.key, required this.itemList, required this.buttonClicked});
+      {super.key,
+      required this.itemList,
+      required this.buttonClicked,
+      required this.searchedWord});
 
   @override
   State<StatefulWidget> createState() {
@@ -90,11 +98,11 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreen extends State<DetailScreen> {
   TextEditingController myController = TextEditingController();
-
   Widget searchedList = const Center(child: Text('검색된 아이템이 없습니다'));
 
   @override
   void initState() {
+    myController.text = widget.searchedWord;
     myController.addListener(setItemList);
     super.initState();
   }
