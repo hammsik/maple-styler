@@ -121,13 +121,6 @@ class _MapleStyler extends State<MapleStyler> {
   void setMyCharacter(String inputItemId, String inputItemName,
       String inputSubCategory, int buttonIdx) {
     if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
-      if (inputSubCategory == 'Hair') {
-        dodo.currentHairColor = '0';
-        dodo2.currentHairColor = '0';
-      } else if (inputSubCategory == 'Face') {
-        dodo.currentLensColor = '0';
-        dodo2.currentLensColor = '0';
-      }
       setState(() {
         dodo.updateMyCharacter(
             subCategory: inputSubCategory,

@@ -37,16 +37,16 @@ class MyCharacter {
 
   void setHairColor(String hairColor) {
     currentHairColor = hairColor;
-    String hair = itemMap['Hair'][0];
-    itemMap['Hair'][0] = hair.replaceRange(4, 5, currentHairColor);
+    itemMap['Hair'][0] =
+        itemMap['Hair'][0].replaceRange(4, 5, currentHairColor);
 
     addItem();
   }
 
   void setLensColor(String lensColor) {
     currentLensColor = lensColor;
-    String lens = itemMap['Face'][0];
-    itemMap['Face'][0] = lens.replaceRange(2, 3, currentLensColor);
+    itemMap['Face'][0] =
+        itemMap['Face'][0].replaceRange(2, 3, currentLensColor);
     addItem();
   }
 
@@ -77,7 +77,13 @@ class MyCharacter {
       itemMap['Overall'][0] = 'null';
       itemMap['Overall'][1] = 'null';
     } else {
-      itemMap[subCategory][0] = itemId;
+      if (subCategory == 'Hair') {
+        itemMap['Hair'][0] = itemId.replaceRange(4, 5, currentHairColor);
+      } else if (subCategory == 'Face') {
+        itemMap['Face'][0] = itemId.replaceRange(2, 3, currentLensColor);
+      } else {
+        itemMap[subCategory][0] = itemId;
+      }
       itemMap[subCategory][1] = itemName;
     }
 
