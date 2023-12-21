@@ -13,7 +13,7 @@ class MyCharacter {
     itemQueueIdx = 0;
     itemMap = {
       //뷰티
-      'Hair': ['68090', '검은색 허쉬 헤어'],
+      'Hair': ['68090', '허쉬 헤어'],
       'Face': ['50137', '차차 얼굴'],
       'Head': ['12016', '홍조 꽃잎 피부'],
       'Body': ['2016', 'null'],
