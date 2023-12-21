@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_download.dart';
 import 'package:maple_closet/layout_favorite.dart';
@@ -44,8 +43,6 @@ class CoordinatingTools extends StatefulWidget {
 }
 
 class _CoordinatingTools extends State<CoordinatingTools> {
-  late Widget specialWidget;
-
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
 
@@ -60,18 +57,6 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         subCategoryFilter_en = myToolList[toolIdx].menuList![0][1];
         widget.clickedButtonIdx = -1;
         currentMenuIdx = 0;
-      } else {
-        if (toolIdx == 3) {
-          specialWidget = ColorLayout(
-            currentCharacter: widget.currentCharacter,
-            currentCharacter2: widget.currentCharacter2,
-            colorButtonClicked: widget.colorButtonClicked,
-          );
-        } else if (toolIdx == 4) {
-          specialWidget = const DownloadLayout();
-        } else {
-          specialWidget = const FavoriteLayout();
-        }
       }
     });
   }
@@ -88,6 +73,20 @@ class _CoordinatingTools extends State<CoordinatingTools> {
 
   @override
   Widget build(BuildContext context) {
+    Widget specialWidget;
+
+    if (currentToolIdx == 3) {
+      specialWidget = ColorLayout(
+        currentCharacter: widget.currentCharacter,
+        currentCharacter2: widget.currentCharacter2,
+        colorButtonClicked: widget.colorButtonClicked,
+      );
+    } else if (currentToolIdx == 4) {
+      specialWidget = const DownloadLayout();
+    } else {
+      specialWidget = const FavoriteLayout();
+    }
+
     return DefaultTextStyle(
       style: GoogleFonts.nanumMyeongjo(
           color: const Color.fromARGB(255, 0, 0, 0),

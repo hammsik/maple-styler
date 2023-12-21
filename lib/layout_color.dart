@@ -46,7 +46,6 @@ class _ColorLayout extends State<ColorLayout> {
                 ),
                 onPressed: () {
                   widget.colorButtonClicked(colorPick[1], 1, 'hair');
-                  setState(() {});
                 },
                 child: widget.currentCharacter.currentHairColor ==
                         colorPick[1].toString()
@@ -75,7 +74,6 @@ class _ColorLayout extends State<ColorLayout> {
                 ),
                 onPressed: () {
                   widget.colorButtonClicked(colorPick[1], 2, 'hair');
-                  setState(() {});
                 },
                 child: widget.currentCharacter2.currentHairColor ==
                         colorPick[1].toString()
@@ -106,9 +104,6 @@ class _ColorLayout extends State<ColorLayout> {
                 ),
                 onPressed: () {
                   widget.colorButtonClicked(colorPick[1], 1, 'lens');
-                  setState(
-                    () {},
-                  );
                 },
                 child: widget.currentCharacter.currentLensColor ==
                         colorPick[1].toString()
@@ -137,9 +132,6 @@ class _ColorLayout extends State<ColorLayout> {
                 ),
                 onPressed: () {
                   widget.colorButtonClicked(colorPick[1], 2, 'lens');
-                  setState(
-                    () {},
-                  );
                 },
                 child: widget.currentCharacter2.currentLensColor ==
                         colorPick[1].toString()

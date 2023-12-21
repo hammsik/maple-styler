@@ -39,15 +39,12 @@ class MyCharacter {
     currentHairColor = hairColor;
     itemMap['Hair'][0] =
         itemMap['Hair'][0].replaceRange(4, 5, currentHairColor);
-
-    addItem();
   }
 
   void setLensColor(String lensColor) {
     currentLensColor = lensColor;
     itemMap['Face'][0] =
         itemMap['Face'][0].replaceRange(2, 3, currentLensColor);
-    addItem();
   }
 
   void updateMyCharacter(
@@ -180,9 +177,13 @@ class MyCharacter {
 
   void undo() {
     itemMap = json.decode(itemQueue.elementAt(--itemQueueIdx));
+    setHairColor(currentHairColor);
+    setLensColor(currentLensColor);
   }
 
   void redo() {
     itemMap = json.decode(itemQueue.elementAt(++itemQueueIdx));
+    setHairColor(currentHairColor);
+    setLensColor(currentLensColor);
   }
 }
