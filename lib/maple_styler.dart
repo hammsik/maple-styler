@@ -177,6 +177,17 @@ class _MapleStyler extends State<MapleStyler> {
     });
   }
 
+  Future<Image> getImage(MyCharacter c) async {
+    return Image.network(c.getMyCharacter());
+  }
+
+  Future<List<Image>> getList() async {
+    List<Future<Image>> i_List = [];
+    i_List.add(getImage(dodo));
+    i_List.add(getImage(dodo2));
+    return await Future.wait(i_List);
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -184,6 +195,10 @@ class _MapleStyler extends State<MapleStyler> {
           statusBarIconBrightness: Brightness.light,
           statusBarColor: Color(0xff2B3A55)),
     );
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp, // 세로 방향 고정
+      DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
+    ]);
 
     Widget characterBox;
     if (background == 'normal') {
@@ -196,11 +211,6 @@ class _MapleStyler extends State<MapleStyler> {
         backgroundsList[background]![1],
       );
     }
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp, // 세로 방향 고정
-      DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
-    ]);
 
     return MaterialApp(
       home: PopScope(
@@ -236,36 +246,21 @@ class _MapleStyler extends State<MapleStyler> {
                   ),
                   SizedBox(
                     height: 430,
-                    child: CachedNetworkImage(
-                      imageUrl: dodo.getMyCharacter(),
-                      fadeInDuration: const Duration(milliseconds: 400),
-                      fadeOutDuration: const Duration(milliseconds: 400),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.image_not_supported_outlined),
-                      useOldImageOnUrlChange: true,
-                      cacheManager: CacheManager(
-                        Config("character",
-                            stalePeriod: const Duration(days: 1),
-                            maxNrOfCacheObjects: 20),
-                      ),
+                    child: FutureBuilder(
+                      future: getList(),
+                      builder: (context, snapshot) =>
+                          snapshot.connectionState == ConnectionState.waiting
+                              ? Text('기달')
+                              : snapshot.data![0],
                     ),
                   ),
                   SizedBox(
                     height: 430,
                     child: Opacity(
                       opacity: 0.5,
-                      child: CachedNetworkImage(
-                        imageUrl: dodo2.getMyCharacter(),
-                        fadeInDuration: const Duration(milliseconds: 400),
-                        fadeOutDuration: const Duration(milliseconds: 400),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.image_not_supported_outlined),
-                        useOldImageOnUrlChange: true,
-                        cacheManager: CacheManager(
-                          Config("character",
-                              stalePeriod: const Duration(days: 1),
-                              maxNrOfCacheObjects: 20),
-                        ),
+                      child: FutureBuilder(
+                        future: getList(),
+                        builder: (context, snapshot) => snapshot.data![1],
                       ),
                     ),
                   ),
