@@ -5,16 +5,14 @@ class MyCharacter {
   late Queue<String> itemQueue;
   late int itemQueueIdx;
   late Map<String, dynamic> itemMap;
-  String currentHairColor = '0'; // 검정색
-  String currentLensColor = '0'; // 검정색
 
   MyCharacter() {
     itemQueue = DoubleLinkedQueue();
     itemQueueIdx = 0;
     itemMap = {
       //뷰티
-      'Hair': ['68090', '허쉬 헤어'],
-      'Face': ['50137', '차차 얼굴'],
+      'Hair': ['68090', '허쉬 헤어', '0'],
+      'Face': ['50137', '차차 얼굴', '0'],
       'Head': ['12016', '홍조 꽃잎 피부'],
       'Body': ['2016', 'null'],
       //장비
@@ -32,19 +30,22 @@ class MyCharacter {
       'Eye Decoration': ['null', 'null'],
       'Earrings': ['null', 'null'],
     };
+
     addItem();
   }
 
   void setHairColor(String hairColor) {
-    currentHairColor = hairColor;
-    itemMap['Hair'][0] =
-        itemMap['Hair'][0].replaceRange(4, 5, currentHairColor);
+    itemMap['Hair'][2] = hairColor;
+    itemMap['Hair'][0] = itemMap['Hair'][0].replaceRange(4, 5, hairColor);
+
+    addItem();
   }
 
   void setLensColor(String lensColor) {
-    currentLensColor = lensColor;
-    itemMap['Face'][0] =
-        itemMap['Face'][0].replaceRange(2, 3, currentLensColor);
+    itemMap['Face'][2] = lensColor;
+    itemMap['Face'][0] = itemMap['Face'][0].replaceRange(2, 3, lensColor);
+
+    addItem();
   }
 
   void updateMyCharacter(
@@ -75,9 +76,9 @@ class MyCharacter {
       itemMap['Overall'][1] = 'null';
     } else {
       if (subCategory == 'Hair') {
-        itemMap['Hair'][0] = itemId.replaceRange(4, 5, currentHairColor);
+        itemMap['Hair'][0] = itemId.replaceRange(4, 5, itemMap['Hair'][2]);
       } else if (subCategory == 'Face') {
-        itemMap['Face'][0] = itemId.replaceRange(2, 3, currentLensColor);
+        itemMap['Face'][0] = itemId.replaceRange(2, 3, itemMap['Face'][2]);
       } else {
         itemMap[subCategory][0] = itemId;
       }
@@ -177,13 +178,9 @@ class MyCharacter {
 
   void undo() {
     itemMap = json.decode(itemQueue.elementAt(--itemQueueIdx));
-    setHairColor(currentHairColor);
-    setLensColor(currentLensColor);
   }
 
   void redo() {
     itemMap = json.decode(itemQueue.elementAt(++itemQueueIdx));
-    setHairColor(currentHairColor);
-    setLensColor(currentLensColor);
   }
 }

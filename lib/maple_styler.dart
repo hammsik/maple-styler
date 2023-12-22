@@ -100,20 +100,14 @@ class _MapleStyler extends State<MapleStyler> {
     _scaffoldKey.currentState!.openEndDrawer();
   }
 
-  void setBeauty(int color, int targetCharacter, String targetItem) {
+  void setBeauty(String target, int color1, int color2) {
     setState(() {
-      if (targetCharacter == 2) {
-        if (targetItem == 'hair') {
-          dodo2.setHairColor(color.toString());
-        } else {
-          dodo2.setLensColor(color.toString());
-        }
+      if (target == 'hair') {
+        dodo.setHairColor(color1.toString());
+        dodo2.setHairColor(color2.toString());
       } else {
-        if (targetItem == 'hair') {
-          dodo.setHairColor(color.toString());
-        } else {
-          dodo.setLensColor(color.toString());
-        }
+        dodo.setLensColor(color1.toString());
+        dodo2.setLensColor(color2.toString());
       }
     });
   }
@@ -288,7 +282,7 @@ class _MapleStyler extends State<MapleStyler> {
                                 undoImage: undoImage,
                                 redoImage: redoImage,
                                 itemList: itemList,
-                                colorButtonClicked: setBeauty,
+                                colorApplyButtonClicked: setBeauty,
                               )
                             : Container(
                                 alignment: Alignment.center,

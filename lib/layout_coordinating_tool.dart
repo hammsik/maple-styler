@@ -15,7 +15,7 @@ import 'my_selected_item.dart';
 // ignore: must_be_immutable
 class CoordinatingTools extends StatefulWidget {
   final Function listButtonClicked;
-  final Function colorButtonClicked;
+  final Function colorApplyButtonClicked;
   final Function clickedClose;
   final Function() undoImage;
   final Function() redoImage;
@@ -27,7 +27,7 @@ class CoordinatingTools extends StatefulWidget {
   CoordinatingTools(
       {super.key,
       required this.listButtonClicked,
-      required this.colorButtonClicked,
+      required this.colorApplyButtonClicked,
       required this.clickedButtonIdx,
       required this.currentCharacter,
       required this.currentCharacter2,
@@ -79,7 +79,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
       specialWidget = ColorLayout(
         currentCharacter: widget.currentCharacter,
         currentCharacter2: widget.currentCharacter2,
-        colorButtonClicked: widget.colorButtonClicked,
+        applyButtonClicked: widget.colorApplyButtonClicked,
       );
     } else if (currentToolIdx == 4) {
       specialWidget = const DownloadLayout();
