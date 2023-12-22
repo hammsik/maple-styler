@@ -12,13 +12,50 @@ class FavoriteLayout extends StatefulWidget {
 class _FavoriteLayout extends State<FavoriteLayout> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 230, 222, 218),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      alignment: Alignment.center,
-      child: const Text('❤ 기능은 준비중입니다.'),
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 230, 222, 218),
+                  minimumSize: Size(0, 40),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                onPressed: () {},
+                child: Text('아이템'),
+              ),
+            ),
+            SizedBox(width: 10),
+            Expanded(
+              child: FilledButton(
+                style: FilledButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 230, 222, 218),
+                  minimumSize: Size(0, 40),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                onPressed: () {},
+                child: Text('캐릭터'),
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 10),
+        Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 230, 222, 218),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: null,
+          ),
+        ),
+      ],
     );
   }
 }
