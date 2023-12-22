@@ -41,7 +41,7 @@ class _MytoolButtons extends State<MytoolButtons> {
                   ? item.toolName_ko == '찜'
                       ? const Icon(
                           Icons.favorite_rounded,
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 230, 222, 218),
                         )
                       : Text(
                           item.toolName_ko,
