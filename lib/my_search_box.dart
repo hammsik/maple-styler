@@ -15,7 +15,7 @@ class SearchBox extends StatefulWidget {
 }
 
 class _SearchBox extends State<SearchBox> {
-  String searchedWord = '제복';
+  String searchedWord = '';
 
   @override
   Widget build(BuildContext context) {
