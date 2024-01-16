@@ -45,7 +45,7 @@ class _FavoriteLayout extends State<FavoriteLayout> {
             ),
           ],
         ),
-        SizedBox(height: 10),
+        SizedBox(height: 8),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
