@@ -35,20 +35,42 @@ class AccessoryItems extends Table {
   Set<Column> get primaryKey => {id};
 }
 
+class UserFavoriteItems extends Table {
+  IntColumn get id => integer()();
+  TextColumn get name => text()();
+  TextColumn get subCategory => text()();
+
+  @override
+  Set<Column> get primaryKey => {id};
+}
+
+class UserFavoriteCharacters extends Table {
+  IntColumn get id => integer().autoIncrement()();
+  TextColumn get characterInfo => text()();
+}
+
 @DriftDatabase(tables: [CharacterItems, ArmorItems, AccessoryItems])
-class AppDatabase extends _$AppDatabase {
-  AppDatabase() : super(_openConnection());
+class ItemDatabase extends _$ItemDatabase {
+  ItemDatabase() : super(_openItemDBConnection());
 
   @override
   int get schemaVersion => 1;
 }
 
-LazyDatabase _openConnection() {
+@DriftDatabase(tables: [UserFavoriteItems, UserFavoriteCharacters])
+class UserFavoriteDataBase extends _$UserFavoriteDataBase {
+  UserFavoriteDataBase() : super(_openUserDBConnection());
+
+  @override
+  int get schemaVersion => 1;
+}
+
+LazyDatabase _openItemDBConnection() {
   return LazyDatabase(() async {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(path.join(dbFolder.path, 'app.db'));
+    final file = File(path.join(dbFolder.path, 'item.db'));
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets
@@ -63,9 +85,19 @@ LazyDatabase _openConnection() {
   });
 }
 
-void deleteDatabase() async {
+LazyDatabase _openUserDBConnection() {
+  return LazyDatabase(() async {
+    // put the database file, called db.sqlite here, into the documents folder
+    // for your app.
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(path.join(dbFolder.path, 'user.db'));
+    return NativeDatabase.createInBackground(file);
+  });
+}
+
+void deleteDatabase(String targetDB) async {
   final dbFolder = await getApplicationDocumentsDirectory();
-  final file = File(path.join(dbFolder.path, 'app.db'));
+  final file = File(path.join(dbFolder.path, targetDB));
 
   if (await file.exists()) {
     await file.delete();

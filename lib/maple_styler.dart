@@ -36,7 +36,7 @@ class _MapleStyler extends State<MapleStyler> {
   }
 
   void initDB() async {
-    final database = AppDatabase();
+    final database = ItemDatabase();
     List<List<CharacterItem>> characterItemList = [];
     List<List<ArmorItem>> armorItemList = [];
     List<List<AccessoryItem>> accessoryItemList = [];
