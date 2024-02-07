@@ -12,6 +12,7 @@ class CharacterItems extends Table {
   IntColumn get id => integer()();
   TextColumn get name => text()();
   TextColumn get subCategory => text()();
+  IntColumn get gender => integer()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -21,6 +22,7 @@ class ArmorItems extends Table {
   IntColumn get id => integer()();
   TextColumn get name => text()();
   TextColumn get subCategory => text()();
+  IntColumn get gender => integer()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -30,6 +32,8 @@ class AccessoryItems extends Table {
   IntColumn get id => integer()();
   TextColumn get name => text()();
   TextColumn get subCategory => text()();
+  IntColumn get gender => integer()();
+  BoolColumn get isFullFaceCover => boolean().nullable()();
 
   @override
   Set<Column> get primaryKey => {id};
@@ -37,8 +41,6 @@ class AccessoryItems extends Table {
 
 class UserFavoriteItems extends Table {
   IntColumn get id => integer()();
-  TextColumn get name => text()();
-  TextColumn get subCategory => text()();
 
   @override
   Set<Column> get primaryKey => {id};

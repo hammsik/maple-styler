@@ -89,12 +89,6 @@ class MyCharacter {
   }
 
   void takeOffItem({required String subCategory}) {
-    if (subCategory == 'Hair' ||
-        subCategory == 'Face' ||
-        subCategory == 'Head') {
-      return;
-    }
-
     if (subCategory == 'Top') {
       itemMap['Top']![0] = '1040036';
     } else if (subCategory == 'Bottom') {
@@ -108,7 +102,7 @@ class MyCharacter {
   }
 
   String addVersionAndRegion(String item) {
-    return '{"itemId":$item, "version":"1157","region":"KMST"},';
+    return '{"itemId":$item, "version":"1168","region":"KMST"},';
   }
 
   String makeItemsURL() {
