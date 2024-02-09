@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class DownloadLayout extends StatefulWidget {
-  const DownloadLayout({super.key});
+class UndefinedLayout extends StatefulWidget {
+  const UndefinedLayout({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _DownloadLayout();
+    return _UndefinedLayout();
   }
 }
 
-class _DownloadLayout extends State<DownloadLayout> {
+class _UndefinedLayout extends State<UndefinedLayout> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +18,7 @@ class _DownloadLayout extends State<DownloadLayout> {
         borderRadius: BorderRadius.circular(12),
       ),
       alignment: Alignment.center,
-      child: const Text('저장 기능은 준비중입니다.'),
+      child: const Text('? 기능은 준비중입니다.'),
     );
   }
 }

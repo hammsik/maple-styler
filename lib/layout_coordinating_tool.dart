@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/data/myTools.dart';
-import 'package:maple_closet/layout_download.dart';
-import 'package:maple_closet/layout_favorite.dart';
+import 'package:maple_closet/layout_Favorite.dart';
 import 'package:maple_closet/layout_color.dart';
+import 'package:maple_closet/layout_undifined.dart';
 import 'models/skeleton_myCharacter.dart';
 import 'my_search_box.dart';
 import 'my_tool_buttons.dart';
@@ -82,7 +82,7 @@ class _CoordinatingTools extends State<CoordinatingTools> {
         applyButtonClicked: widget.colorApplyButtonClicked,
       );
     } else if (currentToolIdx == 4) {
-      specialWidget = const DownloadLayout();
+      specialWidget = const UndefinedLayout();
     } else {
       specialWidget = const FavoriteLayout();
     }

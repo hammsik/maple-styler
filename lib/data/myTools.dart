@@ -42,6 +42,6 @@ List<MyTool> myToolList = [
         ['귀고리', 'Earrings', '2']
       ]),
   MyTool(idx: 3, toolName_ko: '컬러', isNeedMenu: false),
-  MyTool(idx: 4, toolName_ko: '저장', isNeedMenu: false),
+  MyTool(idx: 4, toolName_ko: '?', isNeedMenu: false),
   MyTool(idx: 5, toolName_ko: '찜', isNeedMenu: false),
 ];
