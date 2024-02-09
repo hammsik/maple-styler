@@ -17,32 +17,36 @@ class SearchBox extends StatefulWidget {
 class _SearchBox extends State<SearchBox> {
   String searchedWord = '';
 
+  void openSearchScreen(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => DetailScreen(
+          itemList: widget.itemList,
+          buttonClicked: widget.buttonClicked,
+          searchedWord: searchedWord,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // 페이드 인 애니메이션을 적용
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        opaque: false,
+      ),
+    );
+
+    if (result != null) {
+      setState(() => searchedWord = result);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: FilledButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation, secondaryAnimation) =>
-                  DetailScreen(
-                itemList: widget.itemList,
-                buttonClicked: widget.buttonClicked,
-                searchedWord: searchedWord,
-              ),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                // 페이드 인 애니메이션을 적용
-                return FadeTransition(
-                  opacity: animation,
-                  child: child,
-                );
-              },
-              opaque: false,
-            ),
-          );
-        },
+        onPressed: () => openSearchScreen(context),
         style: FilledButton.styleFrom(
             minimumSize: Size.zero,
             fixedSize: const Size(20, 35),
@@ -68,6 +72,10 @@ class _SearchBox extends State<SearchBox> {
           Expanded(
               child: Text(
             searchedWord,
+            style: GoogleFonts.nanumMyeongjo(
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+            ),
             textAlign: TextAlign.end,
           )),
           const SizedBox(
@@ -98,7 +106,11 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreen extends State<DetailScreen> {
   TextEditingController myController = TextEditingController();
-  Widget searchedList = const Center(child: Text('검색된 아이템이 없습니다'));
+  Widget searchedList = const Center(
+    child: Text(
+      '검색된 아이템이 없습니다',
+    ),
+  );
 
   @override
   void initState() {
@@ -135,7 +147,14 @@ class _DetailScreen extends State<DetailScreen> {
     setState(
       () {
         searchedList = searchedTmpList.isEmpty
-            ? const Center(child: Text('검색된 아이템이 없습니다'))
+            ? Center(
+                child: Text(
+                '검색된 아이템이 없습니다',
+                style: GoogleFonts.nanumMyeongjo(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ))
             : CustomScrollView(
                 physics: const BouncingScrollPhysics(),
                 slivers: <Widget>[
@@ -161,7 +180,7 @@ class _DetailScreen extends State<DetailScreen> {
                               const Color.fromARGB(255, 201, 191, 191),
                         ),
                         onPressed: () {
-                          Navigator.pop(context);
+                          Navigator.pop(context, myController.text);
                           widget.buttonClicked(
                               searchedTmpList[index].id.toString(),
                               searchedTmpList[index].name,
@@ -212,77 +231,88 @@ class _DetailScreen extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black.withOpacity(0.6),
-      body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 50,
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: const Color.fromARGB(255, 230, 222, 218),
-                      ),
-                      child: IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: const Icon(Icons.arrow_back_ios_new_rounded),
-                        color: Colors.black,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: Container(
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) {
+        if (didPop) {
+          return;
+        }
+        Navigator.pop(context, myController.text);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.black.withOpacity(0.6),
+        body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                  child: Row(
+                    children: [
+                      Container(
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 230, 222, 218),
                           borderRadius: BorderRadius.circular(12),
+                          color: const Color.fromARGB(255, 230, 222, 218),
                         ),
-                        child: TextField(
-                          controller: myController,
-                          autofocus: true,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            prefix: const SizedBox(width: 10),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                myController.clear();
-                              },
-                              icon: const Icon(Icons.highlight_remove_rounded),
+                        child: IconButton(
+                          onPressed: () =>
+                              Navigator.pop(context, myController.text),
+                          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 230, 222, 218),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: TextField(
+                            controller: myController,
+                            autofocus: true,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              prefix: const SizedBox(width: 10),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  myController.clear();
+                                },
+                                icon:
+                                    const Icon(Icons.highlight_remove_rounded),
+                              ),
+                              hintText: '아이템 이름 검색',
                             ),
-                            hintText: '아이템 이름 검색',
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(12), bottom: Radius.circular(18)),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 230, 222, 218),
-                    ),
-                    padding: const EdgeInsets.all(5),
-                    child: ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                            top: Radius.circular(12),
-                            bottom: Radius.circular(18)),
-                        child: searchedList),
+                    ],
                   ),
                 ),
-              ),
-              const SizedBox(height: 30),
-            ],
+                const SizedBox(height: 10),
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.vertical(
+                        top: Radius.circular(12), bottom: Radius.circular(18)),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 230, 222, 218),
+                      ),
+                      padding: const EdgeInsets.all(5),
+                      child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(
+                              top: Radius.circular(12),
+                              bottom: Radius.circular(18)),
+                          child: searchedList),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
         ),
       ),
