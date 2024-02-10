@@ -40,10 +40,10 @@ class AccessoryItems extends Table {
 }
 
 class UserFavoriteItems extends Table {
-  IntColumn get id => integer()();
-
-  @override
-  Set<Column> get primaryKey => {id};
+  IntColumn get id => integer().autoIncrement()();
+  IntColumn get itemid => integer()();
+  TextColumn get name => text()();
+  TextColumn get subCategory => text()();
 }
 
 class UserFavoriteCharacters extends Table {
@@ -61,7 +61,14 @@ class ItemDatabase extends _$ItemDatabase {
 
 @DriftDatabase(tables: [UserFavoriteItems, UserFavoriteCharacters])
 class UserFavoriteDataBase extends _$UserFavoriteDataBase {
-  UserFavoriteDataBase() : super(_openUserDBConnection());
+  static final UserFavoriteDataBase _instance =
+      UserFavoriteDataBase._internal();
+
+  factory UserFavoriteDataBase() {
+    return _instance;
+  }
+
+  UserFavoriteDataBase._internal() : super(_openUserDBConnection());
 
   @override
   int get schemaVersion => 1;

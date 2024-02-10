@@ -810,9 +810,29 @@ class $UserFavoriteItemsTable extends UserFavoriteItems
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
       'id', aliasedName, false,
-      type: DriftSqlType.int, requiredDuringInsert: false);
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _itemidMeta = const VerificationMeta('itemid');
   @override
-  List<GeneratedColumn> get $columns => [id];
+  late final GeneratedColumn<int> itemid = GeneratedColumn<int>(
+      'itemid', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: true);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _subCategoryMeta =
+      const VerificationMeta('subCategory');
+  @override
+  late final GeneratedColumn<String> subCategory = GeneratedColumn<String>(
+      'sub_category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, itemid, name, subCategory];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -826,6 +846,26 @@ class $UserFavoriteItemsTable extends UserFavoriteItems
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
+    if (data.containsKey('itemid')) {
+      context.handle(_itemidMeta,
+          itemid.isAcceptableOrUnknown(data['itemid']!, _itemidMeta));
+    } else if (isInserting) {
+      context.missing(_itemidMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('sub_category')) {
+      context.handle(
+          _subCategoryMeta,
+          subCategory.isAcceptableOrUnknown(
+              data['sub_category']!, _subCategoryMeta));
+    } else if (isInserting) {
+      context.missing(_subCategoryMeta);
+    }
     return context;
   }
 
@@ -837,6 +877,12 @@ class $UserFavoriteItemsTable extends UserFavoriteItems
     return UserFavoriteItem(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      itemid: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}itemid'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      subCategory: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sub_category'])!,
     );
   }
 
@@ -849,17 +895,30 @@ class $UserFavoriteItemsTable extends UserFavoriteItems
 class UserFavoriteItem extends DataClass
     implements Insertable<UserFavoriteItem> {
   final int id;
-  const UserFavoriteItem({required this.id});
+  final int itemid;
+  final String name;
+  final String subCategory;
+  const UserFavoriteItem(
+      {required this.id,
+      required this.itemid,
+      required this.name,
+      required this.subCategory});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
+    map['itemid'] = Variable<int>(itemid);
+    map['name'] = Variable<String>(name);
+    map['sub_category'] = Variable<String>(subCategory);
     return map;
   }
 
   UserFavoriteItemsCompanion toCompanion(bool nullToAbsent) {
     return UserFavoriteItemsCompanion(
       id: Value(id),
+      itemid: Value(itemid),
+      name: Value(name),
+      subCategory: Value(subCategory),
     );
   }
 
@@ -868,6 +927,9 @@ class UserFavoriteItem extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return UserFavoriteItem(
       id: serializer.fromJson<int>(json['id']),
+      itemid: serializer.fromJson<int>(json['itemid']),
+      name: serializer.fromJson<String>(json['name']),
+      subCategory: serializer.fromJson<String>(json['subCategory']),
     );
   }
   @override
@@ -875,47 +937,86 @@ class UserFavoriteItem extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
+      'itemid': serializer.toJson<int>(itemid),
+      'name': serializer.toJson<String>(name),
+      'subCategory': serializer.toJson<String>(subCategory),
     };
   }
 
-  UserFavoriteItem copyWith({int? id}) => UserFavoriteItem(
+  UserFavoriteItem copyWith(
+          {int? id, int? itemid, String? name, String? subCategory}) =>
+      UserFavoriteItem(
         id: id ?? this.id,
+        itemid: itemid ?? this.itemid,
+        name: name ?? this.name,
+        subCategory: subCategory ?? this.subCategory,
       );
   @override
   String toString() {
     return (StringBuffer('UserFavoriteItem(')
-          ..write('id: $id')
+          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
+          ..write('name: $name, ')
+          ..write('subCategory: $subCategory')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => Object.hash(id, itemid, name, subCategory);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      (other is UserFavoriteItem && other.id == this.id);
+      (other is UserFavoriteItem &&
+          other.id == this.id &&
+          other.itemid == this.itemid &&
+          other.name == this.name &&
+          other.subCategory == this.subCategory);
 }
 
 class UserFavoriteItemsCompanion extends UpdateCompanion<UserFavoriteItem> {
   final Value<int> id;
+  final Value<int> itemid;
+  final Value<String> name;
+  final Value<String> subCategory;
   const UserFavoriteItemsCompanion({
     this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
+    this.name = const Value.absent(),
+    this.subCategory = const Value.absent(),
   });
   UserFavoriteItemsCompanion.insert({
     this.id = const Value.absent(),
-  });
+    required int itemid,
+    required String name,
+    required String subCategory,
+  })  : itemid = Value(itemid),
+        name = Value(name),
+        subCategory = Value(subCategory);
   static Insertable<UserFavoriteItem> custom({
     Expression<int>? id,
+    Expression<int>? itemid,
+    Expression<String>? name,
+    Expression<String>? subCategory,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
+      if (itemid != null) 'itemid': itemid,
+      if (name != null) 'name': name,
+      if (subCategory != null) 'sub_category': subCategory,
     });
   }
 
-  UserFavoriteItemsCompanion copyWith({Value<int>? id}) {
+  UserFavoriteItemsCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? itemid,
+      Value<String>? name,
+      Value<String>? subCategory}) {
     return UserFavoriteItemsCompanion(
       id: id ?? this.id,
+      itemid: itemid ?? this.itemid,
+      name: name ?? this.name,
+      subCategory: subCategory ?? this.subCategory,
     );
   }
 
@@ -925,13 +1026,25 @@ class UserFavoriteItemsCompanion extends UpdateCompanion<UserFavoriteItem> {
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
+    if (itemid.present) {
+      map['itemid'] = Variable<int>(itemid.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (subCategory.present) {
+      map['sub_category'] = Variable<String>(subCategory.value);
+    }
     return map;
   }
 
   @override
   String toString() {
     return (StringBuffer('UserFavoriteItemsCompanion(')
-          ..write('id: $id')
+          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
+          ..write('name: $name, ')
+          ..write('subCategory: $subCategory')
           ..write(')'))
         .toString();
   }

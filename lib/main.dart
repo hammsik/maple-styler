@@ -4,6 +4,6 @@ import 'package:maple_closet/maple_styler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // deleteDatabase('item.db');
+  // deleteDatabase('user.db');
   runApp(const MapleStyler());
 }

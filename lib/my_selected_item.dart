@@ -1,4 +1,6 @@
+import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
+import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 
 class SelectedItem extends StatefulWidget {
@@ -19,6 +21,8 @@ class SelectedItem extends StatefulWidget {
 }
 
 class _SelectedItem extends State<SelectedItem> {
+  final userDB = UserFavoriteDataBase();
+
   @override
   Widget build(BuildContext context) {
     String targetItemId =
@@ -65,8 +69,52 @@ class _SelectedItem extends State<SelectedItem> {
                               [1],
                           style: const TextStyle(fontSize: 9))),
                   const SizedBox(
-                    width: 10,
+                    width: 8,
                   ),
+                  FilledButton(
+                      onPressed: () async {
+                        final matchingItems =
+                            await (userDB.select(userDB.userFavoriteItems)
+                                  ..where((tbl) => tbl.itemid.equals(int.parse(
+                                      widget.currentCharacter
+                                          .itemMap[widget.subCategory][0]))))
+                                .get();
+
+                        if (matchingItems.isEmpty) {
+                          await userDB.into(userDB.userFavoriteItems).insert(
+                              UserFavoriteItemsCompanion.insert(
+                                  itemid: int.parse(widget.currentCharacter
+                                      .itemMap[widget.subCategory][0]),
+                                  name: widget.currentCharacter
+                                      .itemMap[widget.subCategory][1],
+                                  subCategory: widget.subCategory));
+                        } else {
+                          print('이미 존재하는 아이템입니다.');
+                        }
+
+                        List<UserFavoriteItem> allItems =
+                            await userDB.select(userDB.userFavoriteItems).get();
+
+                        print('items in database:');
+                        for (int i = 0; i < allItems.length; i++) {
+                          print(
+                              '${allItems[i].name} / subCategory: ${allItems[i].subCategory}');
+                        }
+                      },
+                      style: FilledButton.styleFrom(
+                          // foregroundColor:
+                          //     const Color.fromARGB(255, 60, 58, 78),
+                          backgroundColor: const Color(0x00FFFFFF),
+                          // shape: RoundedRectangleBorder(
+                          //     borderRadius: BorderRadius.circular(5)),
+                          minimumSize: Size.zero,
+                          padding: const EdgeInsets.all(0),
+                          fixedSize: const Size(30, 30),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+                      child: const Icon(
+                        Icons.favorite_rounded,
+                        color: Color.fromARGB(255, 181, 103, 103),
+                      )),
                   const SizedBox(
                     width: 8,
                   ),
@@ -90,7 +138,7 @@ class _SelectedItem extends State<SelectedItem> {
                   ),
                   // child: const ,
                   const SizedBox(
-                    width: 10,
+                    width: 8,
                   ),
                 ],
               ),
