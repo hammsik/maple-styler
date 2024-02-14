@@ -1,5 +1,6 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 
@@ -88,17 +89,20 @@ class _SelectedItem extends State<SelectedItem> {
                                   name: widget.currentCharacter
                                       .itemMap[widget.subCategory][1],
                                   subCategory: widget.subCategory));
+                          Fluttertoast.showToast(
+                              msg:
+                                  "등록완료: ${widget.currentCharacter.itemMap[widget.subCategory][1]}",
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: const Color(0xff6E6E6E),
+                              fontSize: 20,
+                              toastLength: Toast.LENGTH_SHORT);
                         } else {
-                          print('이미 존재하는 아이템입니다.');
-                        }
-
-                        List<UserFavoriteItem> allItems =
-                            await userDB.select(userDB.userFavoriteItems).get();
-
-                        print('items in database:');
-                        for (int i = 0; i < allItems.length; i++) {
-                          print(
-                              '${allItems[i].name} / subCategory: ${allItems[i].subCategory}');
+                          Fluttertoast.showToast(
+                              msg: "이미 찜한 아이템입니다.",
+                              gravity: ToastGravity.BOTTOM,
+                              backgroundColor: const Color(0xff6E6E6E),
+                              fontSize: 20,
+                              toastLength: Toast.LENGTH_SHORT);
                         }
                       },
                       style: FilledButton.styleFrom(
