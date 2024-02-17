@@ -74,18 +74,16 @@ class _SelectedItem extends State<SelectedItem> {
                   ),
                   FilledButton(
                       onPressed: () async {
-                        final matchingItems =
-                            await (userDB.select(userDB.userFavoriteItems)
-                                  ..where((tbl) => tbl.itemid.equals(int.parse(
-                                      widget.currentCharacter
-                                          .itemMap[widget.subCategory][0]))))
-                                .get();
+                        final matchingItems = await (userDB
+                                .select(userDB.userFavoriteItems)
+                              ..where((tbl) =>
+                                  tbl.itemid.equals(int.parse(targetItemId))))
+                            .get();
 
                         if (matchingItems.isEmpty) {
                           await userDB.into(userDB.userFavoriteItems).insert(
                               UserFavoriteItemsCompanion.insert(
-                                  itemid: int.parse(widget.currentCharacter
-                                      .itemMap[widget.subCategory][0]),
+                                  itemid: int.parse(targetItemId),
                                   name: widget.currentCharacter
                                       .itemMap[widget.subCategory][1],
                                   subCategory: widget.subCategory));

@@ -112,18 +112,18 @@ class _MapleStyler extends State<MapleStyler> {
     });
   }
 
-  void setMyCharacter(String inputItemId, String inputItemName,
-      String inputSubCategory, int buttonIdx) {
-    if (dodo.itemMap[inputSubCategory][0] != inputItemId) {
+  void setMyCharacter(dynamic selectedItem, int buttonIdx) {
+    if (dodo.itemMap[selectedItem.subCategory][0] !=
+        selectedItem.id.toString()) {
       setState(() {
         dodo.updateMyCharacter(
-            subCategory: inputSubCategory,
-            itemId: inputItemId,
-            itemName: inputItemName);
+            subCategory: selectedItem.subCategory,
+            itemId: selectedItem.id.toString(),
+            itemName: selectedItem.name);
         dodo2.updateMyCharacter(
-            subCategory: inputSubCategory,
-            itemId: inputItemId,
-            itemName: inputItemName);
+            subCategory: selectedItem.subCategory,
+            itemId: selectedItem.id.toString(),
+            itemName: selectedItem.name);
         currentListButtonIdx = buttonIdx;
       });
     }

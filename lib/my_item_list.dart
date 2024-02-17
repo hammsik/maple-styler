@@ -64,11 +64,8 @@ class _ItemList extends State<ItemList> {
                           ? const Color.fromARGB(255, 238, 238, 238)
                           : const Color.fromARGB(255, 201, 191, 191),
                     ),
-                    onPressed: () => widget.buttonClicked(
-                        widget.itemList[index].id.toString(),
-                        widget.itemList[index].name,
-                        widget.itemList[index].subCategory,
-                        index),
+                    onPressed: () =>
+                        widget.buttonClicked(widget.itemList[index], index),
                     child: Row(
                       children: [
                         const SizedBox(width: 10),

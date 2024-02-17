@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/layout_favorite_detail.dart';
 
 class FavoriteLayout extends StatefulWidget {
   final Function itemApply;
@@ -27,6 +28,33 @@ class _FavoriteLayout extends State<FavoriteLayout> {
     List<UserFavoriteItem> tmpItemList =
         await favoriteItemDB.select(favoriteItemDB.userFavoriteItems).get();
     setState(() => itemList = tmpItemList);
+  }
+
+  void openFavoriteDetail(
+      BuildContext context, int itemId, int listIndex) async {
+    final result = await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            FavoriteDetailScreen(
+          favoriteId: itemId,
+          listIndex: listIndex,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // 페이드 인 애니메이션을 적용
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        opaque: false,
+      ),
+    );
+
+    print(result);
+    if (result != null && result > 0) {
+      initDB();
+    }
   }
 
   @override
@@ -72,22 +100,22 @@ class _FavoriteLayout extends State<FavoriteLayout> {
                             backgroundColor:
                                 const Color.fromARGB(255, 201, 191, 191),
                           ),
-                          onPressed: () => widget.itemApply(
-                              itemList[index].itemid.toString(),
-                              itemList[index].name,
-                              itemList[index].subCategory,
-                              index),
+                          onPressed: () => openFavoriteDetail(
+                              context, itemList[index].itemid, index),
                           child: Row(
                             children: [
                               const SizedBox(width: 10),
                               Flexible(
                                 fit: FlexFit.loose,
-                                child: Image.network(
-                                  'https://maplestory.io/api/KMST/1168/item/${itemList[index].itemid}/icon',
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Icon(
-                                        Icons.image_not_supported_outlined);
-                                  },
+                                child: Hero(
+                                  tag: index,
+                                  child: Image.network(
+                                    'https://maplestory.io/api/KMST/1168/item/${itemList[index].itemid}/icon',
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return const Icon(
+                                          Icons.image_not_supported_outlined);
+                                    },
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 5),

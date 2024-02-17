@@ -181,11 +181,7 @@ class _DetailScreen extends State<DetailScreen> {
                         ),
                         onPressed: () {
                           Navigator.pop(context, myController.text);
-                          widget.buttonClicked(
-                              searchedTmpList[index].id.toString(),
-                              searchedTmpList[index].name,
-                              searchedTmpList[index].subCategory,
-                              -1);
+                          widget.buttonClicked(searchedTmpList[index], -1);
                         },
                         child: Row(
                           children: [
