@@ -25,6 +25,8 @@ class _MapleStyler extends State<MapleStyler> {
   MyCharacter dodo = MyCharacter();
   MyCharacter dodo2 = MyCharacter();
   String background = 'normal';
+  int currentToolIdx = 0;
+  int currentMenuIdx = 0;
   int currentListButtonIdx = -1;
   List<List<List<dynamic>>> itemList = [];
   DateTime? currentBackPressTime;
@@ -125,8 +127,42 @@ class _MapleStyler extends State<MapleStyler> {
             itemId: selectedItem.id.toString(),
             itemName: selectedItem.name);
         currentListButtonIdx = buttonIdx;
+
+        bool found = false;
+
+        for (int toolIdx = 0; toolIdx < 3; toolIdx++) {
+          for (int subCategoryIdx = 0;
+              subCategoryIdx < myToolList[toolIdx].menuList!.length;
+              subCategoryIdx++) {
+            if (myToolList[toolIdx].menuList![subCategoryIdx][1] ==
+                selectedItem.subCategory) {
+              currentToolIdx = toolIdx;
+              currentMenuIdx = subCategoryIdx;
+              found = true;
+              break;
+            }
+          }
+          if (found) {
+            break;
+          }
+        }
       });
     }
+  }
+
+  void setCurrentToolIdx(int toolButtonIdx) {
+    setState(() {
+      currentToolIdx = toolButtonIdx;
+      currentMenuIdx = 0;
+      currentListButtonIdx = -1;
+    });
+  }
+
+  void setCurrentMenuIdx(int menuIdx) {
+    setState(() {
+      currentMenuIdx = menuIdx;
+      currentListButtonIdx = -1;
+    });
   }
 
   void takeOffItem(String subCategory) {
@@ -283,6 +319,10 @@ class _MapleStyler extends State<MapleStyler> {
                                 redoImage: redoImage,
                                 itemList: itemList,
                                 colorApplyButtonClicked: setBeauty,
+                                currentToolIdx: currentToolIdx,
+                                currentMenuIdx: currentMenuIdx,
+                                toolButtonClick: setCurrentToolIdx,
+                                menuButtonClick: setCurrentMenuIdx,
                               )
                             : Container(
                                 alignment: Alignment.center,

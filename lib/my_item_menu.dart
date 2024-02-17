@@ -4,13 +4,13 @@ import 'package:maple_closet/models/skeleton_tools.dart';
 
 class ItemMenu extends StatefulWidget {
   final MyTool currentTool;
-  final String currentMenuItem;
+  final int currentMenuIdx;
   final Function buttonClicked;
 
   const ItemMenu(
       {super.key,
       required this.currentTool,
-      required this.currentMenuItem,
+      required this.currentMenuIdx,
       required this.buttonClicked});
 
   @override
@@ -48,7 +48,7 @@ class _ItemMenu extends State<ItemMenu> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Expanded(
                   child: Text(
-                    widget.currentMenuItem,
+                    widget.currentTool.menuList![widget.currentMenuIdx][0],
                     textAlign: TextAlign.center,
                     style: GoogleFonts.nanumMyeongjo(
                         color: const Color.fromARGB(255, 0, 0, 0),
@@ -66,25 +66,29 @@ class _ItemMenu extends State<ItemMenu> {
         );
       },
       menuChildren: [
-        ...widget.currentTool.menuList!.map(
-          (item) => Container(
-            margin: const EdgeInsets.all(2),
-            decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 230, 222, 218),
-                borderRadius: BorderRadius.circular(4)),
-            child: MenuItemButton(
-              onPressed: () =>
-                  widget.buttonClicked(item[0], item[1], int.parse(item[2])),
-              child: Text(
-                item[0],
-                style: GoogleFonts.nanumMyeongjo(
-                    color: const Color.fromARGB(255, 0, 0, 0),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700),
-              ),
-            ),
-          ),
-        )
+        ...widget.currentTool.menuList!
+            .asMap()
+            .map((index, item) => MapEntry(
+                  index,
+                  Container(
+                    margin: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 230, 222, 218),
+                        borderRadius: BorderRadius.circular(4)),
+                    child: MenuItemButton(
+                      onPressed: () => widget.buttonClicked(index),
+                      child: Text(
+                        item[0],
+                        style: GoogleFonts.nanumMyeongjo(
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ))
+            .values
+            .toList()
       ],
     );
   }
