@@ -30,15 +30,16 @@ class _FavoriteLayout extends State<FavoriteLayout> {
     setState(() => itemList = tmpItemList);
   }
 
-  void openFavoriteDetail(
-      BuildContext context, int itemId, int listIndex) async {
+  void openFavoriteDetail(BuildContext context, UserFavoriteItem selectedItem,
+      int listIndex) async {
     final result = await Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
             FavoriteDetailScreen(
-          favoriteId: itemId,
+          favoriteItem: selectedItem,
           listIndex: listIndex,
+          itemApply: widget.itemApply,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           // 페이드 인 애니메이션을 적용
@@ -101,7 +102,7 @@ class _FavoriteLayout extends State<FavoriteLayout> {
                                 const Color.fromARGB(255, 201, 191, 191),
                           ),
                           onPressed: () => openFavoriteDetail(
-                              context, itemList[index].itemid, index),
+                              context, itemList[index], index),
                           child: Row(
                             children: [
                               const SizedBox(width: 10),

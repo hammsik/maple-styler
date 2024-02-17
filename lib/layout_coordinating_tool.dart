@@ -65,7 +65,9 @@ class _CoordinatingTools extends State<CoordinatingTools> {
     } else if (widget.currentToolIdx == 4) {
       specialWidget = const UndefinedLayout();
     } else {
-      specialWidget = FavoriteLayout(itemApply: widget.listButtonClicked);
+      specialWidget = FavoriteLayout(
+        itemApply: widget.listButtonClicked,
+      );
     }
 
     return DefaultTextStyle(

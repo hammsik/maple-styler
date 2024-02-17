@@ -181,7 +181,7 @@ class _DetailScreen extends State<DetailScreen> {
                         ),
                         onPressed: () {
                           Navigator.pop(context, myController.text);
-                          widget.buttonClicked(searchedTmpList[index], -1);
+                          widget.buttonClicked(searchedTmpList[index], -2);
                         },
                         child: Row(
                           children: [

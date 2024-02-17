@@ -120,32 +120,38 @@ class _MapleStyler extends State<MapleStyler> {
       setState(() {
         dodo.updateMyCharacter(
             subCategory: selectedItem.subCategory,
-            itemId: selectedItem.id.toString(),
+            itemId: selectedItem is UserFavoriteItem
+                ? selectedItem.itemid.toString()
+                : selectedItem.id.toString(),
             itemName: selectedItem.name);
         dodo2.updateMyCharacter(
             subCategory: selectedItem.subCategory,
-            itemId: selectedItem.id.toString(),
+            itemId: selectedItem is UserFavoriteItem
+                ? selectedItem.itemid.toString()
+                : selectedItem.id.toString(),
             itemName: selectedItem.name);
-        currentListButtonIdx = buttonIdx;
 
-        bool found = false;
-
-        for (int toolIdx = 0; toolIdx < 3; toolIdx++) {
-          for (int subCategoryIdx = 0;
-              subCategoryIdx < myToolList[toolIdx].menuList!.length;
-              subCategoryIdx++) {
-            if (myToolList[toolIdx].menuList![subCategoryIdx][1] ==
-                selectedItem.subCategory) {
-              currentToolIdx = toolIdx;
-              currentMenuIdx = subCategoryIdx;
-              found = true;
+        if (buttonIdx == -2) {
+          bool found = false;
+          for (int toolIdx = 0; toolIdx < 3; toolIdx++) {
+            for (int subCategoryIdx = 0;
+                subCategoryIdx < myToolList[toolIdx].menuList!.length;
+                subCategoryIdx++) {
+              if (myToolList[toolIdx].menuList![subCategoryIdx][1] ==
+                  selectedItem.subCategory) {
+                currentToolIdx = toolIdx;
+                currentMenuIdx = subCategoryIdx;
+                found = true;
+                break;
+              }
+            }
+            if (found) {
               break;
             }
           }
-          if (found) {
-            break;
-          }
         }
+
+        currentListButtonIdx = buttonIdx;
       });
     }
   }
