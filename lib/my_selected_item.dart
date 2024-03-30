@@ -104,11 +104,10 @@ class _SelectedItem extends State<SelectedItem> {
                         }
                       },
                       style: FilledButton.styleFrom(
-                          // foregroundColor:
-                          //     const Color.fromARGB(255, 60, 58, 78),
-                          backgroundColor: const Color(0x00FFFFFF),
-                          // shape: RoundedRectangleBorder(
-                          //     borderRadius: BorderRadius.circular(5)),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
+                          backgroundColor:
+                              const Color.fromARGB(255, 201, 191, 191),
                           minimumSize: Size.zero,
                           padding: const EdgeInsets.all(0),
                           fixedSize: const Size(30, 30),
