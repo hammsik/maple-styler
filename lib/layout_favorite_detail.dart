@@ -67,27 +67,6 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                          onPressed: () {
-                            widget.itemApply(widget.favoriteItem, -1);
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color.fromARGB(255, 121, 230, 121),
-                            // border을 각지게
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8)),
-                          ),
-                          child: const Text(
-                            '적용하기',
-                            style: TextStyle(color: Colors.white),
-                          )),
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Expanded(
-                      child: ElevatedButton(
                           onPressed: () async {
                             int deleteCnt = await (database
                                     .delete(database.userFavoriteItems)
@@ -110,6 +89,27 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                           ),
                           child: const Text(
                             '삭제하기',
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    ),
+                    const SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            widget.itemApply(widget.favoriteItem, -1);
+                            Navigator.pop(context);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                const Color.fromARGB(255, 121, 230, 121),
+                            // border을 각지게
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                          ),
+                          child: const Text(
+                            '적용하기',
                             style: TextStyle(color: Colors.white),
                           )),
                     ),
