@@ -24,6 +24,7 @@ class _MapleStyler extends State<MapleStyler> {
 
   MyCharacter dodo = MyCharacter();
   MyCharacter dodo2 = MyCharacter();
+  Future? _characterImage;
   String background = 'normal';
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
@@ -35,6 +36,12 @@ class _MapleStyler extends State<MapleStyler> {
   void initState() {
     super.initState();
     initDB();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getCharacterImageFromNetwork();
   }
 
   void initDB() async {
@@ -111,6 +118,7 @@ class _MapleStyler extends State<MapleStyler> {
         dodo.setLensColor(color1.toString());
         dodo2.setLensColor(color2.toString());
       }
+      getCharacterImageFromNetwork();
     });
   }
 
@@ -152,6 +160,7 @@ class _MapleStyler extends State<MapleStyler> {
         }
 
         currentListButtonIdx = buttonIdx;
+        getCharacterImageFromNetwork();
       });
     }
   }
@@ -182,6 +191,7 @@ class _MapleStyler extends State<MapleStyler> {
       dodo.takeOffItem(subCategory: subCategory);
       dodo2.takeOffItem(subCategory: subCategory);
       currentListButtonIdx = -1;
+      getCharacterImageFromNetwork();
     });
   }
 
@@ -213,6 +223,13 @@ class _MapleStyler extends State<MapleStyler> {
     });
   }
 
+  void getCharacterImageFromNetwork() {
+    _characterImage = Future.wait([
+      precacheImage(NetworkImage(dodo.getMyCharacter()), context),
+      precacheImage(NetworkImage(dodo2.getMyCharacter()), context),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -220,6 +237,10 @@ class _MapleStyler extends State<MapleStyler> {
           statusBarIconBrightness: Brightness.light,
           statusBarColor: Color(0xff2B3A55)),
     );
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp, // 세로 방향 고정
+      DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
+    ]);
 
     Widget characterBox;
     if (background == 'normal') {
@@ -232,11 +253,6 @@ class _MapleStyler extends State<MapleStyler> {
         backgroundsList[background]![1],
       );
     }
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp, // 세로 방향 고정
-      DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
-    ]);
 
     return MaterialApp(
       home: PopScope(
@@ -270,40 +286,30 @@ class _MapleStyler extends State<MapleStyler> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 430,
-                    child: CachedNetworkImage(
-                      imageUrl: dodo.getMyCharacter(),
-                      fadeInDuration: const Duration(milliseconds: 400),
-                      fadeOutDuration: const Duration(milliseconds: 400),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.image_not_supported_outlined),
-                      useOldImageOnUrlChange: true,
-                      cacheManager: CacheManager(
-                        Config("character",
-                            stalePeriod: const Duration(days: 1),
-                            maxNrOfCacheObjects: 20),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 430,
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: CachedNetworkImage(
-                        imageUrl: dodo2.getMyCharacter(),
-                        fadeInDuration: const Duration(milliseconds: 400),
-                        fadeOutDuration: const Duration(milliseconds: 400),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.image_not_supported_outlined),
-                        useOldImageOnUrlChange: true,
-                        cacheManager: CacheManager(
-                          Config("character",
-                              stalePeriod: const Duration(days: 1),
-                              maxNrOfCacheObjects: 20),
-                        ),
-                      ),
-                    ),
+                  FutureBuilder(
+                    future: _characterImage,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return SizedBox(
+                          height: 430,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.network(dodo.getMyCharacter()),
+                              Opacity(
+                                opacity: 0.5,
+                                child: Image.network(dodo2.getMyCharacter()),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          margin: const EdgeInsets.only(top: 198),
+                          child: Image.asset('assets/drummingBunny.gif'),
+                        ); // 로딩 중일 때 표시할 위젯
+                      }
+                    },
                   ),
                   Column(
                     children: [
