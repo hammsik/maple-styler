@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:maple_closet/data/myTools.dart';
+import 'package:maple_closet/layout_character_detail.dart';
 import 'package:maple_closet/layout_map_buttons.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
@@ -12,14 +14,14 @@ import 'package:maple_closet/database/database.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'data/backgrounds.dart';
 
-class MapleStyler extends StatefulWidget {
-  const MapleStyler({super.key});
+class MapleStylerHome extends StatefulWidget {
+  const MapleStylerHome({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MapleStyler();
+  State<StatefulWidget> createState() => _MapleStylerHome();
 }
 
-class _MapleStyler extends State<MapleStyler> {
+class _MapleStylerHome extends State<MapleStylerHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   MyCharacter dodo = MyCharacter();
@@ -223,10 +225,32 @@ class _MapleStyler extends State<MapleStyler> {
     });
   }
 
+  void openCharacterDetail(
+      BuildContext context, MyCharacter dodo, MyCharacter dodo2) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CharacterDetail(dodo: dodo, dodo2: dodo2),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        opaque: false,
+      ),
+    );
+  }
+
   void getCharacterImageFromNetwork() {
     _characterImage = Future.wait([
       precacheImage(NetworkImage(dodo.getMyCharacter()), context),
       precacheImage(NetworkImage(dodo2.getMyCharacter()), context),
+      precacheImage(
+          NetworkImage(dodo.getMyCharacter(rendermode: "1")), context),
+      precacheImage(
+          NetworkImage(dodo2.getMyCharacter(rendermode: "1")), context),
     ]);
   }
 
@@ -254,44 +278,45 @@ class _MapleStyler extends State<MapleStyler> {
       );
     }
 
-    return MaterialApp(
-      home: PopScope(
-        canPop: false,
-        onPopInvoked: onWillPop,
-        child: Scaffold(
-          key: _scaffoldKey,
-          resizeToAvoidBottomInset: false,
-          body: SafeArea(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              decoration: const BoxDecoration(color: Color(0xff2B3A55)),
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-              child: Stack(
-                alignment: Alignment.topCenter,
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 110),
-                      CharacterBoard(characterBox: characterBox),
-                      const SizedBox(height: 14),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(1),
-                          color: const Color.fromARGB(255, 181, 103, 103),
-                        ),
-                        height: 2,
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(left: 7, right: 7),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: onWillPop,
+      child: Scaffold(
+        key: _scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(color: Color(0xff2B3A55)),
+            padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 110),
+                    CharacterBoard(characterBox: characterBox),
+                    const SizedBox(height: 14),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(1),
+                        color: const Color.fromARGB(255, 181, 103, 103),
                       ),
-                    ],
-                  ),
-                  FutureBuilder(
-                    future: _characterImage,
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        return SizedBox(
-                          height: 430,
+                      height: 2,
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(left: 7, right: 7),
+                    ),
+                  ],
+                ),
+                FutureBuilder(
+                  future: _characterImage,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return SizedBox(
+                        height: 430,
+                        child: Hero(
+                          tag: 'character',
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
@@ -302,59 +327,73 @@ class _MapleStyler extends State<MapleStyler> {
                               ),
                             ],
                           ),
-                        );
-                      } else {
-                        return Container(
-                          margin: const EdgeInsets.only(top: 198),
-                          child: Image.asset('assets/drummingBunny.gif'),
-                        ); // 로딩 중일 때 표시할 위젯
-                      }
-                    },
-                  ),
-                  Column(
-                    children: [
-                      const SizedBox(height: 20),
-                      MyCustomAppBar(clickEvent: _openEndDrawer),
-                      const SizedBox(height: 20),
-                      BackgroundButtons(switchBackground: switchBackground),
-                      const SizedBox(height: 230),
-                      Flexible(
-                        fit: FlexFit.loose,
-                        child: itemList.isNotEmpty
-                            ? CoordinatingTools(
-                                listButtonClicked: setMyCharacter,
-                                clickedButtonIdx: currentListButtonIdx,
-                                currentCharacter: dodo,
-                                currentCharacter2: dodo2,
-                                clickedClose: takeOffItem,
-                                undoImage: undoImage,
-                                redoImage: redoImage,
-                                itemList: itemList,
-                                colorApplyButtonClicked: setBeauty,
-                                currentToolIdx: currentToolIdx,
-                                currentMenuIdx: currentMenuIdx,
-                                toolButtonClick: setCurrentToolIdx,
-                                menuButtonClick: setCurrentMenuIdx,
-                              )
-                            : Container(
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                height: double.infinity,
-                                decoration: BoxDecoration(
-                                  color:
-                                      const Color.fromARGB(255, 230, 222, 218),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: const SizedBox(
-                                    width: 30,
-                                    height: 30,
-                                    child: CircularProgressIndicator()),
-                              ),
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 198),
+                        child: Image.asset('assets/drummingBunny.gif'),
+                      ); // 로딩 중일 때 표시할 위젯
+                    }
+                  },
+                ),
+                Column(
+                  children: [
+                    const SizedBox(height: 20),
+                    MyCustomAppBar(clickEvent: _openEndDrawer),
+                    const SizedBox(height: 20),
+                    BackgroundButtons(switchBackground: switchBackground),
+                    const SizedBox(height: 45),
+                    Material(
+                      type: MaterialType.transparency,
+                      child: InkResponse(
+                        onTap: () {
+                          openCharacterDetail(context, dodo, dodo2);
+                        },
+                        splashFactory: InkRipple.splashFactory,
+                        child: Container(
+                          clipBehavior: Clip.none,
+                          width: 120,
+                          height: 120,
+                        ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    const SizedBox(height: 65),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: itemList.isNotEmpty
+                          ? CoordinatingTools(
+                              listButtonClicked: setMyCharacter,
+                              clickedButtonIdx: currentListButtonIdx,
+                              currentCharacter: dodo,
+                              currentCharacter2: dodo2,
+                              clickedClose: takeOffItem,
+                              undoImage: undoImage,
+                              redoImage: redoImage,
+                              itemList: itemList,
+                              colorApplyButtonClicked: setBeauty,
+                              currentToolIdx: currentToolIdx,
+                              currentMenuIdx: currentMenuIdx,
+                              toolButtonClick: setCurrentToolIdx,
+                              menuButtonClick: setCurrentMenuIdx,
+                            )
+                          : Container(
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              height: double.infinity,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 230, 222, 218),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator()),
+                            ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
