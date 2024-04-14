@@ -9,10 +9,10 @@ class $CharacterItemsTable extends CharacterItems
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $CharacterItemsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _itemidMeta = const VerificationMeta('itemid');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  late final GeneratedColumn<int> itemid = GeneratedColumn<int>(
+      'itemid', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
@@ -31,7 +31,7 @@ class $CharacterItemsTable extends CharacterItems
       'gender', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, name, subCategory, gender];
+  List<GeneratedColumn> get $columns => [itemid, name, subCategory, gender];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -42,8 +42,9 @@ class $CharacterItemsTable extends CharacterItems
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('itemid')) {
+      context.handle(_itemidMeta,
+          itemid.isAcceptableOrUnknown(data['itemid']!, _itemidMeta));
     }
     if (data.containsKey('name')) {
       context.handle(
@@ -69,13 +70,13 @@ class $CharacterItemsTable extends CharacterItems
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {itemid};
   @override
   CharacterItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return CharacterItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      itemid: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}itemid'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       subCategory: attachedDatabase.typeMapping
@@ -92,19 +93,19 @@ class $CharacterItemsTable extends CharacterItems
 }
 
 class CharacterItem extends DataClass implements Insertable<CharacterItem> {
-  final int id;
+  final int itemid;
   final String name;
   final String subCategory;
   final int gender;
   const CharacterItem(
-      {required this.id,
+      {required this.itemid,
       required this.name,
       required this.subCategory,
       required this.gender});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['itemid'] = Variable<int>(itemid);
     map['name'] = Variable<String>(name);
     map['sub_category'] = Variable<String>(subCategory);
     map['gender'] = Variable<int>(gender);
@@ -113,7 +114,7 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
 
   CharacterItemsCompanion toCompanion(bool nullToAbsent) {
     return CharacterItemsCompanion(
-      id: Value(id),
+      itemid: Value(itemid),
       name: Value(name),
       subCategory: Value(subCategory),
       gender: Value(gender),
@@ -124,7 +125,7 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return CharacterItem(
-      id: serializer.fromJson<int>(json['id']),
+      itemid: serializer.fromJson<int>(json['itemid']),
       name: serializer.fromJson<String>(json['name']),
       subCategory: serializer.fromJson<String>(json['subCategory']),
       gender: serializer.fromJson<int>(json['gender']),
@@ -134,7 +135,7 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'itemid': serializer.toJson<int>(itemid),
       'name': serializer.toJson<String>(name),
       'subCategory': serializer.toJson<String>(subCategory),
       'gender': serializer.toJson<int>(gender),
@@ -142,9 +143,9 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
   }
 
   CharacterItem copyWith(
-          {int? id, String? name, String? subCategory, int? gender}) =>
+          {int? itemid, String? name, String? subCategory, int? gender}) =>
       CharacterItem(
-        id: id ?? this.id,
+        itemid: itemid ?? this.itemid,
         name: name ?? this.name,
         subCategory: subCategory ?? this.subCategory,
         gender: gender ?? this.gender,
@@ -152,7 +153,7 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
   @override
   String toString() {
     return (StringBuffer('CharacterItem(')
-          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
           ..write('name: $name, ')
           ..write('subCategory: $subCategory, ')
           ..write('gender: $gender')
@@ -161,30 +162,30 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
   }
 
   @override
-  int get hashCode => Object.hash(id, name, subCategory, gender);
+  int get hashCode => Object.hash(itemid, name, subCategory, gender);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is CharacterItem &&
-          other.id == this.id &&
+          other.itemid == this.itemid &&
           other.name == this.name &&
           other.subCategory == this.subCategory &&
           other.gender == this.gender);
 }
 
 class CharacterItemsCompanion extends UpdateCompanion<CharacterItem> {
-  final Value<int> id;
+  final Value<int> itemid;
   final Value<String> name;
   final Value<String> subCategory;
   final Value<int> gender;
   const CharacterItemsCompanion({
-    this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
     this.name = const Value.absent(),
     this.subCategory = const Value.absent(),
     this.gender = const Value.absent(),
   });
   CharacterItemsCompanion.insert({
-    this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
     required String name,
     required String subCategory,
     required int gender,
@@ -192,13 +193,13 @@ class CharacterItemsCompanion extends UpdateCompanion<CharacterItem> {
         subCategory = Value(subCategory),
         gender = Value(gender);
   static Insertable<CharacterItem> custom({
-    Expression<int>? id,
+    Expression<int>? itemid,
     Expression<String>? name,
     Expression<String>? subCategory,
     Expression<int>? gender,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (itemid != null) 'itemid': itemid,
       if (name != null) 'name': name,
       if (subCategory != null) 'sub_category': subCategory,
       if (gender != null) 'gender': gender,
@@ -206,12 +207,12 @@ class CharacterItemsCompanion extends UpdateCompanion<CharacterItem> {
   }
 
   CharacterItemsCompanion copyWith(
-      {Value<int>? id,
+      {Value<int>? itemid,
       Value<String>? name,
       Value<String>? subCategory,
       Value<int>? gender}) {
     return CharacterItemsCompanion(
-      id: id ?? this.id,
+      itemid: itemid ?? this.itemid,
       name: name ?? this.name,
       subCategory: subCategory ?? this.subCategory,
       gender: gender ?? this.gender,
@@ -221,8 +222,8 @@ class CharacterItemsCompanion extends UpdateCompanion<CharacterItem> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (itemid.present) {
+      map['itemid'] = Variable<int>(itemid.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -239,7 +240,7 @@ class CharacterItemsCompanion extends UpdateCompanion<CharacterItem> {
   @override
   String toString() {
     return (StringBuffer('CharacterItemsCompanion(')
-          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
           ..write('name: $name, ')
           ..write('subCategory: $subCategory, ')
           ..write('gender: $gender')
@@ -254,10 +255,10 @@ class $ArmorItemsTable extends ArmorItems
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $ArmorItemsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _itemidMeta = const VerificationMeta('itemid');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  late final GeneratedColumn<int> itemid = GeneratedColumn<int>(
+      'itemid', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
@@ -276,7 +277,7 @@ class $ArmorItemsTable extends ArmorItems
       'gender', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, name, subCategory, gender];
+  List<GeneratedColumn> get $columns => [itemid, name, subCategory, gender];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -287,8 +288,9 @@ class $ArmorItemsTable extends ArmorItems
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('itemid')) {
+      context.handle(_itemidMeta,
+          itemid.isAcceptableOrUnknown(data['itemid']!, _itemidMeta));
     }
     if (data.containsKey('name')) {
       context.handle(
@@ -314,13 +316,13 @@ class $ArmorItemsTable extends ArmorItems
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {itemid};
   @override
   ArmorItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return ArmorItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      itemid: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}itemid'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       subCategory: attachedDatabase.typeMapping
@@ -337,19 +339,19 @@ class $ArmorItemsTable extends ArmorItems
 }
 
 class ArmorItem extends DataClass implements Insertable<ArmorItem> {
-  final int id;
+  final int itemid;
   final String name;
   final String subCategory;
   final int gender;
   const ArmorItem(
-      {required this.id,
+      {required this.itemid,
       required this.name,
       required this.subCategory,
       required this.gender});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['itemid'] = Variable<int>(itemid);
     map['name'] = Variable<String>(name);
     map['sub_category'] = Variable<String>(subCategory);
     map['gender'] = Variable<int>(gender);
@@ -358,7 +360,7 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
 
   ArmorItemsCompanion toCompanion(bool nullToAbsent) {
     return ArmorItemsCompanion(
-      id: Value(id),
+      itemid: Value(itemid),
       name: Value(name),
       subCategory: Value(subCategory),
       gender: Value(gender),
@@ -369,7 +371,7 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return ArmorItem(
-      id: serializer.fromJson<int>(json['id']),
+      itemid: serializer.fromJson<int>(json['itemid']),
       name: serializer.fromJson<String>(json['name']),
       subCategory: serializer.fromJson<String>(json['subCategory']),
       gender: serializer.fromJson<int>(json['gender']),
@@ -379,7 +381,7 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'itemid': serializer.toJson<int>(itemid),
       'name': serializer.toJson<String>(name),
       'subCategory': serializer.toJson<String>(subCategory),
       'gender': serializer.toJson<int>(gender),
@@ -387,9 +389,9 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
   }
 
   ArmorItem copyWith(
-          {int? id, String? name, String? subCategory, int? gender}) =>
+          {int? itemid, String? name, String? subCategory, int? gender}) =>
       ArmorItem(
-        id: id ?? this.id,
+        itemid: itemid ?? this.itemid,
         name: name ?? this.name,
         subCategory: subCategory ?? this.subCategory,
         gender: gender ?? this.gender,
@@ -397,7 +399,7 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
   @override
   String toString() {
     return (StringBuffer('ArmorItem(')
-          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
           ..write('name: $name, ')
           ..write('subCategory: $subCategory, ')
           ..write('gender: $gender')
@@ -406,30 +408,30 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
   }
 
   @override
-  int get hashCode => Object.hash(id, name, subCategory, gender);
+  int get hashCode => Object.hash(itemid, name, subCategory, gender);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ArmorItem &&
-          other.id == this.id &&
+          other.itemid == this.itemid &&
           other.name == this.name &&
           other.subCategory == this.subCategory &&
           other.gender == this.gender);
 }
 
 class ArmorItemsCompanion extends UpdateCompanion<ArmorItem> {
-  final Value<int> id;
+  final Value<int> itemid;
   final Value<String> name;
   final Value<String> subCategory;
   final Value<int> gender;
   const ArmorItemsCompanion({
-    this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
     this.name = const Value.absent(),
     this.subCategory = const Value.absent(),
     this.gender = const Value.absent(),
   });
   ArmorItemsCompanion.insert({
-    this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
     required String name,
     required String subCategory,
     required int gender,
@@ -437,13 +439,13 @@ class ArmorItemsCompanion extends UpdateCompanion<ArmorItem> {
         subCategory = Value(subCategory),
         gender = Value(gender);
   static Insertable<ArmorItem> custom({
-    Expression<int>? id,
+    Expression<int>? itemid,
     Expression<String>? name,
     Expression<String>? subCategory,
     Expression<int>? gender,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (itemid != null) 'itemid': itemid,
       if (name != null) 'name': name,
       if (subCategory != null) 'sub_category': subCategory,
       if (gender != null) 'gender': gender,
@@ -451,12 +453,12 @@ class ArmorItemsCompanion extends UpdateCompanion<ArmorItem> {
   }
 
   ArmorItemsCompanion copyWith(
-      {Value<int>? id,
+      {Value<int>? itemid,
       Value<String>? name,
       Value<String>? subCategory,
       Value<int>? gender}) {
     return ArmorItemsCompanion(
-      id: id ?? this.id,
+      itemid: itemid ?? this.itemid,
       name: name ?? this.name,
       subCategory: subCategory ?? this.subCategory,
       gender: gender ?? this.gender,
@@ -466,8 +468,8 @@ class ArmorItemsCompanion extends UpdateCompanion<ArmorItem> {
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (itemid.present) {
+      map['itemid'] = Variable<int>(itemid.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -484,7 +486,7 @@ class ArmorItemsCompanion extends UpdateCompanion<ArmorItem> {
   @override
   String toString() {
     return (StringBuffer('ArmorItemsCompanion(')
-          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
           ..write('name: $name, ')
           ..write('subCategory: $subCategory, ')
           ..write('gender: $gender')
@@ -499,10 +501,10 @@ class $AccessoryItemsTable extends AccessoryItems
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
   $AccessoryItemsTable(this.attachedDatabase, [this._alias]);
-  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  static const VerificationMeta _itemidMeta = const VerificationMeta('itemid');
   @override
-  late final GeneratedColumn<int> id = GeneratedColumn<int>(
-      'id', aliasedName, false,
+  late final GeneratedColumn<int> itemid = GeneratedColumn<int>(
+      'itemid', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: false);
   static const VerificationMeta _nameMeta = const VerificationMeta('name');
   @override
@@ -520,18 +522,18 @@ class $AccessoryItemsTable extends AccessoryItems
   late final GeneratedColumn<int> gender = GeneratedColumn<int>(
       'gender', aliasedName, false,
       type: DriftSqlType.int, requiredDuringInsert: true);
-  static const VerificationMeta _isFullFaceCoverMeta =
-      const VerificationMeta('isFullFaceCover');
+  static const VerificationMeta _overlapsWithFaceMeta =
+      const VerificationMeta('overlapsWithFace');
   @override
-  late final GeneratedColumn<bool> isFullFaceCover = GeneratedColumn<bool>(
-      'is_full_face_cover', aliasedName, true,
+  late final GeneratedColumn<bool> overlapsWithFace = GeneratedColumn<bool>(
+      'overlaps_with_face', aliasedName, true,
       type: DriftSqlType.bool,
       requiredDuringInsert: false,
       defaultConstraints: GeneratedColumn.constraintIsAlways(
-          'CHECK ("is_full_face_cover" IN (0, 1))'));
+          'CHECK ("overlaps_with_face" IN (0, 1))'));
   @override
   List<GeneratedColumn> get $columns =>
-      [id, name, subCategory, gender, isFullFaceCover];
+      [itemid, name, subCategory, gender, overlapsWithFace];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -542,8 +544,9 @@ class $AccessoryItemsTable extends AccessoryItems
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
-    if (data.containsKey('id')) {
-      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    if (data.containsKey('itemid')) {
+      context.handle(_itemidMeta,
+          itemid.isAcceptableOrUnknown(data['itemid']!, _itemidMeta));
     }
     if (data.containsKey('name')) {
       context.handle(
@@ -565,31 +568,31 @@ class $AccessoryItemsTable extends AccessoryItems
     } else if (isInserting) {
       context.missing(_genderMeta);
     }
-    if (data.containsKey('is_full_face_cover')) {
+    if (data.containsKey('overlaps_with_face')) {
       context.handle(
-          _isFullFaceCoverMeta,
-          isFullFaceCover.isAcceptableOrUnknown(
-              data['is_full_face_cover']!, _isFullFaceCoverMeta));
+          _overlapsWithFaceMeta,
+          overlapsWithFace.isAcceptableOrUnknown(
+              data['overlaps_with_face']!, _overlapsWithFaceMeta));
     }
     return context;
   }
 
   @override
-  Set<GeneratedColumn> get $primaryKey => {id};
+  Set<GeneratedColumn> get $primaryKey => {itemid};
   @override
   AccessoryItem map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
     return AccessoryItem(
-      id: attachedDatabase.typeMapping
-          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      itemid: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}itemid'])!,
       name: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
       subCategory: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}sub_category'])!,
       gender: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}gender'])!,
-      isFullFaceCover: attachedDatabase.typeMapping.read(
-          DriftSqlType.bool, data['${effectivePrefix}is_full_face_cover']),
+      overlapsWithFace: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}overlaps_with_face']),
     );
   }
 
@@ -600,39 +603,39 @@ class $AccessoryItemsTable extends AccessoryItems
 }
 
 class AccessoryItem extends DataClass implements Insertable<AccessoryItem> {
-  final int id;
+  final int itemid;
   final String name;
   final String subCategory;
   final int gender;
-  final bool? isFullFaceCover;
+  final bool? overlapsWithFace;
   const AccessoryItem(
-      {required this.id,
+      {required this.itemid,
       required this.name,
       required this.subCategory,
       required this.gender,
-      this.isFullFaceCover});
+      this.overlapsWithFace});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    map['id'] = Variable<int>(id);
+    map['itemid'] = Variable<int>(itemid);
     map['name'] = Variable<String>(name);
     map['sub_category'] = Variable<String>(subCategory);
     map['gender'] = Variable<int>(gender);
-    if (!nullToAbsent || isFullFaceCover != null) {
-      map['is_full_face_cover'] = Variable<bool>(isFullFaceCover);
+    if (!nullToAbsent || overlapsWithFace != null) {
+      map['overlaps_with_face'] = Variable<bool>(overlapsWithFace);
     }
     return map;
   }
 
   AccessoryItemsCompanion toCompanion(bool nullToAbsent) {
     return AccessoryItemsCompanion(
-      id: Value(id),
+      itemid: Value(itemid),
       name: Value(name),
       subCategory: Value(subCategory),
       gender: Value(gender),
-      isFullFaceCover: isFullFaceCover == null && nullToAbsent
+      overlapsWithFace: overlapsWithFace == null && nullToAbsent
           ? const Value.absent()
-          : Value(isFullFaceCover),
+          : Value(overlapsWithFace),
     );
   }
 
@@ -640,124 +643,124 @@ class AccessoryItem extends DataClass implements Insertable<AccessoryItem> {
       {ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return AccessoryItem(
-      id: serializer.fromJson<int>(json['id']),
+      itemid: serializer.fromJson<int>(json['itemid']),
       name: serializer.fromJson<String>(json['name']),
       subCategory: serializer.fromJson<String>(json['subCategory']),
       gender: serializer.fromJson<int>(json['gender']),
-      isFullFaceCover: serializer.fromJson<bool?>(json['isFullFaceCover']),
+      overlapsWithFace: serializer.fromJson<bool?>(json['overlapsWithFace']),
     );
   }
   @override
   Map<String, dynamic> toJson({ValueSerializer? serializer}) {
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
-      'id': serializer.toJson<int>(id),
+      'itemid': serializer.toJson<int>(itemid),
       'name': serializer.toJson<String>(name),
       'subCategory': serializer.toJson<String>(subCategory),
       'gender': serializer.toJson<int>(gender),
-      'isFullFaceCover': serializer.toJson<bool?>(isFullFaceCover),
+      'overlapsWithFace': serializer.toJson<bool?>(overlapsWithFace),
     };
   }
 
   AccessoryItem copyWith(
-          {int? id,
+          {int? itemid,
           String? name,
           String? subCategory,
           int? gender,
-          Value<bool?> isFullFaceCover = const Value.absent()}) =>
+          Value<bool?> overlapsWithFace = const Value.absent()}) =>
       AccessoryItem(
-        id: id ?? this.id,
+        itemid: itemid ?? this.itemid,
         name: name ?? this.name,
         subCategory: subCategory ?? this.subCategory,
         gender: gender ?? this.gender,
-        isFullFaceCover: isFullFaceCover.present
-            ? isFullFaceCover.value
-            : this.isFullFaceCover,
+        overlapsWithFace: overlapsWithFace.present
+            ? overlapsWithFace.value
+            : this.overlapsWithFace,
       );
   @override
   String toString() {
     return (StringBuffer('AccessoryItem(')
-          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
           ..write('name: $name, ')
           ..write('subCategory: $subCategory, ')
           ..write('gender: $gender, ')
-          ..write('isFullFaceCover: $isFullFaceCover')
+          ..write('overlapsWithFace: $overlapsWithFace')
           ..write(')'))
         .toString();
   }
 
   @override
   int get hashCode =>
-      Object.hash(id, name, subCategory, gender, isFullFaceCover);
+      Object.hash(itemid, name, subCategory, gender, overlapsWithFace);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is AccessoryItem &&
-          other.id == this.id &&
+          other.itemid == this.itemid &&
           other.name == this.name &&
           other.subCategory == this.subCategory &&
           other.gender == this.gender &&
-          other.isFullFaceCover == this.isFullFaceCover);
+          other.overlapsWithFace == this.overlapsWithFace);
 }
 
 class AccessoryItemsCompanion extends UpdateCompanion<AccessoryItem> {
-  final Value<int> id;
+  final Value<int> itemid;
   final Value<String> name;
   final Value<String> subCategory;
   final Value<int> gender;
-  final Value<bool?> isFullFaceCover;
+  final Value<bool?> overlapsWithFace;
   const AccessoryItemsCompanion({
-    this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
     this.name = const Value.absent(),
     this.subCategory = const Value.absent(),
     this.gender = const Value.absent(),
-    this.isFullFaceCover = const Value.absent(),
+    this.overlapsWithFace = const Value.absent(),
   });
   AccessoryItemsCompanion.insert({
-    this.id = const Value.absent(),
+    this.itemid = const Value.absent(),
     required String name,
     required String subCategory,
     required int gender,
-    this.isFullFaceCover = const Value.absent(),
+    this.overlapsWithFace = const Value.absent(),
   })  : name = Value(name),
         subCategory = Value(subCategory),
         gender = Value(gender);
   static Insertable<AccessoryItem> custom({
-    Expression<int>? id,
+    Expression<int>? itemid,
     Expression<String>? name,
     Expression<String>? subCategory,
     Expression<int>? gender,
-    Expression<bool>? isFullFaceCover,
+    Expression<bool>? overlapsWithFace,
   }) {
     return RawValuesInsertable({
-      if (id != null) 'id': id,
+      if (itemid != null) 'itemid': itemid,
       if (name != null) 'name': name,
       if (subCategory != null) 'sub_category': subCategory,
       if (gender != null) 'gender': gender,
-      if (isFullFaceCover != null) 'is_full_face_cover': isFullFaceCover,
+      if (overlapsWithFace != null) 'overlaps_with_face': overlapsWithFace,
     });
   }
 
   AccessoryItemsCompanion copyWith(
-      {Value<int>? id,
+      {Value<int>? itemid,
       Value<String>? name,
       Value<String>? subCategory,
       Value<int>? gender,
-      Value<bool?>? isFullFaceCover}) {
+      Value<bool?>? overlapsWithFace}) {
     return AccessoryItemsCompanion(
-      id: id ?? this.id,
+      itemid: itemid ?? this.itemid,
       name: name ?? this.name,
       subCategory: subCategory ?? this.subCategory,
       gender: gender ?? this.gender,
-      isFullFaceCover: isFullFaceCover ?? this.isFullFaceCover,
+      overlapsWithFace: overlapsWithFace ?? this.overlapsWithFace,
     );
   }
 
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
-    if (id.present) {
-      map['id'] = Variable<int>(id.value);
+    if (itemid.present) {
+      map['itemid'] = Variable<int>(itemid.value);
     }
     if (name.present) {
       map['name'] = Variable<String>(name.value);
@@ -768,8 +771,8 @@ class AccessoryItemsCompanion extends UpdateCompanion<AccessoryItem> {
     if (gender.present) {
       map['gender'] = Variable<int>(gender.value);
     }
-    if (isFullFaceCover.present) {
-      map['is_full_face_cover'] = Variable<bool>(isFullFaceCover.value);
+    if (overlapsWithFace.present) {
+      map['overlaps_with_face'] = Variable<bool>(overlapsWithFace.value);
     }
     return map;
   }
@@ -777,11 +780,11 @@ class AccessoryItemsCompanion extends UpdateCompanion<AccessoryItem> {
   @override
   String toString() {
     return (StringBuffer('AccessoryItemsCompanion(')
-          ..write('id: $id, ')
+          ..write('itemid: $itemid, ')
           ..write('name: $name, ')
           ..write('subCategory: $subCategory, ')
           ..write('gender: $gender, ')
-          ..write('isFullFaceCover: $isFullFaceCover')
+          ..write('overlapsWithFace: $overlapsWithFace')
           ..write(')'))
         .toString();
   }

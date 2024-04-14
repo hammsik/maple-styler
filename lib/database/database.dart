@@ -9,34 +9,34 @@ import 'package:path_provider/path_provider.dart';
 part 'database.g.dart';
 
 class CharacterItems extends Table {
-  IntColumn get id => integer()();
+  IntColumn get itemid => integer()();
   TextColumn get name => text()();
   TextColumn get subCategory => text()();
   IntColumn get gender => integer()();
 
   @override
-  Set<Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {itemid};
 }
 
 class ArmorItems extends Table {
-  IntColumn get id => integer()();
+  IntColumn get itemid => integer()();
   TextColumn get name => text()();
   TextColumn get subCategory => text()();
   IntColumn get gender => integer()();
 
   @override
-  Set<Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {itemid};
 }
 
 class AccessoryItems extends Table {
-  IntColumn get id => integer()();
+  IntColumn get itemid => integer()();
   TextColumn get name => text()();
   TextColumn get subCategory => text()();
   IntColumn get gender => integer()();
-  BoolColumn get isFullFaceCover => boolean().nullable()();
+  BoolColumn get overlapsWithFace => boolean().nullable()();
 
   @override
-  Set<Column> get primaryKey => {id};
+  Set<Column> get primaryKey => {itemid};
 }
 
 class UserFavoriteItems extends Table {
