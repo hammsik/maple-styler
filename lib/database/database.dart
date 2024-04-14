@@ -48,7 +48,8 @@ class UserFavoriteItems extends Table {
 
 class UserFavoriteCharacters extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get characterInfo => text()();
+  TextColumn get characterData => text()();
+  TextColumn get characterName => text()();
 }
 
 @DriftDatabase(tables: [CharacterItems, ArmorItems, AccessoryItems])
