@@ -49,7 +49,7 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                   child: Hero(
                     tag: widget.listIndex,
                     child: Image.network(
-                      'https://maplestory.io/api/KMST/1168/item/${widget.favoriteItem.itemid}/icon',
+                      'https://maplestory.io/api/KMS/389/item/${widget.favoriteItem.itemid}/icon',
                       errorBuilder: (context, error, stackTrace) {
                         return const Icon(Icons.image_not_supported_outlined);
                       },

@@ -57,7 +57,18 @@ class ItemDatabase extends _$ItemDatabase {
   ItemDatabase() : super(_openItemDBConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onUpgrade: (Migrator m, int from, int to) async {
+        if (from < 2) {
+          deleteDatabase("item.db");
+        }
+      },
+    );
+  }
 }
 
 @DriftDatabase(tables: [UserFavoriteItems, UserFavoriteCharacters])
@@ -95,15 +106,15 @@ LazyDatabase _openItemDBConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(path.join(dbFolder.path, 'item.db'));
+    final file = File(path.join(dbFolder.path, 'items.db'));
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets
-      print('New database has been created.');
       final blob = await rootBundle.load('assets/maple_styler_item_db.sqlite');
       final buffer = blob.buffer;
       await file.writeAsBytes(
           buffer.asUint8List(blob.offsetInBytes, blob.lengthInBytes));
+      print('New database has been created.');
     }
 
     return NativeDatabase.createInBackground(file);

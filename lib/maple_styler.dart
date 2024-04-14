@@ -126,19 +126,15 @@ class _MapleStylerHome extends State<MapleStylerHome> {
 
   void setMyCharacter(dynamic selectedItem, int buttonIdx) {
     if (dodo.itemMap[selectedItem.subCategory][0] !=
-        selectedItem.id.toString()) {
+        selectedItem.itemid.toString()) {
       setState(() {
         dodo.updateMyCharacter(
             subCategory: selectedItem.subCategory,
-            itemId: selectedItem is UserFavoriteItem
-                ? selectedItem.itemid.toString()
-                : selectedItem.id.toString(),
+            itemId: selectedItem.itemid.toString(),
             itemName: selectedItem.name);
         dodo2.updateMyCharacter(
             subCategory: selectedItem.subCategory,
-            itemId: selectedItem is UserFavoriteItem
-                ? selectedItem.itemid.toString()
-                : selectedItem.id.toString(),
+            itemId: selectedItem.itemid.toString(),
             itemName: selectedItem.name);
 
         if (buttonIdx == -2) {
@@ -247,10 +243,10 @@ class _MapleStylerHome extends State<MapleStylerHome> {
     _characterImage = Future.wait([
       precacheImage(NetworkImage(dodo.getMyCharacter()), context),
       precacheImage(NetworkImage(dodo2.getMyCharacter()), context),
-      precacheImage(
-          NetworkImage(dodo.getMyCharacter(rendermode: "1")), context),
-      precacheImage(
-          NetworkImage(dodo2.getMyCharacter(rendermode: "1")), context),
+      // precacheImage(
+      //     NetworkImage(dodo.getMyCharacter(rendermode: "1")), context),
+      // precacheImage(
+      //     NetworkImage(dodo2.getMyCharacter(rendermode: "1")), context),
     ]);
   }
 

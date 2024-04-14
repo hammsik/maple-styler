@@ -189,7 +189,7 @@ class _DetailScreen extends State<DetailScreen> {
                             Flexible(
                               fit: FlexFit.loose,
                               child: Image.network(
-                                'https://maplestory.io/api/KMST/1168/item/${searchedTmpList[index].id}/icon',
+                                'https://maplestory.io/api/KMS/389/item/${searchedTmpList[index].itemid}/icon',
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Icon(
                                       Icons.image_not_supported_outlined);

@@ -111,7 +111,7 @@ class _FavoriteLayout extends State<FavoriteLayout> {
                                 child: Hero(
                                   tag: index,
                                   child: Image.network(
-                                    'https://maplestory.io/api/KMST/1168/item/${itemList[index].itemid}/icon',
+                                    'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
                                     errorBuilder: (context, error, stackTrace) {
                                       return const Icon(
                                           Icons.image_not_supported_outlined);

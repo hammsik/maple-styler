@@ -102,7 +102,7 @@ class MyCharacter {
   }
 
   String addVersionAndRegion(String item) {
-    return '{"itemId":$item, "version":"1168","region":"KMST"},';
+    return '{"itemId":$item, "version":"389","region":"KMS"},';
   }
 
   String makeItemsURL() {
