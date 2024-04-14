@@ -1075,8 +1075,8 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
       const VerificationMeta('characterName');
   @override
   late final GeneratedColumn<String> characterName = GeneratedColumn<String>(
-      'character_name', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+      'character_name', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
   @override
   List<GeneratedColumn> get $columns => [id, characterInfo, characterName];
   @override
@@ -1106,8 +1106,6 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
           _characterNameMeta,
           characterName.isAcceptableOrUnknown(
               data['character_name']!, _characterNameMeta));
-    } else if (isInserting) {
-      context.missing(_characterNameMeta);
     }
     return context;
   }
@@ -1123,7 +1121,7 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
       characterInfo: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}character_info'])!,
       characterName: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}character_name'])!,
+          .read(DriftSqlType.string, data['${effectivePrefix}character_name']),
     );
   }
 
@@ -1137,17 +1135,17 @@ class UserFavoriteCharacter extends DataClass
     implements Insertable<UserFavoriteCharacter> {
   final int id;
   final String characterInfo;
-  final String characterName;
+  final String? characterName;
   const UserFavoriteCharacter(
-      {required this.id,
-      required this.characterInfo,
-      required this.characterName});
+      {required this.id, required this.characterInfo, this.characterName});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['character_info'] = Variable<String>(characterInfo);
-    map['character_name'] = Variable<String>(characterName);
+    if (!nullToAbsent || characterName != null) {
+      map['character_name'] = Variable<String>(characterName);
+    }
     return map;
   }
 
@@ -1155,7 +1153,9 @@ class UserFavoriteCharacter extends DataClass
     return UserFavoriteCharactersCompanion(
       id: Value(id),
       characterInfo: Value(characterInfo),
-      characterName: Value(characterName),
+      characterName: characterName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(characterName),
     );
   }
 
@@ -1165,7 +1165,7 @@ class UserFavoriteCharacter extends DataClass
     return UserFavoriteCharacter(
       id: serializer.fromJson<int>(json['id']),
       characterInfo: serializer.fromJson<String>(json['characterInfo']),
-      characterName: serializer.fromJson<String>(json['characterName']),
+      characterName: serializer.fromJson<String?>(json['characterName']),
     );
   }
   @override
@@ -1174,16 +1174,19 @@ class UserFavoriteCharacter extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'characterInfo': serializer.toJson<String>(characterInfo),
-      'characterName': serializer.toJson<String>(characterName),
+      'characterName': serializer.toJson<String?>(characterName),
     };
   }
 
   UserFavoriteCharacter copyWith(
-          {int? id, String? characterInfo, String? characterName}) =>
+          {int? id,
+          String? characterInfo,
+          Value<String?> characterName = const Value.absent()}) =>
       UserFavoriteCharacter(
         id: id ?? this.id,
         characterInfo: characterInfo ?? this.characterInfo,
-        characterName: characterName ?? this.characterName,
+        characterName:
+            characterName.present ? characterName.value : this.characterName,
       );
   @override
   String toString() {
@@ -1210,7 +1213,7 @@ class UserFavoriteCharactersCompanion
     extends UpdateCompanion<UserFavoriteCharacter> {
   final Value<int> id;
   final Value<String> characterInfo;
-  final Value<String> characterName;
+  final Value<String?> characterName;
   const UserFavoriteCharactersCompanion({
     this.id = const Value.absent(),
     this.characterInfo = const Value.absent(),
@@ -1219,9 +1222,8 @@ class UserFavoriteCharactersCompanion
   UserFavoriteCharactersCompanion.insert({
     this.id = const Value.absent(),
     required String characterInfo,
-    required String characterName,
-  })  : characterInfo = Value(characterInfo),
-        characterName = Value(characterName);
+    this.characterName = const Value.absent(),
+  }) : characterInfo = Value(characterInfo);
   static Insertable<UserFavoriteCharacter> custom({
     Expression<int>? id,
     Expression<String>? characterInfo,
@@ -1237,7 +1239,7 @@ class UserFavoriteCharactersCompanion
   UserFavoriteCharactersCompanion copyWith(
       {Value<int>? id,
       Value<String>? characterInfo,
-      Value<String>? characterName}) {
+      Value<String?>? characterName}) {
     return UserFavoriteCharactersCompanion(
       id: id ?? this.id,
       characterInfo: characterInfo ?? this.characterInfo,

@@ -49,7 +49,7 @@ class UserFavoriteItems extends Table {
 class UserFavoriteCharacters extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get characterInfo => text()();
-  TextColumn get characterName => text()();
+  TextColumn get characterName => text().nullable()();
 }
 
 @DriftDatabase(tables: [CharacterItems, ArmorItems, AccessoryItems])
@@ -72,7 +72,22 @@ class UserFavoriteDataBase extends _$UserFavoriteDataBase {
   UserFavoriteDataBase._internal() : super(_openUserDBConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
+
+  @override
+  MigrationStrategy get migration {
+    return MigrationStrategy(
+      onCreate: (Migrator m) async {
+        await m.createAll();
+      },
+      onUpgrade: (Migrator m, int from, int to) async {
+        if (from < 2) {
+          await m.addColumn(
+              userFavoriteCharacters, userFavoriteCharacters.characterName);
+        }
+      },
+    );
+  }
 }
 
 LazyDatabase _openItemDBConnection() {
