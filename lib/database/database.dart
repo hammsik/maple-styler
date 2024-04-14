@@ -48,7 +48,7 @@ class UserFavoriteItems extends Table {
 
 class UserFavoriteCharacters extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get characterData => text()();
+  TextColumn get characterInfo => text()();
   TextColumn get characterName => text()();
 }
 

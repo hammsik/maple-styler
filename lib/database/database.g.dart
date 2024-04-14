@@ -1065,11 +1065,11 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
       requiredDuringInsert: false,
       defaultConstraints:
           GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
-  static const VerificationMeta _characterDataMeta =
-      const VerificationMeta('characterData');
+  static const VerificationMeta _characterInfoMeta =
+      const VerificationMeta('characterInfo');
   @override
-  late final GeneratedColumn<String> characterData = GeneratedColumn<String>(
-      'character_data', aliasedName, false,
+  late final GeneratedColumn<String> characterInfo = GeneratedColumn<String>(
+      'character_info', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   static const VerificationMeta _characterNameMeta =
       const VerificationMeta('characterName');
@@ -1078,7 +1078,7 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
       'character_name', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
   @override
-  List<GeneratedColumn> get $columns => [id, characterData, characterName];
+  List<GeneratedColumn> get $columns => [id, characterInfo, characterName];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -1093,13 +1093,13 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
     }
-    if (data.containsKey('character_data')) {
+    if (data.containsKey('character_info')) {
       context.handle(
-          _characterDataMeta,
-          characterData.isAcceptableOrUnknown(
-              data['character_data']!, _characterDataMeta));
+          _characterInfoMeta,
+          characterInfo.isAcceptableOrUnknown(
+              data['character_info']!, _characterInfoMeta));
     } else if (isInserting) {
-      context.missing(_characterDataMeta);
+      context.missing(_characterInfoMeta);
     }
     if (data.containsKey('character_name')) {
       context.handle(
@@ -1120,8 +1120,8 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
     return UserFavoriteCharacter(
       id: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
-      characterData: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}character_data'])!,
+      characterInfo: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}character_info'])!,
       characterName: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}character_name'])!,
     );
@@ -1136,17 +1136,17 @@ class $UserFavoriteCharactersTable extends UserFavoriteCharacters
 class UserFavoriteCharacter extends DataClass
     implements Insertable<UserFavoriteCharacter> {
   final int id;
-  final String characterData;
+  final String characterInfo;
   final String characterName;
   const UserFavoriteCharacter(
       {required this.id,
-      required this.characterData,
+      required this.characterInfo,
       required this.characterName});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
-    map['character_data'] = Variable<String>(characterData);
+    map['character_info'] = Variable<String>(characterInfo);
     map['character_name'] = Variable<String>(characterName);
     return map;
   }
@@ -1154,7 +1154,7 @@ class UserFavoriteCharacter extends DataClass
   UserFavoriteCharactersCompanion toCompanion(bool nullToAbsent) {
     return UserFavoriteCharactersCompanion(
       id: Value(id),
-      characterData: Value(characterData),
+      characterInfo: Value(characterInfo),
       characterName: Value(characterName),
     );
   }
@@ -1164,7 +1164,7 @@ class UserFavoriteCharacter extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return UserFavoriteCharacter(
       id: serializer.fromJson<int>(json['id']),
-      characterData: serializer.fromJson<String>(json['characterData']),
+      characterInfo: serializer.fromJson<String>(json['characterInfo']),
       characterName: serializer.fromJson<String>(json['characterName']),
     );
   }
@@ -1173,74 +1173,74 @@ class UserFavoriteCharacter extends DataClass
     serializer ??= driftRuntimeOptions.defaultSerializer;
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
-      'characterData': serializer.toJson<String>(characterData),
+      'characterInfo': serializer.toJson<String>(characterInfo),
       'characterName': serializer.toJson<String>(characterName),
     };
   }
 
   UserFavoriteCharacter copyWith(
-          {int? id, String? characterData, String? characterName}) =>
+          {int? id, String? characterInfo, String? characterName}) =>
       UserFavoriteCharacter(
         id: id ?? this.id,
-        characterData: characterData ?? this.characterData,
+        characterInfo: characterInfo ?? this.characterInfo,
         characterName: characterName ?? this.characterName,
       );
   @override
   String toString() {
     return (StringBuffer('UserFavoriteCharacter(')
           ..write('id: $id, ')
-          ..write('characterData: $characterData, ')
+          ..write('characterInfo: $characterInfo, ')
           ..write('characterName: $characterName')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => Object.hash(id, characterData, characterName);
+  int get hashCode => Object.hash(id, characterInfo, characterName);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is UserFavoriteCharacter &&
           other.id == this.id &&
-          other.characterData == this.characterData &&
+          other.characterInfo == this.characterInfo &&
           other.characterName == this.characterName);
 }
 
 class UserFavoriteCharactersCompanion
     extends UpdateCompanion<UserFavoriteCharacter> {
   final Value<int> id;
-  final Value<String> characterData;
+  final Value<String> characterInfo;
   final Value<String> characterName;
   const UserFavoriteCharactersCompanion({
     this.id = const Value.absent(),
-    this.characterData = const Value.absent(),
+    this.characterInfo = const Value.absent(),
     this.characterName = const Value.absent(),
   });
   UserFavoriteCharactersCompanion.insert({
     this.id = const Value.absent(),
-    required String characterData,
+    required String characterInfo,
     required String characterName,
-  })  : characterData = Value(characterData),
+  })  : characterInfo = Value(characterInfo),
         characterName = Value(characterName);
   static Insertable<UserFavoriteCharacter> custom({
     Expression<int>? id,
-    Expression<String>? characterData,
+    Expression<String>? characterInfo,
     Expression<String>? characterName,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
-      if (characterData != null) 'character_data': characterData,
+      if (characterInfo != null) 'character_info': characterInfo,
       if (characterName != null) 'character_name': characterName,
     });
   }
 
   UserFavoriteCharactersCompanion copyWith(
       {Value<int>? id,
-      Value<String>? characterData,
+      Value<String>? characterInfo,
       Value<String>? characterName}) {
     return UserFavoriteCharactersCompanion(
       id: id ?? this.id,
-      characterData: characterData ?? this.characterData,
+      characterInfo: characterInfo ?? this.characterInfo,
       characterName: characterName ?? this.characterName,
     );
   }
@@ -1251,8 +1251,8 @@ class UserFavoriteCharactersCompanion
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
-    if (characterData.present) {
-      map['character_data'] = Variable<String>(characterData.value);
+    if (characterInfo.present) {
+      map['character_info'] = Variable<String>(characterInfo.value);
     }
     if (characterName.present) {
       map['character_name'] = Variable<String>(characterName.value);
@@ -1264,7 +1264,7 @@ class UserFavoriteCharactersCompanion
   String toString() {
     return (StringBuffer('UserFavoriteCharactersCompanion(')
           ..write('id: $id, ')
-          ..write('characterData: $characterData, ')
+          ..write('characterInfo: $characterInfo, ')
           ..write('characterName: $characterName')
           ..write(')'))
         .toString();
