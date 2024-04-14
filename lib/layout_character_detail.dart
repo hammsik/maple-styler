@@ -56,29 +56,29 @@ class _CharacterDetail extends State<CharacterDetail> {
                       const SizedBox(
                         width: 10,
                       ),
-                      ClipRRect(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(12)),
-                        child: SizedBox(
-                          width: 200,
-                          child: Hero(
-                            tag: 'character',
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                Image.network(
-                                  widget.dodo.getMyCharacter(rendermode: "1"),
-                                  fit: BoxFit.contain,
+                      Expanded(
+                        child: Hero(
+                          tag: 'character',
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Transform.scale(
+                                scale: 2.0, // 확대 비율 설정
+                                alignment: const Alignment(0, -0.3),
+                                child: Stack(
+                                  children: [
+                                    Image.network(
+                                      widget.dodo.getMyCharacter(),
+                                    ),
+                                    Opacity(
+                                      opacity: 0.5,
+                                      child: Image.network(
+                                          widget.dodo2.getMyCharacter()),
+                                    ),
+                                  ],
                                 ),
-                                Opacity(
-                                  opacity: 0.5,
-                                  child: Image.network(
-                                    widget.dodo2
-                                        .getMyCharacter(rendermode: "1"),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
