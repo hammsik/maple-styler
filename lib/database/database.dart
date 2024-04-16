@@ -48,7 +48,10 @@ class UserFavoriteItems extends Table {
 
 class UserFavoriteCharacters extends Table {
   IntColumn get id => integer().autoIncrement()();
-  TextColumn get characterInfo => text()();
+  TextColumn get characterInfo1 => text()();
+  TextColumn get characterInfo2 => text()();
+  TextColumn get characterImageUrl1 => text()();
+  TextColumn get characterImageUrl2 => text()();
   TextColumn get characterName => text().nullable()();
 }
 
@@ -93,6 +96,10 @@ class UserFavoriteDataBase extends _$UserFavoriteDataBase {
       },
       onUpgrade: (Migrator m, int from, int to) async {
         if (from < 2) {
+          await m.addColumn(userFavoriteCharacters,
+              userFavoriteCharacters.characterImageUrl1);
+          await m.addColumn(userFavoriteCharacters,
+              userFavoriteCharacters.characterImageUrl2);
           await m.addColumn(
               userFavoriteCharacters, userFavoriteCharacters.characterName);
         }

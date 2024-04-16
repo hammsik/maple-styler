@@ -83,7 +83,8 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                             Navigator.pop(context, deleteCnt);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 255, 89, 77),
+                            backgroundColor:
+                                const Color.fromARGB(255, 255, 89, 77),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                           ),
@@ -121,11 +122,11 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                 ElevatedButton(
                     onPressed: () => Navigator.pop(context),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+                      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8)),
                       // width가 부모의 width에 맞게
-                      minimumSize: Size(double.infinity, 40),
+                      minimumSize: const Size(double.infinity, 40),
                     ),
                     child: const Text('닫기',
                         style: TextStyle(color: Colors.black))),

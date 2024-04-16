@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:maple_closet/data/myTools.dart';
-import 'package:maple_closet/layout_character_detail.dart';
+import 'package:maple_closet/layout_character_info.dart';
 import 'package:maple_closet/layout_map_buttons.dart';
 import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:maple_closet/database/database.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'data/backgrounds.dart';
 
 class MapleStylerHome extends StatefulWidget {
@@ -224,29 +221,24 @@ class _MapleStylerHome extends State<MapleStylerHome> {
   void openCharacterDetail(
       BuildContext context, MyCharacter dodo, MyCharacter dodo2) {
     Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            CharacterDetail(dodo: dodo, dodo2: dodo2),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-        opaque: false,
-      ),
-    );
+        context,
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              CharacterDetail(dodo: dodo, dodo2: dodo2),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+          opaque: false,
+        )).then((_) => setState(() {}));
   }
 
   void getCharacterImageFromNetwork() {
     _characterImage = Future.wait([
       precacheImage(NetworkImage(dodo.getMyCharacter()), context),
       precacheImage(NetworkImage(dodo2.getMyCharacter()), context),
-      // precacheImage(
-      //     NetworkImage(dodo.getMyCharacter(rendermode: "1")), context),
-      // precacheImage(
-      //     NetworkImage(dodo2.getMyCharacter(rendermode: "1")), context),
     ]);
   }
 
@@ -340,19 +332,27 @@ class _MapleStylerHome extends State<MapleStylerHome> {
                     const SizedBox(height: 20),
                     BackgroundButtons(switchBackground: switchBackground),
                     const SizedBox(height: 45),
-                    Material(
-                      type: MaterialType.transparency,
-                      child: InkResponse(
-                        onTap: () {
-                          openCharacterDetail(context, dodo, dodo2);
-                        },
-                        splashFactory: InkRipple.splashFactory,
-                        child: Container(
-                          clipBehavior: Clip.none,
-                          width: 120,
-                          height: 120,
-                        ),
-                      ),
+                    FutureBuilder(
+                      future: _characterImage,
+                      builder: (context, snapshot) {
+                        return Material(
+                          type: MaterialType.transparency,
+                          child: InkResponse(
+                            onTap: snapshot.connectionState ==
+                                    ConnectionState.done
+                                ? () {
+                                    openCharacterDetail(context, dodo, dodo2);
+                                  }
+                                : null,
+                            splashFactory: InkSplash.splashFactory,
+                            child: Container(
+                              clipBehavior: Clip.none,
+                              width: 120,
+                              height: 120,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                     const SizedBox(height: 65),
                     Flexible(

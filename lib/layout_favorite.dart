@@ -106,14 +106,17 @@ class _FavoriteLayout extends State<FavoriteLayout> {
                           child: Row(
                             children: [
                               const SizedBox(width: 10),
-                              SizedBox(
-                                width: 35,
-                                child: Image.network(
-                                  'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return const Icon(
-                                        Icons.image_not_supported_outlined);
-                                  },
+                              Hero(
+                                tag: index,
+                                child: SizedBox(
+                                  width: 35,
+                                  child: Image.network(
+                                    'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return const Icon(
+                                          Icons.image_not_supported_outlined);
+                                    },
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 5),

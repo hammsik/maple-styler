@@ -165,9 +165,8 @@ class MyCharacter {
     itemQueueIdx = itemQueue.length - 1;
   }
 
-  String getMyCharacter({String rendermode = "2"}) {
-    String middle = makeItemsURL();
-    return 'https://maplestory.io/api/Character/$middle/stand1/0/?renderMode=$rendermode';
+  String getMyCharacter({String characterItemsURL = ''}) {
+    return 'https://maplestory.io/api/Character/${characterItemsURL == '' ? makeItemsURL() : characterItemsURL}/stand1/0/?renderMode=2';
   }
 
   void undo() {
