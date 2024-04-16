@@ -69,8 +69,8 @@ class _ItemList extends State<ItemList> {
                     child: Row(
                       children: [
                         const SizedBox(width: 10),
-                        Flexible(
-                          fit: FlexFit.loose,
+                        SizedBox(
+                          width: 35,
                           child: Image.network(
                             'https://maplestory.io/api/KMS/389/item/${widget.itemList[index].itemid}/icon',
                             errorBuilder: (context, error, stackTrace) {
@@ -80,23 +80,24 @@ class _ItemList extends State<ItemList> {
                           ),
                         ),
                         const SizedBox(width: 5),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          decoration: BoxDecoration(
-                            // color: Color.fromARGB(255, 230, 222, 218),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          width: 100,
-                          height: double.infinity,
-                          margin: const EdgeInsets.all(5),
-                          child: Text(
-                            widget.itemList[index].name,
-                            style: GoogleFonts.nanumMyeongjo(
-                                color: const Color.fromARGB(255, 0, 0, 0),
-                                fontSize: 10,
-                                fontWeight: FontWeight.w700),
+                        Expanded(
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            decoration: BoxDecoration(
+                              // color: Color.fromARGB(255, 230, 222, 218),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            margin: const EdgeInsets.all(5),
+                            child: Text(
+                              widget.itemList[index].name,
+                              style: GoogleFonts.nanumMyeongjo(
+                                  color: const Color.fromARGB(255, 0, 0, 0),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700),
+                            ),
                           ),
                         ),
+                        const SizedBox(width: 5),
                       ],
                     ),
                   ),

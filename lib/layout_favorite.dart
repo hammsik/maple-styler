@@ -15,7 +15,7 @@ class FavoriteLayout extends StatefulWidget {
 }
 
 class _FavoriteLayout extends State<FavoriteLayout> {
-  final favoriteItemDB = UserFavoriteDataBase();
+  final userFavoriteDB = UserFavoriteDataBase();
   List<UserFavoriteItem> itemList = [];
 
   @override
@@ -26,7 +26,7 @@ class _FavoriteLayout extends State<FavoriteLayout> {
 
   void initDB() async {
     List<UserFavoriteItem> tmpItemList =
-        await favoriteItemDB.select(favoriteItemDB.userFavoriteItems).get();
+        await userFavoriteDB.select(userFavoriteDB.userFavoriteItems).get();
     setState(() => itemList = tmpItemList);
   }
 
@@ -106,37 +106,36 @@ class _FavoriteLayout extends State<FavoriteLayout> {
                           child: Row(
                             children: [
                               const SizedBox(width: 10),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: Hero(
-                                  tag: index,
-                                  child: Image.network(
-                                    'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return const Icon(
-                                          Icons.image_not_supported_outlined);
-                                    },
+                              SizedBox(
+                                width: 35,
+                                child: Image.network(
+                                  'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return const Icon(
+                                        Icons.image_not_supported_outlined);
+                                  },
+                                ),
+                              ),
+                              const SizedBox(width: 5),
+                              Expanded(
+                                child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  decoration: BoxDecoration(
+                                    // color: Color.fromARGB(255, 230, 222, 218),
+                                    borderRadius: BorderRadius.circular(5),
+                                  ),
+                                  margin: const EdgeInsets.all(5),
+                                  child: Text(
+                                    itemList[index].name,
+                                    style: GoogleFonts.nanumMyeongjo(
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.w700),
                                   ),
                                 ),
                               ),
                               const SizedBox(width: 5),
-                              Container(
-                                alignment: Alignment.centerLeft,
-                                decoration: BoxDecoration(
-                                  // color: Color.fromARGB(255, 230, 222, 218),
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                                width: 100,
-                                height: double.infinity,
-                                margin: const EdgeInsets.all(5),
-                                child: Text(
-                                  itemList[index].name,
-                                  style: GoogleFonts.nanumMyeongjo(
-                                      color: const Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                              ),
                             ],
                           ),
                         ),
