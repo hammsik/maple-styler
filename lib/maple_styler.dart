@@ -331,7 +331,7 @@ class _MapleStylerHome extends State<MapleStylerHome> {
                     MyCustomAppBar(clickEvent: _openEndDrawer),
                     const SizedBox(height: 20),
                     BackgroundButtons(switchBackground: switchBackground),
-                    const SizedBox(height: 45),
+                    const SizedBox(height: 30),
                     FutureBuilder(
                       future: _characterImage,
                       builder: (context, snapshot) {
@@ -347,14 +347,14 @@ class _MapleStylerHome extends State<MapleStylerHome> {
                             splashFactory: InkSplash.splashFactory,
                             child: Container(
                               clipBehavior: Clip.none,
-                              width: 120,
-                              height: 120,
+                              width: 150,
+                              height: 150,
                             ),
                           ),
                         );
                       },
                     ),
-                    const SizedBox(height: 65),
+                    const SizedBox(height: 50),
                     Flexible(
                       fit: FlexFit.loose,
                       child: itemList.isNotEmpty

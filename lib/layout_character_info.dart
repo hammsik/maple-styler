@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/database/database.dart';
@@ -64,7 +62,7 @@ class _CharacterDetail extends State<CharacterDetail> {
 
   void replaceCurrentCharacter(UserFavoriteCharacter selectedCharacter) {
     setState(() {
-      widget.dodo.itemMap = json.decode(selectedCharacter.characterInfo1);
+      widget.dodo.itemMap = json.decode(selectedCharacter.characterInfo);
       widget.dodo2.itemMap = json.decode(selectedCharacter.characterInfo2);
       widget.dodo.addItem();
       widget.dodo2.addItem();
@@ -255,7 +253,7 @@ class _CharacterDetail extends State<CharacterDetail> {
                                             .userFavoriteCharacters)
                                         .insert(UserFavoriteCharactersCompanion
                                             .insert(
-                                          characterInfo1:
+                                          characterInfo:
                                               json.encode(widget.dodo.itemMap),
                                           characterInfo2:
                                               json.encode(widget.dodo2.itemMap),
@@ -367,24 +365,28 @@ class _CharacterDetail extends State<CharacterDetail> {
                                                     context,
                                                     characterList[index],
                                                     index - 1000),
-                                            child: Hero(
-                                              tag: index - 1000,
-                                              child: Stack(
-                                                children: [
-                                                  Image.network(
-                                                    characterList[index]
-                                                        .characterImageUrl1,
-                                                    fit: BoxFit.none,
-                                                  ),
-                                                  Opacity(
-                                                    opacity: 0.5,
-                                                    child: Image.network(
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Hero(
+                                                tag: index - 1000,
+                                                child: Stack(
+                                                  children: [
+                                                    Image.network(
                                                       characterList[index]
-                                                          .characterImageUrl2,
+                                                          .characterImageUrl1,
                                                       fit: BoxFit.none,
                                                     ),
-                                                  ),
-                                                ],
+                                                    Opacity(
+                                                      opacity: 0.5,
+                                                      child: Image.network(
+                                                        characterList[index]
+                                                            .characterImageUrl2,
+                                                        fit: BoxFit.none,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
