@@ -196,6 +196,7 @@ class _MapleStylerHome extends State<MapleStylerHome> {
         dodo.undo();
         dodo2.undo();
         currentListButtonIdx = -1;
+        getCharacterImageFromNetwork();
       });
     }
   }
@@ -206,6 +207,7 @@ class _MapleStylerHome extends State<MapleStylerHome> {
         dodo.redo();
         dodo2.redo();
         currentListButtonIdx = -1;
+        getCharacterImageFromNetwork();
       });
     }
   }
