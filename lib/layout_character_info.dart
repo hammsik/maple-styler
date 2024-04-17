@@ -352,7 +352,6 @@ class _CharacterDetail extends State<CharacterDetail> {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
-                                              minimumSize: Size.zero,
                                               padding: const EdgeInsets.all(0),
                                               backgroundColor:
                                                   const Color.fromARGB(
@@ -371,6 +370,7 @@ class _CharacterDetail extends State<CharacterDetail> {
                                               child: Hero(
                                                 tag: index - 1000,
                                                 child: Stack(
+                                                  fit: StackFit.expand,
                                                   children: [
                                                     Image.network(
                                                       characterList[index]
