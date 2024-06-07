@@ -117,12 +117,30 @@ class _CharacterDetail extends State<CharacterDetail> {
                     children: [
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Text(
-                              "장착 아이템",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconButton(
+                                  style: IconButton.styleFrom(
+                                    minimumSize: Size.zero,
+                                    padding: const EdgeInsets.all(0),
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                  ),
+                                  onPressed: () => Navigator.pop(context),
+                                  icon: const Icon(
+                                    Icons.arrow_back_ios_new_rounded,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                const Text(
+                                  "장착 아이템",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 10),
                             Expanded(
