@@ -246,12 +246,12 @@ class _CharacterDetail extends State<CharacterDetail> {
                                       child: Stack(
                                         children: [
                                           Image.network(
-                                            widget.dodo.getMyCharacter(),
+                                            widget.dodo.getMyCharacter(imageFrame: '0'),
                                           ),
                                           Opacity(
                                             opacity: 0.5,
                                             child: Image.network(
-                                                widget.dodo2.getMyCharacter()),
+                                                widget.dodo2.getMyCharacter(imageFrame: '0')),
                                           ),
                                         ],
                                       ),
@@ -276,9 +276,9 @@ class _CharacterDetail extends State<CharacterDetail> {
                                           characterInfo2:
                                               json.encode(widget.dodo2.itemMap),
                                           characterImageUrl1:
-                                              widget.dodo.getMyCharacter(),
+                                              widget.dodo.getMyCharacter(imageFrame: '0'),
                                           characterImageUrl2:
-                                              widget.dodo2.getMyCharacter(),
+                                              widget.dodo2.getMyCharacter(imageFrame: '0'),
                                         ));
                                     Fluttertoast.showToast(
                                         msg: "코디가 저장되었습니다!",

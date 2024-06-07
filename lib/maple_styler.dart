@@ -37,6 +37,7 @@ class _MapleStylerHome extends State<MapleStylerHome> {
     initDB();
   }
 
+  // 위젯 첫 생성 시에 이미지를 불러오기 위해 didChangeDependencies()에서 호출
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -239,8 +240,17 @@ class _MapleStylerHome extends State<MapleStylerHome> {
 
   void getCharacterImageFromNetwork() {
     _characterImage = Future.wait([
-      precacheImage(NetworkImage(dodo.getMyCharacter()), context),
-      precacheImage(NetworkImage(dodo2.getMyCharacter()), context),
+      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '0')), context),
+      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '0')), context),
+
+      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '1')), context),
+      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '1')), context),
+
+      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '2')), context),
+      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '2')), context),
+
+      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '3')), context),
+      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '3')), context),
     ]);
   }
 
@@ -310,10 +320,10 @@ class _MapleStylerHome extends State<MapleStylerHome> {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              Image.network(dodo.getMyCharacter()),
+                              Image.network(dodo.getMyCharacter(imageFrame: '0')),
                               Opacity(
                                 opacity: 0.5,
-                                child: Image.network(dodo2.getMyCharacter()),
+                                child: Image.network(dodo2.getMyCharacter(imageFrame: '0')),
                               ),
                             ],
                           ),
