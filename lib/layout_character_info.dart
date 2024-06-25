@@ -121,18 +121,23 @@ class _CharacterDetail extends State<CharacterDetail> {
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                IconButton(
-                                  style: IconButton.styleFrom(
-                                    minimumSize: Size.zero,
-                                    padding: const EdgeInsets.all(0),
-                                    tapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
-                                  ),
-                                  onPressed: () => Navigator.pop(context),
-                                  icon: const Icon(
-                                    Icons.arrow_back_ios_new_rounded,
-                                    color: Colors.white,
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: InkWell(
+                                    onTap: () => Navigator.pop(context),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      width: 32,
+                                      height: 32,
+                                      child: const Icon(
+                                        Icons.arrow_back_ios_new_rounded,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 const Text(
@@ -246,12 +251,14 @@ class _CharacterDetail extends State<CharacterDetail> {
                                       child: Stack(
                                         children: [
                                           Image.network(
-                                            widget.dodo.getMyCharacter(imageFrame: '0'),
+                                            widget.dodo.getMyCharacter(
+                                                imageFrame: '0'),
                                           ),
                                           Opacity(
                                             opacity: 0.5,
-                                            child: Image.network(
-                                                widget.dodo2.getMyCharacter(imageFrame: '0')),
+                                            child: Image.network(widget.dodo2
+                                                .getMyCharacter(
+                                                    imageFrame: '0')),
                                           ),
                                         ],
                                       ),
@@ -275,10 +282,10 @@ class _CharacterDetail extends State<CharacterDetail> {
                                               json.encode(widget.dodo.itemMap),
                                           characterInfo2:
                                               json.encode(widget.dodo2.itemMap),
-                                          characterImageUrl1:
-                                              widget.dodo.getMyCharacter(imageFrame: '0'),
-                                          characterImageUrl2:
-                                              widget.dodo2.getMyCharacter(imageFrame: '0'),
+                                          characterImageUrl1: widget.dodo
+                                              .getMyCharacter(imageFrame: '0'),
+                                          characterImageUrl2: widget.dodo2
+                                              .getMyCharacter(imageFrame: '0'),
                                         ));
                                     Fluttertoast.showToast(
                                         msg: "코디가 저장되었습니다!",
