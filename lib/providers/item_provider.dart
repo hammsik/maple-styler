@@ -1,0 +1,52 @@
+import 'package:maple_closet/data/myTools.dart';
+import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/providers/database_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'item_provider.g.dart';
+
+@Riverpod(keepAlive: true)
+class MapleItemList extends _$MapleItemList {
+  @override
+  FutureOr<List<List<List<dynamic>>>> build() async {
+    final ItemDatabase itemDatabase = ref.watch(mapleItemDatabaseProvider);
+    return loadItemList(itemDatabase);
+  }
+
+  Future<List<List<List<dynamic>>>> loadItemList(ItemDatabase itemDatabase) async {
+    List<List<List<dynamic>>> itemList = [];
+
+    List<List<CharacterItem>> characterItemList = [];
+    List<List<ArmorItem>> armorItemList = [];
+    List<List<AccessoryItem>> accessoryItemList = [];
+
+    for (final subCategory in myToolList[0].menuList!) {
+      characterItemList.add(List.from((await(
+                  itemDatabase.select(itemDatabase.characterItems)
+                    ..where((item) => item.subCategory.equals(subCategory[1])))
+              .get())
+          .reversed));
+    }
+
+    for (final subCategory in myToolList[1].menuList!) {
+      armorItemList.add(List.from((await(itemDatabase.select(itemDatabase.armorItems)
+                ..where((item) => item.subCategory.equals(subCategory[1])))
+            .get())
+        .reversed));
+    }
+
+    for (final subCategory in myToolList[2].menuList!) {
+      accessoryItemList.add(List.from((await(
+                  itemDatabase.select(itemDatabase.accessoryItems)
+                    ..where((item) => item.subCategory.equals(subCategory[1])))
+              .get())
+          .reversed));
+    }
+
+    itemList.add(characterItemList);
+    itemList.add(armorItemList);
+    itemList.add(accessoryItemList);
+
+    return itemList;
+  }
+}

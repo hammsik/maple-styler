@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:maple_closet/database/database.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/maple_styler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   // deleteDatabase('user.db');
-  runApp(const MapleStyler());
+  runApp(const ProviderScope(child: MapleStyler()));
 }
 
 class MapleStyler extends StatelessWidget {
@@ -14,7 +14,6 @@ class MapleStyler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // title: 'Maple Closet',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
