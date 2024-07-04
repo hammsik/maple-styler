@@ -12,23 +12,21 @@ import 'my_item_list.dart';
 import 'my_item_menu.dart';
 import 'my_selected_item.dart';
 
-// ignore: must_be_immutable
-class CoordinatingTools extends StatefulWidget {
+class CoordinatingTools extends StatelessWidget {
   final Function listButtonClicked;
   final Function colorApplyButtonClicked;
-  int clickedButtonIdx;
+  final int clickedButtonIdx;
   final Function clickedClose;
   final Function() undoImage;
   final Function() redoImage;
   final MyCharacter currentCharacter;
   final MyCharacter currentCharacter2;
-  final List<List<List<dynamic>>> itemList;
-  int currentToolIdx;
-  int currentMenuIdx;
+  final int currentToolIdx;
+  final int currentMenuIdx;
   final Function toolButtonClick;
   final Function menuButtonClick;
 
-  CoordinatingTools({
+  const CoordinatingTools({
     super.key,
     required this.listButtonClicked,
     required this.colorApplyButtonClicked,
@@ -38,7 +36,6 @@ class CoordinatingTools extends StatefulWidget {
     required this.redoImage,
     required this.currentCharacter,
     required this.currentCharacter2,
-    required this.itemList,
     required this.currentToolIdx,
     required this.currentMenuIdx,
     required this.toolButtonClick,
@@ -46,27 +43,20 @@ class CoordinatingTools extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() {
-    return _CoordinatingTools();
-  }
-}
-
-class _CoordinatingTools extends State<CoordinatingTools> {
-  @override
   Widget build(BuildContext context) {
     Widget specialWidget;
 
-    if (widget.currentToolIdx == 3) {
+    if (currentToolIdx == 3) {
       specialWidget = ColorLayout(
-        currentCharacter: widget.currentCharacter,
-        currentCharacter2: widget.currentCharacter2,
-        applyButtonClicked: widget.colorApplyButtonClicked,
+        currentCharacter: currentCharacter,
+        currentCharacter2: currentCharacter2,
+        applyButtonClicked: colorApplyButtonClicked,
       );
-    } else if (widget.currentToolIdx == 4) {
+    } else if (currentToolIdx == 4) {
       specialWidget = const UndefinedLayout();
     } else {
       specialWidget = FavoriteLayout(
-        itemApply: widget.listButtonClicked,
+        itemApply: listButtonClicked,
       );
     }
 
@@ -80,50 +70,49 @@ class _CoordinatingTools extends State<CoordinatingTools> {
           Row(
             children: [
               SearchBox(
-                itemList: widget.itemList,
-                buttonClicked: widget.listButtonClicked,
+                buttonClicked: listButtonClicked,
               ),
               const SizedBox(width: 8),
               UndoAndRedo(
-                undoImage: widget.undoImage,
-                redoImage: widget.redoImage,
+                undoImage: undoImage,
+                redoImage: redoImage,
               )
             ],
           ),
           const SizedBox(height: 8),
           MytoolButtons(
             toolList: myToolList,
-            clickButtonIdx: widget.currentToolIdx,
-            buttonClicked: widget.toolButtonClick,
+            clickButtonIdx: currentToolIdx,
+            buttonClicked: toolButtonClick,
           ),
           const SizedBox(height: 8),
           Flexible(
             fit: FlexFit.loose,
-            child: widget.currentToolIdx < 3
+            child: currentToolIdx < 3
                 ? Column(
                     children: [
                       Row(
                         children: [
                           ItemMenu(
-                              currentTool: myToolList[widget.currentToolIdx],
-                              currentMenuIdx: widget.currentMenuIdx,
-                              buttonClicked: widget.menuButtonClick),
+                              currentTool: myToolList[currentToolIdx],
+                              currentMenuIdx: currentMenuIdx,
+                              buttonClicked: menuButtonClick),
                           const SizedBox(width: 8),
                           SelectedItem(
-                              currentCharacter: widget.currentCharacter,
-                              clickCloseButton: widget.clickedClose,
-                              subCategory: myToolList[widget.currentToolIdx]
-                                  .menuList![widget.currentMenuIdx][1]),
+                              currentCharacter: currentCharacter,
+                              clickCloseButton: clickedClose,
+                              subCategory: myToolList[currentToolIdx]
+                                  .menuList![currentMenuIdx][1]),
                         ],
                       ),
                       const SizedBox(height: 8),
                       Flexible(
                           fit: FlexFit.loose,
                           child: ItemList(
-                            itemList: widget.itemList[widget.currentToolIdx]
-                                [widget.currentMenuIdx],
-                            buttonClicked: widget.listButtonClicked,
-                            currentClickedItemIdx: widget.clickedButtonIdx,
+                            buttonClicked: listButtonClicked,
+                            currentClickedItemIdx: clickedButtonIdx,
+                            currentToolIndex: currentToolIdx,
+                            currentMenuIndex: currentMenuIdx,
                           )),
                     ],
                   )

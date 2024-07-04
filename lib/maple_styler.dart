@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/layout_character_info.dart';
 import 'package:maple_closet/layout_map_buttons.dart';
@@ -8,17 +9,17 @@ import 'package:maple_closet/layout_character_board.dart';
 import 'package:maple_closet/layout_coordinating_tool.dart';
 import 'package:maple_closet/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
-import 'package:maple_closet/database/database.dart';
 import 'data/backgrounds.dart';
 
-class MapleStylerHome extends StatefulWidget {
+class MapleStylerHome extends ConsumerStatefulWidget {
   const MapleStylerHome({super.key});
 
   @override
-  State<StatefulWidget> createState() => _MapleStylerHome();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _MapleStylerHomeState();
 }
 
-class _MapleStylerHome extends State<MapleStylerHome> {
+class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   MyCharacter dodo = MyCharacter();
@@ -28,13 +29,11 @@ class _MapleStylerHome extends State<MapleStylerHome> {
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
   int currentListButtonIdx = -1;
-  List<List<List<dynamic>>> itemList = [];
   DateTime? currentBackPressTime;
 
   @override
   void initState() {
     super.initState();
-    initDB();
   }
 
   // 위젯 첫 생성 시에 이미지를 불러오기 위해 didChangeDependencies()에서 호출
@@ -42,49 +41,6 @@ class _MapleStylerHome extends State<MapleStylerHome> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     getCharacterImageFromNetwork();
-  }
-
-  void initDB() async {
-    final database = ItemDatabase();
-    List<List<CharacterItem>> characterItemList = [];
-    List<List<ArmorItem>> armorItemList = [];
-    List<List<AccessoryItem>> accessoryItemList = [];
-
-    for (int characterSubCategory = 0;
-        characterSubCategory < myToolList[0].menuList!.length;
-        characterSubCategory++) {
-      characterItemList.add(List.from((await (database
-                  .select(database.characterItems)
-                ..where((item) => item.subCategory
-                    .equals(myToolList[0].menuList![characterSubCategory][1])))
-              .get())
-          .reversed));
-    }
-    for (int armorSubCategory = 0;
-        armorSubCategory < myToolList[1].menuList!.length;
-        armorSubCategory++) {
-      armorItemList.add(List.from((await (database.select(database.armorItems)
-                ..where((item) => item.subCategory
-                    .equals(myToolList[1].menuList![armorSubCategory][1])))
-              .get())
-          .reversed));
-    }
-    for (int accessorySubCategory = 0;
-        accessorySubCategory < myToolList[2].menuList!.length;
-        accessorySubCategory++) {
-      accessoryItemList.add(List.from((await (database
-                  .select(database.accessoryItems)
-                ..where((item) => item.subCategory
-                    .equals(myToolList[2].menuList![accessorySubCategory][1])))
-              .get())
-          .reversed));
-    }
-
-    setState(() {
-      itemList.add(characterItemList);
-      itemList.add(armorItemList);
-      itemList.add(accessoryItemList);
-    });
   }
 
   void onWillPop(bool b) {
@@ -240,17 +196,10 @@ class _MapleStylerHome extends State<MapleStylerHome> {
 
   void getCharacterImageFromNetwork() {
     _characterImage = Future.wait([
-      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '0')), context),
-      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '0')), context),
-
-      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '1')), context),
-      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '1')), context),
-
-      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '2')), context),
-      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '2')), context),
-
-      precacheImage(NetworkImage(dodo.getMyCharacter(imageFrame: '3')), context),
-      precacheImage(NetworkImage(dodo2.getMyCharacter(imageFrame: '3')), context),
+      precacheImage(
+          NetworkImage(dodo.getMyCharacter(imageFrame: '0')), context),
+      precacheImage(
+          NetworkImage(dodo2.getMyCharacter(imageFrame: '0')), context),
     ]);
   }
 
@@ -320,10 +269,12 @@ class _MapleStylerHome extends State<MapleStylerHome> {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              Image.network(dodo.getMyCharacter(imageFrame: '0')),
+                              Image.network(
+                                  dodo.getMyCharacter(imageFrame: '0')),
                               Opacity(
                                 opacity: 0.5,
-                                child: Image.network(dodo2.getMyCharacter(imageFrame: '0')),
+                                child: Image.network(
+                                    dodo2.getMyCharacter(imageFrame: '0')),
                               ),
                             ],
                           ),
@@ -368,37 +319,21 @@ class _MapleStylerHome extends State<MapleStylerHome> {
                     ),
                     const SizedBox(height: 50),
                     Flexible(
-                      fit: FlexFit.loose,
-                      child: itemList.isNotEmpty
-                          ? CoordinatingTools(
-                              listButtonClicked: setMyCharacter,
-                              clickedButtonIdx: currentListButtonIdx,
-                              currentCharacter: dodo,
-                              currentCharacter2: dodo2,
-                              clickedClose: takeOffItem,
-                              undoImage: undoImage,
-                              redoImage: redoImage,
-                              itemList: itemList,
-                              colorApplyButtonClicked: setBeauty,
-                              currentToolIdx: currentToolIdx,
-                              currentMenuIdx: currentMenuIdx,
-                              toolButtonClick: setCurrentToolIdx,
-                              menuButtonClick: setCurrentMenuIdx,
-                            )
-                          : Container(
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              height: double.infinity,
-                              decoration: BoxDecoration(
-                                color: const Color.fromARGB(255, 230, 222, 218),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: const SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child: CircularProgressIndicator()),
-                            ),
-                    ),
+                        fit: FlexFit.loose,
+                        child: CoordinatingTools(
+                          listButtonClicked: setMyCharacter,
+                          clickedButtonIdx: currentListButtonIdx,
+                          currentCharacter: dodo,
+                          currentCharacter2: dodo2,
+                          clickedClose: takeOffItem,
+                          undoImage: undoImage,
+                          redoImage: redoImage,
+                          colorApplyButtonClicked: setBeauty,
+                          currentToolIdx: currentToolIdx,
+                          currentMenuIdx: currentMenuIdx,
+                          toolButtonClick: setCurrentToolIdx,
+                          menuButtonClick: setCurrentMenuIdx,
+                        )),
                   ],
                 ),
               ],
