@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:maple_closet/providers/database_provider.dart';
 
-class SelectedItem extends ConsumerWidget {
+class SelectedItem extends ConsumerWidget with ItemEvent {
   final MyCharacter currentCharacter;
   final Function clickCloseButton;
   final String subCategory;
@@ -20,8 +20,7 @@ class SelectedItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userDB = ref.watch(mapleUserFavoriteDatabaseProvider);
 
-    String targetItemId =
-        currentCharacter.itemMap[subCategory][0];
+    String targetItemId = currentCharacter.itemMap[subCategory][0];
     if (subCategory == 'Hair') {
       targetItemId = targetItemId.replaceRange(4, 5, '0');
     } else if (subCategory == 'Face') {
@@ -35,12 +34,9 @@ class SelectedItem extends ConsumerWidget {
           color: const Color.fromARGB(255, 230, 222, 218),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: currentCharacter.itemMap[subCategory][0] ==
-                    'null' ||
-                currentCharacter.itemMap[subCategory][0] ==
-                    '1040036' ||
-                currentCharacter.itemMap[subCategory][0] ==
-                    '1060026'
+        child: currentCharacter.itemMap[subCategory][0] == 'null' ||
+                currentCharacter.itemMap[subCategory][0] == '1040036' ||
+                currentCharacter.itemMap[subCategory][0] == '1060026'
             ? const Text('아이템을 선택해주세요')
             : Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -59,9 +55,7 @@ class SelectedItem extends ConsumerWidget {
                     width: 10,
                   ),
                   Expanded(
-                      child: Text(
-                          currentCharacter.itemMap[subCategory]
-                              [1],
+                      child: Text(currentCharacter.itemMap[subCategory][1],
                           style: const TextStyle(fontSize: 9))),
                   const SizedBox(
                     width: 8,
@@ -78,17 +72,14 @@ class SelectedItem extends ConsumerWidget {
                           userDB.into(userDB.userFavoriteItems).insert(
                               UserFavoriteItemsCompanion.insert(
                                   itemid: int.parse(targetItemId),
-                                  name: currentCharacter
-                                      .itemMap[subCategory][1],
+                                  name: currentCharacter.itemMap[subCategory]
+                                      [1],
                                   subCategory: subCategory));
-                          
+                          showToast(
+                            message: "아이템이 찜 목록에 추가되었습니다.",
+                          );
                         } else {
-                          Fluttertoast.showToast(
-                              msg: "이미 찜한 아이템입니다.",
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: const Color(0xff6E6E6E),
-                              fontSize: 20,
-                              toastLength: Toast.LENGTH_SHORT);
+                          showToast(message: "이미 찜한 아이템입니다.");
                         }
                       },
                       style: FilledButton.styleFrom(
@@ -105,8 +96,7 @@ class SelectedItem extends ConsumerWidget {
                     width: 8,
                   ),
                   FilledButton(
-                    onPressed: () =>
-                        clickCloseButton(subCategory),
+                    onPressed: () => clickCloseButton(subCategory),
                     style: FilledButton.styleFrom(
                         foregroundColor: const Color.fromARGB(255, 60, 58, 78),
                         backgroundColor:

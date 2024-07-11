@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/providers/database_provider.dart';
 
-class FavoriteDetailScreen extends ConsumerWidget {
+class FavoriteDetailScreen extends ConsumerWidget with ItemEvent {
   final UserFavoriteItem favoriteItem;
   final int listIndex;
   final Function itemApply;
@@ -65,16 +65,10 @@ class FavoriteDetailScreen extends ConsumerWidget {
                           onPressed: () async {
                             int deleteCnt = await (database
                                     .delete(database.userFavoriteItems)
-                                  ..where((item) => item.itemid
-                                      .equals(favoriteItem.itemid)))
+                                  ..where((item) =>
+                                      item.itemid.equals(favoriteItem.itemid)))
                                 .go();
-                            Fluttertoast.showToast(
-                              msg:
-                                  "\"${favoriteItem.name}\" 아이템이 찜 목록에서 삭제되었습니다.",
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: const Color(0xff6E6E6E),
-                              fontSize: 20,
-                            );
+                            showToast(message: "아이템이 찜 목록에서 삭제되었습니다.");
                             Navigator.pop(context, deleteCnt);
                           },
                           style: ElevatedButton.styleFrom(
