@@ -3,8 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/providers/database_provider.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
-class FavoriteDetailScreen extends ConsumerWidget with ItemEvent {
+class FavoriteDetailScreen extends ConsumerWidget {
   final UserFavoriteItem favoriteItem;
   final int listIndex;
   final Function itemApply;
@@ -68,7 +69,10 @@ class FavoriteDetailScreen extends ConsumerWidget with ItemEvent {
                                   ..where((item) =>
                                       item.itemid.equals(favoriteItem.itemid)))
                                 .go();
-                            showToast(message: "아이템이 찜 목록에서 삭제되었습니다.");
+                            ref
+                                .read(customToastProvider.notifier)
+                                .showCustomToast(
+                                    context, "아이템이 찜 목록에서 삭제되었습니다.");
                             Navigator.pop(context, deleteCnt);
                           },
                           style: ElevatedButton.styleFrom(

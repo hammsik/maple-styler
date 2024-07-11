@@ -4,8 +4,9 @@ import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:maple_closet/providers/database_provider.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
-class SelectedItem extends ConsumerWidget with ItemEvent {
+class SelectedItem extends ConsumerWidget {
   final MyCharacter currentCharacter;
   final Function clickCloseButton;
   final String subCategory;
@@ -75,11 +76,9 @@ class SelectedItem extends ConsumerWidget with ItemEvent {
                                   name: currentCharacter.itemMap[subCategory]
                                       [1],
                                   subCategory: subCategory));
-                          showToast(
-                            message: "아이템이 찜 목록에 추가되었습니다.",
-                          );
+                          ref.read(customToastProvider.notifier).showCustomToast(context, "아이템이 찜 목록에 추가되었습니다.");
                         } else {
-                          showToast(message: "이미 찜한 아이템입니다.");
+                          ref.read(customToastProvider.notifier).showCustomToast(context, "이미 찜한 아이템입니다.");
                         }
                       },
                       style: FilledButton.styleFrom(

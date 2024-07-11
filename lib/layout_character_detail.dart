@@ -3,8 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/providers/database_provider.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
-class CharacterDetailScreen extends ConsumerWidget with ItemEvent {
+class CharacterDetailScreen extends ConsumerWidget {
   final UserFavoriteCharacter favoriteCharacter;
   final int listIndex;
   final Function characterApply;
@@ -57,7 +58,7 @@ class CharacterDetailScreen extends ConsumerWidget with ItemEvent {
                                     ..where((item) => item.id
                                         .equals(favoriteCharacter.id)))
                                   .go();
-                                  showToast(message: "코디가 삭제되었습니다.");
+                                  ref.read(customToastProvider.notifier).showCustomToast(context, "코디가 삭제되었습니다.");
                               Navigator.pop(context, deleteCnt);
                             },
                             style: ElevatedButton.styleFrom(
