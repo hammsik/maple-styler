@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/providers/database_provider.dart';
 
-class FavoriteDetailScreen extends StatefulWidget {
+class FavoriteDetailScreen extends ConsumerWidget {
   final UserFavoriteItem favoriteItem;
   final int listIndex;
   final Function itemApply;
@@ -14,16 +16,9 @@ class FavoriteDetailScreen extends StatefulWidget {
       required this.itemApply});
 
   @override
-  State<StatefulWidget> createState() {
-    return _FavoriteDetailScreen();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final database = ref.watch(mapleUserFavoriteDatabaseProvider);
 
-class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
-  final database = UserFavoriteDataBase();
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.6),
       body: SafeArea(
@@ -47,9 +42,9 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                   height: 80,
                   margin: const EdgeInsets.all(20),
                   child: Hero(
-                    tag: widget.listIndex,
+                    tag: listIndex,
                     child: Image.network(
-                      'https://maplestory.io/api/KMS/389/item/${widget.favoriteItem.itemid}/icon',
+                      'https://maplestory.io/api/KMS/389/item/${favoriteItem.itemid}/icon',
                       errorBuilder: (context, error, stackTrace) {
                         return const Icon(Icons.image_not_supported_outlined);
                       },
@@ -57,7 +52,7 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                     ),
                   ),
                 ),
-                Text(widget.favoriteItem.name),
+                Text(favoriteItem.name),
                 const SizedBox(
                   height: 20,
                 ),
@@ -71,11 +66,11 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                             int deleteCnt = await (database
                                     .delete(database.userFavoriteItems)
                                   ..where((item) => item.itemid
-                                      .equals(widget.favoriteItem.itemid)))
+                                      .equals(favoriteItem.itemid)))
                                 .go();
                             Fluttertoast.showToast(
                               msg:
-                                  "\"${widget.favoriteItem.name}\" 아이템이 찜 목록에서 삭제되었습니다.",
+                                  "\"${favoriteItem.name}\" 아이템이 찜 목록에서 삭제되었습니다.",
                               gravity: ToastGravity.BOTTOM,
                               backgroundColor: const Color(0xff6E6E6E),
                               fontSize: 20,
@@ -99,7 +94,7 @@ class _FavoriteDetailScreen extends State<FavoriteDetailScreen> {
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {
-                            widget.itemApply(widget.favoriteItem, -1);
+                            itemApply(favoriteItem, -1);
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(
