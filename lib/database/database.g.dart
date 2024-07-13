@@ -792,6 +792,7 @@ class AccessoryItemsCompanion extends UpdateCompanion<AccessoryItem> {
 
 abstract class _$ItemDatabase extends GeneratedDatabase {
   _$ItemDatabase(QueryExecutor e) : super(e);
+  _$ItemDatabaseManager get managers => _$ItemDatabaseManager(this);
   late final $CharacterItemsTable characterItems = $CharacterItemsTable(this);
   late final $ArmorItemsTable armorItems = $ArmorItemsTable(this);
   late final $AccessoryItemsTable accessoryItems = $AccessoryItemsTable(this);
@@ -801,6 +802,396 @@ abstract class _$ItemDatabase extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
       [characterItems, armorItems, accessoryItems];
+}
+
+typedef $$CharacterItemsTableInsertCompanionBuilder = CharacterItemsCompanion
+    Function({
+  Value<int> itemid,
+  required String name,
+  required String subCategory,
+  required int gender,
+});
+typedef $$CharacterItemsTableUpdateCompanionBuilder = CharacterItemsCompanion
+    Function({
+  Value<int> itemid,
+  Value<String> name,
+  Value<String> subCategory,
+  Value<int> gender,
+});
+
+class $$CharacterItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $CharacterItemsTable,
+    CharacterItem,
+    $$CharacterItemsTableFilterComposer,
+    $$CharacterItemsTableOrderingComposer,
+    $$CharacterItemsTableProcessedTableManager,
+    $$CharacterItemsTableInsertCompanionBuilder,
+    $$CharacterItemsTableUpdateCompanionBuilder> {
+  $$CharacterItemsTableTableManager(
+      _$ItemDatabase db, $CharacterItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$CharacterItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$CharacterItemsTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$CharacterItemsTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+            Value<int> gender = const Value.absent(),
+          }) =>
+              CharacterItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+            required int gender,
+          }) =>
+              CharacterItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+        ));
+}
+
+class $$CharacterItemsTableProcessedTableManager extends ProcessedTableManager<
+    _$ItemDatabase,
+    $CharacterItemsTable,
+    CharacterItem,
+    $$CharacterItemsTableFilterComposer,
+    $$CharacterItemsTableOrderingComposer,
+    $$CharacterItemsTableProcessedTableManager,
+    $$CharacterItemsTableInsertCompanionBuilder,
+    $$CharacterItemsTableUpdateCompanionBuilder> {
+  $$CharacterItemsTableProcessedTableManager(super.$state);
+}
+
+class $$CharacterItemsTableFilterComposer
+    extends FilterComposer<_$ItemDatabase, $CharacterItemsTable> {
+  $$CharacterItemsTableFilterComposer(super.$state);
+  ColumnFilters<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get gender => $state.composableBuilder(
+      column: $state.table.gender,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$CharacterItemsTableOrderingComposer
+    extends OrderingComposer<_$ItemDatabase, $CharacterItemsTable> {
+  $$CharacterItemsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get gender => $state.composableBuilder(
+      column: $state.table.gender,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$ArmorItemsTableInsertCompanionBuilder = ArmorItemsCompanion Function({
+  Value<int> itemid,
+  required String name,
+  required String subCategory,
+  required int gender,
+});
+typedef $$ArmorItemsTableUpdateCompanionBuilder = ArmorItemsCompanion Function({
+  Value<int> itemid,
+  Value<String> name,
+  Value<String> subCategory,
+  Value<int> gender,
+});
+
+class $$ArmorItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $ArmorItemsTable,
+    ArmorItem,
+    $$ArmorItemsTableFilterComposer,
+    $$ArmorItemsTableOrderingComposer,
+    $$ArmorItemsTableProcessedTableManager,
+    $$ArmorItemsTableInsertCompanionBuilder,
+    $$ArmorItemsTableUpdateCompanionBuilder> {
+  $$ArmorItemsTableTableManager(_$ItemDatabase db, $ArmorItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$ArmorItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$ArmorItemsTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$ArmorItemsTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+            Value<int> gender = const Value.absent(),
+          }) =>
+              ArmorItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+            required int gender,
+          }) =>
+              ArmorItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+        ));
+}
+
+class $$ArmorItemsTableProcessedTableManager extends ProcessedTableManager<
+    _$ItemDatabase,
+    $ArmorItemsTable,
+    ArmorItem,
+    $$ArmorItemsTableFilterComposer,
+    $$ArmorItemsTableOrderingComposer,
+    $$ArmorItemsTableProcessedTableManager,
+    $$ArmorItemsTableInsertCompanionBuilder,
+    $$ArmorItemsTableUpdateCompanionBuilder> {
+  $$ArmorItemsTableProcessedTableManager(super.$state);
+}
+
+class $$ArmorItemsTableFilterComposer
+    extends FilterComposer<_$ItemDatabase, $ArmorItemsTable> {
+  $$ArmorItemsTableFilterComposer(super.$state);
+  ColumnFilters<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get gender => $state.composableBuilder(
+      column: $state.table.gender,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$ArmorItemsTableOrderingComposer
+    extends OrderingComposer<_$ItemDatabase, $ArmorItemsTable> {
+  $$ArmorItemsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get gender => $state.composableBuilder(
+      column: $state.table.gender,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$AccessoryItemsTableInsertCompanionBuilder = AccessoryItemsCompanion
+    Function({
+  Value<int> itemid,
+  required String name,
+  required String subCategory,
+  required int gender,
+  Value<bool?> overlapsWithFace,
+});
+typedef $$AccessoryItemsTableUpdateCompanionBuilder = AccessoryItemsCompanion
+    Function({
+  Value<int> itemid,
+  Value<String> name,
+  Value<String> subCategory,
+  Value<int> gender,
+  Value<bool?> overlapsWithFace,
+});
+
+class $$AccessoryItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $AccessoryItemsTable,
+    AccessoryItem,
+    $$AccessoryItemsTableFilterComposer,
+    $$AccessoryItemsTableOrderingComposer,
+    $$AccessoryItemsTableProcessedTableManager,
+    $$AccessoryItemsTableInsertCompanionBuilder,
+    $$AccessoryItemsTableUpdateCompanionBuilder> {
+  $$AccessoryItemsTableTableManager(
+      _$ItemDatabase db, $AccessoryItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$AccessoryItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$AccessoryItemsTableOrderingComposer(ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$AccessoryItemsTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+            Value<int> gender = const Value.absent(),
+            Value<bool?> overlapsWithFace = const Value.absent(),
+          }) =>
+              AccessoryItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+            overlapsWithFace: overlapsWithFace,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+            required int gender,
+            Value<bool?> overlapsWithFace = const Value.absent(),
+          }) =>
+              AccessoryItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+            overlapsWithFace: overlapsWithFace,
+          ),
+        ));
+}
+
+class $$AccessoryItemsTableProcessedTableManager extends ProcessedTableManager<
+    _$ItemDatabase,
+    $AccessoryItemsTable,
+    AccessoryItem,
+    $$AccessoryItemsTableFilterComposer,
+    $$AccessoryItemsTableOrderingComposer,
+    $$AccessoryItemsTableProcessedTableManager,
+    $$AccessoryItemsTableInsertCompanionBuilder,
+    $$AccessoryItemsTableUpdateCompanionBuilder> {
+  $$AccessoryItemsTableProcessedTableManager(super.$state);
+}
+
+class $$AccessoryItemsTableFilterComposer
+    extends FilterComposer<_$ItemDatabase, $AccessoryItemsTable> {
+  $$AccessoryItemsTableFilterComposer(super.$state);
+  ColumnFilters<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get gender => $state.composableBuilder(
+      column: $state.table.gender,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<bool> get overlapsWithFace => $state.composableBuilder(
+      column: $state.table.overlapsWithFace,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$AccessoryItemsTableOrderingComposer
+    extends OrderingComposer<_$ItemDatabase, $AccessoryItemsTable> {
+  $$AccessoryItemsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get gender => $state.composableBuilder(
+      column: $state.table.gender,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<bool> get overlapsWithFace => $state.composableBuilder(
+      column: $state.table.overlapsWithFace,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class _$ItemDatabaseManager {
+  final _$ItemDatabase _db;
+  _$ItemDatabaseManager(this._db);
+  $$CharacterItemsTableTableManager get characterItems =>
+      $$CharacterItemsTableTableManager(_db, _db.characterItems);
+  $$ArmorItemsTableTableManager get armorItems =>
+      $$ArmorItemsTableTableManager(_db, _db.armorItems);
+  $$AccessoryItemsTableTableManager get accessoryItems =>
+      $$AccessoryItemsTableTableManager(_db, _db.accessoryItems);
 }
 
 class $UserFavoriteItemsTable extends UserFavoriteItems
@@ -1406,6 +1797,8 @@ class UserFavoriteCharactersCompanion
 
 abstract class _$UserFavoriteDataBase extends GeneratedDatabase {
   _$UserFavoriteDataBase(QueryExecutor e) : super(e);
+  _$UserFavoriteDataBaseManager get managers =>
+      _$UserFavoriteDataBaseManager(this);
   late final $UserFavoriteItemsTable userFavoriteItems =
       $UserFavoriteItemsTable(this);
   late final $UserFavoriteCharactersTable userFavoriteCharacters =
@@ -1416,4 +1809,292 @@ abstract class _$UserFavoriteDataBase extends GeneratedDatabase {
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
       [userFavoriteItems, userFavoriteCharacters];
+}
+
+typedef $$UserFavoriteItemsTableInsertCompanionBuilder
+    = UserFavoriteItemsCompanion Function({
+  Value<int> id,
+  required int itemid,
+  required String name,
+  required String subCategory,
+});
+typedef $$UserFavoriteItemsTableUpdateCompanionBuilder
+    = UserFavoriteItemsCompanion Function({
+  Value<int> id,
+  Value<int> itemid,
+  Value<String> name,
+  Value<String> subCategory,
+});
+
+class $$UserFavoriteItemsTableTableManager extends RootTableManager<
+    _$UserFavoriteDataBase,
+    $UserFavoriteItemsTable,
+    UserFavoriteItem,
+    $$UserFavoriteItemsTableFilterComposer,
+    $$UserFavoriteItemsTableOrderingComposer,
+    $$UserFavoriteItemsTableProcessedTableManager,
+    $$UserFavoriteItemsTableInsertCompanionBuilder,
+    $$UserFavoriteItemsTableUpdateCompanionBuilder> {
+  $$UserFavoriteItemsTableTableManager(
+      _$UserFavoriteDataBase db, $UserFavoriteItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$UserFavoriteItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$UserFavoriteItemsTableOrderingComposer(
+              ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$UserFavoriteItemsTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+          }) =>
+              UserFavoriteItemsCompanion(
+            id: id,
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required int itemid,
+            required String name,
+            required String subCategory,
+          }) =>
+              UserFavoriteItemsCompanion.insert(
+            id: id,
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+          ),
+        ));
+}
+
+class $$UserFavoriteItemsTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$UserFavoriteDataBase,
+        $UserFavoriteItemsTable,
+        UserFavoriteItem,
+        $$UserFavoriteItemsTableFilterComposer,
+        $$UserFavoriteItemsTableOrderingComposer,
+        $$UserFavoriteItemsTableProcessedTableManager,
+        $$UserFavoriteItemsTableInsertCompanionBuilder,
+        $$UserFavoriteItemsTableUpdateCompanionBuilder> {
+  $$UserFavoriteItemsTableProcessedTableManager(super.$state);
+}
+
+class $$UserFavoriteItemsTableFilterComposer
+    extends FilterComposer<_$UserFavoriteDataBase, $UserFavoriteItemsTable> {
+  $$UserFavoriteItemsTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$UserFavoriteItemsTableOrderingComposer
+    extends OrderingComposer<_$UserFavoriteDataBase, $UserFavoriteItemsTable> {
+  $$UserFavoriteItemsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+typedef $$UserFavoriteCharactersTableInsertCompanionBuilder
+    = UserFavoriteCharactersCompanion Function({
+  Value<int> id,
+  required String characterInfo,
+  required String characterInfo2,
+  required String characterImageUrl1,
+  required String characterImageUrl2,
+  Value<String?> characterName,
+});
+typedef $$UserFavoriteCharactersTableUpdateCompanionBuilder
+    = UserFavoriteCharactersCompanion Function({
+  Value<int> id,
+  Value<String> characterInfo,
+  Value<String> characterInfo2,
+  Value<String> characterImageUrl1,
+  Value<String> characterImageUrl2,
+  Value<String?> characterName,
+});
+
+class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
+    _$UserFavoriteDataBase,
+    $UserFavoriteCharactersTable,
+    UserFavoriteCharacter,
+    $$UserFavoriteCharactersTableFilterComposer,
+    $$UserFavoriteCharactersTableOrderingComposer,
+    $$UserFavoriteCharactersTableProcessedTableManager,
+    $$UserFavoriteCharactersTableInsertCompanionBuilder,
+    $$UserFavoriteCharactersTableUpdateCompanionBuilder> {
+  $$UserFavoriteCharactersTableTableManager(
+      _$UserFavoriteDataBase db, $UserFavoriteCharactersTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$UserFavoriteCharactersTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$UserFavoriteCharactersTableOrderingComposer(
+              ComposerState(db, table)),
+          getChildManagerBuilder: (p) =>
+              $$UserFavoriteCharactersTableProcessedTableManager(p),
+          getUpdateCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            Value<String> characterInfo = const Value.absent(),
+            Value<String> characterInfo2 = const Value.absent(),
+            Value<String> characterImageUrl1 = const Value.absent(),
+            Value<String> characterImageUrl2 = const Value.absent(),
+            Value<String?> characterName = const Value.absent(),
+          }) =>
+              UserFavoriteCharactersCompanion(
+            id: id,
+            characterInfo: characterInfo,
+            characterInfo2: characterInfo2,
+            characterImageUrl1: characterImageUrl1,
+            characterImageUrl2: characterImageUrl2,
+            characterName: characterName,
+          ),
+          getInsertCompanionBuilder: ({
+            Value<int> id = const Value.absent(),
+            required String characterInfo,
+            required String characterInfo2,
+            required String characterImageUrl1,
+            required String characterImageUrl2,
+            Value<String?> characterName = const Value.absent(),
+          }) =>
+              UserFavoriteCharactersCompanion.insert(
+            id: id,
+            characterInfo: characterInfo,
+            characterInfo2: characterInfo2,
+            characterImageUrl1: characterImageUrl1,
+            characterImageUrl2: characterImageUrl2,
+            characterName: characterName,
+          ),
+        ));
+}
+
+class $$UserFavoriteCharactersTableProcessedTableManager
+    extends ProcessedTableManager<
+        _$UserFavoriteDataBase,
+        $UserFavoriteCharactersTable,
+        UserFavoriteCharacter,
+        $$UserFavoriteCharactersTableFilterComposer,
+        $$UserFavoriteCharactersTableOrderingComposer,
+        $$UserFavoriteCharactersTableProcessedTableManager,
+        $$UserFavoriteCharactersTableInsertCompanionBuilder,
+        $$UserFavoriteCharactersTableUpdateCompanionBuilder> {
+  $$UserFavoriteCharactersTableProcessedTableManager(super.$state);
+}
+
+class $$UserFavoriteCharactersTableFilterComposer extends FilterComposer<
+    _$UserFavoriteDataBase, $UserFavoriteCharactersTable> {
+  $$UserFavoriteCharactersTableFilterComposer(super.$state);
+  ColumnFilters<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get characterInfo => $state.composableBuilder(
+      column: $state.table.characterInfo,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get characterInfo2 => $state.composableBuilder(
+      column: $state.table.characterInfo2,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get characterImageUrl1 => $state.composableBuilder(
+      column: $state.table.characterImageUrl1,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get characterImageUrl2 => $state.composableBuilder(
+      column: $state.table.characterImageUrl2,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get characterName => $state.composableBuilder(
+      column: $state.table.characterName,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$UserFavoriteCharactersTableOrderingComposer extends OrderingComposer<
+    _$UserFavoriteDataBase, $UserFavoriteCharactersTable> {
+  $$UserFavoriteCharactersTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get id => $state.composableBuilder(
+      column: $state.table.id,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get characterInfo => $state.composableBuilder(
+      column: $state.table.characterInfo,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get characterInfo2 => $state.composableBuilder(
+      column: $state.table.characterInfo2,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get characterImageUrl1 => $state.composableBuilder(
+      column: $state.table.characterImageUrl1,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get characterImageUrl2 => $state.composableBuilder(
+      column: $state.table.characterImageUrl2,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get characterName => $state.composableBuilder(
+      column: $state.table.characterName,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class _$UserFavoriteDataBaseManager {
+  final _$UserFavoriteDataBase _db;
+  _$UserFavoriteDataBaseManager(this._db);
+  $$UserFavoriteItemsTableTableManager get userFavoriteItems =>
+      $$UserFavoriteItemsTableTableManager(_db, _db.userFavoriteItems);
+  $$UserFavoriteCharactersTableTableManager get userFavoriteCharacters =>
+      $$UserFavoriteCharactersTableTableManager(
+          _db, _db.userFavoriteCharacters);
 }

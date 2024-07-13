@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/providers/database_provider.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
-class CharacterDetailScreen extends StatefulWidget {
+class CharacterDetailScreen extends ConsumerWidget {
   final UserFavoriteCharacter favoriteCharacter;
   final int listIndex;
   final Function characterApply;
@@ -14,16 +16,9 @@ class CharacterDetailScreen extends StatefulWidget {
       required this.characterApply});
 
   @override
-  State<StatefulWidget> createState() {
-    return _FavoriteDetailScreen();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final database = ref.watch(mapleUserFavoriteDatabaseProvider);
 
-class _FavoriteDetailScreen extends State<CharacterDetailScreen> {
-  final database = UserFavoriteDataBase();
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.6),
       body: SafeArea(
@@ -59,15 +54,14 @@ class _FavoriteDetailScreen extends State<CharacterDetailScreen> {
                             onPressed: () async {
                               int deleteCnt = await (database
                                       .delete(database.userFavoriteCharacters)
-                                    ..where((item) => item.id
-                                        .equals(widget.favoriteCharacter.id)))
+                                    ..where((item) =>
+                                        item.id.equals(favoriteCharacter.id)))
                                   .go();
-                              Fluttertoast.showToast(
-                                msg: "해당 코디가 목록에서 삭제되었습니다.",
-                                gravity: ToastGravity.BOTTOM,
-                                backgroundColor: const Color(0xff6E6E6E),
-                                fontSize: 20,
-                              );
+                              ref
+                                  .read(customToastProvider.notifier)
+                                  .showCustomToast(context,
+                                      type: ToastType.delete,
+                                      message: "코디가 삭제되었습니다.");
                               Navigator.pop(context, deleteCnt);
                             },
                             style: ElevatedButton.styleFrom(
@@ -87,7 +81,7 @@ class _FavoriteDetailScreen extends State<CharacterDetailScreen> {
                       Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              widget.characterApply(widget.favoriteCharacter);
+                              characterApply(favoriteCharacter);
                               Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(
@@ -128,18 +122,18 @@ class _FavoriteDetailScreen extends State<CharacterDetailScreen> {
               alignment: Alignment.center,
               height: 670,
               child: Hero(
-                tag: widget.listIndex,
+                tag: listIndex,
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Image.network(
-                      widget.favoriteCharacter.characterImageUrl1,
+                      favoriteCharacter.characterImageUrl1,
                       fit: BoxFit.none,
                     ),
                     Opacity(
                       opacity: 0.5,
                       child: Image.network(
-                        widget.favoriteCharacter.characterImageUrl2,
+                        favoriteCharacter.characterImageUrl2,
                         fit: BoxFit.none,
                       ),
                     ),

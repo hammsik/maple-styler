@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/providers/database_provider.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
-class SelectedItem extends StatefulWidget {
+class SelectedItem extends ConsumerWidget {
   final MyCharacter currentCharacter;
   final Function clickCloseButton;
   final String subCategory;
@@ -15,21 +17,13 @@ class SelectedItem extends StatefulWidget {
       required this.subCategory});
 
   @override
-  State<StatefulWidget> createState() {
-    return _SelectedItem();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userDB = ref.watch(mapleUserFavoriteDatabaseProvider);
 
-class _SelectedItem extends State<SelectedItem> {
-  final userDB = UserFavoriteDataBase();
-
-  @override
-  Widget build(BuildContext context) {
-    String targetItemId =
-        widget.currentCharacter.itemMap[widget.subCategory][0];
-    if (widget.subCategory == 'Hair') {
+    String targetItemId = currentCharacter.itemMap[subCategory][0];
+    if (subCategory == 'Hair') {
       targetItemId = targetItemId.replaceRange(4, 5, '0');
-    } else if (widget.subCategory == 'Face') {
+    } else if (subCategory == 'Face') {
       targetItemId = targetItemId.replaceRange(2, 3, '0');
     }
     return Expanded(
@@ -40,12 +34,9 @@ class _SelectedItem extends State<SelectedItem> {
           color: const Color.fromARGB(255, 230, 222, 218),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: widget.currentCharacter.itemMap[widget.subCategory][0] ==
-                    'null' ||
-                widget.currentCharacter.itemMap[widget.subCategory][0] ==
-                    '1040036' ||
-                widget.currentCharacter.itemMap[widget.subCategory][0] ==
-                    '1060026'
+        child: currentCharacter.itemMap[subCategory][0] == 'null' ||
+                currentCharacter.itemMap[subCategory][0] == '1040036' ||
+                currentCharacter.itemMap[subCategory][0] == '1060026'
             ? const Text('아이템을 선택해주세요')
             : Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -64,9 +55,7 @@ class _SelectedItem extends State<SelectedItem> {
                     width: 10,
                   ),
                   Expanded(
-                      child: Text(
-                          widget.currentCharacter.itemMap[widget.subCategory]
-                              [1],
+                      child: Text(currentCharacter.itemMap[subCategory][1],
                           style: const TextStyle(fontSize: 9))),
                   const SizedBox(
                     width: 8,
@@ -80,34 +69,27 @@ class _SelectedItem extends State<SelectedItem> {
                             .get();
 
                         if (matchingItems.isEmpty) {
-                          await userDB.into(userDB.userFavoriteItems).insert(
+                          userDB.into(userDB.userFavoriteItems).insert(
                               UserFavoriteItemsCompanion.insert(
                                   itemid: int.parse(targetItemId),
-                                  name: widget.currentCharacter
-                                      .itemMap[widget.subCategory][1],
-                                  subCategory: widget.subCategory));
-                          Fluttertoast.showToast(
-                              msg:
-                                  "등록완료: ${widget.currentCharacter.itemMap[widget.subCategory][1]}",
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: const Color(0xff6E6E6E),
-                              fontSize: 20,
-                              toastLength: Toast.LENGTH_SHORT);
+                                  name: currentCharacter.itemMap[subCategory]
+                                      [1],
+                                  subCategory: subCategory));
+                          ref
+                              .read(customToastProvider.notifier)
+                              .showCustomToast(context,
+                                  type: ToastType.success,
+                                  message: "아이템이 찜 목록에 추가되었습니다.");
                         } else {
-                          Fluttertoast.showToast(
-                              msg: "이미 찜한 아이템입니다.",
-                              gravity: ToastGravity.BOTTOM,
-                              backgroundColor: const Color(0xff6E6E6E),
-                              fontSize: 20,
-                              toastLength: Toast.LENGTH_SHORT);
+                          ref
+                              .read(customToastProvider.notifier)
+                              .showCustomToast(context,
+                                  type: ToastType.error,
+                                  message: "이미 찜한 아이템입니다.");
                         }
                       },
                       style: FilledButton.styleFrom(
-                          // shape: RoundedRectangleBorder(
-                          //     borderRadius: BorderRadius.circular(5)),
-                          backgroundColor:
-                              // const Color.fromARGB(255, 201, 191, 191),
-                              const Color(0x00FFFFFF),
+                          backgroundColor: const Color(0x00FFFFFF),
                           minimumSize: Size.zero,
                           padding: const EdgeInsets.all(0),
                           fixedSize: const Size(30, 30),
@@ -120,8 +102,7 @@ class _SelectedItem extends State<SelectedItem> {
                     width: 8,
                   ),
                   FilledButton(
-                    onPressed: () =>
-                        widget.clickCloseButton(widget.subCategory),
+                    onPressed: () => clickCloseButton(subCategory),
                     style: FilledButton.styleFrom(
                         foregroundColor: const Color.fromARGB(255, 60, 58, 78),
                         backgroundColor:

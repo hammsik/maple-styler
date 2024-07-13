@@ -4,9 +4,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'database_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class MapleItemDatabase extends _$MapleItemDatabase {
-  @override
-  ItemDatabase build() {
-    return ItemDatabase();
-  }
+ItemDatabase mapleItemDatabase(MapleItemDatabaseRef ref) {
+  return ItemDatabase();
+}
+
+@Riverpod(keepAlive: true)
+UserFavoriteDataBase mapleUserFavoriteDatabase(MapleUserFavoriteDatabaseRef ref) {
+  return UserFavoriteDataBase();
 }
