@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/providers/item_provider.dart';
 
-class SearchBox extends StatefulWidget {
-  final List<List<List<dynamic>>> itemList;
+class SearchBox extends ConsumerStatefulWidget {
   final Function buttonClicked;
 
-  const SearchBox(
-      {super.key, required this.itemList, required this.buttonClicked});
+  const SearchBox({super.key, required this.buttonClicked});
 
   @override
-  State<StatefulWidget> createState() {
-    return _SearchBox();
-  }
+  ConsumerState<ConsumerStatefulWidget> createState() => _SearchBoxState();
 }
 
-class _SearchBox extends State<SearchBox> {
+class _SearchBoxState extends ConsumerState<SearchBox> {
   String searchedWord = '';
 
   void openSearchScreen(BuildContext context) async {
@@ -22,7 +20,6 @@ class _SearchBox extends State<SearchBox> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => DetailScreen(
-          itemList: widget.itemList,
           buttonClicked: widget.buttonClicked,
           searchedWord: searchedWord,
         ),
@@ -87,25 +84,20 @@ class _SearchBox extends State<SearchBox> {
   }
 }
 
-class DetailScreen extends StatefulWidget {
-  final List<List<List<dynamic>>> itemList;
+class DetailScreen extends ConsumerStatefulWidget {
   final Function buttonClicked;
   final String searchedWord;
 
   const DetailScreen(
-      {super.key,
-      required this.itemList,
-      required this.buttonClicked,
-      required this.searchedWord});
+      {super.key, required this.buttonClicked, required this.searchedWord});
 
   @override
-  State<StatefulWidget> createState() {
-    return _DetailScreen();
-  }
+  ConsumerState<ConsumerStatefulWidget> createState() => _DetailScreenState();
 }
 
-class _DetailScreen extends State<DetailScreen> {
+class _DetailScreenState extends ConsumerState<DetailScreen> {
   TextEditingController myController = TextEditingController();
+
   Widget searchedList = const Center(
     child: Text(
       '검색된 아이템이 없습니다',
@@ -115,7 +107,7 @@ class _DetailScreen extends State<DetailScreen> {
   @override
   void initState() {
     myController.text = widget.searchedWord;
-    myController.addListener(setItemList);
+    myController.addListener(() => setItemList());
     super.initState();
   }
 
@@ -126,19 +118,27 @@ class _DetailScreen extends State<DetailScreen> {
   }
 
   void setItemList() {
-    List<dynamic> searchedTmpList = [];
-    for (int category = 0; category < widget.itemList.length; category++) {
+    final itemList = ref.watch(mapleItemListProvider);
+    itemList.when(
+        data: (data) => showItemList(itemList: data),
+        error: (error, stacktrace) => setState(() => searchedList =
+            Center(child: Text('에러가 발생했습니다. 에러코드: ${error.toString()}'))),
+        loading: () {});
+  }
+
+  void showItemList({required List<List<List<dynamic>>> itemList}) {
+    List<dynamic> searchedItemList = [];
+    for (int category = 0; category < itemList.length; category++) {
       for (int subCategory = 0;
-          subCategory < widget.itemList[category].length;
+          subCategory < itemList[category].length;
           subCategory++) {
         for (int item = 0;
-            item < widget.itemList[category][subCategory].length;
+            item < itemList[category][subCategory].length;
             item++) {
           if (myController.text.isNotEmpty &&
-              (widget.itemList[category][subCategory][item].name
-                      .replaceAll(' ', ''))
+              (itemList[category][subCategory][item].name.replaceAll(' ', ''))
                   .contains(myController.text.replaceAll(' ', ''))) {
-            searchedTmpList.add(widget.itemList[category][subCategory][item]);
+            searchedItemList.add(itemList[category][subCategory][item]);
           }
         }
       }
@@ -146,7 +146,7 @@ class _DetailScreen extends State<DetailScreen> {
 
     setState(
       () {
-        searchedList = searchedTmpList.isEmpty
+        searchedList = searchedItemList.isEmpty
             ? Center(
                 child: Text(
                 '검색된 아이템이 없습니다',
@@ -167,7 +167,7 @@ class _DetailScreen extends State<DetailScreen> {
                       childAspectRatio: 3.0,
                     ),
                     delegate: SliverChildBuilderDelegate(
-                      childCount: searchedTmpList.length,
+                      childCount: searchedItemList.length,
                       (context, index) => FilledButton(
                         style: FilledButton.styleFrom(
                           foregroundColor: Colors.black.withOpacity(0.3),
@@ -181,7 +181,7 @@ class _DetailScreen extends State<DetailScreen> {
                         ),
                         onPressed: () {
                           Navigator.pop(context, myController.text);
-                          widget.buttonClicked(searchedTmpList[index], -2);
+                          widget.buttonClicked(searchedItemList[index], -2);
                         },
                         child: Row(
                           children: [
@@ -189,7 +189,7 @@ class _DetailScreen extends State<DetailScreen> {
                             SizedBox(
                               width: 35,
                               child: Image.network(
-                                'https://maplestory.io/api/KMS/389/item/${searchedTmpList[index].itemid}/icon',
+                                'https://maplestory.io/api/KMS/389/item/${searchedItemList[index].itemid}/icon',
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Icon(
                                       Icons.image_not_supported_outlined);
@@ -206,7 +206,7 @@ class _DetailScreen extends State<DetailScreen> {
                                 ),
                                 margin: const EdgeInsets.all(5),
                                 child: Text(
-                                  searchedTmpList[index].name,
+                                  searchedItemList[index].name,
                                   style: GoogleFonts.nanumMyeongjo(
                                       color: const Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 10,

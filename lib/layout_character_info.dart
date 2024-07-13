@@ -1,25 +1,24 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/layout_character_detail.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
-class CharacterDetail extends StatefulWidget {
+class CharacterDetail extends ConsumerStatefulWidget {
   final MyCharacter dodo;
   final MyCharacter dodo2;
 
   const CharacterDetail({required this.dodo, required this.dodo2, super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _CharacterDetail();
-  }
+  ConsumerState<ConsumerStatefulWidget> createState() => _CharacterDetail();
 }
 
-class _CharacterDetail extends State<CharacterDetail> {
+class _CharacterDetail extends ConsumerState<CharacterDetail> {
   final userFavoriteDB = UserFavoriteDataBase();
   List<List<dynamic>> characterItemList = [];
   List<UserFavoriteCharacter> characterList = [];
@@ -92,7 +91,6 @@ class _CharacterDetail extends State<CharacterDetail> {
       ),
     );
 
-    print(result);
     if (result != null && result > 0) {
       initDB();
     }
@@ -117,12 +115,35 @@ class _CharacterDetail extends State<CharacterDetail> {
                     children: [
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            const Text(
-                              "장착 아이템",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: InkWell(
+                                    onTap: () => Navigator.pop(context),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      width: 32,
+                                      height: 32,
+                                      child: const Icon(
+                                        Icons.arrow_back_ios_new_rounded,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const Text(
+                                  "장착 아이템",
+                                  style: TextStyle(
+                                      color: Colors.white, fontSize: 18),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 10),
                             Expanded(
@@ -228,12 +249,14 @@ class _CharacterDetail extends State<CharacterDetail> {
                                       child: Stack(
                                         children: [
                                           Image.network(
-                                            widget.dodo.getMyCharacter(),
+                                            widget.dodo.getMyCharacter(
+                                                imageFrame: '0'),
                                           ),
                                           Opacity(
                                             opacity: 0.5,
-                                            child: Image.network(
-                                                widget.dodo2.getMyCharacter()),
+                                            child: Image.network(widget.dodo2
+                                                .getMyCharacter(
+                                                    imageFrame: '0')),
                                           ),
                                         ],
                                       ),
@@ -257,18 +280,15 @@ class _CharacterDetail extends State<CharacterDetail> {
                                               json.encode(widget.dodo.itemMap),
                                           characterInfo2:
                                               json.encode(widget.dodo2.itemMap),
-                                          characterImageUrl1:
-                                              widget.dodo.getMyCharacter(),
-                                          characterImageUrl2:
-                                              widget.dodo2.getMyCharacter(),
+                                          characterImageUrl1: widget.dodo
+                                              .getMyCharacter(imageFrame: '0'),
+                                          characterImageUrl2: widget.dodo2
+                                              .getMyCharacter(imageFrame: '0'),
                                         ));
-                                    Fluttertoast.showToast(
-                                        msg: "코디가 저장되었습니다!",
-                                        gravity: ToastGravity.BOTTOM,
-                                        backgroundColor:
-                                            const Color(0xff6E6E6E),
-                                        fontSize: 20,
-                                        toastLength: Toast.LENGTH_SHORT);
+                                    ref.read(customToastProvider.notifier).showCustomToast(
+                                        context,
+                                        type: ToastType.success,
+                                        message: "코디가 저장되었습니다.");
                                     initDB();
                                   },
                                   style: ElevatedButton.styleFrom(

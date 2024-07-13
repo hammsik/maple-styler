@@ -165,8 +165,9 @@ class MyCharacter {
     itemQueueIdx = itemQueue.length - 1;
   }
 
-  String getMyCharacter({String characterItemsURL = ''}) {
-    return 'https://maplestory.io/api/Character/${characterItemsURL == '' ? makeItemsURL() : characterItemsURL}/stand1/0/?renderMode=2';
+  String getMyCharacter({required String imageFrame}) {
+    final itemUrl = makeItemsURL();
+    return 'https://maplestory.io/api/Character/$itemUrl/stand1/$imageFrame/?renderMode=2';
   }
 
   void undo() {
