@@ -150,6 +150,16 @@ class CharacterItem extends DataClass implements Insertable<CharacterItem> {
         subCategory: subCategory ?? this.subCategory,
         gender: gender ?? this.gender,
       );
+  CharacterItem copyWithCompanion(CharacterItemsCompanion data) {
+    return CharacterItem(
+      itemid: data.itemid.present ? data.itemid.value : this.itemid,
+      name: data.name.present ? data.name.value : this.name,
+      subCategory:
+          data.subCategory.present ? data.subCategory.value : this.subCategory,
+      gender: data.gender.present ? data.gender.value : this.gender,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('CharacterItem(')
@@ -396,6 +406,16 @@ class ArmorItem extends DataClass implements Insertable<ArmorItem> {
         subCategory: subCategory ?? this.subCategory,
         gender: gender ?? this.gender,
       );
+  ArmorItem copyWithCompanion(ArmorItemsCompanion data) {
+    return ArmorItem(
+      itemid: data.itemid.present ? data.itemid.value : this.itemid,
+      name: data.name.present ? data.name.value : this.name,
+      subCategory:
+          data.subCategory.present ? data.subCategory.value : this.subCategory,
+      gender: data.gender.present ? data.gender.value : this.gender,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('ArmorItem(')
@@ -677,6 +697,19 @@ class AccessoryItem extends DataClass implements Insertable<AccessoryItem> {
             ? overlapsWithFace.value
             : this.overlapsWithFace,
       );
+  AccessoryItem copyWithCompanion(AccessoryItemsCompanion data) {
+    return AccessoryItem(
+      itemid: data.itemid.present ? data.itemid.value : this.itemid,
+      name: data.name.present ? data.name.value : this.name,
+      subCategory:
+          data.subCategory.present ? data.subCategory.value : this.subCategory,
+      gender: data.gender.present ? data.gender.value : this.gender,
+      overlapsWithFace: data.overlapsWithFace.present
+          ? data.overlapsWithFace.value
+          : this.overlapsWithFace,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('AccessoryItem(')
@@ -792,7 +825,7 @@ class AccessoryItemsCompanion extends UpdateCompanion<AccessoryItem> {
 
 abstract class _$ItemDatabase extends GeneratedDatabase {
   _$ItemDatabase(QueryExecutor e) : super(e);
-  _$ItemDatabaseManager get managers => _$ItemDatabaseManager(this);
+  $ItemDatabaseManager get managers => $ItemDatabaseManager(this);
   late final $CharacterItemsTable characterItems = $CharacterItemsTable(this);
   late final $ArmorItemsTable armorItems = $ArmorItemsTable(this);
   late final $AccessoryItemsTable accessoryItems = $AccessoryItemsTable(this);
@@ -804,7 +837,7 @@ abstract class _$ItemDatabase extends GeneratedDatabase {
       [characterItems, armorItems, accessoryItems];
 }
 
-typedef $$CharacterItemsTableInsertCompanionBuilder = CharacterItemsCompanion
+typedef $$CharacterItemsTableCreateCompanionBuilder = CharacterItemsCompanion
     Function({
   Value<int> itemid,
   required String name,
@@ -825,8 +858,7 @@ class $$CharacterItemsTableTableManager extends RootTableManager<
     CharacterItem,
     $$CharacterItemsTableFilterComposer,
     $$CharacterItemsTableOrderingComposer,
-    $$CharacterItemsTableProcessedTableManager,
-    $$CharacterItemsTableInsertCompanionBuilder,
+    $$CharacterItemsTableCreateCompanionBuilder,
     $$CharacterItemsTableUpdateCompanionBuilder> {
   $$CharacterItemsTableTableManager(
       _$ItemDatabase db, $CharacterItemsTable table)
@@ -837,9 +869,7 @@ class $$CharacterItemsTableTableManager extends RootTableManager<
               $$CharacterItemsTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
               $$CharacterItemsTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$CharacterItemsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> itemid = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String> subCategory = const Value.absent(),
@@ -851,7 +881,7 @@ class $$CharacterItemsTableTableManager extends RootTableManager<
             subCategory: subCategory,
             gender: gender,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> itemid = const Value.absent(),
             required String name,
             required String subCategory,
@@ -864,18 +894,6 @@ class $$CharacterItemsTableTableManager extends RootTableManager<
             gender: gender,
           ),
         ));
-}
-
-class $$CharacterItemsTableProcessedTableManager extends ProcessedTableManager<
-    _$ItemDatabase,
-    $CharacterItemsTable,
-    CharacterItem,
-    $$CharacterItemsTableFilterComposer,
-    $$CharacterItemsTableOrderingComposer,
-    $$CharacterItemsTableProcessedTableManager,
-    $$CharacterItemsTableInsertCompanionBuilder,
-    $$CharacterItemsTableUpdateCompanionBuilder> {
-  $$CharacterItemsTableProcessedTableManager(super.$state);
 }
 
 class $$CharacterItemsTableFilterComposer
@@ -926,7 +944,7 @@ class $$CharacterItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$ArmorItemsTableInsertCompanionBuilder = ArmorItemsCompanion Function({
+typedef $$ArmorItemsTableCreateCompanionBuilder = ArmorItemsCompanion Function({
   Value<int> itemid,
   required String name,
   required String subCategory,
@@ -945,8 +963,7 @@ class $$ArmorItemsTableTableManager extends RootTableManager<
     ArmorItem,
     $$ArmorItemsTableFilterComposer,
     $$ArmorItemsTableOrderingComposer,
-    $$ArmorItemsTableProcessedTableManager,
-    $$ArmorItemsTableInsertCompanionBuilder,
+    $$ArmorItemsTableCreateCompanionBuilder,
     $$ArmorItemsTableUpdateCompanionBuilder> {
   $$ArmorItemsTableTableManager(_$ItemDatabase db, $ArmorItemsTable table)
       : super(TableManagerState(
@@ -956,9 +973,7 @@ class $$ArmorItemsTableTableManager extends RootTableManager<
               $$ArmorItemsTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
               $$ArmorItemsTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$ArmorItemsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> itemid = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String> subCategory = const Value.absent(),
@@ -970,7 +985,7 @@ class $$ArmorItemsTableTableManager extends RootTableManager<
             subCategory: subCategory,
             gender: gender,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> itemid = const Value.absent(),
             required String name,
             required String subCategory,
@@ -983,18 +998,6 @@ class $$ArmorItemsTableTableManager extends RootTableManager<
             gender: gender,
           ),
         ));
-}
-
-class $$ArmorItemsTableProcessedTableManager extends ProcessedTableManager<
-    _$ItemDatabase,
-    $ArmorItemsTable,
-    ArmorItem,
-    $$ArmorItemsTableFilterComposer,
-    $$ArmorItemsTableOrderingComposer,
-    $$ArmorItemsTableProcessedTableManager,
-    $$ArmorItemsTableInsertCompanionBuilder,
-    $$ArmorItemsTableUpdateCompanionBuilder> {
-  $$ArmorItemsTableProcessedTableManager(super.$state);
 }
 
 class $$ArmorItemsTableFilterComposer
@@ -1045,7 +1048,7 @@ class $$ArmorItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$AccessoryItemsTableInsertCompanionBuilder = AccessoryItemsCompanion
+typedef $$AccessoryItemsTableCreateCompanionBuilder = AccessoryItemsCompanion
     Function({
   Value<int> itemid,
   required String name,
@@ -1068,8 +1071,7 @@ class $$AccessoryItemsTableTableManager extends RootTableManager<
     AccessoryItem,
     $$AccessoryItemsTableFilterComposer,
     $$AccessoryItemsTableOrderingComposer,
-    $$AccessoryItemsTableProcessedTableManager,
-    $$AccessoryItemsTableInsertCompanionBuilder,
+    $$AccessoryItemsTableCreateCompanionBuilder,
     $$AccessoryItemsTableUpdateCompanionBuilder> {
   $$AccessoryItemsTableTableManager(
       _$ItemDatabase db, $AccessoryItemsTable table)
@@ -1080,9 +1082,7 @@ class $$AccessoryItemsTableTableManager extends RootTableManager<
               $$AccessoryItemsTableFilterComposer(ComposerState(db, table)),
           orderingComposer:
               $$AccessoryItemsTableOrderingComposer(ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$AccessoryItemsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> itemid = const Value.absent(),
             Value<String> name = const Value.absent(),
             Value<String> subCategory = const Value.absent(),
@@ -1096,7 +1096,7 @@ class $$AccessoryItemsTableTableManager extends RootTableManager<
             gender: gender,
             overlapsWithFace: overlapsWithFace,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> itemid = const Value.absent(),
             required String name,
             required String subCategory,
@@ -1111,18 +1111,6 @@ class $$AccessoryItemsTableTableManager extends RootTableManager<
             overlapsWithFace: overlapsWithFace,
           ),
         ));
-}
-
-class $$AccessoryItemsTableProcessedTableManager extends ProcessedTableManager<
-    _$ItemDatabase,
-    $AccessoryItemsTable,
-    AccessoryItem,
-    $$AccessoryItemsTableFilterComposer,
-    $$AccessoryItemsTableOrderingComposer,
-    $$AccessoryItemsTableProcessedTableManager,
-    $$AccessoryItemsTableInsertCompanionBuilder,
-    $$AccessoryItemsTableUpdateCompanionBuilder> {
-  $$AccessoryItemsTableProcessedTableManager(super.$state);
 }
 
 class $$AccessoryItemsTableFilterComposer
@@ -1183,9 +1171,9 @@ class $$AccessoryItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class _$ItemDatabaseManager {
+class $ItemDatabaseManager {
   final _$ItemDatabase _db;
-  _$ItemDatabaseManager(this._db);
+  $ItemDatabaseManager(this._db);
   $$CharacterItemsTableTableManager get characterItems =>
       $$CharacterItemsTableTableManager(_db, _db.characterItems);
   $$ArmorItemsTableTableManager get armorItems =>
@@ -1345,6 +1333,16 @@ class UserFavoriteItem extends DataClass
         name: name ?? this.name,
         subCategory: subCategory ?? this.subCategory,
       );
+  UserFavoriteItem copyWithCompanion(UserFavoriteItemsCompanion data) {
+    return UserFavoriteItem(
+      id: data.id.present ? data.id.value : this.id,
+      itemid: data.itemid.present ? data.itemid.value : this.itemid,
+      name: data.name.present ? data.name.value : this.name,
+      subCategory:
+          data.subCategory.present ? data.subCategory.value : this.subCategory,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('UserFavoriteItem(')
@@ -1665,6 +1663,28 @@ class UserFavoriteCharacter extends DataClass
         characterName:
             characterName.present ? characterName.value : this.characterName,
       );
+  UserFavoriteCharacter copyWithCompanion(
+      UserFavoriteCharactersCompanion data) {
+    return UserFavoriteCharacter(
+      id: data.id.present ? data.id.value : this.id,
+      characterInfo: data.characterInfo.present
+          ? data.characterInfo.value
+          : this.characterInfo,
+      characterInfo2: data.characterInfo2.present
+          ? data.characterInfo2.value
+          : this.characterInfo2,
+      characterImageUrl1: data.characterImageUrl1.present
+          ? data.characterImageUrl1.value
+          : this.characterImageUrl1,
+      characterImageUrl2: data.characterImageUrl2.present
+          ? data.characterImageUrl2.value
+          : this.characterImageUrl2,
+      characterName: data.characterName.present
+          ? data.characterName.value
+          : this.characterName,
+    );
+  }
+
   @override
   String toString() {
     return (StringBuffer('UserFavoriteCharacter(')
@@ -1797,8 +1817,8 @@ class UserFavoriteCharactersCompanion
 
 abstract class _$UserFavoriteDataBase extends GeneratedDatabase {
   _$UserFavoriteDataBase(QueryExecutor e) : super(e);
-  _$UserFavoriteDataBaseManager get managers =>
-      _$UserFavoriteDataBaseManager(this);
+  $UserFavoriteDataBaseManager get managers =>
+      $UserFavoriteDataBaseManager(this);
   late final $UserFavoriteItemsTable userFavoriteItems =
       $UserFavoriteItemsTable(this);
   late final $UserFavoriteCharactersTable userFavoriteCharacters =
@@ -1811,7 +1831,7 @@ abstract class _$UserFavoriteDataBase extends GeneratedDatabase {
       [userFavoriteItems, userFavoriteCharacters];
 }
 
-typedef $$UserFavoriteItemsTableInsertCompanionBuilder
+typedef $$UserFavoriteItemsTableCreateCompanionBuilder
     = UserFavoriteItemsCompanion Function({
   Value<int> id,
   required int itemid,
@@ -1832,8 +1852,7 @@ class $$UserFavoriteItemsTableTableManager extends RootTableManager<
     UserFavoriteItem,
     $$UserFavoriteItemsTableFilterComposer,
     $$UserFavoriteItemsTableOrderingComposer,
-    $$UserFavoriteItemsTableProcessedTableManager,
-    $$UserFavoriteItemsTableInsertCompanionBuilder,
+    $$UserFavoriteItemsTableCreateCompanionBuilder,
     $$UserFavoriteItemsTableUpdateCompanionBuilder> {
   $$UserFavoriteItemsTableTableManager(
       _$UserFavoriteDataBase db, $UserFavoriteItemsTable table)
@@ -1844,9 +1863,7 @@ class $$UserFavoriteItemsTableTableManager extends RootTableManager<
               $$UserFavoriteItemsTableFilterComposer(ComposerState(db, table)),
           orderingComposer: $$UserFavoriteItemsTableOrderingComposer(
               ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$UserFavoriteItemsTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<int> itemid = const Value.absent(),
             Value<String> name = const Value.absent(),
@@ -1858,7 +1875,7 @@ class $$UserFavoriteItemsTableTableManager extends RootTableManager<
             name: name,
             subCategory: subCategory,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required int itemid,
             required String name,
@@ -1871,19 +1888,6 @@ class $$UserFavoriteItemsTableTableManager extends RootTableManager<
             subCategory: subCategory,
           ),
         ));
-}
-
-class $$UserFavoriteItemsTableProcessedTableManager
-    extends ProcessedTableManager<
-        _$UserFavoriteDataBase,
-        $UserFavoriteItemsTable,
-        UserFavoriteItem,
-        $$UserFavoriteItemsTableFilterComposer,
-        $$UserFavoriteItemsTableOrderingComposer,
-        $$UserFavoriteItemsTableProcessedTableManager,
-        $$UserFavoriteItemsTableInsertCompanionBuilder,
-        $$UserFavoriteItemsTableUpdateCompanionBuilder> {
-  $$UserFavoriteItemsTableProcessedTableManager(super.$state);
 }
 
 class $$UserFavoriteItemsTableFilterComposer
@@ -1934,7 +1938,7 @@ class $$UserFavoriteItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-typedef $$UserFavoriteCharactersTableInsertCompanionBuilder
+typedef $$UserFavoriteCharactersTableCreateCompanionBuilder
     = UserFavoriteCharactersCompanion Function({
   Value<int> id,
   required String characterInfo,
@@ -1959,8 +1963,7 @@ class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
     UserFavoriteCharacter,
     $$UserFavoriteCharactersTableFilterComposer,
     $$UserFavoriteCharactersTableOrderingComposer,
-    $$UserFavoriteCharactersTableProcessedTableManager,
-    $$UserFavoriteCharactersTableInsertCompanionBuilder,
+    $$UserFavoriteCharactersTableCreateCompanionBuilder,
     $$UserFavoriteCharactersTableUpdateCompanionBuilder> {
   $$UserFavoriteCharactersTableTableManager(
       _$UserFavoriteDataBase db, $UserFavoriteCharactersTable table)
@@ -1971,9 +1974,7 @@ class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
               ComposerState(db, table)),
           orderingComposer: $$UserFavoriteCharactersTableOrderingComposer(
               ComposerState(db, table)),
-          getChildManagerBuilder: (p) =>
-              $$UserFavoriteCharactersTableProcessedTableManager(p),
-          getUpdateCompanionBuilder: ({
+          updateCompanionCallback: ({
             Value<int> id = const Value.absent(),
             Value<String> characterInfo = const Value.absent(),
             Value<String> characterInfo2 = const Value.absent(),
@@ -1989,7 +1990,7 @@ class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
             characterImageUrl2: characterImageUrl2,
             characterName: characterName,
           ),
-          getInsertCompanionBuilder: ({
+          createCompanionCallback: ({
             Value<int> id = const Value.absent(),
             required String characterInfo,
             required String characterInfo2,
@@ -2006,19 +2007,6 @@ class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
             characterName: characterName,
           ),
         ));
-}
-
-class $$UserFavoriteCharactersTableProcessedTableManager
-    extends ProcessedTableManager<
-        _$UserFavoriteDataBase,
-        $UserFavoriteCharactersTable,
-        UserFavoriteCharacter,
-        $$UserFavoriteCharactersTableFilterComposer,
-        $$UserFavoriteCharactersTableOrderingComposer,
-        $$UserFavoriteCharactersTableProcessedTableManager,
-        $$UserFavoriteCharactersTableInsertCompanionBuilder,
-        $$UserFavoriteCharactersTableUpdateCompanionBuilder> {
-  $$UserFavoriteCharactersTableProcessedTableManager(super.$state);
 }
 
 class $$UserFavoriteCharactersTableFilterComposer extends FilterComposer<
@@ -2089,9 +2077,9 @@ class $$UserFavoriteCharactersTableOrderingComposer extends OrderingComposer<
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
-class _$UserFavoriteDataBaseManager {
+class $UserFavoriteDataBaseManager {
   final _$UserFavoriteDataBase _db;
-  _$UserFavoriteDataBaseManager(this._db);
+  $UserFavoriteDataBaseManager(this._db);
   $$UserFavoriteItemsTableTableManager get userFavoriteItems =>
       $$UserFavoriteItemsTableTableManager(_db, _db.userFavoriteItems);
   $$UserFavoriteCharactersTableTableManager get userFavoriteCharacters =>
