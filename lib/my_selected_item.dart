@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
-import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:maple_closet/providers/database_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
@@ -76,9 +75,17 @@ class SelectedItem extends ConsumerWidget {
                                   name: currentCharacter.itemMap[subCategory]
                                       [1],
                                   subCategory: subCategory));
-                          ref.read(customToastProvider.notifier).showCustomToast(context, "아이템이 찜 목록에 추가되었습니다.");
+                          ref
+                              .read(customToastProvider.notifier)
+                              .showCustomToast(context,
+                                  type: ToastType.success,
+                                  message: "아이템이 찜 목록에 추가되었습니다.");
                         } else {
-                          ref.read(customToastProvider.notifier).showCustomToast(context, "이미 찜한 아이템입니다.");
+                          ref
+                              .read(customToastProvider.notifier)
+                              .showCustomToast(context,
+                                  type: ToastType.error,
+                                  message: "이미 찜한 아이템입니다.");
                         }
                       },
                       style: FilledButton.styleFrom(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
-import 'package:maple_closet/events/item_event.dart';
 import 'package:maple_closet/providers/database_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
@@ -55,10 +54,14 @@ class CharacterDetailScreen extends ConsumerWidget {
                             onPressed: () async {
                               int deleteCnt = await (database
                                       .delete(database.userFavoriteCharacters)
-                                    ..where((item) => item.id
-                                        .equals(favoriteCharacter.id)))
+                                    ..where((item) =>
+                                        item.id.equals(favoriteCharacter.id)))
                                   .go();
-                                  ref.read(customToastProvider.notifier).showCustomToast(context, "코디가 삭제되었습니다.");
+                              ref
+                                  .read(customToastProvider.notifier)
+                                  .showCustomToast(context,
+                                      type: ToastType.delete,
+                                      message: "코디가 삭제되었습니다.");
                               Navigator.pop(context, deleteCnt);
                             },
                             style: ElevatedButton.styleFrom(

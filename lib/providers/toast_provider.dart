@@ -4,6 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'toast_provider.g.dart';
 
+enum ToastType { success, delete, error }
+
 @Riverpod(keepAlive: true)
 class CustomToast extends _$CustomToast {
   @override
@@ -12,7 +14,8 @@ class CustomToast extends _$CustomToast {
     return fToast;
   }
 
-  void showCustomToast(BuildContext context, String message) {
+  void showCustomToast(BuildContext context,
+      {required ToastType type, required String message}) {
     state.removeCustomToast();
     Widget toast = Container(
       decoration: BoxDecoration(
@@ -21,18 +24,22 @@ class CustomToast extends _$CustomToast {
           boxShadow: [
             BoxShadow(
               color: const Color.fromARGB(255, 79, 79, 79).withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
-              offset: const Offset(0, 0), // changes position of shadow
+              spreadRadius: 0,
+              blurRadius: 12,
             ),
           ]),
       padding: const EdgeInsets.all(14.0),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(Icons.check),
-          const SizedBox(width: 12.0),
-          // Expanded(child: Text(message)),
+          type == ToastType.error
+              ? const Icon(Icons.error_outline_rounded, color: Colors.redAccent)
+              : type == ToastType.delete
+                  ? const Icon(Icons.delete_outline_rounded,
+                      color: Color.fromARGB(255, 136, 136, 136))
+                  : const Icon(Icons.check_circle_outline_rounded,
+                      color: Color.fromARGB(255, 100, 186, 106)),
+          const SizedBox(width: 10.0),
           Flexible(fit: FlexFit.loose, child: Text(message))
         ],
       ),
@@ -42,9 +49,8 @@ class CustomToast extends _$CustomToast {
 
     state.showToast(
       child: toast,
-      gravity: ToastGravity.TOP,
+      gravity: ToastGravity.BOTTOM,
       toastDuration: const Duration(seconds: 2),
-      
     );
   }
 }
