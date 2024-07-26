@@ -1,6 +1,5 @@
 import 'package:maple_closet/data/myTools.dart';
 import 'package:maple_closet/database/database.dart';
-import 'package:maple_closet/providers/database_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'item_provider.g.dart';
@@ -8,9 +7,9 @@ part 'item_provider.g.dart';
 @Riverpod(keepAlive: true)
 class MapleItemList extends _$MapleItemList {
   @override
-  FutureOr<List<List<List<dynamic>>>> build() async {
-    final ItemDatabase itemDatabase = ref.watch(mapleItemDatabaseProvider);
-    return loadItemList(itemDatabase);
+  Future<List<List<List<dynamic>>>> build() async {
+    print('으아악 빌드됐다다아아 ');
+    return loadItemList(ItemDatabase());
   }
 
   Future<List<List<List<dynamic>>>> loadItemList(ItemDatabase itemDatabase) async {

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
-import 'package:maple_closet/providers/database_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class SelectedItem extends ConsumerWidget {
@@ -18,7 +17,7 @@ class SelectedItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userDB = ref.watch(mapleUserFavoriteDatabaseProvider);
+    final userDB = UserFavoriteDataBase();
 
     String targetItemId = currentCharacter.itemMap[subCategory][0];
     if (subCategory == 'Hair') {

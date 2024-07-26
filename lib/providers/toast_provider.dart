@@ -6,6 +6,7 @@ part 'toast_provider.g.dart';
 
 enum ToastType { success, delete, error }
 
+/// 전역으로 사용할 수 있는 토스트 provider
 @Riverpod(keepAlive: true)
 class CustomToast extends _$CustomToast {
   @override

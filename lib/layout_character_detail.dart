@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
-import 'package:maple_closet/providers/database_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class CharacterDetailScreen extends ConsumerWidget {
@@ -17,7 +16,7 @@ class CharacterDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final database = ref.watch(mapleUserFavoriteDatabaseProvider);
+    final database = UserFavoriteDataBase();
 
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.6),

@@ -8,7 +8,9 @@ part of 'toast_provider.dart';
 
 String _$customToastHash() => r'abba9a0be306c15a7f9176e74a0082d9a38d682d';
 
-/// See also [CustomToast].
+/// 전역으로 사용할 수 있는 토스트 provider
+///
+/// Copied from [CustomToast].
 @ProviderFor(CustomToast)
 final customToastProvider = NotifierProvider<CustomToast, FToast>.internal(
   CustomToast.new,
