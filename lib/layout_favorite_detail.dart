@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
-class FavoriteDetailScreen extends ConsumerWidget {
+class FavoriteDetailScreen extends HookConsumerWidget {
   final UserFavoriteItem favoriteItem;
   final int listIndex;
   final Function itemApply;
+  
 
   const FavoriteDetailScreen(
       {super.key,
@@ -17,6 +19,7 @@ class FavoriteDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final database = UserFavoriteDataBase();
+    final isHeroEnabled = useState(true);
 
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.6),
@@ -41,7 +44,7 @@ class FavoriteDetailScreen extends ConsumerWidget {
                   height: 80,
                   margin: const EdgeInsets.all(20),
                   child: Hero(
-                    tag: listIndex,
+                    tag: isHeroEnabled.value ? listIndex : UniqueKey(),
                     child: Image.network(
                       'https://maplestory.io/api/KMS/389/item/${favoriteItem.itemid}/icon',
                       errorBuilder: (context, error, stackTrace) {
@@ -62,6 +65,7 @@ class FavoriteDetailScreen extends ConsumerWidget {
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () async {
+                            isHeroEnabled.value = false;
                             int deleteCnt = await (database
                                     .delete(database.userFavoriteItems)
                                   ..where((item) =>

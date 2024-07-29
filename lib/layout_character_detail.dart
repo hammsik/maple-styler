@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
-class CharacterDetailScreen extends ConsumerWidget {
+class CharacterDetailScreen extends HookConsumerWidget {
   final UserFavoriteCharacter favoriteCharacter;
   final int listIndex;
   final Function characterApply;
@@ -17,6 +18,7 @@ class CharacterDetailScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final database = UserFavoriteDataBase();
+    final isHeroEnabled = useState(true);
 
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.6),
@@ -51,6 +53,7 @@ class CharacterDetailScreen extends ConsumerWidget {
                       Expanded(
                         child: ElevatedButton(
                             onPressed: () async {
+                              isHeroEnabled.value = false;
                               int deleteCnt = await (database
                                       .delete(database.userFavoriteCharacters)
                                     ..where((item) =>
@@ -121,7 +124,7 @@ class CharacterDetailScreen extends ConsumerWidget {
               alignment: Alignment.center,
               height: 670,
               child: Hero(
-                tag: listIndex,
+                tag: isHeroEnabled.value ? listIndex : UniqueKey(),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
