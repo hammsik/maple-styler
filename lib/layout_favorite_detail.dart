@@ -95,6 +95,7 @@ class FavoriteDetailScreen extends HookConsumerWidget {
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {
+                            isHeroEnabled.value = false;
                             itemApply(favoriteItem, -1);
                             Navigator.pop(context);
                           },

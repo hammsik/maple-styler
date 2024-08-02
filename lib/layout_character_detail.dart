@@ -83,6 +83,7 @@ class CharacterDetailScreen extends HookConsumerWidget {
                       Expanded(
                         child: ElevatedButton(
                             onPressed: () {
+                              isHeroEnabled.value = false;
                               characterApply(favoriteCharacter);
                               Navigator.pop(context);
                             },
