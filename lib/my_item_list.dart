@@ -37,7 +37,7 @@ class ItemList extends ConsumerWidget {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: CustomScrollbarWrapper(
-                    itemCount: itemList.length,
+                    // itemCount: itemList.length,
                     scrollController: scrollController,
                     child: CustomScrollView(
                       controller: scrollController,
