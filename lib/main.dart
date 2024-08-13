@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:maple_closet/maple_styler.dart';
+import 'package:maple_closet/page/maple_styler.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

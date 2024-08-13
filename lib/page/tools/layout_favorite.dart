@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/database/database.dart';
-import 'package:maple_closet/layout_favorite_detail.dart';
+import 'package:maple_closet/page/tools/layout_favorite_detail.dart';
 
 class FavoriteLayout extends StatefulWidget {
   final Function itemApply;

@@ -3,13 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/myTools.dart';
-import 'package:maple_closet/layout_character_info.dart';
-import 'package:maple_closet/layout_map_buttons.dart';
-import 'package:maple_closet/layout_character_board.dart';
-import 'package:maple_closet/layout_coordinating_tool.dart';
-import 'package:maple_closet/layout_custom_app_bar.dart';
+import 'package:maple_closet/page/character/layout_character_info.dart';
+import 'package:maple_closet/page/character/layout_map_buttons.dart';
+import 'package:maple_closet/page/character/layout_character_board.dart';
+import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
+import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
-import 'data/backgrounds.dart';
+import '../data/backgrounds.dart';
 
 class MapleStylerHome extends ConsumerStatefulWidget {
   const MapleStylerHome({super.key});

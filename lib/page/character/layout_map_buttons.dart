@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:maple_closet/button_map_icon.dart';
+import 'package:maple_closet/page/character/button_map_icon.dart';
 
 class BackgroundButtons extends StatefulWidget {
   final Function switchBackground;
