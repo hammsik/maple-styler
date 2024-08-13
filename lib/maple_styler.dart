@@ -61,10 +61,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     SystemNavigator.pop();
   }
 
-  void _openEndDrawer() {
-    _scaffoldKey.currentState!.openEndDrawer();
-  }
-
   void setBeauty(String target, int color1, int color2) {
     setState(() {
       if (target == 'hair') {
@@ -208,7 +204,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
-          statusBarColor: Color(0xff2B3A55)),
+          statusBarColor: Colors.transparent),
     );
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp, // 세로 방향 고정
@@ -232,12 +228,11 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       onPopInvoked: onWillPop,
       child: Scaffold(
         key: _scaffoldKey,
+        backgroundColor: const Color(0xff2B3A55),
         resizeToAvoidBottomInset: false,
+        endDrawer: Drawer(),
         body: SafeArea(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: const BoxDecoration(color: Color(0xff2B3A55)),
+          child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
             child: Stack(
               alignment: Alignment.topCenter,
@@ -291,7 +286,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                 Column(
                   children: [
                     const SizedBox(height: 20),
-                    MyCustomAppBar(clickEvent: _openEndDrawer),
+                    MyCustomAppBar(
+                        clickEvent: () =>
+                            _scaffoldKey.currentState!.openEndDrawer()),
                     const SizedBox(height: 20),
                     BackgroundButtons(switchBackground: switchBackground),
                     const SizedBox(height: 30),
