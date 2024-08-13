@@ -124,6 +124,7 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(8),
                                   child: InkWell(
+                                    borderRadius: BorderRadius.circular(8),
                                     onTap: () => Navigator.pop(context),
                                     child: Container(
                                       decoration: BoxDecoration(
