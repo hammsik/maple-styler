@@ -8,7 +8,6 @@ class FavoriteDetailScreen extends HookConsumerWidget {
   final UserFavoriteItem favoriteItem;
   final int listIndex;
   final Function itemApply;
-  
 
   const FavoriteDetailScreen(
       {super.key,
@@ -76,7 +75,6 @@ class FavoriteDetailScreen extends HookConsumerWidget {
                                 .showCustomToast(context,
                                     type: ToastType.delete,
                                     message: "아이템이 찜 목록에서 삭제되었습니다.");
-                                    listIndex = -1;
                             Navigator.pop(context, deleteCnt);
                           },
                           style: ElevatedButton.styleFrom(
@@ -96,7 +94,6 @@ class FavoriteDetailScreen extends HookConsumerWidget {
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {
-                            isHeroEnabled.value = false;
                             itemApply(favoriteItem, -1);
                             Navigator.pop(context);
                           },
