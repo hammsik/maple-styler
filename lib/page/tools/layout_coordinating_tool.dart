@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/data/myTools.dart';
-import 'package:maple_closet/layout_Favorite.dart';
 import 'package:maple_closet/models/skeleton_myCharacter.dart';
 import 'package:maple_closet/page/tools/layout_color.dart';
+import 'package:maple_closet/page/tools/layout_favorite.dart';
 import 'package:maple_closet/widgets/layout_undifined.dart';
 import 'my_search_box.dart';
 import 'my_tool_buttons.dart';

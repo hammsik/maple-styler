@@ -29,7 +29,7 @@ class CustomScrollbarWrapper extends StatelessWidget {
       interactive: true,
       controller: scrollController,
       thumbVisibility: true,
-      minThumbLength: 34,
+      minThumbLength: 40,
       mainAxisMargin: 12,
       thickness: 18,
       radius: const Radius.circular(20),
