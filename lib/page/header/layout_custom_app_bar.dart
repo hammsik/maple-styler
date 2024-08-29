@@ -18,16 +18,17 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
     return SizedBox(
       height: 28,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GestureDetector(
-            child: const Icon(
-              Icons.info_outlined,
-              color: Color(0xfff2f2f2),
-              size: 24,
-            ),
-          ),
+          // GestureDetector(
+          //   child: const Icon(
+          //     Icons.info_outlined,
+          //     color: Color(0xfff2f2f2),
+          //     size: 24,
+          //   ),
+          // ),
           Text(
             "MAPLE STYLER",
             style: GoogleFonts.nanumMyeongjo(
@@ -35,14 +36,14 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
               fontSize: 18,
             ),
           ),
-          GestureDetector(
-            onTap: widget.clickEvent,
-            child: const Icon(
-              Icons.account_box,
-              color: Color(0xfff2f2f2),
-              size: 24,
-            ),
-          ),
+          // GestureDetector(
+          //   onTap: widget.clickEvent,
+          //   child: const Icon(
+          //     Icons.account_box,
+          //     color: Color(0xfff2f2f2),
+          //     size: 24,
+          //   ),
+          // ),
         ],
       ),
     );
