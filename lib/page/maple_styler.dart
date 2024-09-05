@@ -31,11 +31,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   int currentListButtonIdx = -1;
   DateTime? currentBackPressTime;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   // 위젯 첫 생성 시에 이미지를 불러오기 위해 didChangeDependencies()에서 호출
   @override
   void didChangeDependencies() {
@@ -43,6 +38,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     getCharacterImageFromNetwork();
   }
 
+  // 안드로이드에서 뒤로가기 감지를 위한 함수
   void onWillPop(bool b) {
     DateTime currentTime = DateTime.now();
 
@@ -75,9 +71,14 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   }
 
   void setMyCharacter(dynamic selectedItem, int buttonIdx) {
-    if (dodo.itemMap[selectedItem.subCategory][0] !=
+    // 이미 선택된 아이템이면 early return
+    if (dodo.itemMap[selectedItem.subCategory][0] ==
         selectedItem.itemid.toString()) {
-      setState(() {
+      return;
+    }
+
+    setState(
+      () {
         dodo.updateMyCharacter(
             subCategory: selectedItem.subCategory,
             itemId: selectedItem.itemid.toString(),
@@ -109,8 +110,8 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
 
         currentListButtonIdx = buttonIdx;
         getCharacterImageFromNetwork();
-      });
-    }
+      },
+    );
   }
 
   void setCurrentToolIdx(int toolButtonIdx) {
@@ -176,18 +177,22 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   void openCharacterDetail(
       BuildContext context, MyCharacter dodo, MyCharacter dodo2) {
     Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              CharacterDetail(dodo: dodo, dodo2: dodo2),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(
-              opacity: animation,
-              child: child,
-            );
-          },
-          opaque: false,
-        )).then((_) => setState(() {}));
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CharacterDetail(dodo: dodo, dodo2: dodo2),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        opaque: false,
+      ),
+    ).then(
+      // 디테일 페이지에서 캐릭터 변경했을 시에 이미지 다시 불러오기를 위한 콜백
+      (_) => setState(() {}),
+    );
   }
 
   void getCharacterImageFromNetwork() {
@@ -229,6 +234,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: const Color(0xff2B3A55),
+        // 키보드가 올라올 때 화면이 줄어드는 것을 방지
         resizeToAvoidBottomInset: false,
         endDrawer: Drawer(),
         body: SafeArea(
@@ -240,7 +246,10 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                 Column(
                   children: [
                     const SizedBox(height: 110),
-                    CharacterBoard(characterBox: characterBox),
+                    CharacterBoard(
+                      characterBox: characterBox,
+                      height: 190,
+                    ),
                     const SizedBox(height: 14),
                     Container(
                       decoration: BoxDecoration(
@@ -249,7 +258,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                       ),
                       height: 2,
                       width: double.infinity,
-                      margin: const EdgeInsets.only(left: 7, right: 7),
+                      margin: const EdgeInsets.symmetric(horizontal: 7),
                     ),
                   ],
                 ),

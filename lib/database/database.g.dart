@@ -852,50 +852,6 @@ typedef $$CharacterItemsTableUpdateCompanionBuilder = CharacterItemsCompanion
   Value<int> gender,
 });
 
-class $$CharacterItemsTableTableManager extends RootTableManager<
-    _$ItemDatabase,
-    $CharacterItemsTable,
-    CharacterItem,
-    $$CharacterItemsTableFilterComposer,
-    $$CharacterItemsTableOrderingComposer,
-    $$CharacterItemsTableCreateCompanionBuilder,
-    $$CharacterItemsTableUpdateCompanionBuilder> {
-  $$CharacterItemsTableTableManager(
-      _$ItemDatabase db, $CharacterItemsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$CharacterItemsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$CharacterItemsTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> itemid = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> subCategory = const Value.absent(),
-            Value<int> gender = const Value.absent(),
-          }) =>
-              CharacterItemsCompanion(
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-            gender: gender,
-          ),
-          createCompanionCallback: ({
-            Value<int> itemid = const Value.absent(),
-            required String name,
-            required String subCategory,
-            required int gender,
-          }) =>
-              CharacterItemsCompanion.insert(
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-            gender: gender,
-          ),
-        ));
-}
-
 class $$CharacterItemsTableFilterComposer
     extends FilterComposer<_$ItemDatabase, $CharacterItemsTable> {
   $$CharacterItemsTableFilterComposer(super.$state);
@@ -944,6 +900,74 @@ class $$CharacterItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$CharacterItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $CharacterItemsTable,
+    CharacterItem,
+    $$CharacterItemsTableFilterComposer,
+    $$CharacterItemsTableOrderingComposer,
+    $$CharacterItemsTableCreateCompanionBuilder,
+    $$CharacterItemsTableUpdateCompanionBuilder,
+    (
+      CharacterItem,
+      BaseReferences<_$ItemDatabase, $CharacterItemsTable, CharacterItem>
+    ),
+    CharacterItem,
+    PrefetchHooks Function()> {
+  $$CharacterItemsTableTableManager(
+      _$ItemDatabase db, $CharacterItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$CharacterItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$CharacterItemsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+            Value<int> gender = const Value.absent(),
+          }) =>
+              CharacterItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+          createCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+            required int gender,
+          }) =>
+              CharacterItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$CharacterItemsTableProcessedTableManager = ProcessedTableManager<
+    _$ItemDatabase,
+    $CharacterItemsTable,
+    CharacterItem,
+    $$CharacterItemsTableFilterComposer,
+    $$CharacterItemsTableOrderingComposer,
+    $$CharacterItemsTableCreateCompanionBuilder,
+    $$CharacterItemsTableUpdateCompanionBuilder,
+    (
+      CharacterItem,
+      BaseReferences<_$ItemDatabase, $CharacterItemsTable, CharacterItem>
+    ),
+    CharacterItem,
+    PrefetchHooks Function()>;
 typedef $$ArmorItemsTableCreateCompanionBuilder = ArmorItemsCompanion Function({
   Value<int> itemid,
   required String name,
@@ -956,49 +980,6 @@ typedef $$ArmorItemsTableUpdateCompanionBuilder = ArmorItemsCompanion Function({
   Value<String> subCategory,
   Value<int> gender,
 });
-
-class $$ArmorItemsTableTableManager extends RootTableManager<
-    _$ItemDatabase,
-    $ArmorItemsTable,
-    ArmorItem,
-    $$ArmorItemsTableFilterComposer,
-    $$ArmorItemsTableOrderingComposer,
-    $$ArmorItemsTableCreateCompanionBuilder,
-    $$ArmorItemsTableUpdateCompanionBuilder> {
-  $$ArmorItemsTableTableManager(_$ItemDatabase db, $ArmorItemsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$ArmorItemsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$ArmorItemsTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> itemid = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> subCategory = const Value.absent(),
-            Value<int> gender = const Value.absent(),
-          }) =>
-              ArmorItemsCompanion(
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-            gender: gender,
-          ),
-          createCompanionCallback: ({
-            Value<int> itemid = const Value.absent(),
-            required String name,
-            required String subCategory,
-            required int gender,
-          }) =>
-              ArmorItemsCompanion.insert(
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-            gender: gender,
-          ),
-        ));
-}
 
 class $$ArmorItemsTableFilterComposer
     extends FilterComposer<_$ItemDatabase, $ArmorItemsTable> {
@@ -1048,6 +1029,67 @@ class $$ArmorItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$ArmorItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $ArmorItemsTable,
+    ArmorItem,
+    $$ArmorItemsTableFilterComposer,
+    $$ArmorItemsTableOrderingComposer,
+    $$ArmorItemsTableCreateCompanionBuilder,
+    $$ArmorItemsTableUpdateCompanionBuilder,
+    (ArmorItem, BaseReferences<_$ItemDatabase, $ArmorItemsTable, ArmorItem>),
+    ArmorItem,
+    PrefetchHooks Function()> {
+  $$ArmorItemsTableTableManager(_$ItemDatabase db, $ArmorItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$ArmorItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$ArmorItemsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+            Value<int> gender = const Value.absent(),
+          }) =>
+              ArmorItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+          createCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+            required int gender,
+          }) =>
+              ArmorItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$ArmorItemsTableProcessedTableManager = ProcessedTableManager<
+    _$ItemDatabase,
+    $ArmorItemsTable,
+    ArmorItem,
+    $$ArmorItemsTableFilterComposer,
+    $$ArmorItemsTableOrderingComposer,
+    $$ArmorItemsTableCreateCompanionBuilder,
+    $$ArmorItemsTableUpdateCompanionBuilder,
+    (ArmorItem, BaseReferences<_$ItemDatabase, $ArmorItemsTable, ArmorItem>),
+    ArmorItem,
+    PrefetchHooks Function()>;
 typedef $$AccessoryItemsTableCreateCompanionBuilder = AccessoryItemsCompanion
     Function({
   Value<int> itemid,
@@ -1064,54 +1106,6 @@ typedef $$AccessoryItemsTableUpdateCompanionBuilder = AccessoryItemsCompanion
   Value<int> gender,
   Value<bool?> overlapsWithFace,
 });
-
-class $$AccessoryItemsTableTableManager extends RootTableManager<
-    _$ItemDatabase,
-    $AccessoryItemsTable,
-    AccessoryItem,
-    $$AccessoryItemsTableFilterComposer,
-    $$AccessoryItemsTableOrderingComposer,
-    $$AccessoryItemsTableCreateCompanionBuilder,
-    $$AccessoryItemsTableUpdateCompanionBuilder> {
-  $$AccessoryItemsTableTableManager(
-      _$ItemDatabase db, $AccessoryItemsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$AccessoryItemsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer:
-              $$AccessoryItemsTableOrderingComposer(ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> itemid = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> subCategory = const Value.absent(),
-            Value<int> gender = const Value.absent(),
-            Value<bool?> overlapsWithFace = const Value.absent(),
-          }) =>
-              AccessoryItemsCompanion(
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-            gender: gender,
-            overlapsWithFace: overlapsWithFace,
-          ),
-          createCompanionCallback: ({
-            Value<int> itemid = const Value.absent(),
-            required String name,
-            required String subCategory,
-            required int gender,
-            Value<bool?> overlapsWithFace = const Value.absent(),
-          }) =>
-              AccessoryItemsCompanion.insert(
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-            gender: gender,
-            overlapsWithFace: overlapsWithFace,
-          ),
-        ));
-}
 
 class $$AccessoryItemsTableFilterComposer
     extends FilterComposer<_$ItemDatabase, $AccessoryItemsTable> {
@@ -1170,6 +1164,79 @@ class $$AccessoryItemsTableOrderingComposer
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
+
+class $$AccessoryItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $AccessoryItemsTable,
+    AccessoryItem,
+    $$AccessoryItemsTableFilterComposer,
+    $$AccessoryItemsTableOrderingComposer,
+    $$AccessoryItemsTableCreateCompanionBuilder,
+    $$AccessoryItemsTableUpdateCompanionBuilder,
+    (
+      AccessoryItem,
+      BaseReferences<_$ItemDatabase, $AccessoryItemsTable, AccessoryItem>
+    ),
+    AccessoryItem,
+    PrefetchHooks Function()> {
+  $$AccessoryItemsTableTableManager(
+      _$ItemDatabase db, $AccessoryItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$AccessoryItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$AccessoryItemsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+            Value<int> gender = const Value.absent(),
+            Value<bool?> overlapsWithFace = const Value.absent(),
+          }) =>
+              AccessoryItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+            overlapsWithFace: overlapsWithFace,
+          ),
+          createCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+            required int gender,
+            Value<bool?> overlapsWithFace = const Value.absent(),
+          }) =>
+              AccessoryItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+            gender: gender,
+            overlapsWithFace: overlapsWithFace,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$AccessoryItemsTableProcessedTableManager = ProcessedTableManager<
+    _$ItemDatabase,
+    $AccessoryItemsTable,
+    AccessoryItem,
+    $$AccessoryItemsTableFilterComposer,
+    $$AccessoryItemsTableOrderingComposer,
+    $$AccessoryItemsTableCreateCompanionBuilder,
+    $$AccessoryItemsTableUpdateCompanionBuilder,
+    (
+      AccessoryItem,
+      BaseReferences<_$ItemDatabase, $AccessoryItemsTable, AccessoryItem>
+    ),
+    AccessoryItem,
+    PrefetchHooks Function()>;
 
 class $ItemDatabaseManager {
   final _$ItemDatabase _db;
@@ -1846,50 +1913,6 @@ typedef $$UserFavoriteItemsTableUpdateCompanionBuilder
   Value<String> subCategory,
 });
 
-class $$UserFavoriteItemsTableTableManager extends RootTableManager<
-    _$UserFavoriteDataBase,
-    $UserFavoriteItemsTable,
-    UserFavoriteItem,
-    $$UserFavoriteItemsTableFilterComposer,
-    $$UserFavoriteItemsTableOrderingComposer,
-    $$UserFavoriteItemsTableCreateCompanionBuilder,
-    $$UserFavoriteItemsTableUpdateCompanionBuilder> {
-  $$UserFavoriteItemsTableTableManager(
-      _$UserFavoriteDataBase db, $UserFavoriteItemsTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer:
-              $$UserFavoriteItemsTableFilterComposer(ComposerState(db, table)),
-          orderingComposer: $$UserFavoriteItemsTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<int> itemid = const Value.absent(),
-            Value<String> name = const Value.absent(),
-            Value<String> subCategory = const Value.absent(),
-          }) =>
-              UserFavoriteItemsCompanion(
-            id: id,
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required int itemid,
-            required String name,
-            required String subCategory,
-          }) =>
-              UserFavoriteItemsCompanion.insert(
-            id: id,
-            itemid: itemid,
-            name: name,
-            subCategory: subCategory,
-          ),
-        ));
-}
-
 class $$UserFavoriteItemsTableFilterComposer
     extends FilterComposer<_$UserFavoriteDataBase, $UserFavoriteItemsTable> {
   $$UserFavoriteItemsTableFilterComposer(super.$state);
@@ -1938,6 +1961,76 @@ class $$UserFavoriteItemsTableOrderingComposer
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
 
+class $$UserFavoriteItemsTableTableManager extends RootTableManager<
+    _$UserFavoriteDataBase,
+    $UserFavoriteItemsTable,
+    UserFavoriteItem,
+    $$UserFavoriteItemsTableFilterComposer,
+    $$UserFavoriteItemsTableOrderingComposer,
+    $$UserFavoriteItemsTableCreateCompanionBuilder,
+    $$UserFavoriteItemsTableUpdateCompanionBuilder,
+    (
+      UserFavoriteItem,
+      BaseReferences<_$UserFavoriteDataBase, $UserFavoriteItemsTable,
+          UserFavoriteItem>
+    ),
+    UserFavoriteItem,
+    PrefetchHooks Function()> {
+  $$UserFavoriteItemsTableTableManager(
+      _$UserFavoriteDataBase db, $UserFavoriteItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$UserFavoriteItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer: $$UserFavoriteItemsTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+          }) =>
+              UserFavoriteItemsCompanion(
+            id: id,
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int itemid,
+            required String name,
+            required String subCategory,
+          }) =>
+              UserFavoriteItemsCompanion.insert(
+            id: id,
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$UserFavoriteItemsTableProcessedTableManager = ProcessedTableManager<
+    _$UserFavoriteDataBase,
+    $UserFavoriteItemsTable,
+    UserFavoriteItem,
+    $$UserFavoriteItemsTableFilterComposer,
+    $$UserFavoriteItemsTableOrderingComposer,
+    $$UserFavoriteItemsTableCreateCompanionBuilder,
+    $$UserFavoriteItemsTableUpdateCompanionBuilder,
+    (
+      UserFavoriteItem,
+      BaseReferences<_$UserFavoriteDataBase, $UserFavoriteItemsTable,
+          UserFavoriteItem>
+    ),
+    UserFavoriteItem,
+    PrefetchHooks Function()>;
 typedef $$UserFavoriteCharactersTableCreateCompanionBuilder
     = UserFavoriteCharactersCompanion Function({
   Value<int> id,
@@ -1956,58 +2049,6 @@ typedef $$UserFavoriteCharactersTableUpdateCompanionBuilder
   Value<String> characterImageUrl2,
   Value<String?> characterName,
 });
-
-class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
-    _$UserFavoriteDataBase,
-    $UserFavoriteCharactersTable,
-    UserFavoriteCharacter,
-    $$UserFavoriteCharactersTableFilterComposer,
-    $$UserFavoriteCharactersTableOrderingComposer,
-    $$UserFavoriteCharactersTableCreateCompanionBuilder,
-    $$UserFavoriteCharactersTableUpdateCompanionBuilder> {
-  $$UserFavoriteCharactersTableTableManager(
-      _$UserFavoriteDataBase db, $UserFavoriteCharactersTable table)
-      : super(TableManagerState(
-          db: db,
-          table: table,
-          filteringComposer: $$UserFavoriteCharactersTableFilterComposer(
-              ComposerState(db, table)),
-          orderingComposer: $$UserFavoriteCharactersTableOrderingComposer(
-              ComposerState(db, table)),
-          updateCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            Value<String> characterInfo = const Value.absent(),
-            Value<String> characterInfo2 = const Value.absent(),
-            Value<String> characterImageUrl1 = const Value.absent(),
-            Value<String> characterImageUrl2 = const Value.absent(),
-            Value<String?> characterName = const Value.absent(),
-          }) =>
-              UserFavoriteCharactersCompanion(
-            id: id,
-            characterInfo: characterInfo,
-            characterInfo2: characterInfo2,
-            characterImageUrl1: characterImageUrl1,
-            characterImageUrl2: characterImageUrl2,
-            characterName: characterName,
-          ),
-          createCompanionCallback: ({
-            Value<int> id = const Value.absent(),
-            required String characterInfo,
-            required String characterInfo2,
-            required String characterImageUrl1,
-            required String characterImageUrl2,
-            Value<String?> characterName = const Value.absent(),
-          }) =>
-              UserFavoriteCharactersCompanion.insert(
-            id: id,
-            characterInfo: characterInfo,
-            characterInfo2: characterInfo2,
-            characterImageUrl1: characterImageUrl1,
-            characterImageUrl2: characterImageUrl2,
-            characterName: characterName,
-          ),
-        ));
-}
 
 class $$UserFavoriteCharactersTableFilterComposer extends FilterComposer<
     _$UserFavoriteDataBase, $UserFavoriteCharactersTable> {
@@ -2076,6 +2117,86 @@ class $$UserFavoriteCharactersTableOrderingComposer extends OrderingComposer<
       builder: (column, joinBuilders) =>
           ColumnOrderings(column, joinBuilders: joinBuilders));
 }
+
+class $$UserFavoriteCharactersTableTableManager extends RootTableManager<
+    _$UserFavoriteDataBase,
+    $UserFavoriteCharactersTable,
+    UserFavoriteCharacter,
+    $$UserFavoriteCharactersTableFilterComposer,
+    $$UserFavoriteCharactersTableOrderingComposer,
+    $$UserFavoriteCharactersTableCreateCompanionBuilder,
+    $$UserFavoriteCharactersTableUpdateCompanionBuilder,
+    (
+      UserFavoriteCharacter,
+      BaseReferences<_$UserFavoriteDataBase, $UserFavoriteCharactersTable,
+          UserFavoriteCharacter>
+    ),
+    UserFavoriteCharacter,
+    PrefetchHooks Function()> {
+  $$UserFavoriteCharactersTableTableManager(
+      _$UserFavoriteDataBase db, $UserFavoriteCharactersTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer: $$UserFavoriteCharactersTableFilterComposer(
+              ComposerState(db, table)),
+          orderingComposer: $$UserFavoriteCharactersTableOrderingComposer(
+              ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> characterInfo = const Value.absent(),
+            Value<String> characterInfo2 = const Value.absent(),
+            Value<String> characterImageUrl1 = const Value.absent(),
+            Value<String> characterImageUrl2 = const Value.absent(),
+            Value<String?> characterName = const Value.absent(),
+          }) =>
+              UserFavoriteCharactersCompanion(
+            id: id,
+            characterInfo: characterInfo,
+            characterInfo2: characterInfo2,
+            characterImageUrl1: characterImageUrl1,
+            characterImageUrl2: characterImageUrl2,
+            characterName: characterName,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String characterInfo,
+            required String characterInfo2,
+            required String characterImageUrl1,
+            required String characterImageUrl2,
+            Value<String?> characterName = const Value.absent(),
+          }) =>
+              UserFavoriteCharactersCompanion.insert(
+            id: id,
+            characterInfo: characterInfo,
+            characterInfo2: characterInfo2,
+            characterImageUrl1: characterImageUrl1,
+            characterImageUrl2: characterImageUrl2,
+            characterName: characterName,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$UserFavoriteCharactersTableProcessedTableManager
+    = ProcessedTableManager<
+        _$UserFavoriteDataBase,
+        $UserFavoriteCharactersTable,
+        UserFavoriteCharacter,
+        $$UserFavoriteCharactersTableFilterComposer,
+        $$UserFavoriteCharactersTableOrderingComposer,
+        $$UserFavoriteCharactersTableCreateCompanionBuilder,
+        $$UserFavoriteCharactersTableUpdateCompanionBuilder,
+        (
+          UserFavoriteCharacter,
+          BaseReferences<_$UserFavoriteDataBase, $UserFavoriteCharactersTable,
+              UserFavoriteCharacter>
+        ),
+        UserFavoriteCharacter,
+        PrefetchHooks Function()>;
 
 class $UserFavoriteDataBaseManager {
   final _$UserFavoriteDataBase _db;
