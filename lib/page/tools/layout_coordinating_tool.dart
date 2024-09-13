@@ -86,8 +86,7 @@ class CoordinatingTools extends StatelessWidget {
             buttonClicked: toolButtonClick,
           ),
           const SizedBox(height: 8),
-          Flexible(
-            fit: FlexFit.loose,
+          Expanded(
             child: currentToolIdx < 3
                 ? Column(
                     children: [
@@ -106,8 +105,7 @@ class CoordinatingTools extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 8),
-                      Flexible(
-                          fit: FlexFit.loose,
+                      Expanded(
                           child: ItemList(
                             buttonClicked: listButtonClicked,
                             currentClickedItemIdx: clickedButtonIdx,

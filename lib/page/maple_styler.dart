@@ -324,8 +324,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                       },
                     ),
                     const SizedBox(height: 50),
-                    Flexible(
-                        fit: FlexFit.loose,
+                    Expanded(
                         child: CoordinatingTools(
                           listButtonClicked: setMyCharacter,
                           clickedButtonIdx: currentListButtonIdx,
