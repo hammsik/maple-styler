@@ -1,5 +1,7 @@
 import 'package:maple_closet/models/item.dart';
-import 'package:maple_closet/models/item_map.dart';
+import 'package:maple_closet/models/equipment.dart';
+import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:maple_closet/providers/character_method.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'character_provider.g.dart';
@@ -8,17 +10,26 @@ part 'character_provider.g.dart';
 @Riverpod(keepAlive: true)
 class CharacterProvider extends _$CharacterProvider {
   @override
-  ItemMap build() {
-    return const ItemMap(
+  Equipment build() {
+    return const Equipment(
       head: Item(id: '12016', name: '홍조 꽃잎 피부'),
-      body: Item(id: '2016', name: ''),
     );
   }
 
-  void updateCharacter({required String subCategory, required Item item}) {
-    state = state.copyWith(
-      head: subCategory == 'head' ? item : state.head,
-      body: subCategory == 'body' ? item : state.body,
+  void updateEquipment(
+      {required SubCategoryType subCategoryType, required Item item}) {
+    state = copyWithSubCategoryType(
+      equipment: state,
+      subCategoryType: subCategoryType,
+      item: item,
+    );
+  }
+
+  void takeOffEquipment({required SubCategoryType subCategoryType}) {
+    state = copyWithSubCategoryType(
+      equipment: state,
+      subCategoryType: subCategoryType,
+      item: null,
     );
   }
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'item_map.dart';
+part of 'equipment.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,19 +14,18 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ItemMap _$ItemMapFromJson(Map<String, dynamic> json) {
-  return _ItemMap.fromJson(json);
+Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
+  return _Equipment.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ItemMap {
+mixin _$Equipment {
 // 뷰티
   Item? get hair => throw _privateConstructorUsedError;
   Item? get face => throw _privateConstructorUsedError;
-  Item get head => throw _privateConstructorUsedError;
-  Item get body => throw _privateConstructorUsedError; // 장비
+  Item get head => throw _privateConstructorUsedError; // 장비
   Item? get hat => throw _privateConstructorUsedError;
-  Item? get overrAll => throw _privateConstructorUsedError;
+  Item? get overAll => throw _privateConstructorUsedError;
   Item? get cash => throw _privateConstructorUsedError;
   Item? get top => throw _privateConstructorUsedError;
   Item? get bottom => throw _privateConstructorUsedError;
@@ -38,27 +37,27 @@ mixin _$ItemMap {
   Item? get eyeDecoration => throw _privateConstructorUsedError;
   Item? get earrings => throw _privateConstructorUsedError;
 
-  /// Serializes this ItemMap to a JSON map.
+  /// Serializes this Equipment to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ItemMapCopyWith<ItemMap> get copyWith => throw _privateConstructorUsedError;
+  $EquipmentCopyWith<Equipment> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ItemMapCopyWith<$Res> {
-  factory $ItemMapCopyWith(ItemMap value, $Res Function(ItemMap) then) =
-      _$ItemMapCopyWithImpl<$Res, ItemMap>;
+abstract class $EquipmentCopyWith<$Res> {
+  factory $EquipmentCopyWith(Equipment value, $Res Function(Equipment) then) =
+      _$EquipmentCopyWithImpl<$Res, Equipment>;
   @useResult
   $Res call(
       {Item? hair,
       Item? face,
       Item head,
-      Item body,
       Item? hat,
-      Item? overrAll,
+      Item? overAll,
       Item? cash,
       Item? top,
       Item? bottom,
@@ -73,9 +72,8 @@ abstract class $ItemMapCopyWith<$Res> {
   $ItemCopyWith<$Res>? get hair;
   $ItemCopyWith<$Res>? get face;
   $ItemCopyWith<$Res> get head;
-  $ItemCopyWith<$Res> get body;
   $ItemCopyWith<$Res>? get hat;
-  $ItemCopyWith<$Res>? get overrAll;
+  $ItemCopyWith<$Res>? get overAll;
   $ItemCopyWith<$Res>? get cash;
   $ItemCopyWith<$Res>? get top;
   $ItemCopyWith<$Res>? get bottom;
@@ -89,16 +87,16 @@ abstract class $ItemMapCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
-    implements $ItemMapCopyWith<$Res> {
-  _$ItemMapCopyWithImpl(this._value, this._then);
+class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
+    implements $EquipmentCopyWith<$Res> {
+  _$EquipmentCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -106,9 +104,8 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     Object? hair = freezed,
     Object? face = freezed,
     Object? head = null,
-    Object? body = null,
     Object? hat = freezed,
-    Object? overrAll = freezed,
+    Object? overAll = freezed,
     Object? cash = freezed,
     Object? top = freezed,
     Object? bottom = freezed,
@@ -133,17 +130,13 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
           ? _value.head
           : head // ignore: cast_nullable_to_non_nullable
               as Item,
-      body: null == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as Item,
       hat: freezed == hat
           ? _value.hat
           : hat // ignore: cast_nullable_to_non_nullable
               as Item?,
-      overrAll: freezed == overrAll
-          ? _value.overrAll
-          : overrAll // ignore: cast_nullable_to_non_nullable
+      overAll: freezed == overAll
+          ? _value.overAll
+          : overAll // ignore: cast_nullable_to_non_nullable
               as Item?,
       cash: freezed == cash
           ? _value.cash
@@ -188,7 +181,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     ) as $Val);
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -202,7 +195,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -216,7 +209,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -226,17 +219,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ItemCopyWith<$Res> get body {
-    return $ItemCopyWith<$Res>(_value.body, (value) {
-      return _then(_value.copyWith(body: value) as $Val);
-    });
-  }
-
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -250,21 +233,21 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $ItemCopyWith<$Res>? get overrAll {
-    if (_value.overrAll == null) {
+  $ItemCopyWith<$Res>? get overAll {
+    if (_value.overAll == null) {
       return null;
     }
 
-    return $ItemCopyWith<$Res>(_value.overrAll!, (value) {
-      return _then(_value.copyWith(overrAll: value) as $Val);
+    return $ItemCopyWith<$Res>(_value.overAll!, (value) {
+      return _then(_value.copyWith(overAll: value) as $Val);
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -278,7 +261,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -292,7 +275,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -306,7 +289,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -320,7 +303,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -334,7 +317,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -348,7 +331,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -362,7 +345,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -376,7 +359,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -390,7 +373,7 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
     });
   }
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -406,19 +389,19 @@ class _$ItemMapCopyWithImpl<$Res, $Val extends ItemMap>
 }
 
 /// @nodoc
-abstract class _$$ItemMapImplCopyWith<$Res> implements $ItemMapCopyWith<$Res> {
-  factory _$$ItemMapImplCopyWith(
-          _$ItemMapImpl value, $Res Function(_$ItemMapImpl) then) =
-      __$$ItemMapImplCopyWithImpl<$Res>;
+abstract class _$$EquipmentImplCopyWith<$Res>
+    implements $EquipmentCopyWith<$Res> {
+  factory _$$EquipmentImplCopyWith(
+          _$EquipmentImpl value, $Res Function(_$EquipmentImpl) then) =
+      __$$EquipmentImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
       {Item? hair,
       Item? face,
       Item head,
-      Item body,
       Item? hat,
-      Item? overrAll,
+      Item? overAll,
       Item? cash,
       Item? top,
       Item? bottom,
@@ -437,11 +420,9 @@ abstract class _$$ItemMapImplCopyWith<$Res> implements $ItemMapCopyWith<$Res> {
   @override
   $ItemCopyWith<$Res> get head;
   @override
-  $ItemCopyWith<$Res> get body;
-  @override
   $ItemCopyWith<$Res>? get hat;
   @override
-  $ItemCopyWith<$Res>? get overrAll;
+  $ItemCopyWith<$Res>? get overAll;
   @override
   $ItemCopyWith<$Res>? get cash;
   @override
@@ -465,14 +446,14 @@ abstract class _$$ItemMapImplCopyWith<$Res> implements $ItemMapCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$ItemMapImplCopyWithImpl<$Res>
-    extends _$ItemMapCopyWithImpl<$Res, _$ItemMapImpl>
-    implements _$$ItemMapImplCopyWith<$Res> {
-  __$$ItemMapImplCopyWithImpl(
-      _$ItemMapImpl _value, $Res Function(_$ItemMapImpl) _then)
+class __$$EquipmentImplCopyWithImpl<$Res>
+    extends _$EquipmentCopyWithImpl<$Res, _$EquipmentImpl>
+    implements _$$EquipmentImplCopyWith<$Res> {
+  __$$EquipmentImplCopyWithImpl(
+      _$EquipmentImpl _value, $Res Function(_$EquipmentImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -480,9 +461,8 @@ class __$$ItemMapImplCopyWithImpl<$Res>
     Object? hair = freezed,
     Object? face = freezed,
     Object? head = null,
-    Object? body = null,
     Object? hat = freezed,
-    Object? overrAll = freezed,
+    Object? overAll = freezed,
     Object? cash = freezed,
     Object? top = freezed,
     Object? bottom = freezed,
@@ -494,7 +474,7 @@ class __$$ItemMapImplCopyWithImpl<$Res>
     Object? eyeDecoration = freezed,
     Object? earrings = freezed,
   }) {
-    return _then(_$ItemMapImpl(
+    return _then(_$EquipmentImpl(
       hair: freezed == hair
           ? _value.hair
           : hair // ignore: cast_nullable_to_non_nullable
@@ -507,17 +487,13 @@ class __$$ItemMapImplCopyWithImpl<$Res>
           ? _value.head
           : head // ignore: cast_nullable_to_non_nullable
               as Item,
-      body: null == body
-          ? _value.body
-          : body // ignore: cast_nullable_to_non_nullable
-              as Item,
       hat: freezed == hat
           ? _value.hat
           : hat // ignore: cast_nullable_to_non_nullable
               as Item?,
-      overrAll: freezed == overrAll
-          ? _value.overrAll
-          : overrAll // ignore: cast_nullable_to_non_nullable
+      overAll: freezed == overAll
+          ? _value.overAll
+          : overAll // ignore: cast_nullable_to_non_nullable
               as Item?,
       cash: freezed == cash
           ? _value.cash
@@ -565,14 +541,13 @@ class __$$ItemMapImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ItemMapImpl implements _ItemMap {
-  const _$ItemMapImpl(
+class _$EquipmentImpl implements _Equipment {
+  const _$EquipmentImpl(
       {this.hair = const Item(id: '68090', name: '허쉬 헤어'),
       this.face = const Item(id: '50137', name: '차차 얼굴'),
       required this.head,
-      required this.body,
       this.hat,
-      this.overrAll,
+      this.overAll,
       this.cash,
       this.top = const Item(id: '1040036', name: '상의 이너'),
       this.bottom = const Item(id: '1060026', name: '하의 이너'),
@@ -582,10 +557,10 @@ class _$ItemMapImpl implements _ItemMap {
       this.shield,
       this.faceAccessory,
       this.eyeDecoration,
-      this.earrings,});
+      this.earrings});
 
-  factory _$ItemMapImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ItemMapImplFromJson(json);
+  factory _$EquipmentImpl.fromJson(Map<String, dynamic> json) =>
+      _$$EquipmentImplFromJson(json);
 
 // 뷰티
   @override
@@ -596,13 +571,11 @@ class _$ItemMapImpl implements _ItemMap {
   final Item? face;
   @override
   final Item head;
-  @override
-  final Item body;
 // 장비
   @override
   final Item? hat;
   @override
-  final Item? overrAll;
+  final Item? overAll;
   @override
   final Item? cash;
   @override
@@ -629,21 +602,19 @@ class _$ItemMapImpl implements _ItemMap {
 
   @override
   String toString() {
-    return 'ItemMap(hair: $hair, face: $face, head: $head, body: $body, hat: $hat, overrAll: $overrAll, cash: $cash, top: $top, bottom: $bottom, cape: $cape, glove: $glove, shoes: $shoes, shield: $shield, faceAccessory: $faceAccessory, eyeDecoration: $eyeDecoration, earrings: $earrings)';
+    return 'Equipment(hair: $hair, face: $face, head: $head, hat: $hat, overAll: $overAll, cash: $cash, top: $top, bottom: $bottom, cape: $cape, glove: $glove, shoes: $shoes, shield: $shield, faceAccessory: $faceAccessory, eyeDecoration: $eyeDecoration, earrings: $earrings)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ItemMapImpl &&
+            other is _$EquipmentImpl &&
             (identical(other.hair, hair) || other.hair == hair) &&
             (identical(other.face, face) || other.face == face) &&
             (identical(other.head, head) || other.head == head) &&
-            (identical(other.body, body) || other.body == body) &&
             (identical(other.hat, hat) || other.hat == hat) &&
-            (identical(other.overrAll, overrAll) ||
-                other.overrAll == overrAll) &&
+            (identical(other.overAll, overAll) || other.overAll == overAll) &&
             (identical(other.cash, cash) || other.cash == cash) &&
             (identical(other.top, top) || other.top == top) &&
             (identical(other.bottom, bottom) || other.bottom == bottom) &&
@@ -666,9 +637,8 @@ class _$ItemMapImpl implements _ItemMap {
       hair,
       face,
       head,
-      body,
       hat,
-      overrAll,
+      overAll,
       cash,
       top,
       bottom,
@@ -680,30 +650,29 @@ class _$ItemMapImpl implements _ItemMap {
       eyeDecoration,
       earrings);
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ItemMapImplCopyWith<_$ItemMapImpl> get copyWith =>
-      __$$ItemMapImplCopyWithImpl<_$ItemMapImpl>(this, _$identity);
+  _$$EquipmentImplCopyWith<_$EquipmentImpl> get copyWith =>
+      __$$EquipmentImplCopyWithImpl<_$EquipmentImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ItemMapImplToJson(
+    return _$$EquipmentImplToJson(
       this,
     );
   }
 }
 
-abstract class _ItemMap implements ItemMap {
-  const factory _ItemMap(
+abstract class _Equipment implements Equipment {
+  const factory _Equipment(
       {final Item? hair,
       final Item? face,
       required final Item head,
-      required final Item body,
       final Item? hat,
-      final Item? overrAll,
+      final Item? overAll,
       final Item? cash,
       final Item? top,
       final Item? bottom,
@@ -713,9 +682,10 @@ abstract class _ItemMap implements ItemMap {
       final Item? shield,
       final Item? faceAccessory,
       final Item? eyeDecoration,
-      final Item? earrings}) = _$ItemMapImpl;
+      final Item? earrings}) = _$EquipmentImpl;
 
-  factory _ItemMap.fromJson(Map<String, dynamic> json) = _$ItemMapImpl.fromJson;
+  factory _Equipment.fromJson(Map<String, dynamic> json) =
+      _$EquipmentImpl.fromJson;
 
 // 뷰티
   @override
@@ -723,13 +693,11 @@ abstract class _ItemMap implements ItemMap {
   @override
   Item? get face;
   @override
-  Item get head;
-  @override
-  Item get body; // 장비
+  Item get head; // 장비
   @override
   Item? get hat;
   @override
-  Item? get overrAll;
+  Item? get overAll;
   @override
   Item? get cash;
   @override
@@ -751,10 +719,10 @@ abstract class _ItemMap implements ItemMap {
   @override
   Item? get earrings;
 
-  /// Create a copy of ItemMap
+  /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ItemMapImplCopyWith<_$ItemMapImpl> get copyWith =>
+  _$$EquipmentImplCopyWith<_$EquipmentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

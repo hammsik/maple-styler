@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item_map.dart';
+part of 'equipment.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ItemMapImpl _$$ItemMapImplFromJson(Map<String, dynamic> json) =>
-    _$ItemMapImpl(
+_$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
+    _$EquipmentImpl(
       hair: json['hair'] == null
           ? const Item(id: '68090', name: '허쉬 헤어')
           : Item.fromJson(json['hair'] as Map<String, dynamic>),
@@ -15,13 +15,12 @@ _$ItemMapImpl _$$ItemMapImplFromJson(Map<String, dynamic> json) =>
           ? const Item(id: '50137', name: '차차 얼굴')
           : Item.fromJson(json['face'] as Map<String, dynamic>),
       head: Item.fromJson(json['head'] as Map<String, dynamic>),
-      body: Item.fromJson(json['body'] as Map<String, dynamic>),
       hat: json['hat'] == null
           ? null
           : Item.fromJson(json['hat'] as Map<String, dynamic>),
-      overrAll: json['overrAll'] == null
+      overAll: json['overAll'] == null
           ? null
-          : Item.fromJson(json['overrAll'] as Map<String, dynamic>),
+          : Item.fromJson(json['overAll'] as Map<String, dynamic>),
       cash: json['cash'] == null
           ? null
           : Item.fromJson(json['cash'] as Map<String, dynamic>),
@@ -54,14 +53,13 @@ _$ItemMapImpl _$$ItemMapImplFromJson(Map<String, dynamic> json) =>
           : Item.fromJson(json['earrings'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$ItemMapImplToJson(_$ItemMapImpl instance) =>
+Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
     <String, dynamic>{
       'hair': instance.hair,
       'face': instance.face,
       'head': instance.head,
-      'body': instance.body,
       'hat': instance.hat,
-      'overrAll': instance.overrAll,
+      'overAll': instance.overAll,
       'cash': instance.cash,
       'top': instance.top,
       'bottom': instance.bottom,
