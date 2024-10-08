@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:maple_closet/data/myTools.dart';
-import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/data/my_tools.dart';
+import 'package:maple_closet/models/skeleton_character.dart';
 import 'package:maple_closet/page/tools/layout_color.dart';
 import 'package:maple_closet/page/tools/layout_favorite.dart';
 import 'package:maple_closet/widgets/layout_undifined.dart';

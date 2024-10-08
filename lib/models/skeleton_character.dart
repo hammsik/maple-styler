@@ -44,7 +44,7 @@ class MyCharacter {
   void setLensColor(String lensColor) {
     itemMap['Face'][2] = lensColor;
     itemMap['Face'][0] = itemMap['Face'][0].replaceRange(2, 3, lensColor);
-
+ 
     addItem();
   }
 

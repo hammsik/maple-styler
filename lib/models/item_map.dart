@@ -8,17 +8,17 @@ part 'item_map.g.dart';
 @freezed
 class ItemMap with _$ItemMap {
   const factory ItemMap({
-    // 뷰티
-    Item? hair,
-    Item? face,
+     // 뷰티
+    @Default(Item(id: '68090', name: '허쉬 헤어')) Item? hair,
+    @Default(Item(id: '50137', name: '차차 얼굴')) Item? face,
     required Item head,
     required Item body,
     // 장비
     Item? hat,
     Item? overrAll,
     Item? cash,
-    Item? top,
-    Item? bottom,
+    @Default(Item(id: '1040036', name: '상의 이너')) Item? top,
+    @Default(Item(id: '1060026', name: '하의 이너')) Item? bottom,
     Item? cape,
     Item? glove,
     Item? shoes,

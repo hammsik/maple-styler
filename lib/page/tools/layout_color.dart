@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:maple_closet/data/colorPalette.dart';
-import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/data/color_palette.dart';
+import 'package:maple_closet/models/skeleton_character.dart';
 
 class ColorLayout extends StatefulWidget {
   final MyCharacter currentCharacter;

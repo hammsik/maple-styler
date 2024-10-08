@@ -567,30 +567,32 @@ class __$$ItemMapImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ItemMapImpl implements _ItemMap {
   const _$ItemMapImpl(
-      {this.hair,
-      this.face,
+      {this.hair = const Item(id: '68090', name: '허쉬 헤어'),
+      this.face = const Item(id: '50137', name: '차차 얼굴'),
       required this.head,
       required this.body,
       this.hat,
       this.overrAll,
       this.cash,
-      this.top,
-      this.bottom,
+      this.top = const Item(id: '1040036', name: '상의 이너'),
+      this.bottom = const Item(id: '1060026', name: '하의 이너'),
       this.cape,
       this.glove,
       this.shoes,
       this.shield,
       this.faceAccessory,
       this.eyeDecoration,
-      this.earrings});
+      this.earrings,});
 
   factory _$ItemMapImpl.fromJson(Map<String, dynamic> json) =>
       _$$ItemMapImplFromJson(json);
 
 // 뷰티
   @override
+  @JsonKey()
   final Item? hair;
   @override
+  @JsonKey()
   final Item? face;
   @override
   final Item head;
@@ -604,8 +606,10 @@ class _$ItemMapImpl implements _ItemMap {
   @override
   final Item? cash;
   @override
+  @JsonKey()
   final Item? top;
   @override
+  @JsonKey()
   final Item? bottom;
   @override
   final Item? cape;

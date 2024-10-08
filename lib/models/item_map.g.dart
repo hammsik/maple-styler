@@ -9,10 +9,10 @@ part of 'item_map.dart';
 _$ItemMapImpl _$$ItemMapImplFromJson(Map<String, dynamic> json) =>
     _$ItemMapImpl(
       hair: json['hair'] == null
-          ? null
+          ? const Item(id: '68090', name: '허쉬 헤어')
           : Item.fromJson(json['hair'] as Map<String, dynamic>),
       face: json['face'] == null
-          ? null
+          ? const Item(id: '50137', name: '차차 얼굴')
           : Item.fromJson(json['face'] as Map<String, dynamic>),
       head: Item.fromJson(json['head'] as Map<String, dynamic>),
       body: Item.fromJson(json['body'] as Map<String, dynamic>),
@@ -26,10 +26,10 @@ _$ItemMapImpl _$$ItemMapImplFromJson(Map<String, dynamic> json) =>
           ? null
           : Item.fromJson(json['cash'] as Map<String, dynamic>),
       top: json['top'] == null
-          ? null
+          ? const Item(id: '1040036', name: '상의 이너')
           : Item.fromJson(json['top'] as Map<String, dynamic>),
       bottom: json['bottom'] == null
-          ? null
+          ? const Item(id: '1060026', name: '하의 이너')
           : Item.fromJson(json['bottom'] as Map<String, dynamic>),
       cape: json['cape'] == null
           ? null
