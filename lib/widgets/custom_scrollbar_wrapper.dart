@@ -25,7 +25,7 @@ class CustomScrollbarWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RawScrollbar(
-      thumbColor: Color.fromARGB(255, 137, 137, 137),
+      thumbColor: const Color.fromARGB(255, 137, 137, 137),
       interactive: true,
       controller: scrollController,
       thumbVisibility: true,

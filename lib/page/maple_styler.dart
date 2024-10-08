@@ -195,6 +195,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     );
   }
 
+  // TODO: 이 부분 listen 콜백걸기
   void getCharacterImageFromNetwork() {
     _characterImage = Future.wait([
       precacheImage(
@@ -236,7 +237,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
         backgroundColor: const Color(0xff2B3A55),
         // 키보드가 올라올 때 화면이 줄어드는 것을 방지
         resizeToAvoidBottomInset: false,
-        endDrawer: Drawer(),
+        endDrawer: const Drawer(),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
