@@ -92,9 +92,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
           bool found = false;
           for (int toolIdx = 0; toolIdx < 3; toolIdx++) {
             for (int subCategoryIdx = 0;
-                subCategoryIdx < myToolList[toolIdx].menuList!.length;
+                subCategoryIdx < myToolList[toolIdx].subCategoryList!.length;
                 subCategoryIdx++) {
-              if (myToolList[toolIdx].menuList![subCategoryIdx][1] ==
+              if (myToolList[toolIdx].subCategoryList![subCategoryIdx].type ==
                   selectedItem.subCategory) {
                 currentToolIdx = toolIdx;
                 currentMenuIdx = subCategoryIdx;

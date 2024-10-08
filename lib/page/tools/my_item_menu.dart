@@ -48,7 +48,7 @@ class _ItemMenu extends State<ItemMenu> {
               child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                 Expanded(
                   child: Text(
-                    widget.currentTool.menuList![widget.currentMenuIdx][0],
+                    widget.currentTool.subCategoryList![widget.currentMenuIdx].nameKo,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.nanumMyeongjo(
                         color: const Color.fromARGB(255, 0, 0, 0),
@@ -66,7 +66,7 @@ class _ItemMenu extends State<ItemMenu> {
         );
       },
       menuChildren: [
-        ...widget.currentTool.menuList!
+        ...widget.currentTool.subCategoryList!
             .asMap()
             .map((index, item) => MapEntry(
                   index,
@@ -78,7 +78,7 @@ class _ItemMenu extends State<ItemMenu> {
                     child: MenuItemButton(
                       onPressed: () => widget.buttonClicked(index),
                       child: Text(
-                        item[0],
+                        item.nameKo,
                         style: GoogleFonts.nanumMyeongjo(
                             color: const Color.fromARGB(255, 0, 0, 0),
                             fontSize: 12,

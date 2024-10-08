@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/skeleton_character.dart';
+import 'package:maple_closet/models/skeleton_tools.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class SelectedItem extends ConsumerWidget {
   final MyCharacter currentCharacter;
   final Function clickCloseButton;
-  final String subCategory;
+  final SubCategory subCategory;
 
   const SelectedItem(
       {super.key,
@@ -19,10 +20,10 @@ class SelectedItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userDB = UserFavoriteDataBase();
 
-    String targetItemId = currentCharacter.itemMap[subCategory][0];
-    if (subCategory == 'Hair') {
+    String targetItemId = currentCharacter.itemMap[subCategory.nameEn][0];
+    if (subCategory.type == SubCategoryType.hair) {
       targetItemId = targetItemId.replaceRange(4, 5, '0');
-    } else if (subCategory == 'Face') {
+    } else if (subCategory.type == SubCategoryType.face) {
       targetItemId = targetItemId.replaceRange(2, 3, '0');
     }
     return Expanded(
@@ -33,9 +34,9 @@ class SelectedItem extends ConsumerWidget {
           color: const Color.fromARGB(255, 230, 222, 218),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: currentCharacter.itemMap[subCategory][0] == 'null' ||
-                currentCharacter.itemMap[subCategory][0] == '1040036' ||
-                currentCharacter.itemMap[subCategory][0] == '1060026'
+        child: currentCharacter.itemMap[subCategory.nameEn][0] == 'null' ||
+                currentCharacter.itemMap[subCategory.nameEn][0] == '1040036' ||
+                currentCharacter.itemMap[subCategory.nameEn][0] == '1060026'
             ? const Text('아이템을 선택해주세요')
             : Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -54,7 +55,8 @@ class SelectedItem extends ConsumerWidget {
                     width: 10,
                   ),
                   Expanded(
-                      child: Text(currentCharacter.itemMap[subCategory][1],
+                      child: Text(
+                          currentCharacter.itemMap[subCategory.nameEn][1],
                           style: const TextStyle(fontSize: 9))),
                   const SizedBox(
                     width: 8,
@@ -68,12 +70,14 @@ class SelectedItem extends ConsumerWidget {
                             .get();
 
                         if (matchingItems.isEmpty) {
-                          userDB.into(userDB.userFavoriteItems).insert(
-                              UserFavoriteItemsCompanion.insert(
-                                  itemid: int.parse(targetItemId),
-                                  name: currentCharacter.itemMap[subCategory]
-                                      [1],
-                                  subCategory: subCategory));
+                          userDB
+                              .into(userDB.userFavoriteItems)
+                              .insert(UserFavoriteItemsCompanion.insert(
+                                itemid: int.parse(targetItemId),
+                                name: currentCharacter
+                                    .itemMap[subCategory.nameEn][1],
+                                subCategory: subCategory.nameEn,
+                              ));
                           ref
                               .read(customToastProvider.notifier)
                               .showCustomToast(context,
@@ -101,7 +105,7 @@ class SelectedItem extends ConsumerWidget {
                     width: 8,
                   ),
                   FilledButton(
-                    onPressed: () => clickCloseButton(subCategory),
+                    onPressed: () => clickCloseButton(subCategory.type),
                     style: FilledButton.styleFrom(
                         foregroundColor: const Color.fromARGB(255, 60, 58, 78),
                         backgroundColor:

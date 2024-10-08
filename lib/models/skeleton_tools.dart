@@ -7,7 +7,7 @@ enum ToolType {
   favorite,
 }
 
-enum SubCategory {
+enum SubCategoryType {
   hair,
   face,
   head,
@@ -31,7 +31,7 @@ class MyTool {
   final int idx;
   final int? cntIdx;
   final bool isNeedMenu;
-  List<List<String>>? menuList;
+  List<SubCategory>? subCategoryList;
 
   MyTool({
     required this.toolNameKo,
@@ -39,6 +39,18 @@ class MyTool {
     required this.idx,
     this.cntIdx,
     required this.isNeedMenu,
-    this.menuList,
+    this.subCategoryList,
+  });
+}
+
+class SubCategory {
+  final String nameKo;
+  final String nameEn;
+  final SubCategoryType type;
+
+  const SubCategory({
+    required this.nameKo,
+    required this.nameEn,
+    required this.type,
   });
 }

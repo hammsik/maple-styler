@@ -101,7 +101,7 @@ class CoordinatingTools extends StatelessWidget {
                               currentCharacter: currentCharacter,
                               clickCloseButton: clickedClose,
                               subCategory: myToolList[currentToolIdx]
-                                  .menuList![currentMenuIdx][1]),
+                                  .subCategoryList![currentMenuIdx]),
                         ],
                       ),
                       const SizedBox(height: 8),
