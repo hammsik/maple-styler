@@ -20,7 +20,10 @@ Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Equipment {
-// 뷰티
+  String get hairColor1 => throw _privateConstructorUsedError;
+  String get hairColor2 => throw _privateConstructorUsedError;
+  String get lensColor1 => throw _privateConstructorUsedError;
+  String get lensColor2 => throw _privateConstructorUsedError; // 뷰티
   Item? get hair => throw _privateConstructorUsedError;
   Item? get face => throw _privateConstructorUsedError;
   Item get head => throw _privateConstructorUsedError; // 장비
@@ -53,7 +56,11 @@ abstract class $EquipmentCopyWith<$Res> {
       _$EquipmentCopyWithImpl<$Res, Equipment>;
   @useResult
   $Res call(
-      {Item? hair,
+      {String hairColor1,
+      String hairColor2,
+      String lensColor1,
+      String lensColor2,
+      Item? hair,
       Item? face,
       Item head,
       Item? hat,
@@ -101,6 +108,10 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? hairColor1 = null,
+    Object? hairColor2 = null,
+    Object? lensColor1 = null,
+    Object? lensColor2 = null,
     Object? hair = freezed,
     Object? face = freezed,
     Object? head = null,
@@ -118,6 +129,22 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
     Object? earrings = freezed,
   }) {
     return _then(_value.copyWith(
+      hairColor1: null == hairColor1
+          ? _value.hairColor1
+          : hairColor1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      hairColor2: null == hairColor2
+          ? _value.hairColor2
+          : hairColor2 // ignore: cast_nullable_to_non_nullable
+              as String,
+      lensColor1: null == lensColor1
+          ? _value.lensColor1
+          : lensColor1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      lensColor2: null == lensColor2
+          ? _value.lensColor2
+          : lensColor2 // ignore: cast_nullable_to_non_nullable
+              as String,
       hair: freezed == hair
           ? _value.hair
           : hair // ignore: cast_nullable_to_non_nullable
@@ -397,7 +424,11 @@ abstract class _$$EquipmentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Item? hair,
+      {String hairColor1,
+      String hairColor2,
+      String lensColor1,
+      String lensColor2,
+      Item? hair,
       Item? face,
       Item head,
       Item? hat,
@@ -458,6 +489,10 @@ class __$$EquipmentImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? hairColor1 = null,
+    Object? hairColor2 = null,
+    Object? lensColor1 = null,
+    Object? lensColor2 = null,
     Object? hair = freezed,
     Object? face = freezed,
     Object? head = null,
@@ -475,6 +510,22 @@ class __$$EquipmentImplCopyWithImpl<$Res>
     Object? earrings = freezed,
   }) {
     return _then(_$EquipmentImpl(
+      hairColor1: null == hairColor1
+          ? _value.hairColor1
+          : hairColor1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      hairColor2: null == hairColor2
+          ? _value.hairColor2
+          : hairColor2 // ignore: cast_nullable_to_non_nullable
+              as String,
+      lensColor1: null == lensColor1
+          ? _value.lensColor1
+          : lensColor1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      lensColor2: null == lensColor2
+          ? _value.lensColor2
+          : lensColor2 // ignore: cast_nullable_to_non_nullable
+              as String,
       hair: freezed == hair
           ? _value.hair
           : hair // ignore: cast_nullable_to_non_nullable
@@ -543,7 +594,11 @@ class __$$EquipmentImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$EquipmentImpl implements _Equipment {
   const _$EquipmentImpl(
-      {this.hair = const Item(id: '68090', name: '허쉬 헤어'),
+      {required this.hairColor1,
+      required this.hairColor2,
+      required this.lensColor1,
+      required this.lensColor2,
+      this.hair = const Item(id: '68090', name: '허쉬 헤어'),
       this.face = const Item(id: '50137', name: '차차 얼굴'),
       required this.head,
       this.hat,
@@ -562,6 +617,14 @@ class _$EquipmentImpl implements _Equipment {
   factory _$EquipmentImpl.fromJson(Map<String, dynamic> json) =>
       _$$EquipmentImplFromJson(json);
 
+  @override
+  final String hairColor1;
+  @override
+  final String hairColor2;
+  @override
+  final String lensColor1;
+  @override
+  final String lensColor2;
 // 뷰티
   @override
   @JsonKey()
@@ -602,7 +665,7 @@ class _$EquipmentImpl implements _Equipment {
 
   @override
   String toString() {
-    return 'Equipment(hair: $hair, face: $face, head: $head, hat: $hat, overAll: $overAll, cash: $cash, top: $top, bottom: $bottom, cape: $cape, glove: $glove, shoes: $shoes, shield: $shield, faceAccessory: $faceAccessory, eyeDecoration: $eyeDecoration, earrings: $earrings)';
+    return 'Equipment(hairColor1: $hairColor1, hairColor2: $hairColor2, lensColor1: $lensColor1, lensColor2: $lensColor2, hair: $hair, face: $face, head: $head, hat: $hat, overAll: $overAll, cash: $cash, top: $top, bottom: $bottom, cape: $cape, glove: $glove, shoes: $shoes, shield: $shield, faceAccessory: $faceAccessory, eyeDecoration: $eyeDecoration, earrings: $earrings)';
   }
 
   @override
@@ -610,6 +673,14 @@ class _$EquipmentImpl implements _Equipment {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$EquipmentImpl &&
+            (identical(other.hairColor1, hairColor1) ||
+                other.hairColor1 == hairColor1) &&
+            (identical(other.hairColor2, hairColor2) ||
+                other.hairColor2 == hairColor2) &&
+            (identical(other.lensColor1, lensColor1) ||
+                other.lensColor1 == lensColor1) &&
+            (identical(other.lensColor2, lensColor2) ||
+                other.lensColor2 == lensColor2) &&
             (identical(other.hair, hair) || other.hair == hair) &&
             (identical(other.face, face) || other.face == face) &&
             (identical(other.head, head) || other.head == head) &&
@@ -632,23 +703,28 @@ class _$EquipmentImpl implements _Equipment {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      hair,
-      face,
-      head,
-      hat,
-      overAll,
-      cash,
-      top,
-      bottom,
-      cape,
-      glove,
-      shoes,
-      shield,
-      faceAccessory,
-      eyeDecoration,
-      earrings);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        hairColor1,
+        hairColor2,
+        lensColor1,
+        lensColor2,
+        hair,
+        face,
+        head,
+        hat,
+        overAll,
+        cash,
+        top,
+        bottom,
+        cape,
+        glove,
+        shoes,
+        shield,
+        faceAccessory,
+        eyeDecoration,
+        earrings
+      ]);
 
   /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
@@ -668,7 +744,11 @@ class _$EquipmentImpl implements _Equipment {
 
 abstract class _Equipment implements Equipment {
   const factory _Equipment(
-      {final Item? hair,
+      {required final String hairColor1,
+      required final String hairColor2,
+      required final String lensColor1,
+      required final String lensColor2,
+      final Item? hair,
       final Item? face,
       required final Item head,
       final Item? hat,
@@ -687,7 +767,14 @@ abstract class _Equipment implements Equipment {
   factory _Equipment.fromJson(Map<String, dynamic> json) =
       _$EquipmentImpl.fromJson;
 
-// 뷰티
+  @override
+  String get hairColor1;
+  @override
+  String get hairColor2;
+  @override
+  String get lensColor1;
+  @override
+  String get lensColor2; // 뷰티
   @override
   Item? get hair;
   @override

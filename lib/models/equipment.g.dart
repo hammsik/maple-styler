@@ -8,6 +8,10 @@ part of 'equipment.dart';
 
 _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
     _$EquipmentImpl(
+      hairColor1: json['hairColor1'] as String,
+      hairColor2: json['hairColor2'] as String,
+      lensColor1: json['lensColor1'] as String,
+      lensColor2: json['lensColor2'] as String,
       hair: json['hair'] == null
           ? const Item(id: '68090', name: '허쉬 헤어')
           : Item.fromJson(json['hair'] as Map<String, dynamic>),
@@ -55,6 +59,10 @@ _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
     <String, dynamic>{
+      'hairColor1': instance.hairColor1,
+      'hairColor2': instance.hairColor2,
+      'lensColor1': instance.lensColor1,
+      'lensColor2': instance.lensColor2,
       'hair': instance.hair,
       'face': instance.face,
       'head': instance.head,

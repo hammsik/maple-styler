@@ -89,7 +89,7 @@ class _ColorLayout extends State<ColorLayout> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ...hair.map(
+                ...hairColorPalette.map(
                   (colorPick) => ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(colorPick[0]),
@@ -116,7 +116,7 @@ class _ColorLayout extends State<ColorLayout> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ...hair.map(
+                ...hairColorPalette.map(
                   (colorPick) => ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(colorPick[0]),
@@ -171,7 +171,7 @@ class _ColorLayout extends State<ColorLayout> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ...lens.map(
+                ...lensColorPalette.map(
                   (colorPick) => ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(colorPick[0]),
@@ -198,7 +198,7 @@ class _ColorLayout extends State<ColorLayout> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ...lens.map(
+                ...lensColorPalette.map(
                   (colorPick) => ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Color(colorPick[0]),

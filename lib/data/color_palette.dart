@@ -1,4 +1,26 @@
-List<List<int>> hair = [
+enum HairColor {
+  red,
+  orange,
+  yellow,
+  green,
+  blue,
+  purple,
+  brown,
+  black,
+}
+
+enum LensColor {
+  red,
+  magenta,
+  green,
+  emerald,
+  blue,
+  purple,
+  brown,
+  black,
+}
+
+List<List<int>> hairColorPalette = [
   [0xFFFF6B6B, 1], // 빨강
   [0xFFF29727, 2], // 주황
   [0xFFFFD93D, 3], // 노랑
@@ -9,7 +31,7 @@ List<List<int>> hair = [
   [0xFF000000, 0] // 검정
 ];
 
-List<List<int>> lens = [
+List<List<int>> lensColorPalette = [
   [0xFFFF6B6B, 2], // 빨강
   [0xFFFF58B9, 7], // 자수정
   [0xFF6BCB77, 3], // 초록

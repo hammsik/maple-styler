@@ -8,6 +8,10 @@ part 'equipment.g.dart';
 @freezed
 class Equipment with _$Equipment {
   const factory Equipment({
+    required String hairColor1,
+    required String hairColor2,
+    required String lensColor1,
+    required String lensColor2,
     // 뷰티
     @Default(Item(id: '68090', name: '허쉬 헤어')) Item? hair,
     @Default(Item(id: '50137', name: '차차 얼굴')) Item? face,
