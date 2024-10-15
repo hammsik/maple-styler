@@ -6,21 +6,19 @@ part of 'character_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$characterProviderHash() => r'890a47165b4357833ff2df3debe65ead52c93f0b';
+String _$characterHash() => r'9eeecd13d003bd437e8819299eb77b5f4a11fc09';
 
-/// See also [CharacterProvider].
-@ProviderFor(CharacterProvider)
-final characterProviderProvider =
-    NotifierProvider<CharacterProvider, Equipment>.internal(
-  CharacterProvider.new,
-  name: r'characterProviderProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$characterProviderHash,
+/// See also [Character].
+@ProviderFor(Character)
+final characterProvider = NotifierProvider<Character, Equipment>.internal(
+  Character.new,
+  name: r'characterProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$characterHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$CharacterProvider = Notifier<Equipment>;
+typedef _$Character = Notifier<Equipment>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

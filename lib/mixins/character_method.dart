@@ -12,9 +12,7 @@ mixin CharacterMethod {
     switch (subCategoryType) {
       // 뷰티
       case SubCategoryType.hair:
-        return equipment.copyWith(
-          hair: item,
-        );
+        return equipment.copyWith(hair: item);
       case SubCategoryType.face:
         return equipment.copyWith(face: item);
       case SubCategoryType.head:
@@ -25,18 +23,15 @@ mixin CharacterMethod {
         return equipment.copyWith(hat: item);
       case SubCategoryType.overall:
         return equipment.copyWith(
-          overAll: item,
-          top: const Item(id: '1040036', name: '상의 이너'),
-          bottom: const Item(id: '1060026', name: '하의 이너'),
-        );
+            overAll: item,
+            top: const Item(id: '1040036', name: '상의 이너'),
+            bottom: const Item(id: '1060026', name: '하의 이너'));
       case SubCategoryType.cash:
         return equipment.copyWith(cash: item);
       case SubCategoryType.top:
-        return equipment.copyWith(
-            top: item, overAll: const Item(id: 'null', name: 'null'));
+        return equipment.copyWith(top: item, overAll: null);
       case SubCategoryType.bottom:
-        return equipment.copyWith(
-            bottom: item, overAll: const Item(id: 'null', name: 'null'));
+        return equipment.copyWith(bottom: item, overAll: null);
       case SubCategoryType.cape:
         return equipment.copyWith(cape: item);
       case SubCategoryType.glove:
@@ -54,52 +49,6 @@ mixin CharacterMethod {
         return equipment.copyWith(earrings: item);
       default:
         return equipment;
-    }
-  }
-
-  String convertHairColorKeyToString({
-    required HairColor hairColor,
-  }) {
-    switch (hairColor) {
-      case HairColor.red:
-        return '1';
-      case HairColor.orange:
-        return '2';
-      case HairColor.yellow:
-        return '3';
-      case HairColor.green:
-        return '4';
-      case HairColor.blue:
-        return '5';
-      case HairColor.purple:
-        return '6';
-      case HairColor.brown:
-        return '7';
-      case HairColor.black:
-        return '0';
-    }
-  }
-
-  String convertLensColorKeyToString({
-    required LensColor lensColor,
-  }) {
-    switch (lensColor) {
-      case LensColor.red:
-        return '2';
-      case LensColor.magenta:
-        return '7';
-      case LensColor.green:
-        return '3';
-      case LensColor.emerald:
-        return '5';
-      case LensColor.blue:
-        return '1';
-      case LensColor.purple:
-        return '6';
-      case LensColor.brown:
-        return '4';
-      case LensColor.black:
-        return '0';
     }
   }
 }

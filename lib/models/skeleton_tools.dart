@@ -30,7 +30,6 @@ class MyTool {
   final ToolType toolType;
   final int idx;
   final int? cntIdx;
-  final bool isNeedMenu;
   List<SubCategory>? subCategoryList;
 
   MyTool({
@@ -38,7 +37,6 @@ class MyTool {
     required this.toolType,
     required this.idx,
     this.cntIdx,
-    required this.isNeedMenu,
     this.subCategoryList,
   });
 }

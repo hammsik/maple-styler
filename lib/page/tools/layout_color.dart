@@ -88,56 +88,58 @@ class _ColorLayout extends State<ColorLayout> {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ...hairColorPalette.map(
-                  (colorPick) => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(colorPick[0]),
-                      minimumSize: Size.zero,
-                      padding: const EdgeInsets.all(0),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      fixedSize: Size(MediaQuery.of(context).size.width * 0.08,
-                          MediaQuery.of(context).size.width * 0.08),
+              children: hairColorPalette.values
+                  .map(
+                    (colorPick) => ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(colorPick[0]),
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.all(0),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        fixedSize: Size(
+                            MediaQuery.of(context).size.width * 0.08,
+                            MediaQuery.of(context).size.width * 0.08),
+                      ),
+                      onPressed: () {
+                        colorButtonClicked('hair', 1, colorPick[1]);
+                      },
+                      child: widget.hairColorCharacter1 == colorPick[1]
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            )
+                          : null,
                     ),
-                    onPressed: () {
-                      colorButtonClicked('hair', 1, colorPick[1]);
-                    },
-                    child: widget.hairColorCharacter1 == colorPick[1]
-                        ? const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          )
-                        : null,
-                  ),
-                ),
-              ],
+                  )
+                  .toList(),
             ),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ...hairColorPalette.map(
-                  (colorPick) => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(colorPick[0]),
-                      minimumSize: Size.zero,
-                      padding: const EdgeInsets.all(0),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      fixedSize: Size(MediaQuery.of(context).size.width * 0.08,
-                          MediaQuery.of(context).size.width * 0.08),
+              children: hairColorPalette.values
+                  .map(
+                    (colorPick) => ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(colorPick[0]),
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.all(0),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        fixedSize: Size(
+                            MediaQuery.of(context).size.width * 0.08,
+                            MediaQuery.of(context).size.width * 0.08),
+                      ),
+                      onPressed: () {
+                        colorButtonClicked('hair', 2, colorPick[1]);
+                      },
+                      child: widget.hairColorCharacter2 == colorPick[1]
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            )
+                          : null,
                     ),
-                    onPressed: () {
-                      colorButtonClicked('hair', 2, colorPick[1]);
-                    },
-                    child: widget.hairColorCharacter2 == colorPick[1]
-                        ? const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          )
-                        : null,
-                  ),
-                ),
-              ],
+                  )
+                  .toList(),
             ),
             const SizedBox(height: 35),
             Container(
@@ -169,57 +171,58 @@ class _ColorLayout extends State<ColorLayout> {
             ),
             const SizedBox(height: 10),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ...lensColorPalette.map(
-                  (colorPick) => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(colorPick[0]),
-                      minimumSize: Size.zero,
-                      padding: const EdgeInsets.all(0),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      fixedSize: Size(MediaQuery.of(context).size.width * 0.08,
-                          MediaQuery.of(context).size.width * 0.08),
-                    ),
-                    onPressed: () {
-                      colorButtonClicked('lens', 1, colorPick[1]);
-                    },
-                    child: widget.lensColorCharacter1 == colorPick[1]
-                        ? const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          )
-                        : null,
-                  ),
-                ),
-              ],
-            ),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: lensColorPalette.values
+                    .map(
+                      (colorPick) => ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(colorPick[0]),
+                          minimumSize: Size.zero,
+                          padding: const EdgeInsets.all(0),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          fixedSize: Size(
+                              MediaQuery.of(context).size.width * 0.08,
+                              MediaQuery.of(context).size.width * 0.08),
+                        ),
+                        onPressed: () {
+                          colorButtonClicked('lens', 1, colorPick[1]);
+                        },
+                        child: widget.lensColorCharacter1 == colorPick[1]
+                            ? const Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              )
+                            : null,
+                      ),
+                    )
+                    .toList()),
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ...lensColorPalette.map(
-                  (colorPick) => ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(colorPick[0]),
-                      minimumSize: Size.zero,
-                      padding: const EdgeInsets.all(0),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      fixedSize: Size(MediaQuery.of(context).size.width * 0.08,
-                          MediaQuery.of(context).size.width * 0.08),
+              children: lensColorPalette.values
+                  .map(
+                    (colorPick) => ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(colorPick[0]),
+                        minimumSize: Size.zero,
+                        padding: const EdgeInsets.all(0),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        fixedSize: Size(
+                            MediaQuery.of(context).size.width * 0.08,
+                            MediaQuery.of(context).size.width * 0.08),
+                      ),
+                      onPressed: () {
+                        colorButtonClicked('lens', 2, colorPick[1]);
+                      },
+                      child: widget.lensColorCharacter2 == colorPick[1]
+                          ? const Icon(
+                              Icons.check,
+                              color: Colors.white,
+                            )
+                          : null,
                     ),
-                    onPressed: () {
-                      colorButtonClicked('lens', 2, colorPick[1]);
-                    },
-                    child: widget.lensColorCharacter2 == colorPick[1]
-                        ? const Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          )
-                        : null,
-                  ),
-                ),
-              ],
+                  )
+                  .toList(),
             ),
             const SizedBox(
               height: 10,

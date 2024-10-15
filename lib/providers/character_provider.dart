@@ -9,7 +9,7 @@ part 'character_provider.g.dart';
 
 // 앱 전역에서 수시로 사용되므로 keepAlive: true로 설정
 @Riverpod(keepAlive: true)
-class CharacterProvider extends _$CharacterProvider with CharacterMethod {
+class Character extends _$Character with CharacterMethod {
   @override
   Equipment build() {
     return const Equipment(
@@ -39,8 +39,8 @@ class CharacterProvider extends _$CharacterProvider with CharacterMethod {
     required HairColor hairColor2,
   }) {
     state = state.copyWith(
-      hairColor1: convertHairColorKeyToString(hairColor: hairColor1),
-      hairColor2: convertHairColorKeyToString(hairColor: hairColor2),
+      hairColor1: hairColorPalette[hairColor1]![1].toString(),
+      hairColor2: hairColorPalette[hairColor2]![1].toString(),
     );
   }
 
@@ -49,8 +49,8 @@ class CharacterProvider extends _$CharacterProvider with CharacterMethod {
     required LensColor lensColor2,
   }) {
     state = state.copyWith(
-      lensColor1: convertLensColorKeyToString(lensColor: lensColor1),
-      lensColor2: convertLensColorKeyToString(lensColor: lensColor2),
+      lensColor1: lensColorPalette[lensColor1]![1].toString(),
+      lensColor2: lensColorPalette[lensColor2]![1].toString(),
     );
   }
 }
