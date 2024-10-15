@@ -3,13 +3,14 @@ import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/equipment.dart';
 import 'package:maple_closet/models/skeleton_tools.dart';
 import 'package:maple_closet/mixins/character_method.dart';
+import 'package:maple_closet/providers/character_history_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'character_provider.g.dart';
+part 'character_equipment_provider.g.dart';
 
 // 앱 전역에서 수시로 사용되므로 keepAlive: true로 설정
 @Riverpod(keepAlive: true)
-class Character extends _$Character with CharacterMethod {
+class CharacterEquipment extends _$CharacterEquipment with CharacterMethod {
   @override
   Equipment build() {
     return const Equipment(
@@ -32,6 +33,11 @@ class Character extends _$Character with CharacterMethod {
       subCategoryType: subCategoryType,
       item: item,
     );
+
+    // 캐릭터 장비 변경 이력 추가
+    ref
+        .read(characterHistoryProvider.notifier)
+        .addCharacterHistory(state.copyWith());
   }
 
   void updateHairColor({
@@ -42,6 +48,11 @@ class Character extends _$Character with CharacterMethod {
       hairColor1: hairColorPalette[hairColor1]![1].toString(),
       hairColor2: hairColorPalette[hairColor2]![1].toString(),
     );
+
+    // 캐릭터 장비 변경 이력 추가
+    ref
+        .read(characterHistoryProvider.notifier)
+        .addCharacterHistory(state.copyWith());
   }
 
   void updateLensColor({
@@ -52,5 +63,10 @@ class Character extends _$Character with CharacterMethod {
       lensColor1: lensColorPalette[lensColor1]![1].toString(),
       lensColor2: lensColorPalette[lensColor2]![1].toString(),
     );
+
+    // 캐릭터 장비 변경 이력 추가
+    ref
+        .read(characterHistoryProvider.notifier)
+        .addCharacterHistory(state.copyWith());
   }
 }
