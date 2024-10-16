@@ -598,8 +598,10 @@ class _$EquipmentImpl implements _Equipment {
       required this.hairColor2,
       required this.lensColor1,
       required this.lensColor2,
-      this.hair = const Item(id: '68090', name: '허쉬 헤어'),
-      this.face = const Item(id: '50137', name: '차차 얼굴'),
+      this.hair = const Item(
+          id: '68090', name: '허쉬 헤어', subCategoryType: SubCategoryType.hair),
+      this.face = const Item(
+          id: '50137', name: '차차 얼굴', subCategoryType: SubCategoryType.face),
       required this.head,
       this.hat,
       this.overAll,

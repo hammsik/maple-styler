@@ -13,10 +13,12 @@ _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
       lensColor1: json['lensColor1'] as String,
       lensColor2: json['lensColor2'] as String,
       hair: json['hair'] == null
-          ? const Item(id: '68090', name: '허쉬 헤어')
+          ? const Item(
+              id: '68090', name: '허쉬 헤어', subCategoryType: SubCategoryType.hair)
           : Item.fromJson(json['hair'] as Map<String, dynamic>),
       face: json['face'] == null
-          ? const Item(id: '50137', name: '차차 얼굴')
+          ? const Item(
+              id: '50137', name: '차차 얼굴', subCategoryType: SubCategoryType.face)
           : Item.fromJson(json['face'] as Map<String, dynamic>),
       head: Item.fromJson(json['head'] as Map<String, dynamic>),
       hat: json['hat'] == null

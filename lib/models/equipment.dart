@@ -2,6 +2,7 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/models/skeleton_tools.dart';
 
 part 'equipment.freezed.dart';
 part 'equipment.g.dart';
@@ -15,8 +16,12 @@ class Equipment with _$Equipment {
     required String lensColor1,
     required String lensColor2,
     // 뷰티
-    @Default(Item(id: '68090', name: '허쉬 헤어')) Item? hair,
-    @Default(Item(id: '50137', name: '차차 얼굴')) Item? face,
+    @Default(
+        Item(id: '68090', name: '허쉬 헤어', subCategoryType: SubCategoryType.hair))
+    Item? hair,
+    @Default(
+        Item(id: '50137', name: '차차 얼굴', subCategoryType: SubCategoryType.face))
+    Item? face,
     required Item head,
     // 장비
     Item? hat,

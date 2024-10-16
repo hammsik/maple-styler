@@ -56,8 +56,8 @@ class CharacterHistory extends _$CharacterHistory with CharacterMethod {
     List<String> itemsBodyList =
         state.equipmentsList[state.historyIndex].makeCharacterItemsBody();
     return [
-      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/animated',
-      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/animated'
+      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/animated?bgColor=230,222,218,255',
+      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/animated?bgColor=230,222,218,255'
     ];
   }
 }

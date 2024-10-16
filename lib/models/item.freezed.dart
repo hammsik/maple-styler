@@ -22,6 +22,7 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  SubCategoryType get subCategoryType => throw _privateConstructorUsedError;
   Prism? get prism => throw _privateConstructorUsedError;
 
   /// Serializes this Item to a JSON map.
@@ -38,7 +39,8 @@ abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
       _$ItemCopyWithImpl<$Res, Item>;
   @useResult
-  $Res call({String id, String name, Prism? prism});
+  $Res call(
+      {String id, String name, SubCategoryType subCategoryType, Prism? prism});
 
   $PrismCopyWith<$Res>? get prism;
 }
@@ -60,6 +62,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? subCategoryType = null,
     Object? prism = freezed,
   }) {
     return _then(_value.copyWith(
@@ -71,6 +74,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      subCategoryType: null == subCategoryType
+          ? _value.subCategoryType
+          : subCategoryType // ignore: cast_nullable_to_non_nullable
+              as SubCategoryType,
       prism: freezed == prism
           ? _value.prism
           : prism // ignore: cast_nullable_to_non_nullable
@@ -100,7 +107,8 @@ abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
       __$$ItemImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String name, Prism? prism});
+  $Res call(
+      {String id, String name, SubCategoryType subCategoryType, Prism? prism});
 
   @override
   $PrismCopyWith<$Res>? get prism;
@@ -120,6 +128,7 @@ class __$$ItemImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? subCategoryType = null,
     Object? prism = freezed,
   }) {
     return _then(_$ItemImpl(
@@ -131,6 +140,10 @@ class __$$ItemImplCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      subCategoryType: null == subCategoryType
+          ? _value.subCategoryType
+          : subCategoryType // ignore: cast_nullable_to_non_nullable
+              as SubCategoryType,
       prism: freezed == prism
           ? _value.prism
           : prism // ignore: cast_nullable_to_non_nullable
@@ -142,7 +155,11 @@ class __$$ItemImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ItemImpl implements _Item {
-  const _$ItemImpl({required this.id, required this.name, this.prism});
+  const _$ItemImpl(
+      {required this.id,
+      required this.name,
+      required this.subCategoryType,
+      this.prism});
 
   factory _$ItemImpl.fromJson(Map<String, dynamic> json) =>
       _$$ItemImplFromJson(json);
@@ -152,11 +169,13 @@ class _$ItemImpl implements _Item {
   @override
   final String name;
   @override
+  final SubCategoryType subCategoryType;
+  @override
   final Prism? prism;
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, prism: $prism)';
+    return 'Item(id: $id, name: $name, subCategoryType: $subCategoryType, prism: $prism)';
   }
 
   @override
@@ -166,12 +185,15 @@ class _$ItemImpl implements _Item {
             other is _$ItemImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.subCategoryType, subCategoryType) ||
+                other.subCategoryType == subCategoryType) &&
             (identical(other.prism, prism) || other.prism == prism));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, prism);
+  int get hashCode =>
+      Object.hash(runtimeType, id, name, subCategoryType, prism);
 
   /// Create a copy of Item
   /// with the given fields replaced by the non-null parameter values.
@@ -193,6 +215,7 @@ abstract class _Item implements Item {
   const factory _Item(
       {required final String id,
       required final String name,
+      required final SubCategoryType subCategoryType,
       final Prism? prism}) = _$ItemImpl;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$ItemImpl.fromJson;
@@ -201,6 +224,8 @@ abstract class _Item implements Item {
   String get id;
   @override
   String get name;
+  @override
+  SubCategoryType get subCategoryType;
   @override
   Prism? get prism;
 

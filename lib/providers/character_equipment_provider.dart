@@ -18,20 +18,34 @@ class CharacterEquipment extends _$CharacterEquipment with CharacterMethod {
       hairColor2: '0',
       lensColor1: '0',
       lensColor2: '0',
-      head: Item(id: '12016', name: '홍조 꽃잎 피부'),
+      head: Item(
+          id: '12016', name: '홍조 꽃잎 피부', subCategoryType: SubCategoryType.head),
       // body없는 이유는 head에서 substring(1)만 하면 되므로... 이거 toJson에도 반영을 해야함..
     );
   }
 
-  /// item: null인 경우는 아이템 장착 해제
   void updateEquipment({
+    required Item item,
+  }) {
+    state = copyWithSubCategoryType(
+      equipment: state,
+      subCategoryType: item.subCategoryType,
+      item: item,
+    );
+
+    // 캐릭터 장비 변경 이력 추가
+    ref
+        .read(characterHistoryProvider.notifier)
+        .addCharacterHistory(state.copyWith());
+  }
+
+  void takeOffEquipment({
     required SubCategoryType subCategoryType,
-    Item? item,
   }) {
     state = copyWithSubCategoryType(
       equipment: state,
       subCategoryType: subCategoryType,
-      item: item,
+      item: null,
     );
 
     // 캐릭터 장비 변경 이력 추가

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:maple_closet/providers/character_equipment_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
 import 'package:maple_closet/widgets/custom_scrollbar_wrapper.dart';
 
@@ -73,8 +76,19 @@ class ItemList extends ConsumerWidget {
                                     ? const Color.fromARGB(255, 238, 238, 238)
                                     : const Color.fromARGB(255, 201, 191, 191),
                               ),
-                              onPressed: () =>
-                                  buttonClicked(itemList[index], index),
+                              onPressed: () {
+                                buttonClicked(itemList[index], index);
+                                ref
+                                    .read(characterEquipmentProvider.notifier)
+                                    .updateEquipment(
+                                        item: Item(
+                                            subCategoryType:
+                                                SubCategoryType.cash,
+                                            id: itemList[index]
+                                                .itemid
+                                                .toString(),
+                                            name: itemList[index].name));
+                              },
                               child: Row(
                                 children: [
                                   const SizedBox(width: 10),
