@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'item_provider.dart';
+part of 'character_equipment_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapleItemListHash() => r'd6da4dc389d25ed165304e00f6a5b38af8708585';
+String _$characterEquipmentHash() =>
+    r'85300a05008de0457bdb27ccacdbac1188421f8d';
 
-/// See also [MapleItemList].
-@ProviderFor(MapleItemList)
-final mapleItemListProvider =
-    AsyncNotifierProvider<MapleItemList, List<List<List<dynamic>>>>.internal(
-  MapleItemList.new,
-  name: r'mapleItemListProvider',
+/// See also [CharacterEquipment].
+@ProviderFor(CharacterEquipment)
+final characterEquipmentProvider =
+    NotifierProvider<CharacterEquipment, Equipment>.internal(
+  CharacterEquipment.new,
+  name: r'characterEquipmentProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$mapleItemListHash,
+      : _$characterEquipmentHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$MapleItemList = AsyncNotifier<List<List<List<dynamic>>>>;
+typedef _$CharacterEquipment = Notifier<Equipment>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -52,7 +52,6 @@ class _FavoriteLayout extends State<FavoriteLayout> {
       ),
     );
 
-    print(result);
     if (result != null && result > 0) {
       initDB();
     }

@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/page/character/layout_character_detail.dart';
-import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/models/skeleton_character.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class CharacterDetail extends ConsumerStatefulWidget {

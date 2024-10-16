@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:maple_closet/data/myTools.dart';
+import 'package:maple_closet/data/my_tools.dart';
 import 'package:maple_closet/page/character/layout_character_info.dart';
 import 'package:maple_closet/page/character/layout_map_buttons.dart';
 import 'package:maple_closet/page/character/layout_character_board.dart';
 import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
-import 'package:maple_closet/models/skeleton_myCharacter.dart';
+import 'package:maple_closet/models/skeleton_character.dart';
+import 'package:maple_closet/providers/character_history_provider.dart';
 import '../data/backgrounds.dart';
 
 class MapleStylerHome extends ConsumerStatefulWidget {
@@ -25,6 +26,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   MyCharacter dodo = MyCharacter();
   MyCharacter dodo2 = MyCharacter();
   Future? _characterImage;
+  Future? _characterImage2;
   String background = 'normal';
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
@@ -92,9 +94,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
           bool found = false;
           for (int toolIdx = 0; toolIdx < 3; toolIdx++) {
             for (int subCategoryIdx = 0;
-                subCategoryIdx < myToolList[toolIdx].menuList!.length;
+                subCategoryIdx < myToolList[toolIdx].subCategoryList!.length;
                 subCategoryIdx++) {
-              if (myToolList[toolIdx].menuList![subCategoryIdx][1] ==
+              if (myToolList[toolIdx].subCategoryList![subCategoryIdx].type ==
                   selectedItem.subCategory) {
                 currentToolIdx = toolIdx;
                 currentMenuIdx = subCategoryIdx;
@@ -195,6 +197,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     );
   }
 
+  // TODO: 이 부분 listen 콜백걸기
   void getCharacterImageFromNetwork() {
     _characterImage = Future.wait([
       precacheImage(
@@ -228,6 +231,14 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       );
     }
 
+    List<String> urls = ref
+        .watch(characterHistoryProvider.notifier)
+        .getCurrentCharacterImageUrl();
+    _characterImage2 = Future.wait([
+      precacheImage(NetworkImage(urls[0]), context),
+      precacheImage(NetworkImage(urls[1]), context),
+    ]);
+
     return PopScope(
       canPop: false,
       onPopInvoked: onWillPop,
@@ -236,7 +247,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
         backgroundColor: const Color(0xff2B3A55),
         // 키보드가 올라올 때 화면이 줄어드는 것을 방지
         resizeToAvoidBottomInset: false,
-        endDrawer: Drawer(),
+        endDrawer: const Drawer(),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
@@ -326,20 +337,45 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     const SizedBox(height: 50),
                     Expanded(
                         child: CoordinatingTools(
-                          listButtonClicked: setMyCharacter,
-                          clickedButtonIdx: currentListButtonIdx,
-                          currentCharacter: dodo,
-                          currentCharacter2: dodo2,
-                          clickedClose: takeOffItem,
-                          undoImage: undoImage,
-                          redoImage: redoImage,
-                          colorApplyButtonClicked: setBeauty,
-                          currentToolIdx: currentToolIdx,
-                          currentMenuIdx: currentMenuIdx,
-                          toolButtonClick: setCurrentToolIdx,
-                          menuButtonClick: setCurrentMenuIdx,
-                        )),
+                      listButtonClicked: setMyCharacter,
+                      clickedButtonIdx: currentListButtonIdx,
+                      currentCharacter: dodo,
+                      currentCharacter2: dodo2,
+                      clickedClose: takeOffItem,
+                      undoImage: undoImage,
+                      redoImage: redoImage,
+                      colorApplyButtonClicked: setBeauty,
+                      currentToolIdx: currentToolIdx,
+                      currentMenuIdx: currentMenuIdx,
+                      toolButtonClick: setCurrentToolIdx,
+                      menuButtonClick: setCurrentMenuIdx,
+                    )),
                   ],
+                ),
+                FutureBuilder(
+                  future: _characterImage2,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return SizedBox(
+                        height: 230,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.network(urls[0]),
+                            Opacity(
+                              opacity: 0.5,
+                              child: Image.network(urls[1]),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 98),
+                        child: Image.asset('assets/drummingBunny.gif'),
+                      ); // 로딩 중일 때 표시할 위젯
+                    }
+                  },
                 ),
               ],
             ),
