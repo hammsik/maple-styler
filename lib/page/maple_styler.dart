@@ -9,6 +9,7 @@ import 'package:maple_closet/page/character/layout_character_board.dart';
 import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_character.dart';
+import 'package:maple_closet/providers/character_history_provider.dart';
 import '../data/backgrounds.dart';
 
 class MapleStylerHome extends ConsumerStatefulWidget {
@@ -25,6 +26,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   MyCharacter dodo = MyCharacter();
   MyCharacter dodo2 = MyCharacter();
   Future? _characterImage;
+  Future? _characterImage2;
   String background = 'normal';
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
@@ -229,6 +231,14 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       );
     }
 
+    List<String> urls = ref
+        .watch(characterHistoryProvider.notifier)
+        .getCurrentCharacterImageUrl();
+    _characterImage2 = Future.wait([
+      precacheImage(NetworkImage(urls[0]), context),
+      precacheImage(NetworkImage(urls[1]), context),
+    ]);
+
     return PopScope(
       canPop: false,
       onPopInvoked: onWillPop,
@@ -327,20 +337,45 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     const SizedBox(height: 50),
                     Expanded(
                         child: CoordinatingTools(
-                          listButtonClicked: setMyCharacter,
-                          clickedButtonIdx: currentListButtonIdx,
-                          currentCharacter: dodo,
-                          currentCharacter2: dodo2,
-                          clickedClose: takeOffItem,
-                          undoImage: undoImage,
-                          redoImage: redoImage,
-                          colorApplyButtonClicked: setBeauty,
-                          currentToolIdx: currentToolIdx,
-                          currentMenuIdx: currentMenuIdx,
-                          toolButtonClick: setCurrentToolIdx,
-                          menuButtonClick: setCurrentMenuIdx,
-                        )),
+                      listButtonClicked: setMyCharacter,
+                      clickedButtonIdx: currentListButtonIdx,
+                      currentCharacter: dodo,
+                      currentCharacter2: dodo2,
+                      clickedClose: takeOffItem,
+                      undoImage: undoImage,
+                      redoImage: redoImage,
+                      colorApplyButtonClicked: setBeauty,
+                      currentToolIdx: currentToolIdx,
+                      currentMenuIdx: currentMenuIdx,
+                      toolButtonClick: setCurrentToolIdx,
+                      menuButtonClick: setCurrentMenuIdx,
+                    )),
                   ],
+                ),
+                FutureBuilder(
+                  future: _characterImage2,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return SizedBox(
+                        height: 230,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.network(urls[0]),
+                            Opacity(
+                              opacity: 0.5,
+                              child: Image.network(urls[1]),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 98),
+                        child: Image.asset('assets/drummingBunny.gif'),
+                      ); // 로딩 중일 때 표시할 위젯
+                    }
+                  },
                 ),
               ],
             ),

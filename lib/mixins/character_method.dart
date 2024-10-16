@@ -54,7 +54,7 @@ mixin CharacterMethod {
     return '{"itemId":$item, "version":"389","region":"KMS"},';
   }
 
-  List<String> makeCharacterUrl(Equipment e) {
+  List<String> makeCharacterItemsBody(Equipment e) {
     String url = addVersionAndRegion(e.head.id) +
         addVersionAndRegion(e.head.id.substring(1));
     if (e.hat != null) url += addVersionAndRegion(e.hat!.id);

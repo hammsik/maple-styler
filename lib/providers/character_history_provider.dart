@@ -53,6 +53,11 @@ class CharacterHistory extends _$CharacterHistory with CharacterMethod {
 
   List<String> getCurrentCharacterImageUrl() {
     // 현재 코디의 이미지 URL 2개를 반환합니다.
-    return makeCharacterUrl(state.equipmentsList[state.historyIndex]);
+    List<String> itemsBodyList =
+        makeCharacterItemsBody(state.equipmentsList[state.historyIndex]);
+    return [
+      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/animated',
+      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/animated'
+    ];
   }
 }
