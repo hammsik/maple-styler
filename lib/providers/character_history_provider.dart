@@ -1,3 +1,4 @@
+import 'package:maple_closet/mixins/character_method.dart';
 import 'package:maple_closet/models/character_history.dart';
 import 'package:maple_closet/models/equipment.dart';
 import 'package:maple_closet/providers/character_equipment_provider.dart';
@@ -6,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'character_history_provider.g.dart';
 
 @Riverpod(keepAlive: true)
-class CharacterHistory extends _$CharacterHistory {
+class CharacterHistory extends _$CharacterHistory with CharacterMethod {
   @override
   History build() {
     // 초기 상태로 equipment가 하나 들어있는 History를 생성합니다.
@@ -48,5 +49,10 @@ class CharacterHistory extends _$CharacterHistory {
     if (state.historyIndex < state.equipmentsList.length - 1) {
       state = state.copyWith(historyIndex: state.historyIndex + 1);
     }
+  }
+
+  List<String> getCurrentCharacterImageUrl() {
+    // 현재 코디의 이미지 URL 2개를 반환합니다.
+    return makeCharacterUrl(state.equipmentsList[state.historyIndex]);
   }
 }
