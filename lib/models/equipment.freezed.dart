@@ -604,8 +604,8 @@ class _$EquipmentImpl implements _Equipment {
       this.hat,
       this.overAll,
       this.cash,
-      this.top = const Item(id: '1040036', name: '상의 이너'),
-      this.bottom = const Item(id: '1060026', name: '하의 이너'),
+      this.top,
+      this.bottom,
       this.cape,
       this.glove,
       this.shoes,
@@ -642,10 +642,8 @@ class _$EquipmentImpl implements _Equipment {
   @override
   final Item? cash;
   @override
-  @JsonKey()
   final Item? top;
   @override
-  @JsonKey()
   final Item? bottom;
   @override
   final Item? cape;

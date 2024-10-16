@@ -29,10 +29,10 @@ _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
           ? null
           : Item.fromJson(json['cash'] as Map<String, dynamic>),
       top: json['top'] == null
-          ? const Item(id: '1040036', name: '상의 이너')
+          ? null
           : Item.fromJson(json['top'] as Map<String, dynamic>),
       bottom: json['bottom'] == null
-          ? const Item(id: '1060026', name: '하의 이너')
+          ? null
           : Item.fromJson(json['bottom'] as Map<String, dynamic>),
       cape: json['cape'] == null
           ? null
