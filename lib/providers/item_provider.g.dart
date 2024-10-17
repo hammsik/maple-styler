@@ -6,12 +6,12 @@ part of 'item_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapleItemListHash() => r'02be750d758ad5e70d039212a83b05f9b5edca65';
+String _$mapleItemListHash() => r'710d927e81440ebf089ab734733130a2646427d7';
 
 /// See also [MapleItemList].
 @ProviderFor(MapleItemList)
 final mapleItemListProvider =
-    AsyncNotifierProvider<MapleItemList, List<List<List<dynamic>>>>.internal(
+    AsyncNotifierProvider<MapleItemList, List<List<List<Item>>>>.internal(
   MapleItemList.new,
   name: r'mapleItemListProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +21,6 @@ final mapleItemListProvider =
   allTransitiveDependencies: null,
 );
 
-typedef _$MapleItemList = AsyncNotifier<List<List<List<dynamic>>>>;
+typedef _$MapleItemList = AsyncNotifier<List<List<List<Item>>>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

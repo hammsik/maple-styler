@@ -29,20 +29,23 @@ class Prism with _$Prism {
   factory Prism.fromJson(Map<String, Object?> json) => _$PrismFromJson(json);
 }
 
-// extension ItemConverter on Item {
-//   // 데이터베이스 모델을 UI 모델로 변환
-//   static Item characterItemfromDatabase(CharacterItem item) {
-//     return Item(
-//       id: dbItem.itemId.value,
-//       name: dbItem.name.value,
-//     );
-//   }
+extension ItemConverter on Item {
+  // 데이터베이스 모델을 UI 모델로 변환
+  static Item itemFromDatabase(dynamic item) {
+    // print('item: $item');
+    // print(SubCategoryType.values[0].toString());
+    SubCategoryType subCategoryType = SubCategoryType.values.firstWhere(
+      // SubCategoryType의 경우: eyeDecoration -> eyedecoration
+      // db item의 경우: Eye Decoration -> eyeDecoration
+      (enumType) => enumType.toString().split(".")[1].toLowerCase() == item.subCategory.replaceAll(' ', '').toLowerCase(),
+    );
 
-//   // UI 모델을 데이터베이스 모델로 변환
-//   ItemsCompanion characterItemtoDatabase() {
-//     return ItemsCompanion(
-//       itemId: Value(id),
-//       name: Value(name),
-//     );
-//   }
-// }
+    return Item(
+      id: item.itemid.toString(),
+      name: item.name,
+      subCategoryType: subCategoryType,
+    );
+  }
+
+  // TODO: UI 모델을 데이터베이스 모델로 변환 구현
+}

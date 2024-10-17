@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/my_tools.dart';
+import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/page/character/layout_character_info.dart';
 import 'package:maple_closet/page/character/layout_map_buttons.dart';
 import 'package:maple_closet/page/character/layout_character_board.dart';
@@ -72,22 +73,24 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     });
   }
 
-  void setMyCharacter(dynamic selectedItem, int buttonIdx) {
+  void setMyCharacter(Item selectedItem, int buttonIdx) {
     // 이미 선택된 아이템이면 early return
-    if (dodo.itemMap[selectedItem.subCategory][0] ==
-        selectedItem.itemid.toString()) {
+    final replacement = selectedItem.subCategoryType.toString().split(".")[1];
+    final convertedType = replacement[0].toUpperCase() + replacement.substring(1);
+    if (dodo.itemMap[convertedType][0] ==
+        selectedItem.id.toString()) {
       return;
     }
 
     setState(
       () {
         dodo.updateMyCharacter(
-            subCategory: selectedItem.subCategory,
-            itemId: selectedItem.itemid.toString(),
+            subCategory: convertedType,
+            itemId: selectedItem.id.toString(),
             itemName: selectedItem.name);
         dodo2.updateMyCharacter(
-            subCategory: selectedItem.subCategory,
-            itemId: selectedItem.itemid.toString(),
+            subCategory: convertedType,
+            itemId: selectedItem.id.toString(),
             itemName: selectedItem.name);
 
         if (buttonIdx == -2) {
@@ -97,7 +100,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                 subCategoryIdx < myToolList[toolIdx].subCategoryList!.length;
                 subCategoryIdx++) {
               if (myToolList[toolIdx].subCategoryList![subCategoryIdx].type ==
-                  selectedItem.subCategory) {
+                  convertedType) {
                 currentToolIdx = toolIdx;
                 currentMenuIdx = subCategoryIdx;
                 found = true;
@@ -231,8 +234,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       );
     }
 
-    List<String> urls = ref
-        .watch(characterHistoryProvider.notifier)
+    ref.watch(characterHistoryProvider);
+    final urls = ref
+        .read(characterHistoryProvider.notifier)
         .getCurrentCharacterImageUrl();
     _characterImage2 = Future.wait([
       precacheImage(NetworkImage(urls[0]), context),

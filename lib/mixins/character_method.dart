@@ -21,7 +21,7 @@ mixin CharacterMethod {
       case SubCategoryType.hat:
         return equipment.copyWith(hat: item);
       case SubCategoryType.overall:
-        return equipment.copyWith(overAll: item);
+        return equipment.copyWith(overAll: item, top: null, bottom: null);
       case SubCategoryType.cash:
         return equipment.copyWith(cash: item);
       case SubCategoryType.top:

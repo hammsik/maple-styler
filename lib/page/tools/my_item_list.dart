@@ -77,17 +77,10 @@ class ItemList extends ConsumerWidget {
                                     : const Color.fromARGB(255, 201, 191, 191),
                               ),
                               onPressed: () {
-                                buttonClicked(itemList[index], index);
+                                // buttonClicked(itemList[index], index);
                                 ref
                                     .read(characterEquipmentProvider.notifier)
-                                    .updateEquipment(
-                                        item: Item(
-                                            subCategoryType:
-                                                SubCategoryType.cash,
-                                            id: itemList[index]
-                                                .itemid
-                                                .toString(),
-                                            name: itemList[index].name));
+                                    .updateEquipment(item: itemList[index]);
                               },
                               child: Row(
                                 children: [
@@ -95,7 +88,7 @@ class ItemList extends ConsumerWidget {
                                   SizedBox(
                                     width: 35,
                                     child: Image.network(
-                                      'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
+                                      'https://maplestory.io/api/KMS/389/item/${itemList[index].id}/icon',
                                       errorBuilder:
                                           (context, error, stackTrace) {
                                         return const Icon(

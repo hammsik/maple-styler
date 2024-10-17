@@ -1,5 +1,6 @@
 import 'package:maple_closet/data/my_tools.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/models/item.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'item_provider.g.dart';
@@ -7,47 +8,67 @@ part 'item_provider.g.dart';
 @Riverpod(keepAlive: true)
 class MapleItemList extends _$MapleItemList {
   @override
-  Future<List<List<List<dynamic>>>> build() async {
+  Future<List<List<List<Item>>>> build() async {
     print('으아악 아이템 리스트가 전역 provider로 빌드됐다다아아');
     return loadItemList(ItemDatabase());
   }
 
-  Future<List<List<List<dynamic>>>> loadItemList(
-      ItemDatabase itemDatabase) async {
-    List<List<List<dynamic>>> itemList = [];
+  Future<List<List<List<Item>>>> loadItemList(ItemDatabase itemDatabase) async {
+    final List<List<Item>> characterItemList = [];
+    final List<List<Item>> armorItemList = [];
+    final List<List<Item>> accessoryItemList = [];
 
-    List<List<CharacterItem>> characterItemList = [];
-    List<List<ArmorItem>> armorItemList = [];
-    List<List<AccessoryItem>> accessoryItemList = [];
+    print('아이템 리스트 로딩중...');
 
     for (final subCategory in myToolList[0].subCategoryList!) {
-      characterItemList.add(List.from((await (itemDatabase
-                  .select(itemDatabase.characterItems)
+      final List<CharacterItem> items =
+          await (itemDatabase.select(itemDatabase.characterItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
-              .get())
-          .reversed));
+              .get();
+      characterItemList.add(
+        items
+            .map((item) => ItemConverter.itemFromDatabase(item))
+            .toList()
+            .reversed
+            .toList(),
+      );
     }
+
+    print('characterItemList: ${characterItemList.length}');
 
     for (final subCategory in myToolList[1].subCategoryList!) {
-      armorItemList.add(List.from((await (itemDatabase
-                  .select(itemDatabase.armorItems)
+      final List<ArmorItem> items =
+          await (itemDatabase.select(itemDatabase.armorItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
-              .get())
-          .reversed));
+              .get();
+      armorItemList.add(
+        items
+            .map((item) => ItemConverter.itemFromDatabase(item))
+            .toList()
+            .reversed
+            .toList(),
+      );
     }
+
+    print('armorItemList: ${armorItemList.length}');
 
     for (final subCategory in myToolList[2].subCategoryList!) {
-      accessoryItemList.add(List.from((await (itemDatabase
-                  .select(itemDatabase.accessoryItems)
+      final List<AccessoryItem> items =
+          await (itemDatabase.select(itemDatabase.accessoryItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
-              .get())
-          .reversed));
+              .get();
+      accessoryItemList.add(
+        items
+            .map((item) => ItemConverter.itemFromDatabase(item))
+            .toList()
+            .reversed
+            .toList(),
+      );
     }
 
-    itemList.add(characterItemList);
-    itemList.add(armorItemList);
-    itemList.add(accessoryItemList);
+    print('accessoryItemList: ${accessoryItemList.length}');
 
-    return itemList;
+
+    return [characterItemList, armorItemList, accessoryItemList];
   }
 }
