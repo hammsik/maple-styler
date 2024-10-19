@@ -47,11 +47,7 @@ class CoordinatingTools extends StatelessWidget {
     Widget specialWidget;
 
     if (currentToolIdx == 3) {
-      specialWidget = ColorLayout(
-        currentCharacter: currentCharacter,
-        currentCharacter2: currentCharacter2,
-        applyButtonClicked: colorApplyButtonClicked,
-      );
+      specialWidget = const ColorLayout();
     } else if (currentToolIdx == 4) {
       specialWidget = const UndefinedLayout();
     } else {
@@ -107,11 +103,11 @@ class CoordinatingTools extends StatelessWidget {
                       const SizedBox(height: 8),
                       Expanded(
                           child: ItemList(
-                            buttonClicked: listButtonClicked,
-                            currentClickedItemIdx: clickedButtonIdx,
-                            currentToolIndex: currentToolIdx,
-                            currentMenuIndex: currentMenuIdx,
-                          )),
+                        buttonClicked: listButtonClicked,
+                        currentClickedItemIdx: clickedButtonIdx,
+                        currentToolIndex: currentToolIdx,
+                        currentMenuIndex: currentMenuIdx,
+                      )),
                     ],
                   )
                 : specialWidget,

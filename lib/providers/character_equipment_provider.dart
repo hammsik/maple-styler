@@ -14,10 +14,10 @@ class CharacterEquipment extends _$CharacterEquipment with CharacterMethod {
   @override
   Equipment build() {
     return const Equipment(
-      hairColor1: '0',
-      hairColor2: '0',
-      lensColor1: '0',
-      lensColor2: '0',
+      hairColor1: HairColor.black,
+      hairColor2: HairColor.black,
+      lensColor1: LensColor.black,
+      lensColor2: LensColor.black,
       head: Item(
           id: '12016', name: '홍조 꽃잎 피부', subCategoryType: SubCategoryType.head),
       // body없는 이유는 head에서 substring(1)만 하면 되므로... 이거 toJson에도 반영을 해야함..
@@ -59,8 +59,8 @@ class CharacterEquipment extends _$CharacterEquipment with CharacterMethod {
     required HairColor hairColor2,
   }) {
     state = state.copyWith(
-      hairColor1: hairColorPalette[hairColor1]![1].toString(),
-      hairColor2: hairColorPalette[hairColor2]![1].toString(),
+      hairColor1: hairColor1,
+      hairColor2: hairColor2,
     );
 
     // 캐릭터 장비 변경 이력 추가
@@ -74,8 +74,8 @@ class CharacterEquipment extends _$CharacterEquipment with CharacterMethod {
     required LensColor lensColor2,
   }) {
     state = state.copyWith(
-      lensColor1: lensColorPalette[lensColor1]![1].toString(),
-      lensColor2: lensColorPalette[lensColor2]![1].toString(),
+      lensColor1: lensColor1,
+      lensColor2: lensColor2,
     );
 
     // 캐릭터 장비 변경 이력 추가

@@ -7,7 +7,7 @@ part of 'character_equipment_provider.dart';
 // **************************************************************************
 
 String _$characterEquipmentHash() =>
-    r'3251b0d5384a196e9f96d024d298b2ab1710c450';
+    r'67ba5ad06c6b031acc80495fa410635edd613da0';
 
 /// See also [CharacterEquipment].
 @ProviderFor(CharacterEquipment)

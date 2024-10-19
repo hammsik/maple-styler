@@ -20,10 +20,10 @@ Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Equipment {
-  String get hairColor1 => throw _privateConstructorUsedError;
-  String get hairColor2 => throw _privateConstructorUsedError;
-  String get lensColor1 => throw _privateConstructorUsedError;
-  String get lensColor2 => throw _privateConstructorUsedError; // 뷰티
+  HairColor get hairColor1 => throw _privateConstructorUsedError;
+  HairColor get hairColor2 => throw _privateConstructorUsedError;
+  LensColor get lensColor1 => throw _privateConstructorUsedError;
+  LensColor get lensColor2 => throw _privateConstructorUsedError; // 뷰티
   Item? get hair => throw _privateConstructorUsedError;
   Item? get face => throw _privateConstructorUsedError;
   Item get head => throw _privateConstructorUsedError; // 장비
@@ -56,10 +56,10 @@ abstract class $EquipmentCopyWith<$Res> {
       _$EquipmentCopyWithImpl<$Res, Equipment>;
   @useResult
   $Res call(
-      {String hairColor1,
-      String hairColor2,
-      String lensColor1,
-      String lensColor2,
+      {HairColor hairColor1,
+      HairColor hairColor2,
+      LensColor lensColor1,
+      LensColor lensColor2,
       Item? hair,
       Item? face,
       Item head,
@@ -132,19 +132,19 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
       hairColor1: null == hairColor1
           ? _value.hairColor1
           : hairColor1 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as HairColor,
       hairColor2: null == hairColor2
           ? _value.hairColor2
           : hairColor2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as HairColor,
       lensColor1: null == lensColor1
           ? _value.lensColor1
           : lensColor1 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as LensColor,
       lensColor2: null == lensColor2
           ? _value.lensColor2
           : lensColor2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as LensColor,
       hair: freezed == hair
           ? _value.hair
           : hair // ignore: cast_nullable_to_non_nullable
@@ -424,10 +424,10 @@ abstract class _$$EquipmentImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String hairColor1,
-      String hairColor2,
-      String lensColor1,
-      String lensColor2,
+      {HairColor hairColor1,
+      HairColor hairColor2,
+      LensColor lensColor1,
+      LensColor lensColor2,
       Item? hair,
       Item? face,
       Item head,
@@ -513,19 +513,19 @@ class __$$EquipmentImplCopyWithImpl<$Res>
       hairColor1: null == hairColor1
           ? _value.hairColor1
           : hairColor1 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as HairColor,
       hairColor2: null == hairColor2
           ? _value.hairColor2
           : hairColor2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as HairColor,
       lensColor1: null == lensColor1
           ? _value.lensColor1
           : lensColor1 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as LensColor,
       lensColor2: null == lensColor2
           ? _value.lensColor2
           : lensColor2 // ignore: cast_nullable_to_non_nullable
-              as String,
+              as LensColor,
       hair: freezed == hair
           ? _value.hair
           : hair // ignore: cast_nullable_to_non_nullable
@@ -620,13 +620,13 @@ class _$EquipmentImpl implements _Equipment {
       _$$EquipmentImplFromJson(json);
 
   @override
-  final String hairColor1;
+  final HairColor hairColor1;
   @override
-  final String hairColor2;
+  final HairColor hairColor2;
   @override
-  final String lensColor1;
+  final LensColor lensColor1;
   @override
-  final String lensColor2;
+  final LensColor lensColor2;
 // 뷰티
   @override
   @JsonKey()
@@ -744,10 +744,10 @@ class _$EquipmentImpl implements _Equipment {
 
 abstract class _Equipment implements Equipment {
   const factory _Equipment(
-      {required final String hairColor1,
-      required final String hairColor2,
-      required final String lensColor1,
-      required final String lensColor2,
+      {required final HairColor hairColor1,
+      required final HairColor hairColor2,
+      required final LensColor lensColor1,
+      required final LensColor lensColor2,
       final Item? hair,
       final Item? face,
       required final Item head,
@@ -768,13 +768,13 @@ abstract class _Equipment implements Equipment {
       _$EquipmentImpl.fromJson;
 
   @override
-  String get hairColor1;
+  HairColor get hairColor1;
   @override
-  String get hairColor2;
+  HairColor get hairColor2;
   @override
-  String get lensColor1;
+  LensColor get lensColor1;
   @override
-  String get lensColor2; // 뷰티
+  LensColor get lensColor2; // 뷰티
   @override
   Item? get hair;
   @override

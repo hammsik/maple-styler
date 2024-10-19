@@ -1,6 +1,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:maple_closet/data/color_palette.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/skeleton_tools.dart';
 
@@ -11,10 +12,10 @@ part 'equipment.g.dart';
 @freezed
 class Equipment with _$Equipment {
   const factory Equipment({
-    required String hairColor1,
-    required String hairColor2,
-    required String lensColor1,
-    required String lensColor2,
+    required HairColor hairColor1,
+    required HairColor hairColor2,
+    required LensColor lensColor1,
+    required LensColor lensColor2,
     // 뷰티
     @Default(
         Item(id: '68090', name: '허쉬 헤어', subCategoryType: SubCategoryType.hair))
@@ -81,12 +82,12 @@ extension UrlMaker on Equipment {
     String beauty1 = '';
     String beauty2 = '';
     if (hair != null) {
-      beauty1 = addVersionAndRegion(hair!.id.replaceRange(4, 5, hairColor1));
-      beauty2 = addVersionAndRegion(hair!.id.replaceRange(4, 5, hairColor2));
+      beauty1 = addVersionAndRegion(hair!.id.replaceRange(4, 5, hairColorPalette[hairColor1]![1].toString()));
+      beauty2 = addVersionAndRegion(hair!.id.replaceRange(4, 5, hairColorPalette[hairColor2]![1].toString()));
     }
     if (face != null) {
-      beauty1 += addVersionAndRegion(face!.id.replaceRange(2, 3, lensColor1));
-      beauty2 += addVersionAndRegion(face!.id.replaceRange(2, 3, lensColor2));
+      beauty1 += addVersionAndRegion(face!.id.replaceRange(2, 3, lensColorPalette[lensColor1]![1].toString()));
+      beauty2 += addVersionAndRegion(face!.id.replaceRange(2, 3, lensColorPalette[lensColor2]![1].toString()));
     }
 
     return [url + beauty1, url + beauty2];
