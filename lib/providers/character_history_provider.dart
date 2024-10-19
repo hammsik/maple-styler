@@ -11,26 +11,29 @@ class CharacterHistory extends _$CharacterHistory with CharacterMethod {
   @override
   History build() {
     // 초기 상태로 equipment가 하나 들어있는 History를 생성합니다.
+    print('CharacterHistory build');
     return History(
       equipmentsList: [
-        ref.watch(characterEquipmentProvider).copyWith(),
+        ref.read(characterEquipmentProvider).copyWith(),
       ],
       maxHistoryLength: 10,
     );
   }
 
   void addCharacterHistory(Equipment equipment) {
-    // 만약 현재 historyIndex가 마지막 index가 아니라면, 현재 index 이후의 항목을 제거하고 새로운 항목을 추가합니다.
-    // 그렇지 않다면, 가장 오래된 항목을 제거하고 새로운 항목을 추가합니다.
-    List<Equipment> updatedEquipmentsList;
+    List<Equipment> updatedEquipmentsList = [...state.equipmentsList];
+
+    // 만약 현재 historyIndex가 마지막 index가 아니라면, 현재 index 이후의 항목을 제거합니다.
     if (state.historyIndex < state.equipmentsList.length - 1) {
-      updatedEquipmentsList = state.equipmentsList
-          .sublist(0, state.historyIndex + 1)
-        ..add(equipment);
-    } else {
-      updatedEquipmentsList = state.equipmentsList.sublist(1)..add(equipment);
+      updatedEquipmentsList = updatedEquipmentsList.sublist(
+          0, state.historyIndex + 1);
+    } else if (state.equipmentsList.length == state.maxHistoryLength) {
+      // 그렇지 않다면, max길이에 도달했을 때만 가장 오래된 항목만 제거합니다.
+      updatedEquipmentsList = updatedEquipmentsList.sublist(1);
     }
 
+    // 새로운 항목을 추가합니다.
+    updatedEquipmentsList.add(equipment);
     state = state.copyWith(
       equipmentsList: updatedEquipmentsList,
       historyIndex: updatedEquipmentsList.length - 1,
