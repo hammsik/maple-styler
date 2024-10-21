@@ -1,55 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/color_palette.dart';
-import 'package:maple_closet/models/skeleton_character.dart';
+import 'package:maple_closet/providers/character_equipment_provider.dart';
 
-class ColorLayout extends StatefulWidget {
-  final MyCharacter currentCharacter;
-  final MyCharacter currentCharacter2;
-  final Function applyButtonClicked;
-  late int hairColorCharacter1;
-  late int hairColorCharacter2;
-  late int lensColorCharacter1;
-  late int lensColorCharacter2;
-
-  ColorLayout(
-      {super.key,
-      required this.currentCharacter,
-      required this.currentCharacter2,
-      required this.applyButtonClicked}) {
-    hairColorCharacter1 = int.parse(currentCharacter.itemMap['Hair'][2]);
-    hairColorCharacter2 = int.parse(currentCharacter2.itemMap['Hair'][2]);
-    lensColorCharacter1 = int.parse(currentCharacter.itemMap['Face'][2]);
-    lensColorCharacter2 = int.parse(currentCharacter2.itemMap['Face'][2]);
-  }
+class ColorLayout extends HookConsumerWidget {
+  const ColorLayout({
+    super.key,
+  });
 
   @override
-  State<StatefulWidget> createState() {
-    return _ColorLayout();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hairColor1 =
+        useState(ref.read(characterEquipmentProvider).hairColor1);
+    final hairColor2 =
+        useState(ref.read(characterEquipmentProvider).hairColor2);
+    final lensColor1 =
+        useState(ref.read(characterEquipmentProvider).lensColor1);
+    final lensColor2 =
+        useState(ref.read(characterEquipmentProvider).lensColor2);
 
-class _ColorLayout extends State<ColorLayout> {
-  void colorButtonClicked(String target, int character, int color) {
-    setState(() {
-      if (character == 1) {
-        if (target == 'hair') {
-          widget.hairColorCharacter1 = color;
-        } else {
-          widget.lensColorCharacter1 = color;
-        }
-      } else {
-        if (target == 'hair') {
-          widget.hairColorCharacter2 = color;
-        } else {
-          widget.lensColorCharacter2 = color;
-        }
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(255, 230, 222, 218),
@@ -72,8 +43,12 @@ class _ColorLayout extends State<ColorLayout> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                    onPressed: () => widget.applyButtonClicked('hair',
-                        widget.hairColorCharacter1, widget.hairColorCharacter2),
+                    onPressed: () => ref
+                        .read(characterEquipmentProvider.notifier)
+                        .updateHairColor(
+                          hairColor1: hairColor1.value,
+                          hairColor2: hairColor2.value,
+                        ),
                     child: Text(
                       '적용',
                       style: GoogleFonts.nanumMyeongjo(
@@ -88,11 +63,11 @@ class _ColorLayout extends State<ColorLayout> {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: hairColorPalette.values
+              children: hairColorPalette.entries
                   .map(
                     (colorPick) => ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(colorPick[0]),
+                        backgroundColor: Color(colorPick.value[0]),
                         minimumSize: Size.zero,
                         padding: const EdgeInsets.all(0),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -100,10 +75,8 @@ class _ColorLayout extends State<ColorLayout> {
                             MediaQuery.of(context).size.width * 0.08,
                             MediaQuery.of(context).size.width * 0.08),
                       ),
-                      onPressed: () {
-                        colorButtonClicked('hair', 1, colorPick[1]);
-                      },
-                      child: widget.hairColorCharacter1 == colorPick[1]
+                      onPressed: () => hairColor1.value = colorPick.key,
+                      child: hairColor1.value == colorPick.key
                           ? const Icon(
                               Icons.check,
                               color: Colors.white,
@@ -116,11 +89,11 @@ class _ColorLayout extends State<ColorLayout> {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: hairColorPalette.values
+              children: hairColorPalette.entries
                   .map(
                     (colorPick) => ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(colorPick[0]),
+                        backgroundColor: Color(colorPick.value[0]),
                         minimumSize: Size.zero,
                         padding: const EdgeInsets.all(0),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -128,10 +101,8 @@ class _ColorLayout extends State<ColorLayout> {
                             MediaQuery.of(context).size.width * 0.08,
                             MediaQuery.of(context).size.width * 0.08),
                       ),
-                      onPressed: () {
-                        colorButtonClicked('hair', 2, colorPick[1]);
-                      },
-                      child: widget.hairColorCharacter2 == colorPick[1]
+                      onPressed: () => hairColor2.value = colorPick.key,
+                      child: hairColor2.value == colorPick.key
                           ? const Icon(
                               Icons.check,
                               color: Colors.white,
@@ -156,8 +127,12 @@ class _ColorLayout extends State<ColorLayout> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                    onPressed: () => widget.applyButtonClicked('lens',
-                        widget.lensColorCharacter1, widget.lensColorCharacter2),
+                    onPressed: () => ref
+                        .read(characterEquipmentProvider.notifier)
+                        .updateLensColor(
+                          lensColor1: lensColor1.value,
+                          lensColor2: lensColor2.value,
+                        ),
                     child: Text(
                       '적용',
                       style: GoogleFonts.nanumMyeongjo(
@@ -172,11 +147,11 @@ class _ColorLayout extends State<ColorLayout> {
             const SizedBox(height: 10),
             Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: lensColorPalette.values
+                children: lensColorPalette.entries
                     .map(
                       (colorPick) => ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(colorPick[0]),
+                          backgroundColor: Color(colorPick.value[0]),
                           minimumSize: Size.zero,
                           padding: const EdgeInsets.all(0),
                           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -184,10 +159,8 @@ class _ColorLayout extends State<ColorLayout> {
                               MediaQuery.of(context).size.width * 0.08,
                               MediaQuery.of(context).size.width * 0.08),
                         ),
-                        onPressed: () {
-                          colorButtonClicked('lens', 1, colorPick[1]);
-                        },
-                        child: widget.lensColorCharacter1 == colorPick[1]
+                        onPressed: () => lensColor1.value = colorPick.key,
+                        child: lensColor1.value == colorPick.key
                             ? const Icon(
                                 Icons.check,
                                 color: Colors.white,
@@ -199,11 +172,11 @@ class _ColorLayout extends State<ColorLayout> {
             const SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: lensColorPalette.values
+              children: lensColorPalette.entries
                   .map(
                     (colorPick) => ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(colorPick[0]),
+                        backgroundColor: Color(colorPick.value[0]),
                         minimumSize: Size.zero,
                         padding: const EdgeInsets.all(0),
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -211,10 +184,8 @@ class _ColorLayout extends State<ColorLayout> {
                             MediaQuery.of(context).size.width * 0.08,
                             MediaQuery.of(context).size.width * 0.08),
                       ),
-                      onPressed: () {
-                        colorButtonClicked('lens', 2, colorPick[1]);
-                      },
-                      child: widget.lensColorCharacter2 == colorPick[1]
+                      onPressed: () => lensColor2.value = colorPick.key,
+                      child: lensColor2.value == colorPick.key
                           ? const Icon(
                               Icons.check,
                               color: Colors.white,

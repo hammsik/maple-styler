@@ -8,15 +8,17 @@ part of 'equipment.dart';
 
 _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
     _$EquipmentImpl(
-      hairColor1: json['hairColor1'] as String,
-      hairColor2: json['hairColor2'] as String,
-      lensColor1: json['lensColor1'] as String,
-      lensColor2: json['lensColor2'] as String,
+      hairColor1: $enumDecode(_$HairColorEnumMap, json['hairColor1']),
+      hairColor2: $enumDecode(_$HairColorEnumMap, json['hairColor2']),
+      lensColor1: $enumDecode(_$LensColorEnumMap, json['lensColor1']),
+      lensColor2: $enumDecode(_$LensColorEnumMap, json['lensColor2']),
       hair: json['hair'] == null
-          ? const Item(id: '68090', name: '허쉬 헤어')
+          ? const Item(
+              id: '68090', name: '허쉬 헤어', subCategoryType: SubCategoryType.hair)
           : Item.fromJson(json['hair'] as Map<String, dynamic>),
       face: json['face'] == null
-          ? const Item(id: '50137', name: '차차 얼굴')
+          ? const Item(
+              id: '50137', name: '차차 얼굴', subCategoryType: SubCategoryType.face)
           : Item.fromJson(json['face'] as Map<String, dynamic>),
       head: Item.fromJson(json['head'] as Map<String, dynamic>),
       hat: json['hat'] == null
@@ -59,10 +61,10 @@ _$EquipmentImpl _$$EquipmentImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
     <String, dynamic>{
-      'hairColor1': instance.hairColor1,
-      'hairColor2': instance.hairColor2,
-      'lensColor1': instance.lensColor1,
-      'lensColor2': instance.lensColor2,
+      'hairColor1': _$HairColorEnumMap[instance.hairColor1]!,
+      'hairColor2': _$HairColorEnumMap[instance.hairColor2]!,
+      'lensColor1': _$LensColorEnumMap[instance.lensColor1]!,
+      'lensColor2': _$LensColorEnumMap[instance.lensColor2]!,
       'hair': instance.hair,
       'face': instance.face,
       'head': instance.head,
@@ -79,3 +81,25 @@ Map<String, dynamic> _$$EquipmentImplToJson(_$EquipmentImpl instance) =>
       'eyeDecoration': instance.eyeDecoration,
       'earrings': instance.earrings,
     };
+
+const _$HairColorEnumMap = {
+  HairColor.red: 'red',
+  HairColor.orange: 'orange',
+  HairColor.yellow: 'yellow',
+  HairColor.green: 'green',
+  HairColor.blue: 'blue',
+  HairColor.purple: 'purple',
+  HairColor.brown: 'brown',
+  HairColor.black: 'black',
+};
+
+const _$LensColorEnumMap = {
+  LensColor.red: 'red',
+  LensColor.magenta: 'magenta',
+  LensColor.green: 'green',
+  LensColor.emerald: 'emerald',
+  LensColor.blue: 'blue',
+  LensColor.purple: 'purple',
+  LensColor.brown: 'brown',
+  LensColor.black: 'black',
+};

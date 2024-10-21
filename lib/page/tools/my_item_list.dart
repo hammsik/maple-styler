@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/providers/character_equipment_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
 import 'package:maple_closet/widgets/custom_scrollbar_wrapper.dart';
 
@@ -73,15 +74,19 @@ class ItemList extends ConsumerWidget {
                                     ? const Color.fromARGB(255, 238, 238, 238)
                                     : const Color.fromARGB(255, 201, 191, 191),
                               ),
-                              onPressed: () =>
-                                  buttonClicked(itemList[index], index),
+                              onPressed: () {
+                                buttonClicked(itemList[index], index);
+                                ref
+                                    .read(characterEquipmentProvider.notifier)
+                                    .updateEquipment(item: itemList[index]);
+                              },
                               child: Row(
                                 children: [
                                   const SizedBox(width: 10),
                                   SizedBox(
                                     width: 35,
                                     child: Image.network(
-                                      'https://maplestory.io/api/KMS/389/item/${itemList[index].itemid}/icon',
+                                      'https://maplestory.io/api/KMS/389/item/${itemList[index].id}/icon',
                                       errorBuilder:
                                           (context, error, stackTrace) {
                                         return const Icon(
