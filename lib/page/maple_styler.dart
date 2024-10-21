@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,7 +15,7 @@ import 'package:maple_closet/models/skeleton_character.dart';
 import 'package:maple_closet/providers/character_history_provider.dart';
 import '../data/backgrounds.dart';
 
-class MapleStylerHome extends ConsumerStatefulWidget {
+class MapleStylerHome extends StatefulHookConsumerWidget {
   const MapleStylerHome({super.key});
 
   @override
@@ -28,6 +30,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   MyCharacter dodo2 = MyCharacter();
   Future? _characterImage;
   Future? _characterImage2;
+  Future? _characterImage3;
   String background = 'normal';
   int currentToolIdx = 0;
   int currentMenuIdx = 0;
@@ -76,9 +79,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   void setMyCharacter(Item selectedItem, int buttonIdx) {
     // 이미 선택된 아이템이면 early return
     final replacement = selectedItem.subCategoryType.toString().split(".")[1];
-    final convertedType = replacement[0].toUpperCase() + replacement.substring(1);
-    if (dodo.itemMap[convertedType][0] ==
-        selectedItem.id.toString()) {
+    final convertedType =
+        replacement[0].toUpperCase() + replacement.substring(1);
+    if (dodo.itemMap[convertedType][0] == selectedItem.id.toString()) {
       return;
     }
 
@@ -238,10 +241,13 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     final urls = ref
         .read(characterHistoryProvider.notifier)
         .getCurrentCharacterImageUrl();
-    _characterImage2 = Future.wait([
-      precacheImage(NetworkImage(urls[0]), context),
-      precacheImage(NetworkImage(urls[1]), context),
-    ]);
+    _characterImage2 = Future.wait(urls.map(
+      (e) => precacheImage(NetworkImage(e), context),
+    ));
+
+    _characterImage3 = ref
+        .read(characterHistoryProvider.notifier)
+        .getCurrentCharacterImageByUint();
 
     return PopScope(
       canPop: false,
@@ -376,6 +382,35 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     } else {
                       return Container(
                         margin: const EdgeInsets.only(top: 98),
+                        child: Image.asset('assets/drummingBunny.gif'),
+                      ); // 로딩 중일 때 표시할 위젯
+                    }
+                  },
+                ),
+                FutureBuilder(
+                  future: _characterImage3,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      final Uint8List image1 = snapshot.data[0];
+                      final Uint8List image2 = snapshot.data[1];
+                      precacheImage(MemoryImage(image1), context);
+                      precacheImage(MemoryImage(image2), context);
+                      return SizedBox(
+                        height: 100,
+                        child: Stack(
+                          fit: StackFit.expand,
+                          children: [
+                            Image.memory(image1),
+                            Opacity(
+                              opacity: 0.5,
+                              child: Image.memory(image2),
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return Container(
+                        margin: const EdgeInsets.only(top: 28),
                         child: Image.asset('assets/drummingBunny.gif'),
                       ); // 로딩 중일 때 표시할 위젯
                     }

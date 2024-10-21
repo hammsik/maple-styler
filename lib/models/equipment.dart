@@ -49,7 +49,7 @@ extension UrlMaker on Equipment {
     return '{"itemId":$item, "version":"389","region":"KMS"},';
   }
 
-  List<String> makeCharacterItemsBody() {
+  List<String> makeCharacterItemsBodyPair() {
     String url = addVersionAndRegion(head.id) +
         addVersionAndRegion(head.id.substring(1));
     if (hat != null) url += addVersionAndRegion(hat!.id);

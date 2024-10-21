@@ -6,7 +6,7 @@ part of 'character_history_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$characterHistoryHash() => r'f459b83f54e7943fad32967dda9b9adf23224541';
+String _$characterHistoryHash() => r'a70c1ade5144fd013db7e7d18580b40eba649559';
 
 /// See also [CharacterHistory].
 @ProviderFor(CharacterHistory)
