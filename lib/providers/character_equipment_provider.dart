@@ -1,7 +1,7 @@
 import 'package:maple_closet/data/color_palette.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/equipment.dart';
-import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/mixins/character_method.dart';
 import 'package:maple_closet/providers/character_history_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

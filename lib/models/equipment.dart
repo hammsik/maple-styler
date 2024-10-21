@@ -3,7 +3,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:maple_closet/data/color_palette.dart';
 import 'package:maple_closet/models/item.dart';
-import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:maple_closet/models/tool.dart';
 
 part 'equipment.freezed.dart';
 part 'equipment.g.dart';
@@ -82,12 +82,16 @@ extension UrlMaker on Equipment {
     String beauty1 = '';
     String beauty2 = '';
     if (hair != null) {
-      beauty1 = addVersionAndRegion(hair!.id.replaceRange(4, 5, hairColorPalette[hairColor1]![1].toString()));
-      beauty2 = addVersionAndRegion(hair!.id.replaceRange(4, 5, hairColorPalette[hairColor2]![1].toString()));
+      beauty1 = addVersionAndRegion(hair!.id
+          .replaceRange(4, 5, hairColorPalette[hairColor1]![1].toString()));
+      beauty2 = addVersionAndRegion(hair!.id
+          .replaceRange(4, 5, hairColorPalette[hairColor2]![1].toString()));
     }
     if (face != null) {
-      beauty1 += addVersionAndRegion(face!.id.replaceRange(2, 3, lensColorPalette[lensColor1]![1].toString()));
-      beauty2 += addVersionAndRegion(face!.id.replaceRange(2, 3, lensColorPalette[lensColor2]![1].toString()));
+      beauty1 += addVersionAndRegion(face!.id
+          .replaceRange(2, 3, lensColorPalette[lensColor1]![1].toString()));
+      beauty2 += addVersionAndRegion(face!.id
+          .replaceRange(2, 3, lensColorPalette[lensColor2]![1].toString()));
     }
 
     return [url + beauty1, url + beauty2];

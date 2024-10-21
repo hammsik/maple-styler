@@ -1,72 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/models/tool.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 
-class ItemMenu extends StatefulWidget {
+class ItemMenu extends ConsumerWidget {
   final MyTool currentTool;
-  final int currentMenuIdx;
-  final Function buttonClicked;
+  // final int currentMenuIdx;
+  // final Function buttonClicked;
 
-  const ItemMenu(
-      {super.key,
-      required this.currentTool,
-      required this.currentMenuIdx,
-      required this.buttonClicked});
+  const ItemMenu({
+    super.key,
+    required this.currentTool,
+    // required this.currentMenuIdx,
+    // required this.buttonClicked,
+  });
 
   @override
-  State<StatefulWidget> createState() {
-    return _ItemMenu();
-  }
-}
-
-class _ItemMenu extends State<ItemMenu> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MenuAnchor(
-      style: const MenuStyle(alignment: Alignment.centerRight),
-      builder:
-          (BuildContext context, MenuController controller, Widget? child) {
-        return Material(
-          color: Colors.transparent,
-          child: InkWell(
-            splashColor: Colors.grey.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(8),
-            onTap: () {
-              if (controller.isOpen) {
-                controller.close();
-              } else {
-                controller.open();
-              }
-            },
-            child: Ink(
-              height: 40,
-              width: 101,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: const Color.fromARGB(255, 230, 222, 218),
-              ),
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Expanded(
-                  child: Text(
-                    widget.currentTool.subCategoryList![widget.currentMenuIdx].nameKo,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.nanumMyeongjo(
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700),
-                  ),
+        style: const MenuStyle(alignment: Alignment.centerRight),
+        builder:
+            (BuildContext context, MenuController controller, Widget? child) {
+          return Material(
+            color: Colors.transparent,
+            child: InkWell(
+              splashColor: Colors.grey.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(8),
+              onTap: () {
+                if (controller.isOpen) {
+                  controller.close();
+                } else {
+                  controller.open();
+                }
+              },
+              child: Ink(
+                height: 40,
+                width: 101,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: const Color.fromARGB(255, 230, 222, 218),
                 ),
-                const Icon(Icons.keyboard_arrow_down_rounded),
-                const SizedBox(
-                  width: 8,
-                )
-              ]),
+                child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                  Expanded(
+                    child: Text(
+                      currentTool
+                          .subCategoryList![currentTool.subCategoryIdx!].nameKo,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.nanumMyeongjo(
+                          color: const Color.fromARGB(255, 0, 0, 0),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  const Icon(Icons.keyboard_arrow_down_rounded),
+                  const SizedBox(
+                    width: 8,
+                  )
+                ]),
+              ),
             ),
-          ),
-        );
-      },
-      menuChildren: [
-        ...widget.currentTool.subCategoryList!
+          );
+        },
+        menuChildren: currentTool.subCategoryList!
             .asMap()
             .map((index, item) => MapEntry(
                   index,
@@ -76,7 +72,9 @@ class _ItemMenu extends State<ItemMenu> {
                         color: const Color.fromARGB(255, 230, 222, 218),
                         borderRadius: BorderRadius.circular(4)),
                     child: MenuItemButton(
-                      onPressed: () => widget.buttonClicked(index),
+                      onPressed: () => ref
+                          .read(toolSettingProvider.notifier)
+                          .changeCurrentSubCategory(index: index),
                       child: Text(
                         item.nameKo,
                         style: GoogleFonts.nanumMyeongjo(
@@ -88,8 +86,6 @@ class _ItemMenu extends State<ItemMenu> {
                   ),
                 ))
             .values
-            .toList()
-      ],
-    );
+            .toList());
   }
 }

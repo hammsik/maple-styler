@@ -6,7 +6,7 @@ part of 'item_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mapleItemListHash() => r'f1b7e3abebfd890b1b838e0fd3b5196f03dc0000';
+String _$mapleItemListHash() => r'4fd9ab0724e6df06e9ebe89db036c04eec28f12c';
 
 /// See also [MapleItemList].
 @ProviderFor(MapleItemList)

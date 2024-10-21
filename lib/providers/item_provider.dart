@@ -1,6 +1,7 @@
 import 'package:maple_closet/data/my_tools.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/models/tool.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'item_provider.g.dart';
@@ -20,7 +21,7 @@ class MapleItemList extends _$MapleItemList {
 
     print('아이템 리스트 로딩중...');
 
-    for (final subCategory in myToolList[0].subCategoryList!) {
+    for (final subCategory in toolMap[ToolType.beauty]!.subCategoryList!) {
       final List<CharacterItem> items =
           await (itemDatabase.select(itemDatabase.characterItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
@@ -36,7 +37,7 @@ class MapleItemList extends _$MapleItemList {
 
     print('characterItemList: ${characterItemList.length}');
 
-    for (final subCategory in myToolList[1].subCategoryList!) {
+    for (final subCategory in toolMap[ToolType.armor]!.subCategoryList!) {
       final List<ArmorItem> items =
           await (itemDatabase.select(itemDatabase.armorItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
@@ -52,7 +53,7 @@ class MapleItemList extends _$MapleItemList {
 
     print('armorItemList: ${armorItemList.length}');
 
-    for (final subCategory in myToolList[2].subCategoryList!) {
+    for (final subCategory in toolMap[ToolType.accessory]!.subCategoryList!) {
       final List<AccessoryItem> items =
           await (itemDatabase.select(itemDatabase.accessoryItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
@@ -67,7 +68,6 @@ class MapleItemList extends _$MapleItemList {
     }
 
     print('accessoryItemList: ${accessoryItemList.length}');
-
 
     return [characterItemList, armorItemList, accessoryItemList];
   }

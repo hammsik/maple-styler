@@ -1,6 +1,6 @@
 import 'package:maple_closet/models/equipment.dart';
 import 'package:maple_closet/models/item.dart';
-import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:maple_closet/models/tool.dart';
 
 mixin CharacterMethod {
   Equipment copyWithSubCategoryType({
