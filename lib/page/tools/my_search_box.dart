@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
 
@@ -116,25 +118,22 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   void setItemList() {
     final itemList = ref.watch(mapleItemListProvider);
     itemList.when(
-        data: (data) => showItemList(itemList: data),
+        data: (data) => showItemList(itemMap: data),
         error: (error, stacktrace) => setState(() => searchedList =
             Center(child: Text('에러가 발생했습니다. 에러코드: ${error.toString()}'))),
         loading: () {});
   }
 
-  void showItemList({required List<List<List<dynamic>>> itemList}) {
-    List<dynamic> searchedItemList = [];
-    for (int category = 0; category < itemList.length; category++) {
-      for (int subCategory = 0;
-          subCategory < itemList[category].length;
-          subCategory++) {
-        for (int item = 0;
-            item < itemList[category][subCategory].length;
-            item++) {
+  void showItemList(
+      {required Map<ToolType, Map<SubCategoryType, List<Item>>> itemMap}) {
+    final List<Item> searchedItemList = [];
+    for (final category in itemMap.values) {
+      for (final subCategory in category.values) {
+        for (final item in subCategory) {
           if (myController.text.isNotEmpty &&
-              (itemList[category][subCategory][item].name.replaceAll(' ', ''))
+              (item.name.replaceAll(' ', ''))
                   .contains(myController.text.replaceAll(' ', ''))) {
-            searchedItemList.add(itemList[category][subCategory][item]);
+            searchedItemList.add(item);
           }
         }
       }
@@ -176,10 +175,10 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                               const Color.fromARGB(255, 201, 191, 191),
                         ),
                         onPressed: () {
-                          Navigator.pop(context, myController.text);
                           ref
                               .read(characterProvider.notifier)
                               .updateEquipment(item: searchedItemList[index]);
+                          Navigator.pop(context, myController.text);
                         },
                         child: Row(
                           children: [
@@ -187,7 +186,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                             SizedBox(
                               width: 35,
                               child: Image.network(
-                                'https://maplestory.io/api/KMS/389/item/${searchedItemList[index].itemid}/icon',
+                                'https://maplestory.io/api/KMS/389/item/${searchedItemList[index].id}/icon',
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Icon(
                                       Icons.image_not_supported_outlined);

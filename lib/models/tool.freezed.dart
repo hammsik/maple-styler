@@ -14,18 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-SubCategory _$SubCategoryFromJson(Map<String, dynamic> json) {
-  return _SubCategory.fromJson(json);
-}
-
 /// @nodoc
 mixin _$SubCategory {
   String get nameKo => throw _privateConstructorUsedError;
   String get nameEn => throw _privateConstructorUsedError;
   SubCategoryType get type => throw _privateConstructorUsedError;
-
-  /// Serializes this SubCategory to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of SubCategory
   /// with the given fields replaced by the non-null parameter values.
@@ -125,13 +118,10 @@ class __$$SubCategoryImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$SubCategoryImpl implements _SubCategory {
   const _$SubCategoryImpl(
       {required this.nameKo, required this.nameEn, required this.type});
-
-  factory _$SubCategoryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$SubCategoryImplFromJson(json);
 
   @override
   final String nameKo;
@@ -155,7 +145,6 @@ class _$SubCategoryImpl implements _SubCategory {
             (identical(other.type, type) || other.type == type));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, nameKo, nameEn, type);
 
@@ -166,13 +155,6 @@ class _$SubCategoryImpl implements _SubCategory {
   @pragma('vm:prefer-inline')
   _$$SubCategoryImplCopyWith<_$SubCategoryImpl> get copyWith =>
       __$$SubCategoryImplCopyWithImpl<_$SubCategoryImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$SubCategoryImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _SubCategory implements SubCategory {
@@ -180,9 +162,6 @@ abstract class _SubCategory implements SubCategory {
       {required final String nameKo,
       required final String nameEn,
       required final SubCategoryType type}) = _$SubCategoryImpl;
-
-  factory _SubCategory.fromJson(Map<String, dynamic> json) =
-      _$SubCategoryImpl.fromJson;
 
   @override
   String get nameKo;
@@ -199,20 +178,14 @@ abstract class _SubCategory implements SubCategory {
       throw _privateConstructorUsedError;
 }
 
-MyTool _$MyToolFromJson(Map<String, dynamic> json) {
-  return _MyTool.fromJson(json);
-}
-
 /// @nodoc
 mixin _$MyTool {
   String get toolNameKo => throw _privateConstructorUsedError;
   ToolType get toolType => throw _privateConstructorUsedError;
-  int get idx => throw _privateConstructorUsedError;
-  int? get subCategoryIdx => throw _privateConstructorUsedError;
-  List<SubCategory>? get subCategoryList => throw _privateConstructorUsedError;
-
-  /// Serializes this MyTool to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  SubCategoryType? get currentSubcategoryType =>
+      throw _privateConstructorUsedError;
+  Map<SubCategoryType, SubCategory>? get subCategoryMap =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of MyTool
   /// with the given fields replaced by the non-null parameter values.
@@ -228,9 +201,8 @@ abstract class $MyToolCopyWith<$Res> {
   $Res call(
       {String toolNameKo,
       ToolType toolType,
-      int idx,
-      int? subCategoryIdx,
-      List<SubCategory>? subCategoryList});
+      SubCategoryType? currentSubcategoryType,
+      Map<SubCategoryType, SubCategory>? subCategoryMap});
 }
 
 /// @nodoc
@@ -250,9 +222,8 @@ class _$MyToolCopyWithImpl<$Res, $Val extends MyTool>
   $Res call({
     Object? toolNameKo = null,
     Object? toolType = null,
-    Object? idx = null,
-    Object? subCategoryIdx = freezed,
-    Object? subCategoryList = freezed,
+    Object? currentSubcategoryType = freezed,
+    Object? subCategoryMap = freezed,
   }) {
     return _then(_value.copyWith(
       toolNameKo: null == toolNameKo
@@ -263,18 +234,14 @@ class _$MyToolCopyWithImpl<$Res, $Val extends MyTool>
           ? _value.toolType
           : toolType // ignore: cast_nullable_to_non_nullable
               as ToolType,
-      idx: null == idx
-          ? _value.idx
-          : idx // ignore: cast_nullable_to_non_nullable
-              as int,
-      subCategoryIdx: freezed == subCategoryIdx
-          ? _value.subCategoryIdx
-          : subCategoryIdx // ignore: cast_nullable_to_non_nullable
-              as int?,
-      subCategoryList: freezed == subCategoryList
-          ? _value.subCategoryList
-          : subCategoryList // ignore: cast_nullable_to_non_nullable
-              as List<SubCategory>?,
+      currentSubcategoryType: freezed == currentSubcategoryType
+          ? _value.currentSubcategoryType
+          : currentSubcategoryType // ignore: cast_nullable_to_non_nullable
+              as SubCategoryType?,
+      subCategoryMap: freezed == subCategoryMap
+          ? _value.subCategoryMap
+          : subCategoryMap // ignore: cast_nullable_to_non_nullable
+              as Map<SubCategoryType, SubCategory>?,
     ) as $Val);
   }
 }
@@ -289,9 +256,8 @@ abstract class _$$MyToolImplCopyWith<$Res> implements $MyToolCopyWith<$Res> {
   $Res call(
       {String toolNameKo,
       ToolType toolType,
-      int idx,
-      int? subCategoryIdx,
-      List<SubCategory>? subCategoryList});
+      SubCategoryType? currentSubcategoryType,
+      Map<SubCategoryType, SubCategory>? subCategoryMap});
 }
 
 /// @nodoc
@@ -309,9 +275,8 @@ class __$$MyToolImplCopyWithImpl<$Res>
   $Res call({
     Object? toolNameKo = null,
     Object? toolType = null,
-    Object? idx = null,
-    Object? subCategoryIdx = freezed,
-    Object? subCategoryList = freezed,
+    Object? currentSubcategoryType = freezed,
+    Object? subCategoryMap = freezed,
   }) {
     return _then(_$MyToolImpl(
       toolNameKo: null == toolNameKo
@@ -322,57 +287,47 @@ class __$$MyToolImplCopyWithImpl<$Res>
           ? _value.toolType
           : toolType // ignore: cast_nullable_to_non_nullable
               as ToolType,
-      idx: null == idx
-          ? _value.idx
-          : idx // ignore: cast_nullable_to_non_nullable
-              as int,
-      subCategoryIdx: freezed == subCategoryIdx
-          ? _value.subCategoryIdx
-          : subCategoryIdx // ignore: cast_nullable_to_non_nullable
-              as int?,
-      subCategoryList: freezed == subCategoryList
-          ? _value._subCategoryList
-          : subCategoryList // ignore: cast_nullable_to_non_nullable
-              as List<SubCategory>?,
+      currentSubcategoryType: freezed == currentSubcategoryType
+          ? _value.currentSubcategoryType
+          : currentSubcategoryType // ignore: cast_nullable_to_non_nullable
+              as SubCategoryType?,
+      subCategoryMap: freezed == subCategoryMap
+          ? _value._subCategoryMap
+          : subCategoryMap // ignore: cast_nullable_to_non_nullable
+              as Map<SubCategoryType, SubCategory>?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$MyToolImpl implements _MyTool {
   const _$MyToolImpl(
       {required this.toolNameKo,
       required this.toolType,
-      required this.idx,
-      this.subCategoryIdx,
-      final List<SubCategory>? subCategoryList})
-      : _subCategoryList = subCategoryList;
-
-  factory _$MyToolImpl.fromJson(Map<String, dynamic> json) =>
-      _$$MyToolImplFromJson(json);
+      this.currentSubcategoryType,
+      final Map<SubCategoryType, SubCategory>? subCategoryMap})
+      : _subCategoryMap = subCategoryMap;
 
   @override
   final String toolNameKo;
   @override
   final ToolType toolType;
   @override
-  final int idx;
+  final SubCategoryType? currentSubcategoryType;
+  final Map<SubCategoryType, SubCategory>? _subCategoryMap;
   @override
-  final int? subCategoryIdx;
-  final List<SubCategory>? _subCategoryList;
-  @override
-  List<SubCategory>? get subCategoryList {
-    final value = _subCategoryList;
+  Map<SubCategoryType, SubCategory>? get subCategoryMap {
+    final value = _subCategoryMap;
     if (value == null) return null;
-    if (_subCategoryList is EqualUnmodifiableListView) return _subCategoryList;
+    if (_subCategoryMap is EqualUnmodifiableMapView) return _subCategoryMap;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
+    return EqualUnmodifiableMapView(value);
   }
 
   @override
   String toString() {
-    return 'MyTool(toolNameKo: $toolNameKo, toolType: $toolType, idx: $idx, subCategoryIdx: $subCategoryIdx, subCategoryList: $subCategoryList)';
+    return 'MyTool(toolNameKo: $toolNameKo, toolType: $toolType, currentSubcategoryType: $currentSubcategoryType, subCategoryMap: $subCategoryMap)';
   }
 
   @override
@@ -384,17 +339,19 @@ class _$MyToolImpl implements _MyTool {
                 other.toolNameKo == toolNameKo) &&
             (identical(other.toolType, toolType) ||
                 other.toolType == toolType) &&
-            (identical(other.idx, idx) || other.idx == idx) &&
-            (identical(other.subCategoryIdx, subCategoryIdx) ||
-                other.subCategoryIdx == subCategoryIdx) &&
+            (identical(other.currentSubcategoryType, currentSubcategoryType) ||
+                other.currentSubcategoryType == currentSubcategoryType) &&
             const DeepCollectionEquality()
-                .equals(other._subCategoryList, _subCategoryList));
+                .equals(other._subCategoryMap, _subCategoryMap));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, toolNameKo, toolType, idx,
-      subCategoryIdx, const DeepCollectionEquality().hash(_subCategoryList));
+  int get hashCode => Object.hash(
+      runtimeType,
+      toolNameKo,
+      toolType,
+      currentSubcategoryType,
+      const DeepCollectionEquality().hash(_subCategoryMap));
 
   /// Create a copy of MyTool
   /// with the given fields replaced by the non-null parameter values.
@@ -403,35 +360,23 @@ class _$MyToolImpl implements _MyTool {
   @pragma('vm:prefer-inline')
   _$$MyToolImplCopyWith<_$MyToolImpl> get copyWith =>
       __$$MyToolImplCopyWithImpl<_$MyToolImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$MyToolImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _MyTool implements MyTool {
   const factory _MyTool(
       {required final String toolNameKo,
       required final ToolType toolType,
-      required final int idx,
-      final int? subCategoryIdx,
-      final List<SubCategory>? subCategoryList}) = _$MyToolImpl;
-
-  factory _MyTool.fromJson(Map<String, dynamic> json) = _$MyToolImpl.fromJson;
+      final SubCategoryType? currentSubcategoryType,
+      final Map<SubCategoryType, SubCategory>? subCategoryMap}) = _$MyToolImpl;
 
   @override
   String get toolNameKo;
   @override
   ToolType get toolType;
   @override
-  int get idx;
+  SubCategoryType? get currentSubcategoryType;
   @override
-  int? get subCategoryIdx;
-  @override
-  List<SubCategory>? get subCategoryList;
+  Map<SubCategoryType, SubCategory>? get subCategoryMap;
 
   /// Create a copy of MyTool
   /// with the given fields replaced by the non-null parameter values.

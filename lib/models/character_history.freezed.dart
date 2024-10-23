@@ -14,18 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-History _$HistoryFromJson(Map<String, dynamic> json) {
-  return _History.fromJson(json);
-}
-
 /// @nodoc
 mixin _$History {
   List<Equipment> get equipments => throw _privateConstructorUsedError;
   int get maxHistoryLength => throw _privateConstructorUsedError;
   int get historyIndex => throw _privateConstructorUsedError;
-
-  /// Serializes this History to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of History
   /// with the given fields replaced by the non-null parameter values.
@@ -124,16 +117,13 @@ class __$$HistoryImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$HistoryImpl implements _History {
   const _$HistoryImpl(
       {required final List<Equipment> equipments,
       required this.maxHistoryLength,
       this.historyIndex = 0})
       : _equipments = equipments;
-
-  factory _$HistoryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$HistoryImplFromJson(json);
 
   final List<Equipment> _equipments;
   @override
@@ -167,7 +157,6 @@ class _$HistoryImpl implements _History {
                 other.historyIndex == historyIndex));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -182,13 +171,6 @@ class _$HistoryImpl implements _History {
   @pragma('vm:prefer-inline')
   _$$HistoryImplCopyWith<_$HistoryImpl> get copyWith =>
       __$$HistoryImplCopyWithImpl<_$HistoryImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$HistoryImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _History implements History {
@@ -196,8 +178,6 @@ abstract class _History implements History {
       {required final List<Equipment> equipments,
       required final int maxHistoryLength,
       final int historyIndex}) = _$HistoryImpl;
-
-  factory _History.fromJson(Map<String, dynamic> json) = _$HistoryImpl.fromJson;
 
   @override
   List<Equipment> get equipments;

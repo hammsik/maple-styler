@@ -6,6 +6,7 @@ import 'package:maple_closet/page/tools/layout_color.dart';
 import 'package:maple_closet/page/tools/layout_favorite.dart';
 import 'package:maple_closet/page/tools/my_item_menu.dart';
 import 'package:maple_closet/page/tools/my_selected_item.dart';
+import 'package:maple_closet/providers/item_provider.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 import 'package:maple_closet/widgets/layout_undifined.dart';
 import 'my_search_box.dart';
@@ -20,17 +21,8 @@ class CoordinatingTools extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Widget specialWidget;
-    final currentTool = ref.watch(toolSettingProvider);
-
-    switch (currentTool.toolType) {
-      case ToolType.color:
-        specialWidget = const ColorLayout();
-      case ToolType.unknown:
-        specialWidget = const UndefinedLayout();
-      default:
-        specialWidget = const FavoriteLayout();
-    }
+    final currentTool =
+        ref.watch(toolMapProvider)[ref.watch(toolTypeSettingProvider)]!;
 
     return DefaultTextStyle(
       style: GoogleFonts.nanumMyeongjo(
@@ -47,30 +39,72 @@ class CoordinatingTools extends ConsumerWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const MytoolButtons(),
+          MytoolButtons(
+            currentTool: currentTool,
+          ),
           const SizedBox(height: 8),
           Expanded(
-            child: currentTool.idx < 3
-                ? Column(
-                    children: [
-                      Row(
-                        children: [
-                          ItemMenu(
-                            currentTool: currentTool,
+            child: currentTool.toolType == ToolType.color
+                ? const ColorLayout()
+                : currentTool.toolType == ToolType.favorite
+                    ? const FavoriteLayout()
+                    : currentTool.toolType == ToolType.unknown
+                        ? const UndefinedLayout()
+                        : Column(
+                            children: [
+                              Row(
+                                children: [
+                                  ItemMenu(
+                                    currentTool: currentTool,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  SelectedItem(
+                                      currentSubCategory: currentTool
+                                              .subCategoryMap![
+                                          currentTool.currentSubcategoryType]!),
+                                ],
+                              ),
+                              const SizedBox(height: 8),
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: const BoxDecoration(
+                                      color: Color.fromARGB(255, 230, 222, 218),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child:
+                                          ref.watch(mapleItemListProvider).when(
+                                                data: (map) => ItemList(
+                                                    key: ValueKey(currentTool),
+                                                    itemList: map[currentTool
+                                                                .toolType]![
+                                                            currentTool
+                                                                .currentSubcategoryType] ??
+                                                        []),
+                                                error: (error, stackTrace) =>
+                                                    Center(
+                                                  child: Text(
+                                                      '에러가 발생했습니다. 에러코드: ${error.toString()}'),
+                                                ),
+                                                loading: () => const Center(
+                                                  child: SizedBox(
+                                                    width: 30,
+                                                    height: 30,
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  ),
+                                                ),
+                                              ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 8),
-                          const SelectedItem(),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Expanded(
-                        child: ItemList(
-                          currentTool: currentTool,
-                        ),
-                      ),
-                    ],
-                  )
-                : specialWidget,
           ),
         ],
       ),

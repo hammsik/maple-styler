@@ -5,10 +5,10 @@ import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 
 class MytoolButtons extends ConsumerWidget {
+  final MyTool currentTool;
+
   const MytoolButtons({
-    // required this.toolList,
-    // required this.buttonClicked,
-    // required this.clickButtonIdx,
+    required this.currentTool,
     super.key,
   });
 
@@ -21,16 +21,14 @@ class MytoolButtons extends ConsumerWidget {
   }
 
   List<Widget> _buildToolButtonsWithGap(WidgetRef ref) {
-    final currentTool = ref.watch(toolSettingProvider);
-
     List<Widget> buttons = [];
     toolMap.forEach((key, value) {
       buttons.add(
         Expanded(
           child: GestureDetector(
             onTap: () => ref
-                .read(toolSettingProvider.notifier)
-                .changeTool(toolType: key),
+                .read(toolTypeSettingProvider.notifier)
+                .changeCurrentTool(type: key),
             child: Container(
                 alignment: Alignment.center,
                 height: 35,
@@ -57,7 +55,7 @@ class MytoolButtons extends ConsumerWidget {
           ),
         ),
       );
-      if (value.idx < toolMap.length - 1) {
+      if (key != ToolType.favorite) {
         buttons.add(const SizedBox(width: 8)); // 간격 추가
       }
     });

@@ -4,20 +4,19 @@ import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/providers/character_provider.dart';
-import 'package:maple_closet/providers/setting_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class SelectedItem extends ConsumerWidget {
+  final SubCategory currentSubCategory;
+
   const SelectedItem({
+    required this.currentSubCategory,
     super.key,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userDB = UserFavoriteDataBase();
-    final currentTool = ref.watch(toolSettingProvider);
-    final currentSubCategory =
-        currentTool.subCategoryList![currentTool.subCategoryIdx!];
 
     ref.watch(characterProvider);
     Item? selectedItem = ref
