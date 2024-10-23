@@ -101,12 +101,15 @@ class ToolMap extends _$ToolMap {
   }
 
   void changeSubcategory(
-      {required ToolType toolType, required SubCategoryType subcategoryType}) {
+      {required ToolType toolType, required SubCategoryType subCategoryType}) {
     state = {
       ...state,
       toolType:
-          state[toolType]!.copyWith(currentSubcategoryType: subcategoryType)
+          state[toolType]!.copyWith(currentSubcategoryType: subCategoryType)
     };
+    ref
+        .read(toolTypeSettingProvider.notifier)
+        .changeCurrentTool(type: toolType);
   }
 }
 

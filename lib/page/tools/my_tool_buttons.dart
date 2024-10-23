@@ -22,7 +22,7 @@ class MytoolButtons extends ConsumerWidget {
 
   List<Widget> _buildToolButtonsWithGap(WidgetRef ref) {
     List<Widget> buttons = [];
-    toolMap.forEach((key, value) {
+    ref.read(toolMapProvider).forEach((key, value) {
       buttons.add(
         Expanded(
           child: GestureDetector(

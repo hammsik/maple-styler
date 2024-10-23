@@ -43,8 +43,6 @@ class Character extends _$Character with CharacterMethod {
   void updateEquipment({
     required Item item,
   }) {
-    print(state.equipments.length);
-    print(state.historyIndex);
     List<Equipment> renewedCharacterHistory = renewCharacterHistory();
 
     renewedCharacterHistory.add(
@@ -58,8 +56,6 @@ class Character extends _$Character with CharacterMethod {
     state = state.copyWith(
         equipments: renewedCharacterHistory,
         historyIndex: renewedCharacterHistory.length - 1);
-    print(state.equipments.length);
-    print(state.historyIndex);
   }
 
   void takeOffEquipment({
@@ -117,8 +113,6 @@ class Character extends _$Character with CharacterMethod {
   }
 
   List<Equipment> renewCharacterHistory() {
-    print(state.equipments.length);
-    print(state.historyIndex);
     // 만약 현재 historyIndex가 마지막 index가 아니라면, 현재 index 이후의 항목을 제거합니다.
     if (state.historyIndex < state.equipments.length - 1) {
       return state.equipments.sublist(0, state.historyIndex + 1);

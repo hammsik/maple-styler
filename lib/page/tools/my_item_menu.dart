@@ -71,7 +71,7 @@ class ItemMenu extends ConsumerWidget {
                     .read(toolMapProvider.notifier)
                     .changeSubcategory(
                         toolType: currentTool.toolType,
-                        subcategoryType: subCategory.type),
+                        subCategoryType: subCategory.type),
                 child: Text(
                   subCategory.nameKo,
                   style: GoogleFonts.nanumMyeongjo(

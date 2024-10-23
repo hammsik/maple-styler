@@ -5,6 +5,7 @@ import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 
 class SearchBox extends ConsumerStatefulWidget {
   const SearchBox({super.key});
@@ -178,6 +179,17 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                           ref
                               .read(characterProvider.notifier)
                               .updateEquipment(item: searchedItemList[index]);
+
+                          ref.read(toolMapProvider.notifier).changeSubcategory(
+                              toolType: ref
+                                  .read(toolMapProvider)
+                                  .values
+                                  .firstWhere((e) => (e.subCategoryMap ?? {})
+                                      .containsKey(searchedItemList[index]
+                                          .subCategoryType))
+                                  .toolType,
+                              subCategoryType:
+                                  searchedItemList[index].subCategoryType);
                           Navigator.pop(context, myController.text);
                         },
                         child: Row(

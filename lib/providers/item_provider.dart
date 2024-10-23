@@ -1,7 +1,7 @@
-import 'package:maple_closet/data/my_tools.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'item_provider.g.dart';
@@ -16,6 +16,7 @@ class MapleItemList extends _$MapleItemList {
 
   Future<Map<ToolType, Map<SubCategoryType, List<Item>>>> loadItemList(
       ItemDatabase itemDatabase) async {
+    final Map<ToolType, MyTool> toolMap = ref.read(toolMapProvider);
     final Map<SubCategoryType, List<Item>> characterItemMap = {};
     final Map<SubCategoryType, List<Item>> armorItemMap = {};
     final Map<SubCategoryType, List<Item>> accessoryItemMap = {};
