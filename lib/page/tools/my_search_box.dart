@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
 
 class SearchBox extends ConsumerStatefulWidget {
-  final Function buttonClicked;
-
-  const SearchBox({super.key, required this.buttonClicked});
+  const SearchBox({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SearchBoxState();
@@ -20,7 +19,6 @@ class _SearchBoxState extends ConsumerState<SearchBox> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => DetailScreen(
-          buttonClicked: widget.buttonClicked,
           searchedWord: searchedWord,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -85,11 +83,9 @@ class _SearchBoxState extends ConsumerState<SearchBox> {
 }
 
 class DetailScreen extends ConsumerStatefulWidget {
-  final Function buttonClicked;
   final String searchedWord;
 
-  const DetailScreen(
-      {super.key, required this.buttonClicked, required this.searchedWord});
+  const DetailScreen({super.key, required this.searchedWord});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _DetailScreenState();
@@ -181,7 +177,9 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                         ),
                         onPressed: () {
                           Navigator.pop(context, myController.text);
-                          widget.buttonClicked(searchedItemList[index], -2);
+                          ref
+                              .read(characterProvider.notifier)
+                              .updateEquipment(item: searchedItemList[index]);
                         },
                         child: Row(
                           children: [
@@ -230,7 +228,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, dynamic) {
         if (didPop) {
           return;
         }

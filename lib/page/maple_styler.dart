@@ -26,18 +26,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
 
   MyCharacter dodo = MyCharacter();
   MyCharacter dodo2 = MyCharacter();
-  Future? _characterImage;
-  Future? _characterImage2;
   Future? _characterImage3;
   String background = 'normal';
   DateTime? currentBackPressTime;
-
-  // 위젯 첫 생성 시에 이미지를 불러오기 위해 didChangeDependencies()에서 호출
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    getCharacterImageFromNetwork();
-  }
 
   // 안드로이드에서 뒤로가기 감지를 위한 함수
   void onWillPop(bool b, dynamic d) {
@@ -56,102 +47,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     }
     SystemNavigator.pop();
   }
-
-  void setBeauty(String target, int color1, int color2) {
-    setState(() {
-      if (target == 'hair') {
-        dodo.setHairColor(color1.toString());
-        dodo2.setHairColor(color2.toString());
-      } else {
-        dodo.setLensColor(color1.toString());
-        dodo2.setLensColor(color2.toString());
-      }
-      getCharacterImageFromNetwork();
-    });
-  }
-
-  // void setMyCharacter(Item selectedItem, int buttonIdx) {
-  //   // 이미 선택된 아이템이면 early return
-  //   final replacement = selectedItem.subCategoryType.toString().split(".")[1];
-  //   final convertedType =
-  //       replacement[0].toUpperCase() + replacement.substring(1);
-  //   if (dodo.itemMap[convertedType][0] == selectedItem.id.toString()) {
-  //     return;
-  //   }
-
-  //   setState(
-  //     () {
-  //       dodo.updateMyCharacter(
-  //           subCategory: convertedType,
-  //           itemId: selectedItem.id.toString(),
-  //           itemName: selectedItem.name);
-  //       dodo2.updateMyCharacter(
-  //           subCategory: convertedType,
-  //           itemId: selectedItem.id.toString(),
-  //           itemName: selectedItem.name);
-
-  //       if (buttonIdx == -2) {
-  //         bool found = false;
-  //         for (int toolIdx = 0; toolIdx < 3; toolIdx++) {
-  //           for (int subCategoryIdx = 0;
-  //               subCategoryIdx < myToolList[toolIdx].subCategoryList!.length;
-  //               subCategoryIdx++) {
-  //             if (myToolList[toolIdx].subCategoryList![subCategoryIdx].type ==
-  //                 convertedType) {
-  //               currentToolIdx = toolIdx;
-  //               currentMenuIdx = subCategoryIdx;
-  //               found = true;
-  //               break;
-  //             }
-  //           }
-  //           if (found) {
-  //             break;
-  //           }
-  //         }
-  //       }
-
-  //       currentListButtonIdx = buttonIdx;
-  //       getCharacterImageFromNetwork();
-  //     },
-  //   );
-  // }
-
-  // void takeOffItem(String subCategory) {
-  //   if (subCategory == 'Hair' ||
-  //       subCategory == 'Face' ||
-  //       subCategory == 'Head') {
-  //     return;
-  //   }
-
-  //   setState(() {
-  //     dodo.takeOffItem(subCategory: subCategory);
-  //     dodo2.takeOffItem(subCategory: subCategory);
-  //     currentListButtonIdx = -1;
-  //     getCharacterImageFromNetwork();
-  //   });
-  // }
-
-  // void undoImage() {
-  //   if (dodo.itemQueueIdx > 0) {
-  //     setState(() {
-  //       dodo.undo();
-  //       dodo2.undo();
-  //       currentListButtonIdx = -1;
-  //       getCharacterImageFromNetwork();
-  //     });
-  //   }
-  // }
-
-  // void redoImage() {
-  //   if (dodo.itemQueue.length > dodo.itemQueueIdx + 1) {
-  //     setState(() {
-  //       dodo.redo();
-  //       dodo2.redo();
-  //       currentListButtonIdx = -1;
-  //       getCharacterImageFromNetwork();
-  //     });
-  //   }
-  // }
 
   void switchBackground(String background) {
     setState(() {
@@ -182,19 +77,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     );
   }
 
-  // TODO: 이 부분 listen 콜백걸기
-  void getCharacterImageFromNetwork() {
-    _characterImage = Future.wait([
-      precacheImage(
-          NetworkImage(dodo.getMyCharacter(imageFrame: '0')), context),
-      precacheImage(
-          NetworkImage(dodo2.getMyCharacter(imageFrame: '0')), context),
-    ]);
-  }
-
   @override
   Widget build(BuildContext context) {
-    print('build');
+    print('main page has been build');
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
@@ -218,12 +103,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     }
 
     ref.watch(characterProvider);
-    // final urls =
-    //     ref.read(characterProvider.notifier).getCurrentCharacterImageUrl();
-    // _characterImage2 = Future.wait(urls.map(
-    //   (e) => precacheImage(NetworkImage(e), context),
-    // ));
-
     _characterImage3 =
         ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
 
@@ -261,36 +140,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     ),
                   ],
                 ),
-                FutureBuilder(
-                  future: _characterImage,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return SizedBox(
-                        height: 430,
-                        child: Hero(
-                          tag: 'character',
-                          child: Stack(
-                            fit: StackFit.expand,
-                            children: [
-                              Image.network(
-                                  dodo.getMyCharacter(imageFrame: '0')),
-                              Opacity(
-                                opacity: 0.5,
-                                child: Image.network(
-                                    dodo2.getMyCharacter(imageFrame: '0')),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        margin: const EdgeInsets.only(top: 198),
-                        child: Image.asset('assets/drummingBunny.gif'),
-                      ); // 로딩 중일 때 표시할 위젯
-                    }
-                  },
-                ),
                 Column(
                   children: [
                     const SizedBox(height: 20),
@@ -301,7 +150,7 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     BackgroundButtons(switchBackground: switchBackground),
                     const SizedBox(height: 30),
                     FutureBuilder(
-                      future: _characterImage,
+                      future: _characterImage3,
                       builder: (context, snapshot) {
                         return Material(
                           type: MaterialType.transparency,
@@ -323,48 +172,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                       },
                     ),
                     const SizedBox(height: 50),
-                    Expanded(
-                        child: CoordinatingTools(
-                      listButtonClicked: () {},
-                      // clickedButtonIdx: currentListButtonIdx,
-                      // currentCharacter: dodo,
-                      // currentCharacter2: dodo2,
-                      // clickedClose: takeOffItem,
-                      // undoImage: undoImage,
-                      // redoImage: redoImage,
-                      // colorApplyButtonClicked: setBeauty,
-                      // currentToolIdx: currentToolIdx,
-                      // currentMenuIdx: currentMenuIdx,
-                      // toolButtonClick: setCurrentToolIdx,
-                      // menuButtonClick: setCurrentMenuIdx,
-                    )),
+                    const Expanded(child: CoordinatingTools()),
                   ],
                 ),
-                // FutureBuilder(
-                //   future: _characterImage2,
-                //   builder: (context, snapshot) {
-                //     if (snapshot.connectionState == ConnectionState.done) {
-                //       return SizedBox(
-                //         height: 230,
-                //         child: Stack(
-                //           fit: StackFit.expand,
-                //           children: [
-                //             Image.network(urls[0]),
-                //             Opacity(
-                //               opacity: 0.5,
-                //               child: Image.network(urls[1]),
-                //             ),
-                //           ],
-                //         ),
-                //       );
-                //     } else {
-                //       return Container(
-                //         margin: const EdgeInsets.only(top: 98),
-                //         child: Image.asset('assets/drummingBunny.gif'),
-                //       ); // 로딩 중일 때 표시할 위젯
-                //     }
-                //   },
-                // ),
                 FutureBuilder(
                   future: _characterImage3,
                   builder: (context, snapshot) {

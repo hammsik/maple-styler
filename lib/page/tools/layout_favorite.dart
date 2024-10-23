@@ -4,9 +4,7 @@ import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/page/tools/layout_favorite_detail.dart';
 
 class FavoriteLayout extends StatefulWidget {
-  final Function itemApply;
-
-  const FavoriteLayout({super.key, required this.itemApply});
+  const FavoriteLayout({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -39,7 +37,6 @@ class _FavoriteLayout extends State<FavoriteLayout> {
             FavoriteDetailScreen(
           favoriteItem: selectedItem,
           listIndex: listIndex,
-          itemApply: widget.itemApply,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           // 페이드 인 애니메이션을 적용

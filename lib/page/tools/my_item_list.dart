@@ -9,18 +9,10 @@ import 'package:maple_closet/widgets/custom_scrollbar_wrapper.dart';
 
 class ItemList extends HookConsumerWidget {
   final MyTool currentTool;
-  // final Function buttonClicked;
-  // final int currentClickedItemIdx;
-  // final int currentToolIndex;
-  // final int currentMenuIndex;
 
   const ItemList({
     super.key,
     required this.currentTool,
-    // required this.buttonClicked,
-    // required this.currentClickedItemIdx,
-    // required this.currentToolIndex,
-    // required this.currentMenuIndex,
   });
 
   @override
@@ -81,7 +73,6 @@ class ItemList extends HookConsumerWidget {
                                     : const Color.fromARGB(255, 201, 191, 191),
                               ),
                               onPressed: () {
-                                // buttonClicked(itemList[index], index);
                                 ref
                                     .read(characterProvider.notifier)
                                     .updateEquipment(item: itemList[index]);

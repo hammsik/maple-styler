@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/page/tools/layout_color.dart';
 import 'package:maple_closet/page/tools/layout_favorite.dart';
 import 'package:maple_closet/page/tools/my_item_menu.dart';
@@ -13,33 +14,8 @@ import 'my_undo_and_redo.dart';
 import 'my_item_list.dart';
 
 class CoordinatingTools extends ConsumerWidget {
-  final Function listButtonClicked;
-  // final Function colorApplyButtonClicked;
-  // final int clickedButtonIdx;
-  // final Function clickedClose;
-  // final Function() undoImage;
-  // final Function() redoImage;
-  // final MyCharacter currentCharacter;
-  // final MyCharacter currentCharacter2;
-  // final int currentToolIdx;
-  // final int currentMenuIdx;
-  // final Function toolButtonClick;
-  // final Function menuButtonClick;
-
   const CoordinatingTools({
     super.key,
-    required this.listButtonClicked,
-    // required this.colorApplyButtonClicked,
-    // required this.clickedButtonIdx,
-    // required this.clickedClose,
-    // required this.undoImage,
-    // required this.redoImage,
-    // required this.currentCharacter,
-    // required this.currentCharacter2,
-    // required this.currentToolIdx,
-    // required this.currentMenuIdx,
-    // required this.toolButtonClick,
-    // required this.menuButtonClick,
   });
 
   @override
@@ -47,15 +23,13 @@ class CoordinatingTools extends ConsumerWidget {
     Widget specialWidget;
     final currentTool = ref.watch(toolSettingProvider);
 
-    switch (currentTool.idx) {
-      case 3:
+    switch (currentTool.toolType) {
+      case ToolType.color:
         specialWidget = const ColorLayout();
-      case 4:
+      case ToolType.unknown:
         specialWidget = const UndefinedLayout();
       default:
-        specialWidget = FavoriteLayout(
-          itemApply: listButtonClicked,
-        );
+        specialWidget = const FavoriteLayout();
     }
 
     return DefaultTextStyle(
@@ -65,16 +39,11 @@ class CoordinatingTools extends ConsumerWidget {
           fontWeight: FontWeight.w700),
       child: Column(
         children: [
-          Row(
+          const Row(
             children: [
-              SearchBox(
-                buttonClicked: listButtonClicked,
-              ),
-              const SizedBox(width: 8),
-              const UndoAndRedo(
-                  // undoImage: undoImage,
-                  // redoImage: redoImage,
-                  )
+              SearchBox(),
+              SizedBox(width: 8),
+              UndoAndRedo(),
             ],
           ),
           const SizedBox(height: 8),
@@ -95,12 +64,10 @@ class CoordinatingTools extends ConsumerWidget {
                       ),
                       const SizedBox(height: 8),
                       Expanded(
-                          child: ItemList(currentTool: currentTool
-                              // buttonClicked: listButtonClicked,
-                              // currentClickedItemIdx: clickedButtonIdx,
-                              // currentToolIndex: currentToolIdx,
-                              // currentMenuIndex: currentMenuIdx,
-                              )),
+                        child: ItemList(
+                          currentTool: currentTool,
+                        ),
+                      ),
                     ],
                   )
                 : specialWidget,

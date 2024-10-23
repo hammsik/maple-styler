@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class FavoriteDetailScreen extends HookConsumerWidget {
   final UserFavoriteItem favoriteItem;
   final int listIndex;
-  final Function itemApply;
 
-  const FavoriteDetailScreen(
-      {super.key,
-      required this.favoriteItem,
-      required this.listIndex,
-      required this.itemApply});
+  const FavoriteDetailScreen({
+    super.key,
+    required this.favoriteItem,
+    required this.listIndex,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -94,7 +95,13 @@ class FavoriteDetailScreen extends HookConsumerWidget {
                     Expanded(
                       child: ElevatedButton(
                           onPressed: () {
-                            itemApply(favoriteItem, -1);
+                            ref
+                                .read(characterProvider.notifier)
+                                .updateEquipment(
+                                  item: ItemConverter.itemFromDatabase(
+                                    favoriteItem,
+                                  ),
+                                );
                             Navigator.pop(context);
                           },
                           style: ElevatedButton.styleFrom(

@@ -19,8 +19,9 @@ class SelectedItem extends ConsumerWidget {
     final currentSubCategory =
         currentTool.subCategoryList![currentTool.subCategoryIdx!];
 
+    ref.watch(characterProvider);
     Item? selectedItem = ref
-        .watch(characterProvider.notifier)
+        .read(characterProvider.notifier)
         .getCurrentItemBySubCategory(type: currentSubCategory.type);
 
     return Expanded(
@@ -119,7 +120,6 @@ class SelectedItem extends ConsumerWidget {
                         size: 20,
                       ),
                     ),
-                  // child: const ,
                   const SizedBox(
                     width: 8,
                   ),
