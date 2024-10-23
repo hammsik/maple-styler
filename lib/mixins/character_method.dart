@@ -3,7 +3,7 @@ import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
 
 mixin CharacterMethod {
-  Equipment copyWithSubCategoryType({
+  Equipment generateNewEquipment({
     required Equipment equipment,
     required SubCategoryType subCategoryType,
     Item? item,
@@ -16,7 +16,7 @@ mixin CharacterMethod {
         return equipment.copyWith(face: item);
       case SubCategoryType.head:
         // head를 벗기는 경우는 없음
-        return equipment.copyWith(head: item!);
+        return equipment.copyWith(head: item ?? equipment.head);
       // 장비
       case SubCategoryType.hat:
         return equipment.copyWith(hat: item);

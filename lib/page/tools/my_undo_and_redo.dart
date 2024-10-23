@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:maple_closet/providers/character_history_provider.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 
 class UndoAndRedo extends ConsumerWidget {
   const UndoAndRedo({
@@ -16,7 +16,7 @@ class UndoAndRedo extends ConsumerWidget {
         FilledButton(
           onPressed: () {
             // undoImage();
-            ref.read(characterHistoryProvider.notifier).undo();
+            ref.read(characterProvider.notifier).undo();
           },
           style: FilledButton.styleFrom(
               minimumSize: Size.zero,
@@ -37,7 +37,7 @@ class UndoAndRedo extends ConsumerWidget {
         FilledButton(
           onPressed: () {
             // redoImage();
-            ref.read(characterHistoryProvider.notifier).redo();
+            ref.read(characterProvider.notifier).redo();
           },
           style: FilledButton.styleFrom(
             minimumSize: Size.zero,

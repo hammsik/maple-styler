@@ -8,7 +8,7 @@ part of 'character_history.dart';
 
 _$HistoryImpl _$$HistoryImplFromJson(Map<String, dynamic> json) =>
     _$HistoryImpl(
-      equipmentsList: (json['equipmentsList'] as List<dynamic>)
+      equipments: (json['equipments'] as List<dynamic>)
           .map((e) => Equipment.fromJson(e as Map<String, dynamic>))
           .toList(),
       maxHistoryLength: (json['maxHistoryLength'] as num).toInt(),
@@ -17,7 +17,7 @@ _$HistoryImpl _$$HistoryImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$HistoryImplToJson(_$HistoryImpl instance) =>
     <String, dynamic>{
-      'equipmentsList': instance.equipmentsList,
+      'equipments': instance.equipments,
       'maxHistoryLength': instance.maxHistoryLength,
       'historyIndex': instance.historyIndex,
     };

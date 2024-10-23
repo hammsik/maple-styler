@@ -8,7 +8,7 @@ part 'character_history.g.dart';
 @freezed
 class History with _$History {
   const factory History({
-    required List<Equipment> equipmentsList,
+    required List<Equipment> equipments,
     required int maxHistoryLength,
     @Default(0) int historyIndex,
   }) = _History;

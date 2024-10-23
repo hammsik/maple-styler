@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/page/tools/layout_color.dart';
 import 'package:maple_closet/page/tools/layout_favorite.dart';
 import 'package:maple_closet/page/tools/my_item_menu.dart';
+import 'package:maple_closet/page/tools/my_selected_item.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 import 'package:maple_closet/widgets/layout_undifined.dart';
 import 'my_search_box.dart';
@@ -88,12 +89,8 @@ class CoordinatingTools extends ConsumerWidget {
                           ItemMenu(
                             currentTool: currentTool,
                           ),
-                          // const SizedBox(width: 8),
-                          // SelectedItem(
-                          //     currentCharacter: currentCharacter,
-                          //     clickCloseButton: clickedClose,
-                          //     subCategory: myToolList[currentToolIdx]
-                          //         .subCategoryList![currentMenuIdx]),
+                          const SizedBox(width: 8),
+                          const SelectedItem(),
                         ],
                       ),
                       const SizedBox(height: 8),

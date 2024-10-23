@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/models/tool.dart';
-import 'package:maple_closet/providers/character_equipment_provider.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
 import 'package:maple_closet/widgets/custom_scrollbar_wrapper.dart';
 
@@ -83,7 +83,7 @@ class ItemList extends HookConsumerWidget {
                               onPressed: () {
                                 // buttonClicked(itemList[index], index);
                                 ref
-                                    .read(characterEquipmentProvider.notifier)
+                                    .read(characterProvider.notifier)
                                     .updateEquipment(item: itemList[index]);
                               },
                               child: Row(

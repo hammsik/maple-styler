@@ -10,7 +10,7 @@ import 'package:maple_closet/page/character/layout_character_board.dart';
 import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_character.dart';
-import 'package:maple_closet/providers/character_history_provider.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import '../data/backgrounds.dart';
 
 class MapleStylerHome extends StatefulHookConsumerWidget {
@@ -40,9 +40,8 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   }
 
   // 안드로이드에서 뒤로가기 감지를 위한 함수
-  void onWillPop(bool b) {
+  void onWillPop(bool b, dynamic d) {
     DateTime currentTime = DateTime.now();
-
     if (currentBackPressTime == null ||
         currentTime.difference(currentBackPressTime!) >
             const Duration(seconds: 2)) {
@@ -218,21 +217,19 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       );
     }
 
-    ref.watch(characterHistoryProvider);
-    final urls = ref
-        .read(characterHistoryProvider.notifier)
-        .getCurrentCharacterImageUrl();
+    ref.watch(characterProvider);
+    // final urls =
+    //     ref.read(characterProvider.notifier).getCurrentCharacterImageUrl();
     // _characterImage2 = Future.wait(urls.map(
     //   (e) => precacheImage(NetworkImage(e), context),
     // ));
 
-    _characterImage3 = ref
-        .read(characterHistoryProvider.notifier)
-        .getCurrentCharacterImageByUint();
+    _characterImage3 =
+        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
 
     return PopScope(
       canPop: false,
-      onPopInvoked: onWillPop,
+      onPopInvokedWithResult: onWillPop,
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: const Color(0xff2B3A55),
