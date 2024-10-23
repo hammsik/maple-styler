@@ -15,7 +15,7 @@ enum ImageType {
 class ImageSetting extends _$ImageSetting {
   @override
   ImageType build() {
-    return ImageType.stand;
+    return ImageType.walkGif;
   }
 
   void changeImageType(ImageType type) {

@@ -94,6 +94,6 @@ extension UrlMaker on Equipment {
           .replaceRange(2, 3, lensColorPalette[lensColor2]![1].toString()));
     }
 
-    return [url + beauty1, url + beauty2];
+    return [beauty1 + url, beauty2 + url];
   }
 }
