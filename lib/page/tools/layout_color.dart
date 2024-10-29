@@ -12,12 +12,20 @@ class ColorLayout extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentCharacter = ref.watch(characterProvider).equipments.last;
+    ref.watch(characterProvider);
+    final currentCharacter = ref.read(characterProvider.notifier).getCurrentCharacter();
 
     final hairColor1 = useState(currentCharacter.hairColor1);
     final hairColor2 = useState(currentCharacter.hairColor2);
     final lensColor1 = useState(currentCharacter.lensColor1);
     final lensColor2 = useState(currentCharacter.lensColor2);
+
+    useEffect(() {
+      hairColor1.value = currentCharacter.hairColor1;
+      hairColor2.value = currentCharacter.hairColor2;
+      lensColor1.value = currentCharacter.lensColor1;
+      lensColor2.value = currentCharacter.lensColor2;
+    }, [currentCharacter]);
 
     return Container(
       decoration: BoxDecoration(
