@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/backgrounds.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 
-class MapButton extends StatelessWidget {
-  final String backgroundName;
-  final Function() clickEvent;
+class MapButton extends ConsumerWidget {
+  final BackgroundType backgroundType;
 
   const MapButton({
     super.key,
-    required this.backgroundName,
-    required this.clickEvent,
+    required this.backgroundType,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     Widget mapIcon;
 
-    if (backgroundName == 'normal') {
+    if (backgroundType == BackgroundType.basic) {
       mapIcon = Container(
         decoration: const BoxDecoration(
           color: Color.fromARGB(255, 230, 222, 218),
@@ -24,12 +24,14 @@ class MapButton extends StatelessWidget {
     } else {
       mapIcon = Image.asset(
         fit: BoxFit.cover,
-        backgroundsList[backgroundName]![0],
+        backgroundMap[backgroundType]![0],
       );
     }
 
     return GestureDetector(
-      onTap: clickEvent,
+      onTap: () => ref
+          .read(backgroundSettingProvider.notifier)
+          .changeBackground(type: backgroundType),
       child: Container(
         width: 55,
         height: 32,

@@ -90,18 +90,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
     ]);
 
-    Widget characterBox;
-    if (background == 'normal') {
-      characterBox = Container(
-        color: const Color.fromARGB(255, 230, 222, 218),
-      );
-    } else {
-      characterBox = Image.asset(
-        fit: BoxFit.fitHeight,
-        backgroundsList[background]![1],
-      );
-    }
-
     ref.watch(characterProvider);
     _characterImage3 =
         ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
@@ -123,12 +111,16 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
               children: [
                 Column(
                   children: [
-                    const SizedBox(height: 110),
-                    CharacterBoard(
-                      characterBox: characterBox,
+                    const SizedBox(height: 20),
+                    MyCustomAppBar(
+                        clickEvent: () =>
+                            _scaffoldKey.currentState!.openEndDrawer()),
+                    const SizedBox(height: 20),
+                    BackgroundButtons(switchBackground: switchBackground),
+                    const SizedBox(height: 10),
+                    const CharacterBoard(
                       height: 190,
                     ),
-                    const SizedBox(height: 14),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(1),
@@ -136,69 +128,37 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                       ),
                       height: 2,
                       width: double.infinity,
-                      margin: const EdgeInsets.symmetric(horizontal: 7),
+                      margin: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
                     ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    MyCustomAppBar(
-                        clickEvent: () =>
-                            _scaffoldKey.currentState!.openEndDrawer()),
-                    const SizedBox(height: 20),
-                    BackgroundButtons(switchBackground: switchBackground),
-                    const SizedBox(height: 30),
-                    FutureBuilder(
-                      future: _characterImage3,
-                      builder: (context, snapshot) {
-                        return Material(
-                          type: MaterialType.transparency,
-                          child: InkResponse(
-                            onTap: snapshot.connectionState ==
-                                    ConnectionState.done
-                                ? () {
-                                    openCharacterDetail(context, dodo, dodo2);
-                                  }
-                                : null,
-                            splashFactory: InkSplash.splashFactory,
-                            child: Container(
-                              clipBehavior: Clip.none,
-                              width: 150,
-                              height: 150,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 50),
                     const Expanded(child: CoordinatingTools()),
                   ],
                 ),
-                FutureBuilder(
-                  future: _characterImage3,
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return SizedBox(
-                        height: 100,
-                        child: Stack(
-                          fit: StackFit.expand,
-                          children: [
-                            Image.memory(snapshot.data[0]),
-                            Opacity(
-                              opacity: 0.5,
-                              child: Image.memory(snapshot.data[1]),
-                            ),
-                          ],
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        margin: const EdgeInsets.only(top: 28),
-                        child: Image.asset('assets/drummingBunny.gif'),
-                      ); // 로딩 중일 때 표시할 위젯
-                    }
-                  },
+                IgnorePointer(
+                  child: FutureBuilder(
+                    future: _characterImage3,
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return SizedBox(
+                          height: 430,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              Image.memory(snapshot.data[0]),
+                              Opacity(
+                                opacity: 0.5,
+                                child: Image.memory(snapshot.data[1]),
+                              ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          margin: const EdgeInsets.only(top: 198),
+                          child: Image.asset('assets/drummingBunny.gif'),
+                        ); // 로딩 중일 때 표시할 위젯
+                      }
+                    },
+                  ),
                 ),
               ],
             ),

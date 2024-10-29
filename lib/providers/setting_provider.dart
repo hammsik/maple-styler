@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:maple_closet/data/my_tools.dart';
 import 'package:maple_closet/models/tool.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,6 +9,14 @@ enum ImageType {
   walkGif,
 }
 
+enum BackgroundType {
+  basic,
+  henesis,
+  kerningcity,
+  arcana,
+  sernium,
+}
+
 @Riverpod(keepAlive: true)
 class ImageSetting extends _$ImageSetting {
   @override
@@ -19,6 +25,31 @@ class ImageSetting extends _$ImageSetting {
   }
 
   void changeImageType(ImageType type) {
+    state = type;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class BackgroundSetting extends _$BackgroundSetting {
+  @override
+  BackgroundType build() {
+    return BackgroundType.basic;
+  }
+
+  void changeBackground({required BackgroundType type}) {
+    print('what');
+    state = type;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class ToolTypeSetting extends _$ToolTypeSetting {
+  @override
+  ToolType build() {
+    return ToolType.beauty;
+  }
+
+  void changeCurrentTool({required ToolType type}) {
     state = type;
   }
 }
@@ -110,17 +141,5 @@ class ToolMap extends _$ToolMap {
     ref
         .read(toolTypeSettingProvider.notifier)
         .changeCurrentTool(type: toolType);
-  }
-}
-
-@Riverpod(keepAlive: true)
-class ToolTypeSetting extends _$ToolTypeSetting {
-  @override
-  ToolType build() {
-    return ToolType.beauty;
-  }
-
-  void changeCurrentTool({required ToolType type}) {
-    state = type;
   }
 }

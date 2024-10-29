@@ -20,22 +20,23 @@ final imageSettingProvider = NotifierProvider<ImageSetting, ImageType>.internal(
 );
 
 typedef _$ImageSetting = Notifier<ImageType>;
-String _$toolMapHash() => r'ecd0e22b690c5b85750aacd3f3932e02c6e6a010';
+String _$backgroundSettingHash() => r'0f0c2fdde612a5536b2cba42b813a6b591b5a868';
 
-/// See also [ToolMap].
-@ProviderFor(ToolMap)
-final toolMapProvider =
-    NotifierProvider<ToolMap, Map<ToolType, MyTool>>.internal(
-  ToolMap.new,
-  name: r'toolMapProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$toolMapHash,
+/// See also [BackgroundSetting].
+@ProviderFor(BackgroundSetting)
+final backgroundSettingProvider =
+    NotifierProvider<BackgroundSetting, BackgroundType>.internal(
+  BackgroundSetting.new,
+  name: r'backgroundSettingProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$backgroundSettingHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ToolMap = Notifier<Map<ToolType, MyTool>>;
-String _$toolTypeSettingHash() => r'894a249f97e4560e5de4d4874d4af873bfa4e816';
+typedef _$BackgroundSetting = Notifier<BackgroundType>;
+String _$toolTypeSettingHash() => r'c12a667b046e624d84561be69cec6c849dda5af7';
 
 /// See also [ToolTypeSetting].
 @ProviderFor(ToolTypeSetting)
@@ -51,5 +52,20 @@ final toolTypeSettingProvider =
 );
 
 typedef _$ToolTypeSetting = Notifier<ToolType>;
+String _$toolMapHash() => r'aeeadced04ae828e09791e4b599f632d5ed69e08';
+
+/// See also [ToolMap].
+@ProviderFor(ToolMap)
+final toolMapProvider =
+    NotifierProvider<ToolMap, Map<ToolType, MyTool>>.internal(
+  ToolMap.new,
+  name: r'toolMapProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$toolMapHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$ToolMap = Notifier<Map<ToolType, MyTool>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
