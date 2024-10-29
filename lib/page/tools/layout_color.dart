@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/color_palette.dart';
-import 'package:maple_closet/providers/character_equipment_provider.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 
 class ColorLayout extends HookConsumerWidget {
   const ColorLayout({
@@ -12,14 +12,20 @@ class ColorLayout extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hairColor1 =
-        useState(ref.read(characterEquipmentProvider).hairColor1);
-    final hairColor2 =
-        useState(ref.read(characterEquipmentProvider).hairColor2);
-    final lensColor1 =
-        useState(ref.read(characterEquipmentProvider).lensColor1);
-    final lensColor2 =
-        useState(ref.read(characterEquipmentProvider).lensColor2);
+    ref.watch(characterProvider);
+    final currentCharacter = ref.read(characterProvider.notifier).getCurrentCharacter();
+
+    final hairColor1 = useState(currentCharacter.hairColor1);
+    final hairColor2 = useState(currentCharacter.hairColor2);
+    final lensColor1 = useState(currentCharacter.lensColor1);
+    final lensColor2 = useState(currentCharacter.lensColor2);
+
+    useEffect(() {
+      hairColor1.value = currentCharacter.hairColor1;
+      hairColor2.value = currentCharacter.hairColor2;
+      lensColor1.value = currentCharacter.lensColor1;
+      lensColor2.value = currentCharacter.lensColor2;
+    }, [currentCharacter]);
 
     return Container(
       decoration: BoxDecoration(
@@ -43,12 +49,11 @@ class ColorLayout extends HookConsumerWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                    onPressed: () => ref
-                        .read(characterEquipmentProvider.notifier)
-                        .updateHairColor(
-                          hairColor1: hairColor1.value,
-                          hairColor2: hairColor2.value,
-                        ),
+                    onPressed: () =>
+                        ref.read(characterProvider.notifier).updateHairColor(
+                              hairColor1: hairColor1.value,
+                              hairColor2: hairColor2.value,
+                            ),
                     child: Text(
                       '적용',
                       style: GoogleFonts.nanumMyeongjo(
@@ -127,12 +132,11 @@ class ColorLayout extends HookConsumerWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                     ),
-                    onPressed: () => ref
-                        .read(characterEquipmentProvider.notifier)
-                        .updateLensColor(
-                          lensColor1: lensColor1.value,
-                          lensColor2: lensColor2.value,
-                        ),
+                    onPressed: () =>
+                        ref.read(characterProvider.notifier).updateLensColor(
+                              lensColor1: lensColor1.value,
+                              lensColor2: lensColor2.value,
+                            ),
                     child: Text(
                       '적용',
                       style: GoogleFonts.nanumMyeongjo(

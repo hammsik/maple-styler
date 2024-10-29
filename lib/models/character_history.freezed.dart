@@ -14,18 +14,11 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-History _$HistoryFromJson(Map<String, dynamic> json) {
-  return _History.fromJson(json);
-}
-
 /// @nodoc
 mixin _$History {
-  List<Equipment> get equipmentsList => throw _privateConstructorUsedError;
+  List<Equipment> get equipments => throw _privateConstructorUsedError;
   int get maxHistoryLength => throw _privateConstructorUsedError;
   int get historyIndex => throw _privateConstructorUsedError;
-
-  /// Serializes this History to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of History
   /// with the given fields replaced by the non-null parameter values.
@@ -39,7 +32,7 @@ abstract class $HistoryCopyWith<$Res> {
       _$HistoryCopyWithImpl<$Res, History>;
   @useResult
   $Res call(
-      {List<Equipment> equipmentsList, int maxHistoryLength, int historyIndex});
+      {List<Equipment> equipments, int maxHistoryLength, int historyIndex});
 }
 
 /// @nodoc
@@ -57,14 +50,14 @@ class _$HistoryCopyWithImpl<$Res, $Val extends History>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? equipmentsList = null,
+    Object? equipments = null,
     Object? maxHistoryLength = null,
     Object? historyIndex = null,
   }) {
     return _then(_value.copyWith(
-      equipmentsList: null == equipmentsList
-          ? _value.equipmentsList
-          : equipmentsList // ignore: cast_nullable_to_non_nullable
+      equipments: null == equipments
+          ? _value.equipments
+          : equipments // ignore: cast_nullable_to_non_nullable
               as List<Equipment>,
       maxHistoryLength: null == maxHistoryLength
           ? _value.maxHistoryLength
@@ -86,7 +79,7 @@ abstract class _$$HistoryImplCopyWith<$Res> implements $HistoryCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {List<Equipment> equipmentsList, int maxHistoryLength, int historyIndex});
+      {List<Equipment> equipments, int maxHistoryLength, int historyIndex});
 }
 
 /// @nodoc
@@ -102,14 +95,14 @@ class __$$HistoryImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? equipmentsList = null,
+    Object? equipments = null,
     Object? maxHistoryLength = null,
     Object? historyIndex = null,
   }) {
     return _then(_$HistoryImpl(
-      equipmentsList: null == equipmentsList
-          ? _value._equipmentsList
-          : equipmentsList // ignore: cast_nullable_to_non_nullable
+      equipments: null == equipments
+          ? _value._equipments
+          : equipments // ignore: cast_nullable_to_non_nullable
               as List<Equipment>,
       maxHistoryLength: null == maxHistoryLength
           ? _value.maxHistoryLength
@@ -124,23 +117,20 @@ class __$$HistoryImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$HistoryImpl implements _History {
   const _$HistoryImpl(
-      {required final List<Equipment> equipmentsList,
+      {required final List<Equipment> equipments,
       required this.maxHistoryLength,
       this.historyIndex = 0})
-      : _equipmentsList = equipmentsList;
+      : _equipments = equipments;
 
-  factory _$HistoryImpl.fromJson(Map<String, dynamic> json) =>
-      _$$HistoryImplFromJson(json);
-
-  final List<Equipment> _equipmentsList;
+  final List<Equipment> _equipments;
   @override
-  List<Equipment> get equipmentsList {
-    if (_equipmentsList is EqualUnmodifiableListView) return _equipmentsList;
+  List<Equipment> get equipments {
+    if (_equipments is EqualUnmodifiableListView) return _equipments;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_equipmentsList);
+    return EqualUnmodifiableListView(_equipments);
   }
 
   @override
@@ -151,7 +141,7 @@ class _$HistoryImpl implements _History {
 
   @override
   String toString() {
-    return 'History(equipmentsList: $equipmentsList, maxHistoryLength: $maxHistoryLength, historyIndex: $historyIndex)';
+    return 'History(equipments: $equipments, maxHistoryLength: $maxHistoryLength, historyIndex: $historyIndex)';
   }
 
   @override
@@ -160,18 +150,17 @@ class _$HistoryImpl implements _History {
         (other.runtimeType == runtimeType &&
             other is _$HistoryImpl &&
             const DeepCollectionEquality()
-                .equals(other._equipmentsList, _equipmentsList) &&
+                .equals(other._equipments, _equipments) &&
             (identical(other.maxHistoryLength, maxHistoryLength) ||
                 other.maxHistoryLength == maxHistoryLength) &&
             (identical(other.historyIndex, historyIndex) ||
                 other.historyIndex == historyIndex));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(_equipmentsList),
+      const DeepCollectionEquality().hash(_equipments),
       maxHistoryLength,
       historyIndex);
 
@@ -182,25 +171,16 @@ class _$HistoryImpl implements _History {
   @pragma('vm:prefer-inline')
   _$$HistoryImplCopyWith<_$HistoryImpl> get copyWith =>
       __$$HistoryImplCopyWithImpl<_$HistoryImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$HistoryImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _History implements History {
   const factory _History(
-      {required final List<Equipment> equipmentsList,
+      {required final List<Equipment> equipments,
       required final int maxHistoryLength,
       final int historyIndex}) = _$HistoryImpl;
 
-  factory _History.fromJson(Map<String, dynamic> json) = _$HistoryImpl.fromJson;
-
   @override
-  List<Equipment> get equipmentsList;
+  List<Equipment> get equipments;
   @override
   int get maxHistoryLength;
   @override

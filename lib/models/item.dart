@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:maple_closet/database/database.dart';
-import 'package:maple_closet/models/skeleton_tools.dart';
+import 'package:maple_closet/models/tool.dart';
 
 part 'item.freezed.dart';
 part 'item.g.dart';
@@ -32,12 +31,12 @@ class Prism with _$Prism {
 extension ItemConverter on Item {
   // 데이터베이스 모델을 UI 모델로 변환
   static Item itemFromDatabase(dynamic item) {
-    // print('item: $item');
-    // print(SubCategoryType.values[0].toString());
     SubCategoryType subCategoryType = SubCategoryType.values.firstWhere(
       // SubCategoryType의 경우: eyeDecoration -> eyedecoration
-      // db item의 경우: Eye Decoration -> eyeDecoration
-      (enumType) => enumType.toString().split(".")[1].toLowerCase() == item.subCategory.replaceAll(' ', '').toLowerCase(),
+      // db item의 경우: Eye Decoration -> eyedecoration
+      (enumType) =>
+          enumType.toString().split(".")[1].toLowerCase() ==
+          item.subCategory.replaceAll(' ', '').toLowerCase(),
     );
 
     return Item(

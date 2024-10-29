@@ -1,42 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:maple_closet/page/character/button_map_icon.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 
-class BackgroundButtons extends StatefulWidget {
+class BackgroundButtons extends StatelessWidget {
   final Function switchBackground;
 
   const BackgroundButtons({super.key, required this.switchBackground});
 
   @override
-  State<StatefulWidget> createState() {
-    return _BackgroundButtonsState();
-  }
-}
-
-class _BackgroundButtonsState extends State<BackgroundButtons> {
-  @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MapButton(
-          backgroundName: 'normal',
-          clickEvent: () => widget.switchBackground('normal'),
+          backgroundType: BackgroundType.basic,
         ),
         MapButton(
-          backgroundName: 'henesis',
-          clickEvent: () => widget.switchBackground('henesis'),
+          backgroundType: BackgroundType.henesis,
         ),
         MapButton(
-          backgroundName: 'kerningcity',
-          clickEvent: () => widget.switchBackground('kerningcity'),
+          backgroundType: BackgroundType.kerningcity,
         ),
         MapButton(
-          backgroundName: 'arcana',
-          clickEvent: () => widget.switchBackground('arcana'),
+          backgroundType: BackgroundType.arcana,
         ),
         MapButton(
-          backgroundName: 'sernium',
-          clickEvent: () => widget.switchBackground('sernium'),
+          backgroundType: BackgroundType.sernium,
         ),
       ],
     );

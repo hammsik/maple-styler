@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/models/tool.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/item_provider.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 
 class SearchBox extends ConsumerStatefulWidget {
-  final Function buttonClicked;
-
-  const SearchBox({super.key, required this.buttonClicked});
+  const SearchBox({super.key});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SearchBoxState();
@@ -20,7 +22,6 @@ class _SearchBoxState extends ConsumerState<SearchBox> {
       context,
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) => DetailScreen(
-          buttonClicked: widget.buttonClicked,
           searchedWord: searchedWord,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -85,11 +86,9 @@ class _SearchBoxState extends ConsumerState<SearchBox> {
 }
 
 class DetailScreen extends ConsumerStatefulWidget {
-  final Function buttonClicked;
   final String searchedWord;
 
-  const DetailScreen(
-      {super.key, required this.buttonClicked, required this.searchedWord});
+  const DetailScreen({super.key, required this.searchedWord});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _DetailScreenState();
@@ -120,25 +119,22 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   void setItemList() {
     final itemList = ref.watch(mapleItemListProvider);
     itemList.when(
-        data: (data) => showItemList(itemList: data),
+        data: (data) => showItemList(itemMap: data),
         error: (error, stacktrace) => setState(() => searchedList =
             Center(child: Text('에러가 발생했습니다. 에러코드: ${error.toString()}'))),
         loading: () {});
   }
 
-  void showItemList({required List<List<List<dynamic>>> itemList}) {
-    List<dynamic> searchedItemList = [];
-    for (int category = 0; category < itemList.length; category++) {
-      for (int subCategory = 0;
-          subCategory < itemList[category].length;
-          subCategory++) {
-        for (int item = 0;
-            item < itemList[category][subCategory].length;
-            item++) {
+  void showItemList(
+      {required Map<ToolType, Map<SubCategoryType, List<Item>>> itemMap}) {
+    final List<Item> searchedItemList = [];
+    for (final category in itemMap.values) {
+      for (final subCategory in category.values) {
+        for (final item in subCategory) {
           if (myController.text.isNotEmpty &&
-              (itemList[category][subCategory][item].name.replaceAll(' ', ''))
+              (item.name.replaceAll(' ', ''))
                   .contains(myController.text.replaceAll(' ', ''))) {
-            searchedItemList.add(itemList[category][subCategory][item]);
+            searchedItemList.add(item);
           }
         }
       }
@@ -180,8 +176,21 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                               const Color.fromARGB(255, 201, 191, 191),
                         ),
                         onPressed: () {
+                          ref
+                              .read(characterProvider.notifier)
+                              .updateEquipment(item: searchedItemList[index]);
+
+                          ref.read(toolMapProvider.notifier).changeSubcategory(
+                              toolType: ref
+                                  .read(toolMapProvider)
+                                  .values
+                                  .firstWhere((e) => (e.subCategoryMap ?? {})
+                                      .containsKey(searchedItemList[index]
+                                          .subCategoryType))
+                                  .toolType,
+                              subCategoryType:
+                                  searchedItemList[index].subCategoryType);
                           Navigator.pop(context, myController.text);
-                          widget.buttonClicked(searchedItemList[index], -2);
                         },
                         child: Row(
                           children: [
@@ -189,7 +198,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                             SizedBox(
                               width: 35,
                               child: Image.network(
-                                'https://maplestory.io/api/KMS/389/item/${searchedItemList[index].itemid}/icon',
+                                'https://maplestory.io/api/KMS/389/item/${searchedItemList[index].id}/icon',
                                 errorBuilder: (context, error, stackTrace) {
                                   return const Icon(
                                       Icons.image_not_supported_outlined);
@@ -230,7 +239,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, dynamic) {
         if (didPop) {
           return;
         }
