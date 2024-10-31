@@ -19,7 +19,7 @@ class CharacterBoard extends HookConsumerWidget {
 
     // AnimationController 생성
     final animationController = useAnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 400),
     );
 
     // CurvedAnimation 생성
@@ -34,7 +34,6 @@ class CharacterBoard extends HookConsumerWidget {
     ).animate(curvedAnimation);
 
     useEffect(() {
-      print('currentBackgroundType: $currentBackgroundType');
       if (currentBackgroundType == BackgroundType.basic) {
         animationController.forward();
       } else {
@@ -62,7 +61,7 @@ class CharacterBoard extends HookConsumerWidget {
                     );
                   },
                   child: Animate(
-                    effects: [FadeEffect(curve: Curves.easeInQuint)],
+                    effects: const [FadeEffect(curve: Curves.easeInQuint)],
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
@@ -80,7 +79,7 @@ class CharacterBoard extends HookConsumerWidget {
                                 .changeImageType(type.key),
                             child: Text(type.value)))
                         .toList()
-                        .animate(delay: 200.ms, interval: 50.ms)
+                        .animate(delay: 150.ms, interval: 50.ms)
                         .fadeIn(curve: Curves.easeInQuint, duration: 150.ms)
                         .moveX(
                           begin: 50,
