@@ -9,6 +9,12 @@ enum ImageType {
   walkGif,
 }
 
+Map<ImageType, String> imageMap = {
+  ImageType.stand: '기본',
+  ImageType.standGif: '기본 GIF',
+  ImageType.walkGif: '걷기 GIF',
+};
+
 enum BackgroundType {
   basic,
   henesis,
@@ -37,6 +43,9 @@ class BackgroundSetting extends _$BackgroundSetting {
   }
 
   void changeBackground({required BackgroundType type}) {
+    if (type != BackgroundType.basic) {
+      ref.read(imageSettingProvider.notifier).changeImageType(ImageType.stand);
+    }
     state = type;
   }
 }

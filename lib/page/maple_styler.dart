@@ -11,7 +11,7 @@ import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_character.dart';
 import 'package:maple_closet/providers/character_provider.dart';
-import '../data/backgrounds.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 
 class MapleStylerHome extends StatefulHookConsumerWidget {
   const MapleStylerHome({super.key});
@@ -92,7 +92,9 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
 
     ref.watch(characterProvider);
     _characterImage3 =
-        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
+        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint(
+              type: ref.watch(imageSettingProvider),
+            );
 
     return PopScope(
       canPop: false,
@@ -128,7 +130,8 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                       ),
                       height: 2,
                       width: double.infinity,
-                      margin: const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 7, vertical: 14),
                     ),
                     const Expanded(child: CoordinatingTools()),
                   ],

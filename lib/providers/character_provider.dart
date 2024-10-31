@@ -140,13 +140,13 @@ class Character extends _$Character with CharacterMethod {
     }
   }
 
-  Future<List<Uint8List>> getCurrentCharacterImageByUint() {
+  Future<List<Uint8List>> getCurrentCharacterImageByUint({required ImageType type}) {
     List<String> itemsBodyList =
         state.equipments[state.historyIndex].makeCharacterItemsBodyPair();
 
     List<String> standUrls = [
-      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/0?bgColor=230,222,218,255',
-      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/0?bgColor=230,222,218,255',
+      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/0?renderMode=2',
+      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/0?renderMode=2',
     ];
     List<String> standGifUrls = [
       'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/animated?bgColor=230,222,218,255',
@@ -157,7 +157,7 @@ class Character extends _$Character with CharacterMethod {
       'https://maplestory.io/api/Character/${itemsBodyList[1]}/walk1/animated?bgColor=230,222,218,255',
     ];
 
-    switch (ref.read(imageSettingProvider)) {
+    switch (type) {
       case ImageType.stand:
         return ref.read(apiProvider.notifier).getCharacterImage(standUrls);
       case ImageType.standGif:
