@@ -82,7 +82,11 @@ class CharacterBoard extends HookConsumerWidget {
                         .toList()
                         .animate(delay: 200.ms, interval: 50.ms)
                         .fadeIn(curve: Curves.easeInQuint, duration: 150.ms)
-                        .moveX(begin: 50,curve: Curves.easeOutQuart),
+                        .moveX(
+                          begin: 50,
+                          curve: Curves.easeOutQuart,
+                          duration: 300.ms,
+                        ),
                   ),
                 ),
               ],
