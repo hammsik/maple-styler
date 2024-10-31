@@ -25,6 +25,7 @@ class ColorLayout extends HookConsumerWidget {
       hairColor2.value = currentCharacter.hairColor2;
       lensColor1.value = currentCharacter.lensColor1;
       lensColor2.value = currentCharacter.lensColor2;
+      return null;
     }, [currentCharacter]);
 
     return Container(

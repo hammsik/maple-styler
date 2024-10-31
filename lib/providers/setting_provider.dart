@@ -37,7 +37,6 @@ class BackgroundSetting extends _$BackgroundSetting {
   }
 
   void changeBackground({required BackgroundType type}) {
-    print('what');
     state = type;
   }
 }
