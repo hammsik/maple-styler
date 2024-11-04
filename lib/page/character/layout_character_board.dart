@@ -24,20 +24,17 @@ class CharacterBoard extends HookConsumerWidget {
 
     // CurvedAnimation 생성
     final curvedAnimation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeOutQuart,
-    );
+        parent: animationController, curve: Curves.easeOutQuart);
 
     final sizeAnimation = Tween<Size>(
       begin: Size(MediaQuery.sizeOf(context).width, height),
-      end: Size(MediaQuery.sizeOf(context).width - 200, height),
+      end: Size(MediaQuery.sizeOf(context).width - 140, height),
     ).animate(curvedAnimation);
 
     useEffect(() {
       if (currentBackgroundType == BackgroundType.basic) {
+        animationController.reset();
         animationController.forward();
-      } else {
-        animationController.reverse();
       }
       return null;
     }, [currentBackgroundType]);
@@ -61,7 +58,12 @@ class CharacterBoard extends HookConsumerWidget {
                     );
                   },
                   child: Animate(
-                    effects: const [FadeEffect(curve: Curves.easeInQuint)],
+                    effects: [
+                      FadeEffect(
+                        curve: Curves.easeInQuint,
+                        duration: 200.ms,
+                      )
+                    ],
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(12),
                       child: Container(
@@ -70,14 +72,28 @@ class CharacterBoard extends HookConsumerWidget {
                     ),
                   ),
                 ),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Column(
                     children: imageMap.entries
-                        .map((type) => ElevatedButton(
+                        .map(
+                          (type) => ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              minimumSize: const Size(
+                                double.infinity,
+                                40,
+                              ),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
                             onPressed: () => ref
                                 .read(imageSettingProvider.notifier)
                                 .changeImageType(type.key),
-                            child: Text(type.value)))
+                            child: Text(type.value),
+                          ),
+                        )
                         .toList()
                         .animate(delay: 150.ms, interval: 50.ms)
                         .fadeIn(curve: Curves.easeInQuint, duration: 150.ms)
