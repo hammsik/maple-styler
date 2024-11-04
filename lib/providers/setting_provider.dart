@@ -19,11 +19,11 @@ enum ActionType {
 
 Map<ActionType, String> actionMap = {
   ActionType.stand1: '기본',
-  ActionType._stand1: '기본 GIF',
-  ActionType._walk1: '걷기 GIF',
-  ActionType._swingO1: '공격 GIF',
-  ActionType._alert: '피격 GIF',
-  ActionType._fly: '비행 GIF',
+  ActionType._stand1: '기본',
+  ActionType._walk1: '걷기',
+  ActionType._swingO1: '공격',
+  ActionType._alert: '피격',
+  ActionType._fly: '비행',
   ActionType.jump: '점프',
   ActionType.prone: '엎드리기',
   ActionType.sit: '앉기',

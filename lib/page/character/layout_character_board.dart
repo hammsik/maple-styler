@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/backgrounds.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
@@ -78,21 +79,60 @@ class CharacterBoard extends HookConsumerWidget {
                     child: Column(
                       children: actionMap.entries
                           .map(
-                            (type) => ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.zero,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8)),
-                                minimumSize: const Size(
-                                  double.infinity,
-                                  40,
+                            (type) => Padding(
+                              padding: const EdgeInsets.only(bottom: 4),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  foregroundColor:
+                                      Colors.black.withOpacity(0.3),
+                                  backgroundColor:
+                                      const Color.fromARGB(255, 230, 222, 218),
+                                  padding: EdgeInsets.zero,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  fixedSize: const Size(
+                                    double.infinity,
+                                    40,
+                                  ),
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                 ),
-                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                onPressed: () => ref
+                                    .read(imageSettingProvider.notifier)
+                                    .changeActionType(type.key),
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  alignment: Alignment.center,
+                                  children: [
+                                    if (type.key
+                                        .toString()
+                                        .split(".")[1]
+                                        .startsWith("_"))
+                                      const Positioned(
+                                        top: 2,
+                                        right: 6,
+                                        child: Text(
+                                          "GIF",
+                                          style: TextStyle(
+                                            fontSize: 10,
+                                            color: Color.fromARGB(
+                                                255, 128, 128, 128),
+                                          ),
+                                        ),
+                                      ),
+                                    Center(
+                                      child: Text(
+                                        type.value,
+                                        style: GoogleFonts.nanumMyeongjo(
+                                            color: const Color.fromARGB(
+                                                255, 0, 0, 0),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              onPressed: () => ref
-                                  .read(imageSettingProvider.notifier)
-                                  .changeActionType(type.key),
-                              child: Text(type.value),
                             ),
                           )
                           .toList()
