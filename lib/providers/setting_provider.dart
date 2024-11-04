@@ -3,16 +3,30 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'setting_provider.g.dart';
 
-enum ImageType {
-  stand,
-  standGif,
-  walkGif,
+enum ActionType {
+  stand1,
+  _stand1,
+  _stand2,
+  _walk1,
+  _walk2,
+  _swingO1,
+  _alert,
+  _fly,
+  jump,
+  prone,
+  sit,
 }
 
-Map<ImageType, String> imageMap = {
-  ImageType.stand: '기본',
-  ImageType.standGif: '기본 GIF',
-  ImageType.walkGif: '걷기 GIF',
+Map<ActionType, String> actionMap = {
+  ActionType.stand1: '기본',
+  ActionType._stand1: '기본 GIF',
+  ActionType._walk1: '걷기 GIF',
+  ActionType._swingO1: '공격 GIF',
+  ActionType._alert: '피격 GIF',
+  ActionType._fly: '비행 GIF',
+  ActionType.jump: '점프',
+  ActionType.prone: '엎드리기',
+  ActionType.sit: '앉기',
 };
 
 enum BackgroundType {
@@ -26,11 +40,11 @@ enum BackgroundType {
 @Riverpod(keepAlive: true)
 class ImageSetting extends _$ImageSetting {
   @override
-  ImageType build() {
-    return ImageType.walkGif;
+  ActionType build() {
+    return ActionType.stand1;
   }
 
-  void changeImageType(ImageType type) {
+  void changeActionType(ActionType type) {
     state = type;
   }
 }
@@ -44,7 +58,9 @@ class BackgroundSetting extends _$BackgroundSetting {
 
   void changeBackground({required BackgroundType type}) {
     if (type != BackgroundType.basic) {
-      ref.read(imageSettingProvider.notifier).changeImageType(ImageType.stand);
+      ref
+          .read(imageSettingProvider.notifier)
+          .changeActionType(ActionType.stand1);
     }
     state = type;
   }

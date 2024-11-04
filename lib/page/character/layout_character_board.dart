@@ -74,34 +74,36 @@ class CharacterBoard extends HookConsumerWidget {
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Column(
-                    children: imageMap.entries
-                        .map(
-                          (type) => ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
-                              minimumSize: const Size(
-                                double.infinity,
-                                40,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: actionMap.entries
+                          .map(
+                            (type) => ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                                minimumSize: const Size(
+                                  double.infinity,
+                                  40,
+                                ),
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               ),
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              onPressed: () => ref
+                                  .read(imageSettingProvider.notifier)
+                                  .changeActionType(type.key),
+                              child: Text(type.value),
                             ),
-                            onPressed: () => ref
-                                .read(imageSettingProvider.notifier)
-                                .changeImageType(type.key),
-                            child: Text(type.value),
+                          )
+                          .toList()
+                          .animate(delay: 150.ms, interval: 50.ms)
+                          .fadeIn(curve: Curves.easeInQuint, duration: 150.ms)
+                          .moveX(
+                            begin: 50,
+                            curve: Curves.easeOutQuart,
+                            duration: 300.ms,
                           ),
-                        )
-                        .toList()
-                        .animate(delay: 150.ms, interval: 50.ms)
-                        .fadeIn(curve: Curves.easeInQuint, duration: 150.ms)
-                        .moveX(
-                          begin: 50,
-                          curve: Curves.easeOutQuart,
-                          duration: 300.ms,
-                        ),
+                    ),
                   ),
                 ),
               ],

@@ -6,11 +6,12 @@ part of 'setting_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$imageSettingHash() => r'212a94c32405a2cd1c606d0c0cf26590bf4aa3ef';
+String _$imageSettingHash() => r'2cebb30b1683ad622b6855934a602f99beec9476';
 
 /// See also [ImageSetting].
 @ProviderFor(ImageSetting)
-final imageSettingProvider = NotifierProvider<ImageSetting, ImageType>.internal(
+final imageSettingProvider =
+    NotifierProvider<ImageSetting, ActionType>.internal(
   ImageSetting.new,
   name: r'imageSettingProvider',
   debugGetCreateSourceHash:
@@ -19,8 +20,8 @@ final imageSettingProvider = NotifierProvider<ImageSetting, ImageType>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef _$ImageSetting = Notifier<ImageType>;
-String _$backgroundSettingHash() => r'0f0c2fdde612a5536b2cba42b813a6b591b5a868';
+typedef _$ImageSetting = Notifier<ActionType>;
+String _$backgroundSettingHash() => r'18c9987080ac13d862bde06bc0b7afc0cdcb6dab';
 
 /// See also [BackgroundSetting].
 @ProviderFor(BackgroundSetting)
