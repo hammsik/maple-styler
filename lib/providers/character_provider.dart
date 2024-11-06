@@ -140,11 +140,11 @@ class Character extends _$Character with CharacterMethod {
     }
   }
 
-  Future<List<Uint8List>> getCurrentCharacterImageByUint(
-      {required ActionType type}) {
+  Future<List<Uint8List>> getCurrentCharacterImageByUint() {
     List<String> itemsBodyList =
         state.equipments[state.historyIndex].makeCharacterItemsBodyPair();
 
+    final type = ref.read(imageSettingProvider);
     const baseUrl = 'https://maplestory.io/api/Character/';
     final motion = type.toString().split('.').last[0] == '_'
         ? '${type.toString().split('.').last.substring(1)}/animated?bgColor=230,222,218,255'
