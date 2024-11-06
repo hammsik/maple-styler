@@ -141,6 +141,7 @@ class Character extends _$Character with CharacterMethod {
   }
 
   Future<List<Uint8List>> getCurrentCharacterImageByUint() {
+    print('ㅋㅋ');
     List<String> itemsBodyList =
         state.equipments[state.historyIndex].makeCharacterItemsBodyPair();
 

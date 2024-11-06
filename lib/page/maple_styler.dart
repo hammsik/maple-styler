@@ -25,7 +25,6 @@ class MapleStylerHome extends StatefulHookConsumerWidget {
 class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Future? _characterImage3;
   DateTime? currentBackPressTime;
   BackgroundType? previousBackgroundSetting;
   History? previousCharacter;
@@ -83,25 +82,25 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
     ]);
 
-    ref.watch(characterProvider);
-    ref.watch(imageSettingProvider);
-    final currentBackgroundSetting = ref.watch(backgroundSettingProvider);
+    // ref.watch(characterProvider);
+    // ref.watch(imageSettingProvider);
+    // final currentBackgroundSetting = ref.watch(backgroundSettingProvider);
 
-    if (previousBackgroundSetting == null ||
-        (previousBackgroundSetting == BackgroundType.basic &&
-            currentBackgroundSetting != BackgroundType.basic) ||
-        (previousBackgroundSetting != BackgroundType.basic &&
-            currentBackgroundSetting == BackgroundType.basic) ||
-        previousCharacter == null ||
-        previousCharacter != ref.read(characterProvider) ||
-        previousActionType == null ||
-        previousActionType != ref.read(imageSettingProvider)) {
-      _characterImage3 =
-          ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
-      previousCharacter = ref.read(characterProvider);
-      previousActionType = ref.read(imageSettingProvider);
-      previousBackgroundSetting = currentBackgroundSetting;
-    }
+    // if (previousBackgroundSetting == null ||
+    //     (previousBackgroundSetting == BackgroundType.basic &&
+    //         currentBackgroundSetting != BackgroundType.basic) ||
+    //     (previousBackgroundSetting != BackgroundType.basic &&
+    //         currentBackgroundSetting == BackgroundType.basic) ||
+    //     previousCharacter == null ||
+    //     previousCharacter != ref.read(characterProvider) ||
+    //     previousActionType == null ||
+    //     previousActionType != ref.read(imageSettingProvider)) {
+    //   _characterImage3 =
+    //       ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
+    //   previousCharacter = ref.read(characterProvider);
+    //   previousActionType = ref.read(imageSettingProvider);
+    //   previousBackgroundSetting = currentBackgroundSetting;
+    // }
 
     return PopScope(
       canPop: false,
@@ -127,9 +126,8 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     const SizedBox(height: 20),
                     const BackgroundButtons(),
                     const SizedBox(height: 10),
-                    CharacterBoard(
+                    const CharacterBoard(
                       height: 190,
-                      characterImage: _characterImage3,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -144,35 +142,35 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
                     const Expanded(child: CoordinatingTools()),
                   ],
                 ),
-                if (ref.watch(backgroundSettingProvider) !=
-                    BackgroundType.basic)
-                  IgnorePointer(
-                    child: FutureBuilder(
-                      future: _characterImage3,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return SizedBox(
-                            height: 430,
-                            child: Stack(
-                              fit: StackFit.expand,
-                              children: [
-                                Image.memory(snapshot.data[0]),
-                                Opacity(
-                                  opacity: 0.5,
-                                  child: Image.memory(snapshot.data[1]),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          return Container(
-                            margin: const EdgeInsets.only(top: 198),
-                            child: Image.asset('assets/drummingBunny.gif'),
-                          ); // 로딩 중일 때 표시할 위젯
-                        }
-                      },
-                    ),
-                  ),
+                // if (ref.watch(backgroundSettingProvider) !=
+                //     BackgroundType.basic)
+                //   IgnorePointer(
+                //     child: FutureBuilder(
+                //       future: _characterImage3,
+                //       builder: (context, snapshot) {
+                //         if (snapshot.connectionState == ConnectionState.done) {
+                //           return SizedBox(
+                //             height: 430,
+                //             child: Stack(
+                //               fit: StackFit.expand,
+                //               children: [
+                //                 Image.memory(snapshot.data[0]),
+                //                 Opacity(
+                //                   opacity: 0.5,
+                //                   child: Image.memory(snapshot.data[1]),
+                //                 ),
+                //               ],
+                //             ),
+                //           );
+                //         } else {
+                //           return Container(
+                //             margin: const EdgeInsets.only(top: 198),
+                //             child: Image.asset('assets/drummingBunny.gif'),
+                //           ); // 로딩 중일 때 표시할 위젯
+                //         }
+                //       },
+                //     ),
+                //   ),
               ],
             ),
           ),

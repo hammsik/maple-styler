@@ -1,23 +1,27 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/backgrounds.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 
 class CharacterBoard extends HookConsumerWidget {
   final double height;
-  final Future? characterImage;
 
   const CharacterBoard({
     super.key,
     required this.height,
-    this.characterImage,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(characterProvider);
+    final characterImageList =
+        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
     final currentBackgroundType = ref.watch(backgroundSettingProvider);
     final ValueNotifier<ActionType> currentClickedItemIdx =
         useState(ActionType.stand1);
@@ -45,12 +49,9 @@ class CharacterBoard extends HookConsumerWidget {
       return null;
     }, [currentBackgroundType]);
 
-    return Container(
+    return SizedBox(
       height: height,
       width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-      ),
       child: currentBackgroundType == BackgroundType.basic
           ? Row(
               children: [
@@ -70,38 +71,13 @@ class CharacterBoard extends HookConsumerWidget {
                           duration: 200.ms,
                         )
                       ],
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12),
-                        child: Container(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
                           color: const Color.fromARGB(255, 230, 222, 218),
-                          child: FutureBuilder(
-                            future: characterImage,
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.done) {
-                                return Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Image.memory(
-                                      snapshot.data[0],
-                                      fit: BoxFit.none,
-                                    ),
-                                    Opacity(
-                                      opacity: 0.5,
-                                      child: Image.memory(
-                                        snapshot.data[1],
-                                        fit: BoxFit.none,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              } else {
-                                return Image.asset(
-                                    'assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
-                              }
-                            },
-                          ),
                         ),
+                        child: CharacterImage(
+                            characterImageList: characterImageList),
                       )),
                 ),
                 const SizedBox(width: 10),
@@ -192,13 +168,70 @@ class CharacterBoard extends HookConsumerWidget {
                 ),
               ],
             )
-          : ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.asset(
-                fit: BoxFit.fitHeight,
-                backgroundMap[currentBackgroundType]![1],
-              ),
+          : Stack(
+              fit: StackFit.expand,
+              children: [
+                BackgroundImage(currentBackgroundType: currentBackgroundType),
+                CharacterImage(characterImageList: characterImageList),
+              ],
             ),
+    );
+  }
+}
+
+class CharacterImage extends StatelessWidget {
+  final Future<List<Uint8List>> characterImageList;
+
+  const CharacterImage({super.key, required this.characterImageList});
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: characterImageList, // 이미지를 불러오는 Future
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              OverflowBox(
+                maxWidth: double.infinity,
+                maxHeight: double.infinity,
+                child: Image.memory(
+                  snapshot.data![0],
+                  fit: BoxFit.none,
+                ),
+              ),
+              Opacity(
+                opacity: 0.5,
+                child: Image.memory(
+                  snapshot.data![1],
+                  fit: BoxFit.none,
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Image.asset('assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
+        }
+      },
+    );
+  }
+}
+
+class BackgroundImage extends StatelessWidget {
+  final BackgroundType currentBackgroundType;
+
+  const BackgroundImage({super.key, required this.currentBackgroundType});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(12),
+      child: Image.asset(
+        fit: BoxFit.fitHeight,
+        backgroundMap[currentBackgroundType]![1],
+      ),
     );
   }
 }
