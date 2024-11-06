@@ -37,6 +37,22 @@ final backgroundSettingProvider =
 );
 
 typedef _$BackgroundSetting = Notifier<BackgroundType>;
+String _$isBasicBackgroundHash() => r'bade5d5e351d294b42f063cfc4d90d6e66b89c13';
+
+/// See also [IsBasicBackground].
+@ProviderFor(IsBasicBackground)
+final isBasicBackgroundProvider =
+    NotifierProvider<IsBasicBackground, bool>.internal(
+  IsBasicBackground.new,
+  name: r'isBasicBackgroundProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$isBasicBackgroundHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$IsBasicBackground = Notifier<bool>;
 String _$toolTypeSettingHash() => r'c12a667b046e624d84561be69cec6c849dda5af7';
 
 /// See also [ToolTypeSetting].

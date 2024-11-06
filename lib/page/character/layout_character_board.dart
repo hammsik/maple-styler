@@ -19,10 +19,7 @@ class CharacterBoard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(characterProvider);
-    final characterImageList =
-        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
-    final currentBackgroundType = ref.watch(backgroundSettingProvider);
+    final isBasicBackground = ref.watch(isBasicBackgroundProvider);
     final ValueNotifier<ActionType> currentClickedItemIdx =
         useState(ActionType.stand1);
 
@@ -41,18 +38,18 @@ class CharacterBoard extends HookConsumerWidget {
     ).animate(curvedAnimation);
 
     useEffect(() {
-      if (currentBackgroundType == BackgroundType.basic) {
+      if (isBasicBackground) {
         animationController.reset();
         animationController.forward();
         currentClickedItemIdx.value = ref.read(imageSettingProvider);
       }
       return null;
-    }, [currentBackgroundType]);
+    }, [isBasicBackground]);
 
     return SizedBox(
       height: height,
       width: double.infinity,
-      child: currentBackgroundType == BackgroundType.basic
+      child: isBasicBackground
           ? Row(
               children: [
                 AnimatedBuilder(
@@ -76,8 +73,7 @@ class CharacterBoard extends HookConsumerWidget {
                           borderRadius: BorderRadius.circular(12),
                           color: const Color.fromARGB(255, 230, 222, 218),
                         ),
-                        child: CharacterImage(
-                            characterImageList: characterImageList),
+                        child: const CharacterImage(),
                       )),
                 ),
                 const SizedBox(width: 10),
@@ -168,24 +164,27 @@ class CharacterBoard extends HookConsumerWidget {
                 ),
               ],
             )
-          : Stack(
+          : const Stack(
               fit: StackFit.expand,
               children: [
-                BackgroundImage(currentBackgroundType: currentBackgroundType),
-                CharacterImage(characterImageList: characterImageList),
+                BackgroundImage(),
+                CharacterImage(),
               ],
             ),
     );
   }
 }
 
-class CharacterImage extends StatelessWidget {
-  final Future<List<Uint8List>> characterImageList;
-
-  const CharacterImage({super.key, required this.characterImageList});
+class CharacterImage extends ConsumerWidget {
+  const CharacterImage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(characterProvider);
+    ref.watch(imageSettingProvider);
+    final characterImageList =
+        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
+
     return FutureBuilder(
       future: characterImageList, // 이미지를 불러오는 Future
       builder: (context, snapshot) {
@@ -219,13 +218,12 @@ class CharacterImage extends StatelessWidget {
   }
 }
 
-class BackgroundImage extends StatelessWidget {
-  final BackgroundType currentBackgroundType;
-
-  const BackgroundImage({super.key, required this.currentBackgroundType});
+class BackgroundImage extends ConsumerWidget {
+  const BackgroundImage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentBackgroundType = ref.watch(backgroundSettingProvider);
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
       child: Image.asset(
