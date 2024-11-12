@@ -73,7 +73,7 @@ class CharacterBoard extends HookConsumerWidget {
                           borderRadius: BorderRadius.circular(12),
                           color: const Color.fromARGB(255, 230, 222, 218),
                         ),
-                        child: const CharacterImage(),
+                        child: const CharacterImageWrapper(),
                       )),
                 ),
                 const SizedBox(width: 10),
@@ -175,13 +175,30 @@ class CharacterBoard extends HookConsumerWidget {
   }
 }
 
+class CharacterImageWrapper extends ConsumerWidget {
+  const CharacterImageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final currentActionType = ref.watch(imageSettingProvider);
+    final isGif = currentActionType.toString().split(".")[1].startsWith("_");
+
+    return isGif
+        ? ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: const CharacterImage(),
+          )
+        : const CharacterImage();
+  }
+}
+
 class CharacterImage extends ConsumerWidget {
   const CharacterImage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(characterProvider);
-    ref.watch(imageSettingProvider);
+    final currentActionType = ref.watch(imageSettingProvider);
     final characterImageList =
         ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
 
@@ -190,17 +207,25 @@ class CharacterImage extends ConsumerWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
+          final isGif =
+              currentActionType.toString().split(".")[1].startsWith("_");
           return Stack(
             fit: StackFit.expand,
             children: [
-              OverflowBox(
-                maxWidth: double.infinity,
-                maxHeight: double.infinity,
-                child: Image.memory(
+              if (!isGif)
+                OverflowBox(
+                  maxWidth: double.infinity,
+                  maxHeight: double.infinity,
+                  child: Image.memory(
+                    snapshot.data![0],
+                    fit: BoxFit.none,
+                  ),
+                )
+              else
+                Image.memory(
                   snapshot.data![0],
                   fit: BoxFit.none,
                 ),
-              ),
               Opacity(
                 opacity: 0.5,
                 child: Image.memory(
