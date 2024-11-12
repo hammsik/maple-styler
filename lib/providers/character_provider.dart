@@ -145,7 +145,7 @@ class Character extends _$Character with CharacterMethod {
     List<String> itemsBodyList =
         state.equipments[state.historyIndex].makeCharacterItemsBodyPair();
 
-    final type = ref.read(imageSettingProvider);
+    final type = ref.read(actionSettingProvider);
     const baseUrl = 'https://maplestory.io/api/Character/';
     final motion = type.toString().split('.').last[0] == '_'
         ? '${type.toString().split('.').last.substring(1)}/animated?bgColor=230,222,218,255'

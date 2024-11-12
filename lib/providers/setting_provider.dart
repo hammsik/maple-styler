@@ -38,7 +38,7 @@ enum BackgroundType {
 }
 
 @Riverpod(keepAlive: true)
-class ImageSetting extends _$ImageSetting {
+class ActionSetting extends _$ActionSetting {
   @override
   ActionType build() {
     return ActionType.stand1;
@@ -59,7 +59,7 @@ class BackgroundSetting extends _$BackgroundSetting {
   void changeBackground({required BackgroundType type}) {
     if (type != BackgroundType.basic) {
       ref
-          .read(imageSettingProvider.notifier)
+          .read(actionSettingProvider.notifier)
           .changeActionType(ActionType.stand1);
       ref.read(isBasicBackgroundProvider.notifier).changeIsBasicBackground(
             isBasic: false,

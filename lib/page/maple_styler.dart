@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -11,7 +9,6 @@ import 'package:maple_closet/page/character/layout_character_board.dart';
 import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
 import 'package:maple_closet/models/skeleton_character.dart';
-import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 
 class MapleStylerHome extends StatefulHookConsumerWidget {
@@ -82,26 +79,6 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
       DeviceOrientation.portraitDown, // 세로 방향 고정 (거꾸로)
     ]);
 
-    // ref.watch(characterProvider);
-    // ref.watch(imageSettingProvider);
-    // final currentBackgroundSetting = ref.watch(backgroundSettingProvider);
-
-    // if (previousBackgroundSetting == null ||
-    //     (previousBackgroundSetting == BackgroundType.basic &&
-    //         currentBackgroundSetting != BackgroundType.basic) ||
-    //     (previousBackgroundSetting != BackgroundType.basic &&
-    //         currentBackgroundSetting == BackgroundType.basic) ||
-    //     previousCharacter == null ||
-    //     previousCharacter != ref.read(characterProvider) ||
-    //     previousActionType == null ||
-    //     previousActionType != ref.read(imageSettingProvider)) {
-    //   _characterImage3 =
-    //       ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
-    //   previousCharacter = ref.read(characterProvider);
-    //   previousActionType = ref.read(imageSettingProvider);
-    //   previousBackgroundSetting = currentBackgroundSetting;
-    // }
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: onWillPop,
@@ -114,63 +91,29 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
-            child: Stack(
-              alignment: Alignment.topCenter,
+            child: Column(
               children: [
-                Column(
-                  children: [
-                    const SizedBox(height: 20),
-                    MyCustomAppBar(
-                        clickEvent: () =>
-                            _scaffoldKey.currentState!.openEndDrawer()),
-                    const SizedBox(height: 20),
-                    const BackgroundButtons(),
-                    const SizedBox(height: 10),
-                    const CharacterBoard(
-                      height: 190,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(1),
-                        color: const Color.fromARGB(255, 181, 103, 103),
-                      ),
-                      height: 2,
-                      width: double.infinity,
-                      margin: const EdgeInsets.symmetric(
-                          horizontal: 7, vertical: 14),
-                    ),
-                    const Expanded(child: CoordinatingTools()),
-                  ],
+                const SizedBox(height: 20),
+                MyCustomAppBar(
+                    clickEvent: () =>
+                        _scaffoldKey.currentState!.openEndDrawer()),
+                const SizedBox(height: 20),
+                const BackgroundButtons(),
+                const SizedBox(height: 10),
+                const CharacterBoard(
+                  height: 190,
                 ),
-                // if (ref.watch(backgroundSettingProvider) !=
-                //     BackgroundType.basic)
-                //   IgnorePointer(
-                //     child: FutureBuilder(
-                //       future: _characterImage3,
-                //       builder: (context, snapshot) {
-                //         if (snapshot.connectionState == ConnectionState.done) {
-                //           return SizedBox(
-                //             height: 430,
-                //             child: Stack(
-                //               fit: StackFit.expand,
-                //               children: [
-                //                 Image.memory(snapshot.data[0]),
-                //                 Opacity(
-                //                   opacity: 0.5,
-                //                   child: Image.memory(snapshot.data[1]),
-                //                 ),
-                //               ],
-                //             ),
-                //           );
-                //         } else {
-                //           return Container(
-                //             margin: const EdgeInsets.only(top: 198),
-                //             child: Image.asset('assets/drummingBunny.gif'),
-                //           ); // 로딩 중일 때 표시할 위젯
-                //         }
-                //       },
-                //     ),
-                //   ),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(1),
+                    color: const Color.fromARGB(255, 181, 103, 103),
+                  ),
+                  height: 2,
+                  width: double.infinity,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 7, vertical: 14),
+                ),
+                const Expanded(child: CoordinatingTools()),
               ],
             ),
           ),

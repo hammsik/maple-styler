@@ -41,7 +41,7 @@ class CharacterBoard extends HookConsumerWidget {
       if (isBasicBackground) {
         animationController.reset();
         animationController.forward();
-        currentClickedItemIdx.value = ref.read(imageSettingProvider);
+        currentClickedItemIdx.value = ref.read(actionSettingProvider);
       }
       return null;
     }, [isBasicBackground]);
@@ -116,7 +116,7 @@ class CharacterBoard extends HookConsumerWidget {
                                 onPressed: () {
                                   currentClickedItemIdx.value = type.key;
                                   ref
-                                      .read(imageSettingProvider.notifier)
+                                      .read(actionSettingProvider.notifier)
                                       .changeActionType(type.key);
                                 },
                                 child: Stack(
@@ -184,7 +184,7 @@ class CharacterImage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(characterProvider);
-    ref.watch(imageSettingProvider);
+    ref.watch(actionSettingProvider);
     final characterImageList =
         ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
 
@@ -194,20 +194,20 @@ class CharacterImage extends ConsumerWidget {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           return Stack(
-            fit: StackFit.expand,
-            children: [
-              Image.memory(
-                snapshot.data![0],
-                fit: BoxFit.none,
-              ),
-              Opacity(
-                opacity: 0.5,
-                child: Image.memory(
-                  snapshot.data![1],
+              fit: StackFit.passthrough,
+              children: [
+                Image.memory(
+                  snapshot.data![0],
                   fit: BoxFit.none,
                 ),
-              ),
-            ],
+                Opacity(
+                  opacity: 0.5,
+                  child: Image.memory(
+                    snapshot.data![1],
+                    fit: BoxFit.none,
+                  ),
+                ),
+              ],
           );
         } else {
           return Image.asset('assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
