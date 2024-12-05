@@ -61,27 +61,8 @@ class BackgroundSetting extends _$BackgroundSetting {
       ref
           .read(actionSettingProvider.notifier)
           .changeActionType(ActionType.stand1);
-      ref.read(isBasicBackgroundProvider.notifier).changeIsBasicBackground(
-            isBasic: false,
-          );
-    } else {
-      ref.read(isBasicBackgroundProvider.notifier).changeIsBasicBackground(
-            isBasic: true,
-          );
     }
     state = type;
-  }
-}
-
-@Riverpod(keepAlive: true)
-class IsBasicBackground extends _$IsBasicBackground {
-  @override
-  bool build() {
-    return true;
-  }
-
-  void changeIsBasicBackground({required bool isBasic}) {
-    state = isBasic;
   }
 }
 

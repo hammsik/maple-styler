@@ -19,7 +19,7 @@ class CharacterBoard extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isBasicBackground = ref.watch(isBasicBackgroundProvider);
+    final background = ref.watch(backgroundSettingProvider);
     final ValueNotifier<ActionType> currentClickedItemIdx =
         useState(ActionType.stand1);
 
@@ -38,18 +38,18 @@ class CharacterBoard extends HookConsumerWidget {
     ).animate(curvedAnimation);
 
     useEffect(() {
-      if (isBasicBackground) {
+      if (background == BackgroundType.basic) {
         animationController.reset();
         animationController.forward();
         currentClickedItemIdx.value = ref.read(actionSettingProvider);
       }
       return null;
-    }, [isBasicBackground]);
+    }, [background]);
 
     return SizedBox(
       height: height,
       width: double.infinity,
-      child: isBasicBackground
+      child: background == BackgroundType.basic
           ? Row(
               children: [
                 AnimatedBuilder(
