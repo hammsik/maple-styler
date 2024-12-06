@@ -3,12 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/models/character_history.dart';
-import 'package:maple_closet/page/character/layout_character_info.dart';
 import 'package:maple_closet/page/character/layout_map_buttons.dart';
 import 'package:maple_closet/page/character/layout_character_board.dart';
 import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
-import 'package:maple_closet/models/skeleton_character.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 
 class MapleStylerHome extends StatefulHookConsumerWidget {
@@ -45,26 +43,26 @@ class _MapleStylerHomeState extends ConsumerState<MapleStylerHome> {
     SystemNavigator.pop();
   }
 
-  void openCharacterDetail(
-      BuildContext context, MyCharacter dodo, MyCharacter dodo2) {
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            CharacterDetail(dodo: dodo, dodo2: dodo2),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-        opaque: false,
-      ),
-    ).then(
-      // 디테일 페이지에서 캐릭터 변경했을 시에 이미지 다시 불러오기를 위한 콜백
-      (_) => setState(() {}),
-    );
-  }
+  // void openCharacterDetail(
+  //     BuildContext context, MyCharacter dodo, MyCharacter dodo2) {
+  //   Navigator.push(
+  //     context,
+  //     PageRouteBuilder(
+  //       pageBuilder: (context, animation, secondaryAnimation) =>
+  //           CharacterDetail(dodo: dodo, dodo2: dodo2),
+  //       transitionsBuilder: (context, animation, secondaryAnimation, child) {
+  //         return FadeTransition(
+  //           opacity: animation,
+  //           child: child,
+  //         );
+  //       },
+  //       opaque: false,
+  //     ),
+  //   ).then(
+  //     // 디테일 페이지에서 캐릭터 변경했을 시에 이미지 다시 불러오기를 위한 콜백
+  //     (_) => setState(() {}),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {

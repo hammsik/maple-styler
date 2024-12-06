@@ -7,13 +7,12 @@ import 'package:maple_closet/providers/toast_provider.dart';
 class CharacterDetailScreen extends HookConsumerWidget {
   final UserFavoriteCharacter favoriteCharacter;
   final int listIndex;
-  final Function characterApply;
 
-  const CharacterDetailScreen(
-      {super.key,
-      required this.favoriteCharacter,
-      required this.listIndex,
-      required this.characterApply});
+  const CharacterDetailScreen({
+    super.key,
+    required this.favoriteCharacter,
+    required this.listIndex,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -83,7 +82,6 @@ class CharacterDetailScreen extends HookConsumerWidget {
                       Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              characterApply(favoriteCharacter);
                               Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(

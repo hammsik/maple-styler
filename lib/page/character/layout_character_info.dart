@@ -4,70 +4,45 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/models/equipment.dart';
+import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/page/character/layout_character_detail.dart';
-import 'package:maple_closet/models/skeleton_character.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
-class CharacterDetail extends ConsumerStatefulWidget {
-  final MyCharacter dodo;
-  final MyCharacter dodo2;
+class CharacterDetail extends ConsumerWidget {
+  const CharacterDetail({super.key});
 
-  const CharacterDetail({required this.dodo, required this.dodo2, super.key});
+  List<Item> makeWearingItemList(Equipment currentCharacter) {
+    List<Item> itemList = [currentCharacter.head];
 
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _CharacterDetail();
-}
+    if (currentCharacter.hair != null) itemList.add(currentCharacter.hair!);
+    if (currentCharacter.face != null) itemList.add(currentCharacter.face!);
+    if (currentCharacter.hat != null) itemList.add(currentCharacter.hat!);
+    if (currentCharacter.overAll != null) itemList.add(currentCharacter.overAll!);
+    if (currentCharacter.cash != null) itemList.add(currentCharacter.cash!);
+    if (currentCharacter.top != null) itemList.add(currentCharacter.top!);
+    if (currentCharacter.bottom != null) itemList.add(currentCharacter.bottom!);
+    if (currentCharacter.cape != null) itemList.add(currentCharacter.cape!);
+    if (currentCharacter.glove != null) itemList.add(currentCharacter.glove!);
+    if (currentCharacter.shoes != null) itemList.add(currentCharacter.shoes!);
+    if (currentCharacter.shield != null) itemList.add(currentCharacter.shield!);
+    if (currentCharacter.faceAccessory != null) itemList.add(currentCharacter.faceAccessory!);
+    if (currentCharacter.eyeDecoration != null) itemList.add(currentCharacter.eyeDecoration!);
+    if (currentCharacter.earrings != null) itemList.add(currentCharacter.earrings!);
 
-class _CharacterDetail extends ConsumerState<CharacterDetail> {
-  final userFavoriteDB = UserFavoriteDataBase();
-  List<List<dynamic>> characterItemList = [];
-  List<UserFavoriteCharacter> characterList = [];
-
-  @override
-  void initState() {
-    super.initState();
-    makeWearingItemList();
-    initDB();
+    return itemList;
   }
 
-  void initDB() async {
-    List<UserFavoriteCharacter> tmpCharacterList = await userFavoriteDB
-        .select(userFavoriteDB.userFavoriteCharacters)
-        .get();
-    setState(() => characterList = tmpCharacterList);
-  }
-
-  void makeWearingItemList() {
-    List<List<dynamic>> tmpList = [];
-    final characterItemMap = widget.dodo.itemMap;
-    for (var entry in characterItemMap.entries) {
-      final item = characterItemMap[entry.key];
-      var tmpItemId = item[0];
-      if (entry.key != 'Body' &&
-          item[0] != 'null' &&
-          item[0] != '1040036' &&
-          item[0] != '1060026') {
-        if (entry.key == 'Hair') {
-          tmpItemId = item[0].replaceRange(4, 5, '0');
-        } else if (entry.key == 'Face') {
-          tmpItemId = item[0].replaceRange(2, 3, '0');
-        }
-        tmpList.add([tmpItemId, item[1]]);
-      }
-    }
-
-    setState(() => characterItemList = tmpList);
-  }
-
-  void replaceCurrentCharacter(UserFavoriteCharacter selectedCharacter) {
-    setState(() {
-      widget.dodo.itemMap = json.decode(selectedCharacter.characterInfo);
-      widget.dodo2.itemMap = json.decode(selectedCharacter.characterInfo2);
-      widget.dodo.addItem();
-      widget.dodo2.addItem();
-      makeWearingItemList();
-    });
-  }
+  // void replaceCurrentCharacter(UserFavoriteCharacter selectedCharacter) {
+  //   setState(() {
+  //     widget.dodo.itemMap = json.decode(selectedCharacter.characterInfo);
+  //     widget.dodo2.itemMap = json.decode(selectedCharacter.characterInfo2);
+  //     widget.dodo.addItem();
+  //     widget.dodo2.addItem();
+  //     makeWearingItemList();
+  //   });
+  // }
 
   void openFavoriteCharacterDetail(BuildContext context,
       UserFavoriteCharacter selectedCharacter, int listIndex) async {
@@ -78,7 +53,6 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
             CharacterDetailScreen(
           favoriteCharacter: selectedCharacter,
           listIndex: listIndex,
-          characterApply: replaceCurrentCharacter,
         ),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           // 페이드 인 애니메이션을 적용
@@ -91,21 +65,28 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
       ),
     );
 
-    if (result != null && result > 0) {
-      initDB();
-    }
+    // if (result != null && result > 0) {
+    //   initDB();
+    // }
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final characterImageList =
+        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
+    final Equipment currentCharacter =
+        ref.read(characterProvider.notifier).getCurrentCharacter();
+    final List<Item> currentWearingItemList =
+        makeWearingItemList(currentCharacter);
+
+    // db초기화
+    final userFavoriteDB = UserFavoriteDataBase();
+
     return Scaffold(
         backgroundColor: Colors.black.withOpacity(0.85),
         body: SafeArea(
-          child: Container(
-            alignment: Alignment.center,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            margin: const EdgeInsets.all(20),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -169,7 +150,7 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                         childAspectRatio: 3.0,
                                       ),
                                       delegate: SliverChildBuilderDelegate(
-                                        childCount: characterItemList.length,
+                                        childCount: currentWearingItemList.length,
                                         (context, index) => Container(
                                           decoration: BoxDecoration(
                                             color: const Color.fromARGB(
@@ -183,7 +164,7 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                               SizedBox(
                                                 width: 35,
                                                 child: Image.network(
-                                                  'https://maplestory.io/api/KMS/389/item/${characterItemList[index][0]}/icon',
+                                                  'https://maplestory.io/api/KMS/389/item/${currentWearingItemList[index].id}/icon',
                                                   errorBuilder: (context, error,
                                                       stackTrace) {
                                                     return const Icon(Icons
@@ -205,7 +186,7 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                                   margin:
                                                       const EdgeInsets.all(5),
                                                   child: Text(
-                                                    characterItemList[index][1],
+                                                    currentWearingItemList[index].name,
                                                     style: GoogleFonts
                                                         .nanumMyeongjo(
                                                             color: const Color
@@ -249,16 +230,16 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                       alignment: const Alignment(0, -0.3),
                                       child: Stack(
                                         children: [
-                                          Image.network(
-                                            widget.dodo.getMyCharacter(
-                                                imageFrame: '0'),
-                                          ),
-                                          Opacity(
-                                            opacity: 0.5,
-                                            child: Image.network(widget.dodo2
-                                                .getMyCharacter(
-                                                    imageFrame: '0')),
-                                          ),
+                                          // Image.network(
+                                          //   widget.dodo.getMyCharacter(
+                                          //       imageFrame: '0'),
+                                          // ),
+                                          // Opacity(
+                                          //   opacity: 0.5,
+                                          //   child: Image.network(widget.dodo2
+                                          //       .getMyCharacter(
+                                          //           imageFrame: '0')),
+                                          // ),
                                         ],
                                       ),
                                     ),
@@ -272,25 +253,26 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    await userFavoriteDB
-                                        .into(userFavoriteDB
-                                            .userFavoriteCharacters)
-                                        .insert(UserFavoriteCharactersCompanion
-                                            .insert(
-                                          characterInfo:
-                                              json.encode(widget.dodo.itemMap),
-                                          characterInfo2:
-                                              json.encode(widget.dodo2.itemMap),
-                                          characterImageUrl1: widget.dodo
-                                              .getMyCharacter(imageFrame: '0'),
-                                          characterImageUrl2: widget.dodo2
-                                              .getMyCharacter(imageFrame: '0'),
-                                        ));
-                                    ref.read(customToastProvider.notifier).showCustomToast(
-                                        context,
-                                        type: ToastType.success,
-                                        message: "코디가 저장되었습니다.");
-                                    initDB();
+                                    // await userFavoriteDB
+                                    //     .into(userFavoriteDB
+                                    //         .userFavoriteCharacters)
+                                    //     .insert(UserFavoriteCharactersCompanion
+                                    //         .insert(
+                                    //       characterInfo:
+                                    //           json.encode(widget.dodo.itemMap),
+                                    //       characterInfo2:
+                                    //           json.encode(widget.dodo2.itemMap),
+                                    //       characterImageUrl1: widget.dodo
+                                    //           .getMyCharacter(imageFrame: '0'),
+                                    //       characterImageUrl2: widget.dodo2
+                                    //           .getMyCharacter(imageFrame: '0'),
+                                    //     ));
+                                    // ref
+                                    //     .read(customToastProvider.notifier)
+                                    //     .showCustomToast(context,
+                                    //         type: ToastType.success,
+                                    //         message: "코디가 저장되었습니다.");
+                                    // initDB();
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color.fromARGB(
@@ -334,25 +316,30 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                       // ),
                       // const SizedBox(height: 10),
                       Expanded(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 230, 222, 218),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: characterList.isEmpty
-                                ? Container(
-                                    alignment: Alignment.center,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    child: const Text('저장한 코디가 존재하지 않습니다',
-                                        style: TextStyle()),
-                                  )
-                                : CustomScrollView(
+                        child: FutureBuilder(
+                          future: userFavoriteDB
+                              .select(userFavoriteDB.userFavoriteCharacters)
+                              .get(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState == ConnectionState.waiting) {
+                              return const Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return const Center(child: Text('오류가 발생했습니다.'));
+                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                              return const Center(child: Text('저장한 코디가 존재하지 않습니다'));
+                            } else {
+                              final favoriteCharacterList = snapshot.data!;
+                              return Container(
+                                decoration: const BoxDecoration(
+                                  color: Color.fromARGB(255, 230, 222, 218),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(12),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.all(10),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: CustomScrollView(
                                     physics: const BouncingScrollPhysics(),
                                     slivers: <Widget>[
                                       SliverGrid(
@@ -364,7 +351,7 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                           childAspectRatio: 0.8,
                                         ),
                                         delegate: SliverChildBuilderDelegate(
-                                          childCount: characterList.length,
+                                          childCount: favoriteCharacterList.length,
                                           (context, index) => FilledButton(
                                             style: FilledButton.styleFrom(
                                               foregroundColor:
@@ -378,30 +365,27 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                                   const Color.fromARGB(
                                                       255, 201, 191, 191),
                                             ),
-                                            // onPressed: () => openFavoriteDetail(
-                                            //     context, characterList[index], index),
                                             onPressed: () =>
                                                 openFavoriteCharacterDetail(
                                                     context,
-                                                    characterList[index],
+                                                    favoriteCharacterList[index],
                                                     index - 1000),
                                             child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
+                                              borderRadius: BorderRadius.circular(10),
                                               child: Hero(
                                                 tag: index - 1000,
                                                 child: Stack(
                                                   fit: StackFit.expand,
                                                   children: [
                                                     Image.network(
-                                                      characterList[index]
+                                                      favoriteCharacterList[index]
                                                           .characterImageUrl1,
                                                       fit: BoxFit.none,
                                                     ),
                                                     Opacity(
                                                       opacity: 0.5,
                                                       child: Image.network(
-                                                        characterList[index]
+                                                        favoriteCharacterList[index]
                                                             .characterImageUrl2,
                                                         fit: BoxFit.none,
                                                       ),
@@ -415,7 +399,10 @@ class _CharacterDetail extends ConsumerState<CharacterDetail> {
                                       ),
                                     ],
                                   ),
-                          ),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],

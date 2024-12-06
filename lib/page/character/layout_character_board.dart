@@ -1,11 +1,10 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/backgrounds.dart';
+import 'package:maple_closet/page/character/layout_character_info.dart';
 import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 
@@ -194,20 +193,40 @@ class CharacterImage extends ConsumerWidget {
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           return Stack(
-              fit: StackFit.passthrough,
-              children: [
-                Image.memory(
-                  snapshot.data![0],
+            fit: StackFit.passthrough,
+            children: [
+              Image.memory(
+                snapshot.data![0],
+                fit: BoxFit.none,
+              ),
+              Opacity(
+                opacity: 0.5,
+                child: Image.memory(
+                  snapshot.data![1],
                   fit: BoxFit.none,
                 ),
-                Opacity(
-                  opacity: 0.5,
-                  child: Image.memory(
-                    snapshot.data![1],
-                    fit: BoxFit.none,
-                  ),
-                ),
-              ],
+              ),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                    onTap: () => Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const CharacterDetail(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
+                            opaque: false,
+                          ),
+                        )),
+              ),
+            ],
           );
         } else {
           return Image.asset('assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
