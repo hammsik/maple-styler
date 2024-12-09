@@ -209,6 +209,7 @@ class CharacterImage extends ConsumerWidget {
               Material(
                 color: Colors.transparent,
                 child: InkWell(
+                    splashColor: Colors.black.withOpacity(0.2),
                     onTap: () => Navigator.push(
                           context,
                           PageRouteBuilder(
