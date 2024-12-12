@@ -91,6 +91,12 @@ class Character extends _$Character with CharacterMethod {
     required HairColor hairColor1,
     required HairColor hairColor2,
   }) {
+    // 기존과 같으면 무시
+    if (getCurrentCharacter().hairColor1 == hairColor1 &&
+        getCurrentCharacter().hairColor2 == hairColor2) {
+      return;
+    }
+
     List<Equipment> renewedCharacterHistory = renewCharacterHistory();
 
     renewedCharacterHistory.add(
@@ -109,6 +115,12 @@ class Character extends _$Character with CharacterMethod {
     required LensColor lensColor1,
     required LensColor lensColor2,
   }) {
+    // 기존과 같으면 무시
+    if (getCurrentCharacter().lensColor1 == lensColor1 &&
+        getCurrentCharacter().lensColor2 == lensColor2) {
+      return;
+    }
+
     List<Equipment> renewedCharacterHistory = renewCharacterHistory();
 
     renewedCharacterHistory.add(
