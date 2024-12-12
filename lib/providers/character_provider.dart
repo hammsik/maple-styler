@@ -49,12 +49,18 @@ class Character extends _$Character with CharacterMethod {
     if (equipment != null) {
       renewedCharacterHistory.add(equipment);
     } else {
+      Equipment newEquipment = generateNewEquipment(
+        equipment: renewedCharacterHistory.last,
+        subCategoryType: item!.subCategoryType,
+        item: item,
+      );
+
+      if (getCurrentCharacter() == newEquipment) {
+        return;
+      }
+
       renewedCharacterHistory.add(
-        generateNewEquipment(
-          equipment: renewedCharacterHistory.last,
-          subCategoryType: item!.subCategoryType,
-          item: item,
-        ),
+        newEquipment,
       );
     }
 

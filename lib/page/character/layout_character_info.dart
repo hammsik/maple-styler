@@ -255,37 +255,30 @@ class CharacterDetail extends ConsumerWidget {
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () async {
+                                    await userFavoriteDB
+                                        .into(userFavoriteDB
+                                            .userFavoriteCharacters)
+                                        .insert(UserFavoriteCharactersCompanion
+                                            .insert(
+                                          characterInfo: currentCharacter
+                                              .customToJson(isOne: true),
+                                          characterInfo2: currentCharacter
+                                              .customToJson(isOne: false),
+                                          characterImageUrl1: characterUrls[0],
+                                          characterImageUrl2: characterUrls[1],
+                                        ));
+                                    ref.invalidate(
+                                        favoriteCharacterListProvider);
+                                    ref
+                                        .read(customToastProvider.notifier)
+                                        .showCustomToast(context,
+                                            type: ToastType.success,
+                                            message: "코디가 저장되었습니다.");
                                     try {
-                                      await userFavoriteDB
-                                          .into(userFavoriteDB
-                                              .userFavoriteCharacters)
-                                          .insert(
-                                              UserFavoriteCharactersCompanion
-                                                  .insert(
-                                            characterInfo: currentCharacter
-                                                .customToJson(isOne: true),
-                                            characterInfo2: currentCharacter
-                                                .customToJson(isOne: false),
-                                            characterImageUrl1:
-                                                characterUrls[0],
-                                            characterImageUrl2:
-                                                characterUrls[1],
-                                          ));
-                                      ref.invalidate(
-                                          favoriteCharacterListProvider);
-                                      ref
-                                          .read(customToastProvider.notifier)
-                                          .showCustomToast(context,
-                                              type: ToastType.success,
-                                              message: "코디가 저장되었습니다.");
                                       scrollController.jumpTo(scrollController
                                           .position.maxScrollExtent);
                                     } catch (e) {
-                                      ref
-                                          .read(customToastProvider.notifier)
-                                          .showCustomToast(context,
-                                              type: ToastType.error,
-                                              message: "코디 저장에 실패했습니다.");
+                                      print(e);
                                     }
                                   },
                                   style: ElevatedButton.styleFrom(
