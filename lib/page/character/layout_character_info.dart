@@ -7,7 +7,10 @@ import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/equipment.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/page/character/layout_character_detail.dart';
+import 'package:maple_closet/providers/api_provider.dart';
 import 'package:maple_closet/providers/character_provider.dart';
+import 'package:maple_closet/providers/favorite_character_provider.dart';
+import 'package:maple_closet/providers/setting_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class CharacterDetail extends ConsumerWidget {
@@ -48,44 +51,21 @@ class CharacterDetail extends ConsumerWidget {
   //   });
   // }
 
-  void openFavoriteCharacterDetail(BuildContext context,
-      UserFavoriteCharacter selectedCharacter, int listIndex) async {
-    final result = await Navigator.push(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            CharacterDetailScreen(
-          favoriteCharacter: selectedCharacter,
-          listIndex: listIndex,
-        ),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          // 페이드 인 애니메이션을 적용
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-        opaque: false,
-      ),
-    );
-
-    // if (result != null && result > 0) {
-    //   initDB();
-    // }
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(characterProvider);
     final characterImageList = ref
         .read(characterProvider.notifier)
-        .getCurrentCharacterImageByUint(isForCharacterInfo: true);
+        .getCurrentCharacterImageAsUint(at: ActionType.stand1);
+    final characterUrls = ref
+        .read(characterProvider.notifier)
+        .getCurrentCharacterURL(ActionType.stand1);
 
     final Equipment currentCharacter =
         ref.read(characterProvider.notifier).getCurrentCharacter();
     final List<Item> currentWearingItemList =
         makeWearingItemList(currentCharacter);
 
-    // db초기화
     final userFavoriteDB = UserFavoriteDataBase();
 
     return Scaffold(
@@ -276,26 +256,25 @@ class CharacterDetail extends ConsumerWidget {
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    // await userFavoriteDB
-                                    //     .into(userFavoriteDB
-                                    //         .userFavoriteCharacters)
-                                    //     .insert(UserFavoriteCharactersCompanion
-                                    //         .insert(
-                                    //       characterInfo:
-                                    //           json.encode(widget.dodo.itemMap),
-                                    //       characterInfo2:
-                                    //           json.encode(widget.dodo2.itemMap),
-                                    //       characterImageUrl1: widget.dodo
-                                    //           .getMyCharacter(imageFrame: '0'),
-                                    //       characterImageUrl2: widget.dodo2
-                                    //           .getMyCharacter(imageFrame: '0'),
-                                    //     ));
-                                    // ref
-                                    //     .read(customToastProvider.notifier)
-                                    //     .showCustomToast(context,
-                                    //         type: ToastType.success,
-                                    //         message: "코디가 저장되었습니다.");
-                                    // initDB();
+                                    await userFavoriteDB
+                                        .into(userFavoriteDB
+                                            .userFavoriteCharacters)
+                                        .insert(UserFavoriteCharactersCompanion
+                                            .insert(
+                                          characterInfo: currentCharacter
+                                              .customToJson(isOne: true),
+                                          characterInfo2: currentCharacter
+                                              .customToJson(isOne: false),
+                                          characterImageUrl1: characterUrls[0],
+                                          characterImageUrl2: characterUrls[1],
+                                        ));
+                                    ref.invalidate(
+                                        favoriteCharacterListProvider);
+                                    ref
+                                        .read(customToastProvider.notifier)
+                                        .showCustomToast(context,
+                                            type: ToastType.success,
+                                            message: "코디가 저장되었습니다.");
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color.fromARGB(
@@ -329,120 +308,191 @@ class CharacterDetail extends ConsumerWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // const Text(
-                      //   "코디 저장 목록",
-                      //   style: TextStyle(color: Colors.white, fontSize: 18),
-                      // ),
-                      // const SizedBox(height: 10),
-                      Expanded(
-                        child: FutureBuilder(
-                          future: userFavoriteDB
-                              .select(userFavoriteDB.userFavoriteCharacters)
-                              .get(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (snapshot.hasError) {
-                              return const Center(child: Text('오류가 발생했습니다.'));
-                            } else if (!snapshot.hasData ||
-                                snapshot.data!.isEmpty) {
-                              return const Center(
-                                  child: Text('저장한 코디가 존재하지 않습니다'));
-                            } else {
-                              final favoriteCharacterList = snapshot.data!;
-                              return Container(
-                                decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 230, 222, 218),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(12),
-                                  ),
-                                ),
-                                padding: const EdgeInsets.all(10),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: CustomScrollView(
-                                    physics: const BouncingScrollPhysics(),
-                                    slivers: <Widget>[
-                                      SliverGrid(
-                                        gridDelegate:
-                                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                          maxCrossAxisExtent: 120.0,
-                                          mainAxisSpacing: 10.0,
-                                          crossAxisSpacing: 10.0,
-                                          childAspectRatio: 0.8,
-                                        ),
-                                        delegate: SliverChildBuilderDelegate(
-                                          childCount:
-                                              favoriteCharacterList.length,
-                                          (context, index) => FilledButton(
-                                            style: FilledButton.styleFrom(
-                                              foregroundColor:
-                                                  Colors.black.withOpacity(0.3),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              padding: const EdgeInsets.all(0),
-                                              backgroundColor:
-                                                  const Color.fromARGB(
-                                                      255, 201, 191, 191),
-                                            ),
-                                            onPressed: () =>
-                                                openFavoriteCharacterDetail(
-                                                    context,
-                                                    favoriteCharacterList[
-                                                        index],
-                                                    index - 1000),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Hero(
-                                                tag: index - 1000,
-                                                child: Stack(
-                                                  fit: StackFit.expand,
-                                                  children: [
-                                                    Image.network(
-                                                      favoriteCharacterList[
-                                                              index]
-                                                          .characterImageUrl1,
-                                                      fit: BoxFit.none,
-                                                    ),
-                                                    Opacity(
-                                                      opacity: 0.5,
-                                                      child: Image.network(
-                                                        favoriteCharacterList[
-                                                                index]
-                                                            .characterImageUrl2,
-                                                        fit: BoxFit.none,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+                const Expanded(
+                  child: FavoriteCharacterList(),
                 ),
               ],
             ),
           ),
         ));
+  }
+}
+
+class FavoriteCharacterList extends ConsumerWidget {
+  Future<bool> openFavoriteCharacterDetail(BuildContext context,
+      UserFavoriteCharacter selectedCharacter, int listIndex) async {
+    final result = await Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            CharacterDetailScreen(
+          favoriteCharacter: selectedCharacter,
+          listIndex: listIndex,
+        ),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          // 페이드 인 애니메이션을 적용
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        opaque: false,
+      ),
+    );
+
+    if (result != null && result > 0) {
+      return true;
+    }
+    return false;
+  }
+
+  const FavoriteCharacterList({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // const Text(
+        //   "코디 저장 목록",
+        //   style: TextStyle(color: Colors.white, fontSize: 18),
+        // ),
+        // const SizedBox(height: 10),
+        Expanded(
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 230, 222, 218),
+              borderRadius: BorderRadius.all(
+                Radius.circular(12),
+              ),
+            ),
+            padding: const EdgeInsets.all(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: ref.watch(favoriteCharacterListProvider).when(
+                  data: (favoriteCharacterList) => favoriteCharacterList.isEmpty
+                      ? const Center(child: Text('저장한 코디가 존재하지 않습니다'))
+                      : CustomScrollView(
+                          physics: const BouncingScrollPhysics(),
+                          slivers: <Widget>[
+                            SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 120.0,
+                                mainAxisSpacing: 10.0,
+                                crossAxisSpacing: 10.0,
+                                childAspectRatio: 0.8,
+                              ),
+                              delegate: SliverChildBuilderDelegate(
+                                childCount: favoriteCharacterList.length,
+                                (context, index) => FilledButton(
+                                  style: FilledButton.styleFrom(
+                                    foregroundColor:
+                                        Colors.black.withOpacity(0.3),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    padding: const EdgeInsets.all(0),
+                                    backgroundColor: const Color.fromARGB(
+                                        255, 201, 191, 191),
+                                  ),
+                                  onPressed: () async {
+                                    bool isDeleted =
+                                        await openFavoriteCharacterDetail(
+                                            context,
+                                            favoriteCharacterList[index],
+                                            index - 1000);
+                                    if (isDeleted) {
+                                      ref.invalidate(
+                                          favoriteCharacterListProvider);
+                                    }
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Hero(
+                                      tag: index - 1000,
+                                      // child: FutureBuilder(
+                                      //   future: ref
+                                      //       .read(apiProvider.notifier)
+                                      //       .getCharacterImage([
+                                      //     favoriteCharacterList[index]
+                                      //         .characterImageUrl1,
+                                      //     favoriteCharacterList[index]
+                                      //         .characterImageUrl2
+                                      //   ]),
+                                      //   builder: (context, snapshot) {
+                                      //     if (snapshot.connectionState ==
+                                      //             ConnectionState.done &&
+                                      //         snapshot.hasData) {
+                                      //       return Stack(
+                                      //           fit: StackFit.expand,
+                                      //           children: [
+                                      //             Image.memory(
+                                      //               snapshot.data![0],
+                                      //               fit: BoxFit.none,
+                                      //             ),
+                                      //             Opacity(
+                                      //               opacity: 0.5,
+                                      //               child: Image.memory(
+                                      //                 snapshot.data![1],
+                                      //                 fit: BoxFit.none,
+                                      //               ),
+                                      //             ),
+                                      //           ]);
+                                      //     } else {
+                                      //       return Image.asset(
+                                      //           'assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
+                                      //     }
+                                      //   },
+                                      // ),
+                                      child: Stack(
+                                        fit: StackFit.expand,
+                                        children: [
+                                          Image.network(
+                                            favoriteCharacterList[index]
+                                                .characterImageUrl1,
+                                            fit: BoxFit.none,
+                                          ),
+                                          Opacity(
+                                            opacity: 0.5,
+                                            child: Image.network(
+                                              favoriteCharacterList[index]
+                                                  .characterImageUrl2,
+                                              fit: BoxFit.none,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                  error: (error, stackTrace) =>
+                      Center(child: Text('오류가 발생했습니다.\nError: $error')),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator())),
+            ),
+          ),
+          // builder: (context, snapshot) {
+          //   if (snapshot.connectionState ==
+          //       ConnectionState.waiting) {
+          //     return const Center(
+          //         child: CircularProgressIndicator());
+          //   } else if (snapshot.hasError) {
+          //     return
+          //   } else if (!snapshot.hasData ||
+          //       snapshot.data!.isEmpty) {
+          //     return
+          //   } else {
+          //     final favoriteCharacterList = snapshot.data!;
+          //     return
+          //   }
+          // },
+        ),
+      ],
+    );
   }
 }

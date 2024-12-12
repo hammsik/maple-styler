@@ -1,5 +1,7 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:maple_closet/data/color_palette.dart';
 import 'package:maple_closet/models/item.dart';
@@ -42,22 +44,23 @@ class Equipment with _$Equipment {
   // factory Equipment.fromJson(Map<String, Object?> json) =>
   //     _$EquipmentFromJson(json);
 
-  factory Equipment.fromJson(Map<String, List> json, Map<String, List> json2) {
+  factory Equipment.fromJson(
+      Map<String, dynamic> json, Map<String, dynamic> json2) {
     final hairColor1 = HairColor.values.firstWhere(
-      (e) => hairColorPalette[e]![1] == int.parse(json['Hair']![2]),
+      (e) => hairColorPalette[e]![1] == json['Hair']![2],
       orElse: () => HairColor.black,
     );
     final lensColor1 = LensColor.values.firstWhere(
-      (e) => lensColorPalette[e]![1] == int.parse(json['Face']![2]),
+      (e) => lensColorPalette[e]![1] == json['Face']![2],
       orElse: () => LensColor.black,
     );
 
     final hairColor2 = HairColor.values.firstWhere(
-      (e) => hairColorPalette[e]![1] == int.parse(json2['Hair']![2]),
+      (e) => hairColorPalette[e]![1] == json2['Hair']![2],
       orElse: () => HairColor.black,
     );
     final lensColor2 = LensColor.values.firstWhere(
-      (e) => lensColorPalette[e]![1] == int.parse(json2['Face']![2]),
+      (e) => lensColorPalette[e]![1] == json2['Face']![2],
       orElse: () => LensColor.black,
     );
 
@@ -174,11 +177,11 @@ class Equipment with _$Equipment {
 }
 
 extension ExtensionForToJson on Equipment {
-  Map<String, List> customToJson({required bool isOne}) {
+  String customToJson({required bool isOne}) {
     final hairColor = isOne ? hairColor1 : hairColor2;
     final lensColor = isOne ? lensColor1 : lensColor2;
 
-    return {
+    return json.encode({
       'Hair': [
         hair?.id ?? 'null',
         hair?.name ?? 'null',
@@ -208,7 +211,7 @@ extension ExtensionForToJson on Equipment {
         eyeDecoration?.name ?? 'null'
       ],
       'Earrings': [earrings?.id ?? 'null', earrings?.name ?? 'null'],
-    };
+    });
   }
 }
 

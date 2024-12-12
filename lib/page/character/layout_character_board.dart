@@ -184,9 +184,8 @@ class CharacterImage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(characterProvider);
     ref.watch(actionSettingProvider);
-    final characterImageList = ref
-        .read(characterProvider.notifier)
-        .getCurrentCharacterImageByUint(isForCharacterInfo: false);
+    final characterImageList =
+        ref.read(characterProvider.notifier).getCurrentCharacterImageAsUint();
 
     return FutureBuilder(
       future: characterImageList, // 이미지를 불러오는 Future
