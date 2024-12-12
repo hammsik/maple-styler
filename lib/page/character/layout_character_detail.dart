@@ -20,8 +20,8 @@ class CharacterDetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    print(favoriteCharacter.characterInfo);
-    print(favoriteCharacter.characterInfo2);
+    // print(favoriteCharacter.characterInfo);
+    // print(favoriteCharacter.characterInfo2);
 
     final database = UserFavoriteDataBase();
     final isHeroEnabled = useState(true);
