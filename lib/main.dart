@@ -21,8 +21,8 @@ class MapleStyler extends StatelessWidget {
       home: UpgradeAlert(
         showIgnore: false,
         upgrader: Upgrader(
-          debugDisplayAlways: true,
-          // durationUntilAlertAgain: const Duration(days: 1),
+          // debugDisplayAlways: true,
+          durationUntilAlertAgain: const Duration(days: 1),
           messages: MyUpgraderMessages(),
         ),
         child: const MapleStylerHome(),
