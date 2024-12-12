@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -7,7 +5,6 @@ import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/equipment.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/page/character/layout_character_detail.dart';
-import 'package:maple_closet/providers/api_provider.dart';
 import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/favorite_character_provider.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
