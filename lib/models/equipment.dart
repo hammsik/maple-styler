@@ -47,20 +47,20 @@ class Equipment with _$Equipment {
   factory Equipment.fromJson(
       Map<String, dynamic> json, Map<String, dynamic> json2) {
     final hairColor1 = HairColor.values.firstWhere(
-      (e) => hairColorPalette[e]![1] == json['Hair']![2],
+      (e) => hairColorPalette[e]![1].toString() == json['Hair']![2],
       orElse: () => HairColor.black,
     );
     final lensColor1 = LensColor.values.firstWhere(
-      (e) => lensColorPalette[e]![1] == json['Face']![2],
+      (e) => lensColorPalette[e]![1].toString() == json['Face']![2],
       orElse: () => LensColor.black,
     );
 
     final hairColor2 = HairColor.values.firstWhere(
-      (e) => hairColorPalette[e]![1] == json2['Hair']![2],
+      (e) => hairColorPalette[e]![1].toString() == json2['Hair']![2],
       orElse: () => HairColor.black,
     );
     final lensColor2 = LensColor.values.firstWhere(
-      (e) => lensColorPalette[e]![1] == json2['Face']![2],
+      (e) => lensColorPalette[e]![1].toString() == json2['Face']![2],
       orElse: () => LensColor.black,
     );
 
@@ -185,12 +185,12 @@ extension ExtensionForToJson on Equipment {
       'Hair': [
         hair?.id ?? 'null',
         hair?.name ?? 'null',
-        hairColorPalette[hairColor]![1]
+        hairColorPalette[hairColor]![1].toString(),
       ],
       'Face': [
         face?.id ?? 'null',
         face?.name ?? 'null',
-        lensColorPalette[lensColor]![1]
+        lensColorPalette[lensColor]![1].toString(),
       ],
       'Head': [head.id, head.name],
       'Hat': [hat?.id ?? 'null', hat?.name ?? 'null'],
