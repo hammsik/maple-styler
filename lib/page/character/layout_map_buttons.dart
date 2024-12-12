@@ -3,9 +3,9 @@ import 'package:maple_closet/page/character/button_map_icon.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
 
 class BackgroundButtons extends StatelessWidget {
-  final Function switchBackground;
-
-  const BackgroundButtons({super.key, required this.switchBackground});
+  const BackgroundButtons({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

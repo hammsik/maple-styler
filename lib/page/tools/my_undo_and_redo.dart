@@ -5,8 +5,6 @@ import 'package:maple_closet/providers/character_provider.dart';
 class UndoAndRedo extends ConsumerWidget {
   const UndoAndRedo({
     super.key,
-    // required this.undoImage,
-    // required this.redoImage,
   });
 
   @override

@@ -1,22 +1,28 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
+import 'package:maple_closet/models/equipment.dart';
+import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/toast_provider.dart';
 
 class CharacterDetailScreen extends HookConsumerWidget {
   final UserFavoriteCharacter favoriteCharacter;
   final int listIndex;
-  final Function characterApply;
 
-  const CharacterDetailScreen(
-      {super.key,
-      required this.favoriteCharacter,
-      required this.listIndex,
-      required this.characterApply});
+  const CharacterDetailScreen({
+    super.key,
+    required this.favoriteCharacter,
+    required this.listIndex,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print(favoriteCharacter.characterInfo);
+    print(favoriteCharacter.characterInfo2);
+
     final database = UserFavoriteDataBase();
     final isHeroEnabled = useState(true);
 
@@ -83,7 +89,16 @@ class CharacterDetailScreen extends HookConsumerWidget {
                       Expanded(
                         child: ElevatedButton(
                             onPressed: () {
-                              characterApply(favoriteCharacter);
+                              ref
+                                  .read(characterProvider.notifier)
+                                  .updateEquipment(
+                                    equipment: Equipment.fromJson(
+                                      json.decode(
+                                          favoriteCharacter.characterInfo),
+                                      json.decode(
+                                          favoriteCharacter.characterInfo2),
+                                    ),
+                                  );
                               Navigator.pop(context);
                             },
                             style: ElevatedButton.styleFrom(

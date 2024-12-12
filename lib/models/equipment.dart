@@ -1,12 +1,13 @@
 // ignore_for_file: curly_braces_in_flow_control_structures
 
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:maple_closet/data/color_palette.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
 
 part 'equipment.freezed.dart';
-part 'equipment.g.dart';
 
 // 코디 아이템을 모아놓은 맵
 @freezed
@@ -40,8 +41,178 @@ class Equipment with _$Equipment {
     Item? earrings,
   }) = _Equipment;
 
-  factory Equipment.fromJson(Map<String, Object?> json) =>
-      _$EquipmentFromJson(json);
+  // factory Equipment.fromJson(Map<String, Object?> json) =>
+  //     _$EquipmentFromJson(json);
+
+  factory Equipment.fromJson(
+      Map<String, dynamic> json, Map<String, dynamic> json2) {
+    final hairColor1 = HairColor.values.firstWhere(
+      (e) => hairColorPalette[e]![1].toString() == json['Hair']![2],
+      orElse: () => HairColor.black,
+    );
+    final lensColor1 = LensColor.values.firstWhere(
+      (e) => lensColorPalette[e]![1].toString() == json['Face']![2],
+      orElse: () => LensColor.black,
+    );
+
+    final hairColor2 = HairColor.values.firstWhere(
+      (e) => hairColorPalette[e]![1].toString() == json2['Hair']![2],
+      orElse: () => HairColor.black,
+    );
+    final lensColor2 = LensColor.values.firstWhere(
+      (e) => lensColorPalette[e]![1].toString() == json2['Face']![2],
+      orElse: () => LensColor.black,
+    );
+
+    return Equipment(
+      hairColor1: hairColor1,
+      lensColor1: lensColor1,
+      hairColor2: hairColor2,
+      lensColor2: lensColor2,
+      head: Item(
+        id: json['Head']![0],
+        name: json['Head']![1],
+        subCategoryType: SubCategoryType.head,
+      ),
+      hair: json['Hair']![0] != 'null'
+          ? Item(
+              id: json['Hair']![0],
+              name: json['Hair']![1],
+              subCategoryType: SubCategoryType.hair,
+            )
+          : null,
+      face: json['Face']![0] != 'null'
+          ? Item(
+              id: json['Face']![0],
+              name: json['Face']![1],
+              subCategoryType: SubCategoryType.face,
+            )
+          : null,
+      hat: json['Hat']![0] != 'null'
+          ? Item(
+              id: json['Hat']![0],
+              name: json['Hat']![1],
+              subCategoryType: SubCategoryType.hat,
+            )
+          : null,
+      overAll: json['Overall']![0] != 'null'
+          ? Item(
+              id: json['Overall']![0],
+              name: json['Overall']![1],
+              subCategoryType: SubCategoryType.overall,
+            )
+          : null,
+      cash: json['Cash']![0] != 'null'
+          ? Item(
+              id: json['Cash']![0],
+              name: json['Cash']![1],
+              subCategoryType: SubCategoryType.cash,
+            )
+          : null,
+      top: json['Top']![0] != 'null'
+          ? Item(
+              id: json['Top']![0],
+              name: json['Top']![1],
+              subCategoryType: SubCategoryType.top,
+            )
+          : null,
+      bottom: json['Bottom']![0] != 'null'
+          ? Item(
+              id: json['Bottom']![0],
+              name: json['Bottom']![1],
+              subCategoryType: SubCategoryType.bottom,
+            )
+          : null,
+      cape: json['Cape']![0] != 'null'
+          ? Item(
+              id: json['Cape']![0],
+              name: json['Cape']![1],
+              subCategoryType: SubCategoryType.cape,
+            )
+          : null,
+      glove: json['Glove']![0] != 'null'
+          ? Item(
+              id: json['Glove']![0],
+              name: json['Glove']![1],
+              subCategoryType: SubCategoryType.glove,
+            )
+          : null,
+      shoes: json['Shoes']![0] != 'null'
+          ? Item(
+              id: json['Shoes']![0],
+              name: json['Shoes']![1],
+              subCategoryType: SubCategoryType.shoes,
+            )
+          : null,
+      shield: json['Shield']![0] != 'null'
+          ? Item(
+              id: json['Shield']![0],
+              name: json['Shield']![1],
+              subCategoryType: SubCategoryType.shield,
+            )
+          : null,
+      faceAccessory: json['Face Accessory']![0] != 'null'
+          ? Item(
+              id: json['Face Accessory']![0],
+              name: json['Face Accessory']![1],
+              subCategoryType: SubCategoryType.faceAccessory,
+            )
+          : null,
+      eyeDecoration: json['Eye Decoration']![0] != 'null'
+          ? Item(
+              id: json['Eye Decoration']![0],
+              name: json['Eye Decoration']![1],
+              subCategoryType: SubCategoryType.eyeDecoration,
+            )
+          : null,
+      earrings: json['Earrings']![0] != 'null'
+          ? Item(
+              id: json['Earrings']![0],
+              name: json['Earrings']![1],
+              subCategoryType: SubCategoryType.earrings,
+            )
+          : null,
+    );
+  }
+}
+
+extension ExtensionForToJson on Equipment {
+  String customToJson({required bool isOne}) {
+    final hairColor = isOne ? hairColor1 : hairColor2;
+    final lensColor = isOne ? lensColor1 : lensColor2;
+
+    return json.encode({
+      'Hair': [
+        hair?.id ?? 'null',
+        hair?.name ?? 'null',
+        hairColorPalette[hairColor]![1].toString(),
+      ],
+      'Face': [
+        face?.id ?? 'null',
+        face?.name ?? 'null',
+        lensColorPalette[lensColor]![1].toString(),
+      ],
+      'Head': [head.id, head.name],
+      'Hat': [hat?.id ?? 'null', hat?.name ?? 'null'],
+      'Overall': [overAll?.id ?? 'null', overAll?.name ?? 'null'],
+      'Cash': [cash?.id ?? 'null', cash?.name ?? 'null'],
+      'Top': [top?.id ?? 'null', top?.name ?? 'null'],
+      'Bottom': [bottom?.id ?? 'null', bottom?.name ?? 'null'],
+      'Cape': [cape?.id ?? 'null', cape?.name ?? 'null'],
+      'Glove': [glove?.id ?? 'null', glove?.name ?? 'null'],
+      'Shoes': [shoes?.id ?? 'null', shoes?.name ?? 'null'],
+      'Shield': [shield?.id ?? 'null', shield?.name ?? 'null'],
+      'Face Accessory': [
+        faceAccessory?.id ?? 'null',
+        faceAccessory?.name ?? 'null'
+      ],
+      'Eye Decoration': [
+        eyeDecoration?.id ?? 'null',
+        eyeDecoration?.name ?? 'null'
+      ],
+      'Earrings': [earrings?.id ?? 'null', earrings?.name ?? 'null'],
+    });
+  }
 }
 
 extension UrlMaker on Equipment {

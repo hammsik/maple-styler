@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
-  return _Equipment.fromJson(json);
-}
-
 /// @nodoc
 mixin _$Equipment {
   HairColor get hairColor1 => throw _privateConstructorUsedError;
@@ -39,9 +35,6 @@ mixin _$Equipment {
   Item? get faceAccessory => throw _privateConstructorUsedError;
   Item? get eyeDecoration => throw _privateConstructorUsedError;
   Item? get earrings => throw _privateConstructorUsedError;
-
-  /// Serializes this Equipment to a JSON map.
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
   /// Create a copy of Equipment
   /// with the given fields replaced by the non-null parameter values.
@@ -591,7 +584,7 @@ class __$$EquipmentImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
 class _$EquipmentImpl implements _Equipment {
   const _$EquipmentImpl(
       {required this.hairColor1,
@@ -615,9 +608,6 @@ class _$EquipmentImpl implements _Equipment {
       this.faceAccessory,
       this.eyeDecoration,
       this.earrings});
-
-  factory _$EquipmentImpl.fromJson(Map<String, dynamic> json) =>
-      _$$EquipmentImplFromJson(json);
 
   @override
   final HairColor hairColor1;
@@ -701,7 +691,6 @@ class _$EquipmentImpl implements _Equipment {
                 other.earrings == earrings));
   }
 
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -733,13 +722,6 @@ class _$EquipmentImpl implements _Equipment {
   @pragma('vm:prefer-inline')
   _$$EquipmentImplCopyWith<_$EquipmentImpl> get copyWith =>
       __$$EquipmentImplCopyWithImpl<_$EquipmentImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$EquipmentImplToJson(
-      this,
-    );
-  }
 }
 
 abstract class _Equipment implements Equipment {
@@ -763,9 +745,6 @@ abstract class _Equipment implements Equipment {
       final Item? faceAccessory,
       final Item? eyeDecoration,
       final Item? earrings}) = _$EquipmentImpl;
-
-  factory _Equipment.fromJson(Map<String, dynamic> json) =
-      _$EquipmentImpl.fromJson;
 
   @override
   HairColor get hairColor1;

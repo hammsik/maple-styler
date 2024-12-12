@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:maple_closet/data/color_palette.dart';
@@ -41,17 +42,22 @@ class Character extends _$Character with CharacterMethod {
   }
 
   void updateEquipment({
-    required Item item,
+    Item? item,
+    Equipment? equipment,
   }) {
     List<Equipment> renewedCharacterHistory = renewCharacterHistory();
 
-    renewedCharacterHistory.add(
-      generateNewEquipment(
-        equipment: renewedCharacterHistory.last,
-        subCategoryType: item.subCategoryType,
-        item: item,
-      ),
-    );
+    if (equipment != null) {
+      renewedCharacterHistory.add(equipment);
+    } else {
+      renewedCharacterHistory.add(
+        generateNewEquipment(
+          equipment: renewedCharacterHistory.last,
+          subCategoryType: item!.subCategoryType,
+          item: item,
+        ),
+      );
+    }
 
     state = state.copyWith(
         equipments: renewedCharacterHistory,
@@ -140,31 +146,29 @@ class Character extends _$Character with CharacterMethod {
     }
   }
 
-  Future<List<Uint8List>> getCurrentCharacterImageByUint() {
+  Future<List<Uint8List>> getCurrentCharacterImageAsUint({ActionType? at}) {
+    // isForDetail은 CharacterDetail 페이지에서 쓰여야 하는 경우 true
+    print('ㅋㅋ');
+
+    return ref
+        .read(apiProvider.notifier)
+        .getCharacterImage(getCurrentCharacterURL(at));
+  }
+
+  List<String> getCurrentCharacterURL(ActionType? at) {
     List<String> itemsBodyList =
         state.equipments[state.historyIndex].makeCharacterItemsBodyPair();
 
-    List<String> standUrls = [
-      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/0?bgColor=230,222,218,255',
-      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/0?bgColor=230,222,218,255',
-    ];
-    List<String> standGifUrls = [
-      'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/animated?bgColor=230,222,218,255',
-      'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/animated?bgColor=230,222,218,255',
-    ];
-    List<String> walkGifUrls = [
-      'https://maplestory.io/api/Character/${itemsBodyList[0]}/walk1/animated?bgColor=230,222,218,255',
-      'https://maplestory.io/api/Character/${itemsBodyList[1]}/walk1/animated?bgColor=230,222,218,255',
-    ];
+    final type = at ?? ref.read(actionSettingProvider);
+    const baseUrl = 'https://maplestory.io/api/Character/';
+    final motion = type.toString().split('.').last[0] == '_'
+        ? '${type.toString().split('.').last.substring(1)}/animated?bgColor=230,222,218,255'
+        : '${type.toString().split('.').last}/0?renderMode=2';
 
-    switch (ref.read(imageSettingProvider)) {
-      case ImageType.stand:
-        return ref.read(apiProvider.notifier).getCharacterImage(standUrls);
-      case ImageType.standGif:
-        return ref.read(apiProvider.notifier).getCharacterImage(standGifUrls);
-      case ImageType.walkGif:
-        return ref.read(apiProvider.notifier).getCharacterImage(walkGifUrls);
-    }
+    return [
+      '$baseUrl${itemsBodyList[0]}/$motion',
+      '$baseUrl${itemsBodyList[1]}/$motion',
+    ];
   }
 
   Item? getCurrentItemBySubCategory({required SubCategoryType type}) {
@@ -202,32 +206,4 @@ class Character extends _$Character with CharacterMethod {
         return currentCharacter.earrings;
     }
   }
-
-  // List<String> getCurrentCharacterImageUrl() {
-  //   // 현재 코디의 이미지 URL 2개를 반환합니다.
-  //   List<String> itemsBodyList =
-  //       getCurrentCharacter().makeCharacterItemsBodyPair();
-
-  //   switch (ref.read(imageSettingProvider)) {
-  //     case ImageType.stand:
-  //       return [
-  //         'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/0?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/0?bgColor=230,222,218,255',
-  //       ];
-  //     case ImageType.standGif:
-  //       return [
-  //         'https://maplestory.io/api/Character/${itemsBodyList[0]}/stand1/animated?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[1]}/stand1/animated?bgColor=230,222,218,255',
-  //       ];
-  //     case ImageType.walkGif:
-  //       return [
-  //         'https://maplestory.io/api/Character/${itemsBodyList[0]}/walk1/animated?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[1]}/walk1/animated?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[0]}/walk1/animated?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[1]}/walk1/animated?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[0]}/walk1/animated?bgColor=230,222,218,255',
-  //         'https://maplestory.io/api/Character/${itemsBodyList[1]}/walk1/animated?bgColor=230,222,218,255',
-  //       ];
-  //   }
-  // }
 }
