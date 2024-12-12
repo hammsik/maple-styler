@@ -140,12 +140,17 @@ class Character extends _$Character with CharacterMethod {
     }
   }
 
-  Future<List<Uint8List>> getCurrentCharacterImageByUint() {
+  Future<List<Uint8List>> getCurrentCharacterImageByUint(
+      {required bool isForCharacterInfo}) {
+    // isForDetail은 CharacterDetail 페이지에서 쓰여야 하는 경우 true
     print('ㅋㅋ');
+
     List<String> itemsBodyList =
         state.equipments[state.historyIndex].makeCharacterItemsBodyPair();
 
-    final type = ref.read(actionSettingProvider);
+    final type = isForCharacterInfo
+        ? ActionType.stand1
+        : ref.read(actionSettingProvider);
     const baseUrl = 'https://maplestory.io/api/Character/';
     final motion = type.toString().split('.').last[0] == '_'
         ? '${type.toString().split('.').last.substring(1)}/animated?bgColor=230,222,218,255'

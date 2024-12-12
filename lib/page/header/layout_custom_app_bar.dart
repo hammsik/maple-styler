@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyCustomAppBar extends StatefulWidget {
-  final Function() clickEvent;
+  // Drawer를 열기 위한 함수 (추후 구현 예정)
+  // final Function() clickEvent;
 
-  const MyCustomAppBar({super.key, required this.clickEvent});
+  const MyCustomAppBar({super.key});
 
   @override
   State<StatefulWidget> createState() {

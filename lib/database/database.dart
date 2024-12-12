@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:drift/drift.dart';
 import 'package:drift/native.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:path/path.dart' as path;
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
@@ -115,7 +115,7 @@ LazyDatabase _openItemDBConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(path.join(dbFolder.path, 'items.db'));
+    final file = File(p.join(dbFolder.path, 'items.db'));
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets
@@ -135,14 +135,14 @@ LazyDatabase _openUserDBConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(path.join(dbFolder.path, 'user.db'));
+    final file = File(p.join(dbFolder.path, 'user.db'));
     return NativeDatabase.createInBackground(file);
   });
 }
 
 void deleteDatabase(String targetDB) async {
   final dbFolder = await getApplicationDocumentsDirectory();
-  final file = File(path.join(dbFolder.path, targetDB));
+  final file = File(p.join(dbFolder.path, targetDB));
 
   if (await file.exists()) {
     await file.delete();

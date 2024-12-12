@@ -19,7 +19,8 @@ class CharacterDetail extends ConsumerWidget {
     if (currentCharacter.hair != null) itemList.add(currentCharacter.hair!);
     if (currentCharacter.face != null) itemList.add(currentCharacter.face!);
     if (currentCharacter.hat != null) itemList.add(currentCharacter.hat!);
-    if (currentCharacter.overAll != null) itemList.add(currentCharacter.overAll!);
+    if (currentCharacter.overAll != null)
+      itemList.add(currentCharacter.overAll!);
     if (currentCharacter.cash != null) itemList.add(currentCharacter.cash!);
     if (currentCharacter.top != null) itemList.add(currentCharacter.top!);
     if (currentCharacter.bottom != null) itemList.add(currentCharacter.bottom!);
@@ -27,9 +28,12 @@ class CharacterDetail extends ConsumerWidget {
     if (currentCharacter.glove != null) itemList.add(currentCharacter.glove!);
     if (currentCharacter.shoes != null) itemList.add(currentCharacter.shoes!);
     if (currentCharacter.shield != null) itemList.add(currentCharacter.shield!);
-    if (currentCharacter.faceAccessory != null) itemList.add(currentCharacter.faceAccessory!);
-    if (currentCharacter.eyeDecoration != null) itemList.add(currentCharacter.eyeDecoration!);
-    if (currentCharacter.earrings != null) itemList.add(currentCharacter.earrings!);
+    if (currentCharacter.faceAccessory != null)
+      itemList.add(currentCharacter.faceAccessory!);
+    if (currentCharacter.eyeDecoration != null)
+      itemList.add(currentCharacter.eyeDecoration!);
+    if (currentCharacter.earrings != null)
+      itemList.add(currentCharacter.earrings!);
 
     return itemList;
   }
@@ -72,8 +76,10 @@ class CharacterDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final characterImageList =
-        ref.read(characterProvider.notifier).getCurrentCharacterImageByUint();
+    final characterImageList = ref
+        .read(characterProvider.notifier)
+        .getCurrentCharacterImageByUint(isForCharacterInfo: true);
+
     final Equipment currentCharacter =
         ref.read(characterProvider.notifier).getCurrentCharacter();
     final List<Item> currentWearingItemList =
@@ -150,7 +156,8 @@ class CharacterDetail extends ConsumerWidget {
                                         childAspectRatio: 3.0,
                                       ),
                                       delegate: SliverChildBuilderDelegate(
-                                        childCount: currentWearingItemList.length,
+                                        childCount:
+                                            currentWearingItemList.length,
                                         (context, index) => Container(
                                           decoration: BoxDecoration(
                                             color: const Color.fromARGB(
@@ -186,7 +193,9 @@ class CharacterDetail extends ConsumerWidget {
                                                   margin:
                                                       const EdgeInsets.all(5),
                                                   child: Text(
-                                                    currentWearingItemList[index].name,
+                                                    currentWearingItemList[
+                                                            index]
+                                                        .name,
                                                     style: GoogleFonts
                                                         .nanumMyeongjo(
                                                             color: const Color
@@ -228,19 +237,33 @@ class CharacterDetail extends ConsumerWidget {
                                     child: Transform.scale(
                                       scale: 2.0, // 확대 비율 설정
                                       alignment: const Alignment(0, -0.3),
-                                      child: Stack(
-                                        children: [
-                                          // Image.network(
-                                          //   widget.dodo.getMyCharacter(
-                                          //       imageFrame: '0'),
-                                          // ),
-                                          // Opacity(
-                                          //   opacity: 0.5,
-                                          //   child: Image.network(widget.dodo2
-                                          //       .getMyCharacter(
-                                          //           imageFrame: '0')),
-                                          // ),
-                                        ],
+                                      child: FutureBuilder(
+                                        future:
+                                            characterImageList, // 이미지를 불러오는 Future
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                                  ConnectionState.done &&
+                                              snapshot.hasData) {
+                                            return Stack(
+                                                fit: StackFit.expand,
+                                                children: [
+                                                  Image.memory(
+                                                    snapshot.data![0],
+                                                    fit: BoxFit.none,
+                                                  ),
+                                                  Opacity(
+                                                    opacity: 0.5,
+                                                    child: Image.memory(
+                                                      snapshot.data![1],
+                                                      fit: BoxFit.none,
+                                                    ),
+                                                  ),
+                                                ]);
+                                          } else {
+                                            return Image.asset(
+                                                'assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
+                                          }
+                                        },
                                       ),
                                     ),
                                   ),
@@ -321,12 +344,16 @@ class CharacterDetail extends ConsumerWidget {
                               .select(userFavoriteDB.userFavoriteCharacters)
                               .get(),
                           builder: (context, snapshot) {
-                            if (snapshot.connectionState == ConnectionState.waiting) {
-                              return const Center(child: CircularProgressIndicator());
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             } else if (snapshot.hasError) {
                               return const Center(child: Text('오류가 발생했습니다.'));
-                            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                              return const Center(child: Text('저장한 코디가 존재하지 않습니다'));
+                            } else if (!snapshot.hasData ||
+                                snapshot.data!.isEmpty) {
+                              return const Center(
+                                  child: Text('저장한 코디가 존재하지 않습니다'));
                             } else {
                               final favoriteCharacterList = snapshot.data!;
                               return Container(
@@ -351,7 +378,8 @@ class CharacterDetail extends ConsumerWidget {
                                           childAspectRatio: 0.8,
                                         ),
                                         delegate: SliverChildBuilderDelegate(
-                                          childCount: favoriteCharacterList.length,
+                                          childCount:
+                                              favoriteCharacterList.length,
                                           (context, index) => FilledButton(
                                             style: FilledButton.styleFrom(
                                               foregroundColor:
@@ -368,24 +396,28 @@ class CharacterDetail extends ConsumerWidget {
                                             onPressed: () =>
                                                 openFavoriteCharacterDetail(
                                                     context,
-                                                    favoriteCharacterList[index],
+                                                    favoriteCharacterList[
+                                                        index],
                                                     index - 1000),
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               child: Hero(
                                                 tag: index - 1000,
                                                 child: Stack(
                                                   fit: StackFit.expand,
                                                   children: [
                                                     Image.network(
-                                                      favoriteCharacterList[index]
+                                                      favoriteCharacterList[
+                                                              index]
                                                           .characterImageUrl1,
                                                       fit: BoxFit.none,
                                                     ),
                                                     Opacity(
                                                       opacity: 0.5,
                                                       child: Image.network(
-                                                        favoriteCharacterList[index]
+                                                        favoriteCharacterList[
+                                                                index]
                                                             .characterImageUrl2,
                                                         fit: BoxFit.none,
                                                       ),
