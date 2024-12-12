@@ -53,6 +53,8 @@ class CharacterDetail extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final ScrollController scrollController = ScrollController();
+
     ref.watch(characterProvider);
     final characterImageList = ref
         .read(characterProvider.notifier)
@@ -256,25 +258,38 @@ class CharacterDetail extends ConsumerWidget {
                                 width: double.infinity,
                                 child: ElevatedButton(
                                   onPressed: () async {
-                                    await userFavoriteDB
-                                        .into(userFavoriteDB
-                                            .userFavoriteCharacters)
-                                        .insert(UserFavoriteCharactersCompanion
-                                            .insert(
-                                          characterInfo: currentCharacter
-                                              .customToJson(isOne: true),
-                                          characterInfo2: currentCharacter
-                                              .customToJson(isOne: false),
-                                          characterImageUrl1: characterUrls[0],
-                                          characterImageUrl2: characterUrls[1],
-                                        ));
-                                    ref.invalidate(
-                                        favoriteCharacterListProvider);
-                                    ref
-                                        .read(customToastProvider.notifier)
-                                        .showCustomToast(context,
-                                            type: ToastType.success,
-                                            message: "코디가 저장되었습니다.");
+                                    try {
+                                      await userFavoriteDB
+                                          .into(userFavoriteDB
+                                              .userFavoriteCharacters)
+                                          .insert(
+                                              UserFavoriteCharactersCompanion
+                                                  .insert(
+                                            characterInfo: currentCharacter
+                                                .customToJson(isOne: true),
+                                            characterInfo2: currentCharacter
+                                                .customToJson(isOne: false),
+                                            characterImageUrl1:
+                                                characterUrls[0],
+                                            characterImageUrl2:
+                                                characterUrls[1],
+                                          ));
+                                      ref.invalidate(
+                                          favoriteCharacterListProvider);
+                                      ref
+                                          .read(customToastProvider.notifier)
+                                          .showCustomToast(context,
+                                              type: ToastType.success,
+                                              message: "코디가 저장되었습니다.");
+                                      scrollController.jumpTo(scrollController
+                                          .position.maxScrollExtent);
+                                    } catch (e) {
+                                      ref
+                                          .read(customToastProvider.notifier)
+                                          .showCustomToast(context,
+                                              type: ToastType.error,
+                                              message: "코디 저장에 실패했습니다.");
+                                    }
                                   },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: const Color.fromARGB(
@@ -308,8 +323,9 @@ class CharacterDetail extends ConsumerWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const Expanded(
-                  child: FavoriteCharacterList(),
+                Expanded(
+                  child:
+                      FavoriteCharacterList(scrollController: scrollController),
                 ),
               ],
             ),
@@ -319,6 +335,10 @@ class CharacterDetail extends ConsumerWidget {
 }
 
 class FavoriteCharacterList extends ConsumerWidget {
+  final ScrollController scrollController;
+
+  const FavoriteCharacterList({super.key, required this.scrollController});
+
   Future<bool> openFavoriteCharacterDetail(BuildContext context,
       UserFavoriteCharacter selectedCharacter, int listIndex) async {
     final result = await Navigator.push(
@@ -346,8 +366,6 @@ class FavoriteCharacterList extends ConsumerWidget {
     return false;
   }
 
-  const FavoriteCharacterList({super.key});
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
@@ -373,6 +391,7 @@ class FavoriteCharacterList extends ConsumerWidget {
                   data: (favoriteCharacterList) => favoriteCharacterList.isEmpty
                       ? const Center(child: Text('저장한 코디가 존재하지 않습니다'))
                       : CustomScrollView(
+                          controller: scrollController,
                           physics: const BouncingScrollPhysics(),
                           slivers: <Widget>[
                             SliverGrid(
