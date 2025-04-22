@@ -44,70 +44,77 @@ class CoordinatingTools extends ConsumerWidget {
           ),
           const SizedBox(height: 8),
           Expanded(
-            child: currentTool.toolType == ToolType.color
-                ? const ColorLayout()
-                : currentTool.toolType == ToolType.favorite
-                    ? const FavoriteLayout()
-                    : currentTool.toolType == ToolType.unknown
-                        ? const UndefinedLayout()
-                        : Column(
-                            children: [
-                              Row(
-                                children: [
-                                  ItemMenu(
-                                    currentTool: currentTool,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  SelectedItem(
-                                      currentSubCategory: currentTool
-                                              .subCategoryMap![
-                                          currentTool.currentSubcategoryType]!),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.all(6),
-                                    decoration: const BoxDecoration(
-                                      color: Color.fromARGB(255, 230, 222, 218),
-                                    ),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child:
-                                          ref.watch(mapleItemListProvider).when(
-                                                data: (map) => ItemList(
-                                                    key: ValueKey(currentTool),
-                                                    itemList: map[currentTool
-                                                                .toolType]![
-                                                            currentTool
-                                                                .currentSubcategoryType] ??
-                                                        []),
-                                                error: (error, stackTrace) =>
-                                                    Center(
-                                                  child: Text(
-                                                      '에러가 발생했습니다. 에러코드: ${error.toString()}'),
-                                                ),
-                                                loading: () => const Center(
-                                                  child: SizedBox(
-                                                    width: 30,
-                                                    height: 30,
-                                                    child:
-                                                        CircularProgressIndicator(),
-                                                  ),
-                                                ),
-                                              ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+            child: _renderToolContent(ref, currentTool),
           ),
         ],
       ),
     );
+  }
+
+  Widget _renderToolContent(WidgetRef ref, MyTool currentTool) {
+    switch (currentTool.toolType) {
+      case ToolType.color:
+        return const ColorLayout();
+      case ToolType.favorite:
+        return const FavoriteLayout();
+      case ToolType.unknown:
+        return const UndefinedLayout();
+      default:
+        return Column(
+          children: [
+            Row(
+              children: [
+                ItemMenu(
+                  currentTool: currentTool,
+                ),
+                const SizedBox(width: 8),
+                SelectedItem(
+                    currentSubCategory: currentTool
+                            .subCategoryMap![
+                        currentTool.currentSubcategoryType]!),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(6),
+                  decoration: const BoxDecoration(
+                    color: Color.fromARGB(255, 230, 222, 218),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child:
+                        ref.watch(mapleItemListProvider).when(
+                              data: (map) => ItemList(
+                                  key: ValueKey(currentTool),
+                                  itemList: map[currentTool
+                                              .toolType]![
+                                          currentTool
+                                              .currentSubcategoryType] ??
+                                      []),
+                              error: (error, stackTrace) =>
+                                  Center(
+                                child: Text(
+                                    '에러가 발생했습니다. 에러코드: ${error.toString()}'),
+                              ),
+                              loading: () => const Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child:
+                                      CircularProgressIndicator(),
+                                ),
+                              ),
+                            ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+    }
   }
 }
