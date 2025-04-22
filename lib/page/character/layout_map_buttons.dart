@@ -10,20 +10,23 @@ class BackgroundButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         MapButton(
           backgroundType: BackgroundType.basic,
         ),
+        SizedBox(width: 12),
         MapButton(
           backgroundType: BackgroundType.henesis,
         ),
+        SizedBox(width: 12),
         MapButton(
           backgroundType: BackgroundType.kerningcity,
         ),
+        SizedBox(width: 12),
         MapButton(
           backgroundType: BackgroundType.arcana,
         ),
+        SizedBox(width: 12),
         MapButton(
           backgroundType: BackgroundType.sernium,
         ),
