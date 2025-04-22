@@ -32,7 +32,7 @@ class ItemMenu extends ConsumerWidget {
             },
             child: Ink(
               height: 40,
-              width: 101,
+              width: MediaQuery.of(context).size.width * 0.26,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: const Color.fromARGB(255, 230, 222, 218),
