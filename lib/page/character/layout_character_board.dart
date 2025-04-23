@@ -245,10 +245,21 @@ class BackgroundImage extends ConsumerWidget {
     final currentBackgroundType = ref.watch(backgroundSettingProvider);
     return ClipRRect(
       borderRadius: BorderRadius.circular(12),
-      child: Image.asset(
-        fit: BoxFit.fitHeight,
-        backgroundMap[currentBackgroundType]![1],
-      ),
+      child: MediaQuery.of(context).size.height < 600
+          ? Transform.scale(
+              scale: 1.14, // 1.05배 확대
+              alignment: Alignment.topCenter, // 하단 정렬
+              child: Image.asset(
+                backgroundMap[currentBackgroundType]![1],
+                fit: BoxFit.cover, // 컨테이너를 꽉 채우도록
+                width: double.infinity,
+                height: double.infinity,
+              ),
+            )
+          : Image.asset(
+              fit: BoxFit.cover,
+              backgroundMap[currentBackgroundType]![1],
+            ),
     );
   }
 }

@@ -69,8 +69,8 @@ class MapleStylerHome extends ConsumerWidget {
                 const BackgroundButtons(),
                 const SizedBox(height: 10),
                 CharacterBoard(
-                  height: MediaQuery.of(context).size.height * 0.22,
-                ),
+                    height:
+                        MediaQuery.of(context).size.height < 600 ? 124 : 190),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1),
