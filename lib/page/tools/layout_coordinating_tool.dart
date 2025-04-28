@@ -70,8 +70,7 @@ class CoordinatingTools extends ConsumerWidget {
                 const SizedBox(width: 8),
                 SelectedItem(
                     currentSubCategory: currentTool
-                            .subCategoryMap![
-                        currentTool.currentSubcategoryType]!),
+                        .subCategoryMap![currentTool.currentSubcategoryType]!),
               ],
             ),
             const SizedBox(height: 8),
@@ -86,29 +85,24 @@ class CoordinatingTools extends ConsumerWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child:
-                        ref.watch(mapleItemListProvider).when(
-                              data: (map) => ItemList(
-                                  key: ValueKey(currentTool),
-                                  itemList: map[currentTool
-                                              .toolType]![
-                                          currentTool
-                                              .currentSubcategoryType] ??
-                                      []),
-                              error: (error, stackTrace) =>
-                                  Center(
-                                child: Text(
-                                    '에러가 발생했습니다. 에러코드: ${error.toString()}'),
-                              ),
-                              loading: () => const Center(
-                                child: SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child:
-                                      CircularProgressIndicator(),
-                                ),
-                              ),
+                    child: ref.watch(mapleItemListProvider).when(
+                          data: (map) => ItemList(
+                              key: ValueKey(currentTool),
+                              itemList: map[currentTool.toolType]![
+                                      currentTool.currentSubcategoryType] ??
+                                  []),
+                          error: (error, stackTrace) => Center(
+                            child:
+                                Text('에러가 발생했습니다. 에러코드: ${error.toString()}'),
+                          ),
+                          loading: () => const Center(
+                            child: SizedBox(
+                              width: 30,
+                              height: 30,
+                              child: CircularProgressIndicator(),
                             ),
+                          ),
+                        ),
                   ),
                 ),
               ),

@@ -70,14 +70,15 @@ class ItemDatabase extends _$ItemDatabase {
   ItemDatabase() : super(_openItemDBConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
       onUpgrade: (Migrator m, int from, int to) async {
-        if (from < 2) {
-          deleteDatabase("item.db");
+        if (from < 3) {
+          // 새로운 db를 _openItemDBConnection()에서 추가해서 쓰는 대신, 기존거 제거
+          deleteDatabase("items.db");
         }
       },
     );
@@ -125,7 +126,7 @@ LazyDatabase _openItemDBConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'items.db'));
+    final file = File(p.join(dbFolder.path, 'item.db'));
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets

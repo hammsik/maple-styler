@@ -28,13 +28,13 @@ class Equipment with _$Equipment {
     // 장비
     Item? hat,
     Item? overAll,
-    Item? cash,
     Item? top,
     Item? bottom,
     Item? cape,
     Item? glove,
     Item? shoes,
     Item? shield,
+    Item? weapon,
     // 악세
     Item? faceAccessory,
     Item? eyeDecoration,
@@ -102,7 +102,8 @@ class Equipment with _$Equipment {
               subCategoryType: SubCategoryType.overall,
             )
           : null,
-      cash: json['Cash']![0] != 'null'
+      // cash는 레거시... 지금은 Weapon으로 바뀜. 그러나 이전 버전 사용자를 위해 남김
+      weapon: json['Cash']![0] != 'null'
           ? Item(
               id: json['Cash']![0],
               name: json['Cash']![1],
@@ -195,7 +196,7 @@ extension ExtensionForToJson on Equipment {
       'Head': [head.id, head.name],
       'Hat': [hat?.id ?? 'null', hat?.name ?? 'null'],
       'Overall': [overAll?.id ?? 'null', overAll?.name ?? 'null'],
-      'Cash': [cash?.id ?? 'null', cash?.name ?? 'null'],
+      'Weapon': [weapon?.id ?? 'null', weapon?.name ?? 'null'],
       'Top': [top?.id ?? 'null', top?.name ?? 'null'],
       'Bottom': [bottom?.id ?? 'null', bottom?.name ?? 'null'],
       'Cape': [cape?.id ?? 'null', cape?.name ?? 'null'],
@@ -224,7 +225,7 @@ extension UrlMaker on Equipment {
     String url = addVersionAndRegion(head.id) +
         addVersionAndRegion(head.id.substring(1));
     if (hat != null) url += addVersionAndRegion(hat!.id);
-    if (cash != null) url += addVersionAndRegion(cash!.id);
+    if (weapon != null) url += addVersionAndRegion(weapon!.id);
     if (cape != null) url += addVersionAndRegion(cape!.id);
     if (glove != null) url += addVersionAndRegion(glove!.id);
     if (shoes != null) url += addVersionAndRegion(shoes!.id);

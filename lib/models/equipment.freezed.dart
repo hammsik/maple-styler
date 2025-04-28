@@ -25,13 +25,13 @@ mixin _$Equipment {
   Item get head => throw _privateConstructorUsedError; // 장비
   Item? get hat => throw _privateConstructorUsedError;
   Item? get overAll => throw _privateConstructorUsedError;
-  Item? get cash => throw _privateConstructorUsedError;
   Item? get top => throw _privateConstructorUsedError;
   Item? get bottom => throw _privateConstructorUsedError;
   Item? get cape => throw _privateConstructorUsedError;
   Item? get glove => throw _privateConstructorUsedError;
   Item? get shoes => throw _privateConstructorUsedError;
-  Item? get shield => throw _privateConstructorUsedError; // 악세
+  Item? get shield => throw _privateConstructorUsedError;
+  Item? get weapon => throw _privateConstructorUsedError; // 악세
   Item? get faceAccessory => throw _privateConstructorUsedError;
   Item? get eyeDecoration => throw _privateConstructorUsedError;
   Item? get earrings => throw _privateConstructorUsedError;
@@ -58,13 +58,13 @@ abstract class $EquipmentCopyWith<$Res> {
       Item head,
       Item? hat,
       Item? overAll,
-      Item? cash,
       Item? top,
       Item? bottom,
       Item? cape,
       Item? glove,
       Item? shoes,
       Item? shield,
+      Item? weapon,
       Item? faceAccessory,
       Item? eyeDecoration,
       Item? earrings});
@@ -74,13 +74,13 @@ abstract class $EquipmentCopyWith<$Res> {
   $ItemCopyWith<$Res> get head;
   $ItemCopyWith<$Res>? get hat;
   $ItemCopyWith<$Res>? get overAll;
-  $ItemCopyWith<$Res>? get cash;
   $ItemCopyWith<$Res>? get top;
   $ItemCopyWith<$Res>? get bottom;
   $ItemCopyWith<$Res>? get cape;
   $ItemCopyWith<$Res>? get glove;
   $ItemCopyWith<$Res>? get shoes;
   $ItemCopyWith<$Res>? get shield;
+  $ItemCopyWith<$Res>? get weapon;
   $ItemCopyWith<$Res>? get faceAccessory;
   $ItemCopyWith<$Res>? get eyeDecoration;
   $ItemCopyWith<$Res>? get earrings;
@@ -110,13 +110,13 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
     Object? head = null,
     Object? hat = freezed,
     Object? overAll = freezed,
-    Object? cash = freezed,
     Object? top = freezed,
     Object? bottom = freezed,
     Object? cape = freezed,
     Object? glove = freezed,
     Object? shoes = freezed,
     Object? shield = freezed,
+    Object? weapon = freezed,
     Object? faceAccessory = freezed,
     Object? eyeDecoration = freezed,
     Object? earrings = freezed,
@@ -158,10 +158,6 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
           ? _value.overAll
           : overAll // ignore: cast_nullable_to_non_nullable
               as Item?,
-      cash: freezed == cash
-          ? _value.cash
-          : cash // ignore: cast_nullable_to_non_nullable
-              as Item?,
       top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
@@ -185,6 +181,10 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
       shield: freezed == shield
           ? _value.shield
           : shield // ignore: cast_nullable_to_non_nullable
+              as Item?,
+      weapon: freezed == weapon
+          ? _value.weapon
+          : weapon // ignore: cast_nullable_to_non_nullable
               as Item?,
       faceAccessory: freezed == faceAccessory
           ? _value.faceAccessory
@@ -264,20 +264,6 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
 
     return $ItemCopyWith<$Res>(_value.overAll!, (value) {
       return _then(_value.copyWith(overAll: value) as $Val);
-    });
-  }
-
-  /// Create a copy of Equipment
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $ItemCopyWith<$Res>? get cash {
-    if (_value.cash == null) {
-      return null;
-    }
-
-    return $ItemCopyWith<$Res>(_value.cash!, (value) {
-      return _then(_value.copyWith(cash: value) as $Val);
     });
   }
 
@@ -369,6 +355,20 @@ class _$EquipmentCopyWithImpl<$Res, $Val extends Equipment>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $ItemCopyWith<$Res>? get weapon {
+    if (_value.weapon == null) {
+      return null;
+    }
+
+    return $ItemCopyWith<$Res>(_value.weapon!, (value) {
+      return _then(_value.copyWith(weapon: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Equipment
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
   $ItemCopyWith<$Res>? get faceAccessory {
     if (_value.faceAccessory == null) {
       return null;
@@ -426,13 +426,13 @@ abstract class _$$EquipmentImplCopyWith<$Res>
       Item head,
       Item? hat,
       Item? overAll,
-      Item? cash,
       Item? top,
       Item? bottom,
       Item? cape,
       Item? glove,
       Item? shoes,
       Item? shield,
+      Item? weapon,
       Item? faceAccessory,
       Item? eyeDecoration,
       Item? earrings});
@@ -448,8 +448,6 @@ abstract class _$$EquipmentImplCopyWith<$Res>
   @override
   $ItemCopyWith<$Res>? get overAll;
   @override
-  $ItemCopyWith<$Res>? get cash;
-  @override
   $ItemCopyWith<$Res>? get top;
   @override
   $ItemCopyWith<$Res>? get bottom;
@@ -461,6 +459,8 @@ abstract class _$$EquipmentImplCopyWith<$Res>
   $ItemCopyWith<$Res>? get shoes;
   @override
   $ItemCopyWith<$Res>? get shield;
+  @override
+  $ItemCopyWith<$Res>? get weapon;
   @override
   $ItemCopyWith<$Res>? get faceAccessory;
   @override
@@ -491,13 +491,13 @@ class __$$EquipmentImplCopyWithImpl<$Res>
     Object? head = null,
     Object? hat = freezed,
     Object? overAll = freezed,
-    Object? cash = freezed,
     Object? top = freezed,
     Object? bottom = freezed,
     Object? cape = freezed,
     Object? glove = freezed,
     Object? shoes = freezed,
     Object? shield = freezed,
+    Object? weapon = freezed,
     Object? faceAccessory = freezed,
     Object? eyeDecoration = freezed,
     Object? earrings = freezed,
@@ -539,10 +539,6 @@ class __$$EquipmentImplCopyWithImpl<$Res>
           ? _value.overAll
           : overAll // ignore: cast_nullable_to_non_nullable
               as Item?,
-      cash: freezed == cash
-          ? _value.cash
-          : cash // ignore: cast_nullable_to_non_nullable
-              as Item?,
       top: freezed == top
           ? _value.top
           : top // ignore: cast_nullable_to_non_nullable
@@ -566,6 +562,10 @@ class __$$EquipmentImplCopyWithImpl<$Res>
       shield: freezed == shield
           ? _value.shield
           : shield // ignore: cast_nullable_to_non_nullable
+              as Item?,
+      weapon: freezed == weapon
+          ? _value.weapon
+          : weapon // ignore: cast_nullable_to_non_nullable
               as Item?,
       faceAccessory: freezed == faceAccessory
           ? _value.faceAccessory
@@ -598,13 +598,13 @@ class _$EquipmentImpl implements _Equipment {
       required this.head,
       this.hat,
       this.overAll,
-      this.cash,
       this.top,
       this.bottom,
       this.cape,
       this.glove,
       this.shoes,
       this.shield,
+      this.weapon,
       this.faceAccessory,
       this.eyeDecoration,
       this.earrings});
@@ -632,8 +632,6 @@ class _$EquipmentImpl implements _Equipment {
   @override
   final Item? overAll;
   @override
-  final Item? cash;
-  @override
   final Item? top;
   @override
   final Item? bottom;
@@ -645,6 +643,8 @@ class _$EquipmentImpl implements _Equipment {
   final Item? shoes;
   @override
   final Item? shield;
+  @override
+  final Item? weapon;
 // 악세
   @override
   final Item? faceAccessory;
@@ -655,7 +655,7 @@ class _$EquipmentImpl implements _Equipment {
 
   @override
   String toString() {
-    return 'Equipment(hairColor1: $hairColor1, hairColor2: $hairColor2, lensColor1: $lensColor1, lensColor2: $lensColor2, hair: $hair, face: $face, head: $head, hat: $hat, overAll: $overAll, cash: $cash, top: $top, bottom: $bottom, cape: $cape, glove: $glove, shoes: $shoes, shield: $shield, faceAccessory: $faceAccessory, eyeDecoration: $eyeDecoration, earrings: $earrings)';
+    return 'Equipment(hairColor1: $hairColor1, hairColor2: $hairColor2, lensColor1: $lensColor1, lensColor2: $lensColor2, hair: $hair, face: $face, head: $head, hat: $hat, overAll: $overAll, top: $top, bottom: $bottom, cape: $cape, glove: $glove, shoes: $shoes, shield: $shield, weapon: $weapon, faceAccessory: $faceAccessory, eyeDecoration: $eyeDecoration, earrings: $earrings)';
   }
 
   @override
@@ -676,13 +676,13 @@ class _$EquipmentImpl implements _Equipment {
             (identical(other.head, head) || other.head == head) &&
             (identical(other.hat, hat) || other.hat == hat) &&
             (identical(other.overAll, overAll) || other.overAll == overAll) &&
-            (identical(other.cash, cash) || other.cash == cash) &&
             (identical(other.top, top) || other.top == top) &&
             (identical(other.bottom, bottom) || other.bottom == bottom) &&
             (identical(other.cape, cape) || other.cape == cape) &&
             (identical(other.glove, glove) || other.glove == glove) &&
             (identical(other.shoes, shoes) || other.shoes == shoes) &&
             (identical(other.shield, shield) || other.shield == shield) &&
+            (identical(other.weapon, weapon) || other.weapon == weapon) &&
             (identical(other.faceAccessory, faceAccessory) ||
                 other.faceAccessory == faceAccessory) &&
             (identical(other.eyeDecoration, eyeDecoration) ||
@@ -703,13 +703,13 @@ class _$EquipmentImpl implements _Equipment {
         head,
         hat,
         overAll,
-        cash,
         top,
         bottom,
         cape,
         glove,
         shoes,
         shield,
+        weapon,
         faceAccessory,
         eyeDecoration,
         earrings
@@ -735,13 +735,13 @@ abstract class _Equipment implements Equipment {
       required final Item head,
       final Item? hat,
       final Item? overAll,
-      final Item? cash,
       final Item? top,
       final Item? bottom,
       final Item? cape,
       final Item? glove,
       final Item? shoes,
       final Item? shield,
+      final Item? weapon,
       final Item? faceAccessory,
       final Item? eyeDecoration,
       final Item? earrings}) = _$EquipmentImpl;
@@ -765,8 +765,6 @@ abstract class _Equipment implements Equipment {
   @override
   Item? get overAll;
   @override
-  Item? get cash;
-  @override
   Item? get top;
   @override
   Item? get bottom;
@@ -777,7 +775,9 @@ abstract class _Equipment implements Equipment {
   @override
   Item? get shoes;
   @override
-  Item? get shield; // 악세
+  Item? get shield;
+  @override
+  Item? get weapon; // 악세
   @override
   Item? get faceAccessory;
   @override

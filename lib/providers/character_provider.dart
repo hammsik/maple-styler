@@ -165,8 +165,6 @@ class Character extends _$Character with CharacterMethod {
 
   Future<List<Uint8List>> getCurrentCharacterImageAsUint({ActionType? at}) {
     // isForDetail은 CharacterDetail 페이지에서 쓰여야 하는 경우 true
-    print('ㅋㅋ');
-
     return ref
         .read(apiProvider.notifier)
         .getCharacterImage(getCurrentCharacterURL(at));
@@ -201,8 +199,6 @@ class Character extends _$Character with CharacterMethod {
         return currentCharacter.hat;
       case SubCategoryType.overall:
         return currentCharacter.overAll;
-      case SubCategoryType.cash:
-        return currentCharacter.cash;
       case SubCategoryType.top:
         return currentCharacter.top;
       case SubCategoryType.bottom:
@@ -215,6 +211,10 @@ class Character extends _$Character with CharacterMethod {
         return currentCharacter.shoes;
       case SubCategoryType.shield:
         return currentCharacter.shield;
+      case SubCategoryType.cash:
+      case SubCategoryType.oneHanded:
+      case SubCategoryType.twoHanded:
+        return currentCharacter.weapon;
       case SubCategoryType.faceAccessory:
         return currentCharacter.faceAccessory;
       case SubCategoryType.eyeDecoration:

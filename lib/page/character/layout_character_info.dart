@@ -21,7 +21,7 @@ class CharacterDetail extends ConsumerWidget {
     if (currentCharacter.hat != null) itemList.add(currentCharacter.hat!);
     if (currentCharacter.overAll != null)
       itemList.add(currentCharacter.overAll!);
-    if (currentCharacter.cash != null) itemList.add(currentCharacter.cash!);
+    if (currentCharacter.weapon != null) itemList.add(currentCharacter.weapon!);
     if (currentCharacter.top != null) itemList.add(currentCharacter.top!);
     if (currentCharacter.bottom != null) itemList.add(currentCharacter.bottom!);
     if (currentCharacter.cape != null) itemList.add(currentCharacter.cape!);

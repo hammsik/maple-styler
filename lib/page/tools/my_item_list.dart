@@ -7,7 +7,7 @@ import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/widgets/custom_scrollbar_wrapper.dart';
 
 class ItemList extends HookConsumerWidget {
-  final List<Item> itemList;
+  final List<dynamic> itemList;
 
   const ItemList({
     super.key,

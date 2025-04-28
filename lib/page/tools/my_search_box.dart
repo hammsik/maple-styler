@@ -126,10 +126,25 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   }
 
   void showItemList(
-      {required Map<ToolType, Map<SubCategoryType, List<Item>>> itemMap}) {
+      {required Map<ToolType, Map<SubCategoryType, List<dynamic>>> itemMap}) {
     final List<Item> searchedItemList = [];
-    for (final category in itemMap.values) {
-      for (final subCategory in category.values) {
+
+    for (final categoryEntry in itemMap.entries) {
+      if (categoryEntry.key == ToolType.weapon) {
+        for (final weaponCategory in categoryEntry.value.values) {
+          for (final subCategory in weaponCategory) {
+            for (final item in subCategory) {
+              if (myController.text.isNotEmpty &&
+                  (item.name.replaceAll(' ', ''))
+                      .contains(myController.text.replaceAll(' ', ''))) {
+                searchedItemList.add(item);
+              }
+            }
+          }
+        }
+      }
+
+      for (final subCategory in categoryEntry.value.values) {
         for (final item in subCategory) {
           if (myController.text.isNotEmpty &&
               (item.name.replaceAll(' ', ''))
