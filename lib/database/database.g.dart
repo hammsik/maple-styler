@@ -515,6 +515,222 @@ class ArmorItemsCompanion extends UpdateCompanion<ArmorItem> {
   }
 }
 
+class $WeaponItemsTable extends WeaponItems
+    with TableInfo<$WeaponItemsTable, WeaponItem> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $WeaponItemsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _itemidMeta = const VerificationMeta('itemid');
+  @override
+  late final GeneratedColumn<int> itemid = GeneratedColumn<int>(
+      'itemid', aliasedName, false,
+      type: DriftSqlType.int, requiredDuringInsert: false);
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _subCategoryMeta =
+      const VerificationMeta('subCategory');
+  @override
+  late final GeneratedColumn<String> subCategory = GeneratedColumn<String>(
+      'sub_category', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [itemid, name, subCategory];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'weapon_items';
+  @override
+  VerificationContext validateIntegrity(Insertable<WeaponItem> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('itemid')) {
+      context.handle(_itemidMeta,
+          itemid.isAcceptableOrUnknown(data['itemid']!, _itemidMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('sub_category')) {
+      context.handle(
+          _subCategoryMeta,
+          subCategory.isAcceptableOrUnknown(
+              data['sub_category']!, _subCategoryMeta));
+    } else if (isInserting) {
+      context.missing(_subCategoryMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {itemid};
+  @override
+  WeaponItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return WeaponItem(
+      itemid: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}itemid'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      subCategory: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}sub_category'])!,
+    );
+  }
+
+  @override
+  $WeaponItemsTable createAlias(String alias) {
+    return $WeaponItemsTable(attachedDatabase, alias);
+  }
+}
+
+class WeaponItem extends DataClass implements Insertable<WeaponItem> {
+  final int itemid;
+  final String name;
+  final String subCategory;
+  const WeaponItem(
+      {required this.itemid, required this.name, required this.subCategory});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['itemid'] = Variable<int>(itemid);
+    map['name'] = Variable<String>(name);
+    map['sub_category'] = Variable<String>(subCategory);
+    return map;
+  }
+
+  WeaponItemsCompanion toCompanion(bool nullToAbsent) {
+    return WeaponItemsCompanion(
+      itemid: Value(itemid),
+      name: Value(name),
+      subCategory: Value(subCategory),
+    );
+  }
+
+  factory WeaponItem.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return WeaponItem(
+      itemid: serializer.fromJson<int>(json['itemid']),
+      name: serializer.fromJson<String>(json['name']),
+      subCategory: serializer.fromJson<String>(json['subCategory']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'itemid': serializer.toJson<int>(itemid),
+      'name': serializer.toJson<String>(name),
+      'subCategory': serializer.toJson<String>(subCategory),
+    };
+  }
+
+  WeaponItem copyWith({int? itemid, String? name, String? subCategory}) =>
+      WeaponItem(
+        itemid: itemid ?? this.itemid,
+        name: name ?? this.name,
+        subCategory: subCategory ?? this.subCategory,
+      );
+  WeaponItem copyWithCompanion(WeaponItemsCompanion data) {
+    return WeaponItem(
+      itemid: data.itemid.present ? data.itemid.value : this.itemid,
+      name: data.name.present ? data.name.value : this.name,
+      subCategory:
+          data.subCategory.present ? data.subCategory.value : this.subCategory,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WeaponItem(')
+          ..write('itemid: $itemid, ')
+          ..write('name: $name, ')
+          ..write('subCategory: $subCategory')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(itemid, name, subCategory);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is WeaponItem &&
+          other.itemid == this.itemid &&
+          other.name == this.name &&
+          other.subCategory == this.subCategory);
+}
+
+class WeaponItemsCompanion extends UpdateCompanion<WeaponItem> {
+  final Value<int> itemid;
+  final Value<String> name;
+  final Value<String> subCategory;
+  const WeaponItemsCompanion({
+    this.itemid = const Value.absent(),
+    this.name = const Value.absent(),
+    this.subCategory = const Value.absent(),
+  });
+  WeaponItemsCompanion.insert({
+    this.itemid = const Value.absent(),
+    required String name,
+    required String subCategory,
+  })  : name = Value(name),
+        subCategory = Value(subCategory);
+  static Insertable<WeaponItem> custom({
+    Expression<int>? itemid,
+    Expression<String>? name,
+    Expression<String>? subCategory,
+  }) {
+    return RawValuesInsertable({
+      if (itemid != null) 'itemid': itemid,
+      if (name != null) 'name': name,
+      if (subCategory != null) 'sub_category': subCategory,
+    });
+  }
+
+  WeaponItemsCompanion copyWith(
+      {Value<int>? itemid, Value<String>? name, Value<String>? subCategory}) {
+    return WeaponItemsCompanion(
+      itemid: itemid ?? this.itemid,
+      name: name ?? this.name,
+      subCategory: subCategory ?? this.subCategory,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (itemid.present) {
+      map['itemid'] = Variable<int>(itemid.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (subCategory.present) {
+      map['sub_category'] = Variable<String>(subCategory.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('WeaponItemsCompanion(')
+          ..write('itemid: $itemid, ')
+          ..write('name: $name, ')
+          ..write('subCategory: $subCategory')
+          ..write(')'))
+        .toString();
+  }
+}
+
 class $AccessoryItemsTable extends AccessoryItems
     with TableInfo<$AccessoryItemsTable, AccessoryItem> {
   @override
@@ -828,13 +1044,14 @@ abstract class _$ItemDatabase extends GeneratedDatabase {
   $ItemDatabaseManager get managers => $ItemDatabaseManager(this);
   late final $CharacterItemsTable characterItems = $CharacterItemsTable(this);
   late final $ArmorItemsTable armorItems = $ArmorItemsTable(this);
+  late final $WeaponItemsTable weaponItems = $WeaponItemsTable(this);
   late final $AccessoryItemsTable accessoryItems = $AccessoryItemsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities =>
-      [characterItems, armorItems, accessoryItems];
+      [characterItems, armorItems, weaponItems, accessoryItems];
 }
 
 typedef $$CharacterItemsTableCreateCompanionBuilder = CharacterItemsCompanion
@@ -1090,6 +1307,114 @@ typedef $$ArmorItemsTableProcessedTableManager = ProcessedTableManager<
     (ArmorItem, BaseReferences<_$ItemDatabase, $ArmorItemsTable, ArmorItem>),
     ArmorItem,
     PrefetchHooks Function()>;
+typedef $$WeaponItemsTableCreateCompanionBuilder = WeaponItemsCompanion
+    Function({
+  Value<int> itemid,
+  required String name,
+  required String subCategory,
+});
+typedef $$WeaponItemsTableUpdateCompanionBuilder = WeaponItemsCompanion
+    Function({
+  Value<int> itemid,
+  Value<String> name,
+  Value<String> subCategory,
+});
+
+class $$WeaponItemsTableFilterComposer
+    extends FilterComposer<_$ItemDatabase, $WeaponItemsTable> {
+  $$WeaponItemsTableFilterComposer(super.$state);
+  ColumnFilters<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+
+  ColumnFilters<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnFilters(column, joinBuilders: joinBuilders));
+}
+
+class $$WeaponItemsTableOrderingComposer
+    extends OrderingComposer<_$ItemDatabase, $WeaponItemsTable> {
+  $$WeaponItemsTableOrderingComposer(super.$state);
+  ColumnOrderings<int> get itemid => $state.composableBuilder(
+      column: $state.table.itemid,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get name => $state.composableBuilder(
+      column: $state.table.name,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+
+  ColumnOrderings<String> get subCategory => $state.composableBuilder(
+      column: $state.table.subCategory,
+      builder: (column, joinBuilders) =>
+          ColumnOrderings(column, joinBuilders: joinBuilders));
+}
+
+class $$WeaponItemsTableTableManager extends RootTableManager<
+    _$ItemDatabase,
+    $WeaponItemsTable,
+    WeaponItem,
+    $$WeaponItemsTableFilterComposer,
+    $$WeaponItemsTableOrderingComposer,
+    $$WeaponItemsTableCreateCompanionBuilder,
+    $$WeaponItemsTableUpdateCompanionBuilder,
+    (WeaponItem, BaseReferences<_$ItemDatabase, $WeaponItemsTable, WeaponItem>),
+    WeaponItem,
+    PrefetchHooks Function()> {
+  $$WeaponItemsTableTableManager(_$ItemDatabase db, $WeaponItemsTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          filteringComposer:
+              $$WeaponItemsTableFilterComposer(ComposerState(db, table)),
+          orderingComposer:
+              $$WeaponItemsTableOrderingComposer(ComposerState(db, table)),
+          updateCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> subCategory = const Value.absent(),
+          }) =>
+              WeaponItemsCompanion(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+          ),
+          createCompanionCallback: ({
+            Value<int> itemid = const Value.absent(),
+            required String name,
+            required String subCategory,
+          }) =>
+              WeaponItemsCompanion.insert(
+            itemid: itemid,
+            name: name,
+            subCategory: subCategory,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ));
+}
+
+typedef $$WeaponItemsTableProcessedTableManager = ProcessedTableManager<
+    _$ItemDatabase,
+    $WeaponItemsTable,
+    WeaponItem,
+    $$WeaponItemsTableFilterComposer,
+    $$WeaponItemsTableOrderingComposer,
+    $$WeaponItemsTableCreateCompanionBuilder,
+    $$WeaponItemsTableUpdateCompanionBuilder,
+    (WeaponItem, BaseReferences<_$ItemDatabase, $WeaponItemsTable, WeaponItem>),
+    WeaponItem,
+    PrefetchHooks Function()>;
 typedef $$AccessoryItemsTableCreateCompanionBuilder = AccessoryItemsCompanion
     Function({
   Value<int> itemid,
@@ -1245,6 +1570,8 @@ class $ItemDatabaseManager {
       $$CharacterItemsTableTableManager(_db, _db.characterItems);
   $$ArmorItemsTableTableManager get armorItems =>
       $$ArmorItemsTableTableManager(_db, _db.armorItems);
+  $$WeaponItemsTableTableManager get weaponItems =>
+      $$WeaponItemsTableTableManager(_db, _db.weaponItems);
   $$AccessoryItemsTableTableManager get accessoryItems =>
       $$AccessoryItemsTableTableManager(_db, _db.accessoryItems);
 }

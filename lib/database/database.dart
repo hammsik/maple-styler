@@ -28,6 +28,15 @@ class ArmorItems extends Table {
   Set<Column> get primaryKey => {itemid};
 }
 
+class WeaponItems extends Table {
+  IntColumn get itemid => integer()();
+  TextColumn get name => text()();
+  TextColumn get subCategory => text()();
+
+  @override
+  Set<Column> get primaryKey => {itemid};
+}
+
 class AccessoryItems extends Table {
   IntColumn get itemid => integer()();
   TextColumn get name => text()();
@@ -55,7 +64,8 @@ class UserFavoriteCharacters extends Table {
   TextColumn get characterName => text().nullable()();
 }
 
-@DriftDatabase(tables: [CharacterItems, ArmorItems, AccessoryItems])
+@DriftDatabase(
+    tables: [CharacterItems, ArmorItems, WeaponItems, AccessoryItems])
 class ItemDatabase extends _$ItemDatabase {
   ItemDatabase() : super(_openItemDBConnection());
 
