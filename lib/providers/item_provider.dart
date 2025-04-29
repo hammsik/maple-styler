@@ -58,15 +58,7 @@ class MapleItemList extends _$MapleItemList {
 
     for (final subCategory
         in toolMap[ToolType.weapon]!.subCategoryMap!.values) {
-      final List<WeaponItem> items =
-          await (itemDatabase.select(itemDatabase.weaponItems)
-                ..where((item) => item.subCategory.equals(subCategory.nameEn)))
-              .get();
-      // weaponItemMap[subCategory.type] = items
-      //     .map((item) => ItemConverter.itemFromDatabase(item))
-      //     .toList()
-      //     .reversed
-      //     .toList();
+      for (final weaponCategory in subCategory.)
     }
 
     for (final subCategory

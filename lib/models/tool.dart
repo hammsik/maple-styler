@@ -77,6 +77,7 @@ class SubCategory with _$SubCategory {
     required String nameEn,
     required SubCategoryType type,
     WeaponCategoryType? currentWeaponCategoryType,
+    Map<WeaponCategoryType, List<String>>? weaponCategoryMap,
   }) = _SubCategory;
 }
 

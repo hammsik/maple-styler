@@ -105,8 +105,6 @@ class ToolMap extends _$ToolMap {
               nameKo: '모자', nameEn: 'Hat', type: SubCategoryType.hat),
           SubCategoryType.overall: SubCategory(
               nameKo: '한벌옷', nameEn: 'Overall', type: SubCategoryType.overall),
-          // SubCategoryType.cash: SubCategory(
-          //     nameKo: '무기', nameEn: 'Cash', type: SubCategoryType.cash),
           SubCategoryType.top: SubCategory(
               nameKo: '상의', nameEn: 'Top', type: SubCategoryType.top),
           SubCategoryType.bottom: SubCategory(
@@ -132,11 +130,14 @@ class ToolMap extends _$ToolMap {
               nameKo: '한손무기',
               nameEn: 'oneHanded',
               type: SubCategoryType.oneHanded,
+              currentWeaponCategoryType: WeaponCategoryType.oneSword,
             ),
             SubCategoryType.twoHanded: SubCategory(
-                nameKo: '두손무기',
-                nameEn: 'twoHanded',
-                type: SubCategoryType.twoHanded),
+              nameKo: '두손무기',
+              nameEn: 'twoHanded',
+              type: SubCategoryType.twoHanded,
+              currentWeaponCategoryType: WeaponCategoryType.twoSword,
+            ),
           }),
       ToolType.accessory: const MyTool(
         toolNameKo: '악세',
