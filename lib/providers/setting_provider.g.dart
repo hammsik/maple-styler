@@ -54,7 +54,7 @@ final toolTypeSettingProvider =
 );
 
 typedef _$ToolTypeSetting = Notifier<ToolType>;
-String _$toolMapHash() => r'447c82d09ec0ee665b583b098cb5909b6e9883d8';
+String _$toolMapHash() => r'5e3bf7e64cd2ab74e69b5e695e548112dca6a0ec';
 
 /// See also [ToolMap].
 @ProviderFor(ToolMap)

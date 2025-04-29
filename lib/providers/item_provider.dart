@@ -9,18 +9,19 @@ part 'item_provider.g.dart';
 @Riverpod(keepAlive: true)
 class MapleItemList extends _$MapleItemList {
   @override
-  Future<Map<ToolType, Map<SubCategoryType, List<dynamic>>>> build() async {
+  Future<Map<ToolType, Map<SubCategoryType, dynamic>>> build() async {
     print('으아악 아이템 리스트가 전역 provider로 빌드됐다다아아');
     return loadItemList(ItemDatabase());
   }
 
-  Future<Map<ToolType, Map<SubCategoryType, List<dynamic>>>> loadItemList(
+  Future<Map<ToolType, Map<SubCategoryType, dynamic>>> loadItemList(
       ItemDatabase itemDatabase) async {
     final Map<ToolType, MyTool> toolMap = ref.read(toolMapProvider);
 
     final Map<SubCategoryType, List<Item>> characterItemMap = {};
     final Map<SubCategoryType, List<Item>> armorItemMap = {};
-    final Map<SubCategoryType, List<Item>> weaponItemMap = {};
+    final Map<SubCategoryType, Map<WeaponCategoryType, List<Item>>>
+        weaponItemMap = {};
     final Map<SubCategoryType, List<Item>> accessoryItemMap = {};
 
     print('아이템 리스트 로딩중...');
@@ -61,11 +62,11 @@ class MapleItemList extends _$MapleItemList {
           await (itemDatabase.select(itemDatabase.weaponItems)
                 ..where((item) => item.subCategory.equals(subCategory.nameEn)))
               .get();
-      weaponItemMap[subCategory.type] = items
-          .map((item) => ItemConverter.itemFromDatabase(item))
-          .toList()
-          .reversed
-          .toList();
+      // weaponItemMap[subCategory.type] = items
+      //     .map((item) => ItemConverter.itemFromDatabase(item))
+      //     .toList()
+      //     .reversed
+      //     .toList();
     }
 
     for (final subCategory

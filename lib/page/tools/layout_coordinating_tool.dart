@@ -75,35 +75,43 @@ class CoordinatingTools extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Expanded(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 230, 222, 218),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: ref.watch(mapleItemListProvider).when(
-                          data: (map) => ItemList(
-                              key: ValueKey(currentTool),
-                              itemList: map[currentTool.toolType]![
-                                      currentTool.currentSubcategoryType] ??
-                                  []),
-                          error: (error, stackTrace) => Center(
-                            child:
-                                Text('에러가 발생했습니다. 에러코드: ${error.toString()}'),
-                          ),
-                          loading: () => const Center(
-                            child: SizedBox(
-                              width: 30,
-                              height: 30,
-                              child: CircularProgressIndicator(),
+              child: Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: const Color.fromARGB(255, 230, 222, 218),
+                ),
+                child: Column(
+                  children: [
+                    if (currentTool.toolType == ToolType.weapon &&
+                        currentTool.currentSubcategoryType !=
+                            SubCategoryType.cash)
+                      const SizedBox(height: 8),
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: ref.watch(mapleItemListProvider).when(
+                              data: (map) => ItemList(
+                                  key: ValueKey(currentTool),
+                                  itemList: map[currentTool.toolType]![
+                                          currentTool.currentSubcategoryType] ??
+                                      []),
+                              error: (error, stackTrace) => Center(
+                                child: Text(
+                                    '에러가 발생했습니다. 에러코드: ${error.toString()}'),
+                              ),
+                              loading: () => const Center(
+                                child: SizedBox(
+                                  width: 30,
+                                  height: 30,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

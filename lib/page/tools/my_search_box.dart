@@ -126,7 +126,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   }
 
   void showItemList(
-      {required Map<ToolType, Map<SubCategoryType, List<dynamic>>> itemMap}) {
+      {required Map<ToolType, Map<SubCategoryType, dynamic>> itemMap}) {
     final List<Item> searchedItemList = [];
 
     for (final categoryEntry in itemMap.entries) {

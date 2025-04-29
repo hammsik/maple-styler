@@ -19,6 +19,8 @@ mixin _$SubCategory {
   String get nameKo => throw _privateConstructorUsedError;
   String get nameEn => throw _privateConstructorUsedError;
   SubCategoryType get type => throw _privateConstructorUsedError;
+  WeaponCategoryType? get currentWeaponCategoryType =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of SubCategory
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +35,11 @@ abstract class $SubCategoryCopyWith<$Res> {
           SubCategory value, $Res Function(SubCategory) then) =
       _$SubCategoryCopyWithImpl<$Res, SubCategory>;
   @useResult
-  $Res call({String nameKo, String nameEn, SubCategoryType type});
+  $Res call(
+      {String nameKo,
+      String nameEn,
+      SubCategoryType type,
+      WeaponCategoryType? currentWeaponCategoryType});
 }
 
 /// @nodoc
@@ -54,6 +60,7 @@ class _$SubCategoryCopyWithImpl<$Res, $Val extends SubCategory>
     Object? nameKo = null,
     Object? nameEn = null,
     Object? type = null,
+    Object? currentWeaponCategoryType = freezed,
   }) {
     return _then(_value.copyWith(
       nameKo: null == nameKo
@@ -68,6 +75,10 @@ class _$SubCategoryCopyWithImpl<$Res, $Val extends SubCategory>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as SubCategoryType,
+      currentWeaponCategoryType: freezed == currentWeaponCategoryType
+          ? _value.currentWeaponCategoryType
+          : currentWeaponCategoryType // ignore: cast_nullable_to_non_nullable
+              as WeaponCategoryType?,
     ) as $Val);
   }
 }
@@ -80,7 +91,11 @@ abstract class _$$SubCategoryImplCopyWith<$Res>
       __$$SubCategoryImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String nameKo, String nameEn, SubCategoryType type});
+  $Res call(
+      {String nameKo,
+      String nameEn,
+      SubCategoryType type,
+      WeaponCategoryType? currentWeaponCategoryType});
 }
 
 /// @nodoc
@@ -99,6 +114,7 @@ class __$$SubCategoryImplCopyWithImpl<$Res>
     Object? nameKo = null,
     Object? nameEn = null,
     Object? type = null,
+    Object? currentWeaponCategoryType = freezed,
   }) {
     return _then(_$SubCategoryImpl(
       nameKo: null == nameKo
@@ -113,6 +129,10 @@ class __$$SubCategoryImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as SubCategoryType,
+      currentWeaponCategoryType: freezed == currentWeaponCategoryType
+          ? _value.currentWeaponCategoryType
+          : currentWeaponCategoryType // ignore: cast_nullable_to_non_nullable
+              as WeaponCategoryType?,
     ));
   }
 }
@@ -121,7 +141,10 @@ class __$$SubCategoryImplCopyWithImpl<$Res>
 
 class _$SubCategoryImpl implements _SubCategory {
   const _$SubCategoryImpl(
-      {required this.nameKo, required this.nameEn, required this.type});
+      {required this.nameKo,
+      required this.nameEn,
+      required this.type,
+      this.currentWeaponCategoryType});
 
   @override
   final String nameKo;
@@ -129,10 +152,12 @@ class _$SubCategoryImpl implements _SubCategory {
   final String nameEn;
   @override
   final SubCategoryType type;
+  @override
+  final WeaponCategoryType? currentWeaponCategoryType;
 
   @override
   String toString() {
-    return 'SubCategory(nameKo: $nameKo, nameEn: $nameEn, type: $type)';
+    return 'SubCategory(nameKo: $nameKo, nameEn: $nameEn, type: $type, currentWeaponCategoryType: $currentWeaponCategoryType)';
   }
 
   @override
@@ -142,11 +167,15 @@ class _$SubCategoryImpl implements _SubCategory {
             other is _$SubCategoryImpl &&
             (identical(other.nameKo, nameKo) || other.nameKo == nameKo) &&
             (identical(other.nameEn, nameEn) || other.nameEn == nameEn) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.currentWeaponCategoryType,
+                    currentWeaponCategoryType) ||
+                other.currentWeaponCategoryType == currentWeaponCategoryType));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, nameKo, nameEn, type);
+  int get hashCode =>
+      Object.hash(runtimeType, nameKo, nameEn, type, currentWeaponCategoryType);
 
   /// Create a copy of SubCategory
   /// with the given fields replaced by the non-null parameter values.
@@ -161,7 +190,8 @@ abstract class _SubCategory implements SubCategory {
   const factory _SubCategory(
       {required final String nameKo,
       required final String nameEn,
-      required final SubCategoryType type}) = _$SubCategoryImpl;
+      required final SubCategoryType type,
+      final WeaponCategoryType? currentWeaponCategoryType}) = _$SubCategoryImpl;
 
   @override
   String get nameKo;
@@ -169,6 +199,8 @@ abstract class _SubCategory implements SubCategory {
   String get nameEn;
   @override
   SubCategoryType get type;
+  @override
+  WeaponCategoryType? get currentWeaponCategoryType;
 
   /// Create a copy of SubCategory
   /// with the given fields replaced by the non-null parameter values.

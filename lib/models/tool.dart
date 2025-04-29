@@ -32,12 +32,51 @@ enum SubCategoryType {
   earrings,
 }
 
+enum WeaponCategoryType {
+  // 한손무기
+  oneSword,
+  oneAxe,
+  oneMace,
+  dagger,
+  staff,
+  wand,
+  cane,
+  shiningRod,
+  soulShooter,
+  deathParado,
+  energeSword,
+  esp,
+  chain,
+  magic,
+  tuner,
+  breathShooter,
+  fan,
+
+  // 두손무기
+  twoSword,
+  twoAxe,
+  twoMace,
+  spear,
+  polearm,
+  bow,
+  crossbow,
+  claw,
+  nekle,
+  gun,
+  dualBowgun,
+  handCannon,
+  guntlet,
+  ancientBow,
+  chacram,
+}
+
 @freezed
 class SubCategory with _$SubCategory {
   const factory SubCategory({
     required String nameKo,
     required String nameEn,
     required SubCategoryType type,
+    WeaponCategoryType? currentWeaponCategoryType,
   }) = _SubCategory;
 }
 
