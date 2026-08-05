@@ -232,9 +232,9 @@ class _CapturePreview extends StatelessWidget {
             Container(color: const Color.fromARGB(255, 230, 222, 218))
           else
             Transform.translate(
-              offset: const Offset(0, 5),
+              offset: const Offset(0, 7),
               child: Transform.scale(
-                scale: 1.07,
+                scale: 1.08,
                 child: Image.asset(bgPaths[1], fit: BoxFit.cover),
               ),
             ),
