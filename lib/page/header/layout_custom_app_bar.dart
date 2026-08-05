@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class MyCustomAppBar extends StatefulWidget {
   // Drawer를 열기 위한 함수 (추후 구현 예정)
@@ -32,7 +31,7 @@ class _MyCustomAppBar extends State<MyCustomAppBar> {
           // ),
           Text(
             "MAPLE STYLER",
-            style: GoogleFonts.nanumMyeongjo(
+            style: TextStyle(fontFamily: 'Maplestory', 
               color: const Color(0xfff2f2f2),
               fontSize: 18,
             ),

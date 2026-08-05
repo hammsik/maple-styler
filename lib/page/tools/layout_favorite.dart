@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/page/tools/layout_favorite_detail.dart';
 
@@ -126,7 +125,7 @@ class _FavoriteLayout extends State<FavoriteLayout> {
                                   margin: const EdgeInsets.all(5),
                                   child: Text(
                                     itemList[index].name,
-                                    style: GoogleFonts.nanumMyeongjo(
+                                    style: TextStyle(fontFamily: 'Maplestory', 
                                         color:
                                             const Color.fromARGB(255, 0, 0, 0),
                                         fontSize: 10,

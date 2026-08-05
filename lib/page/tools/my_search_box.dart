@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
@@ -70,7 +69,7 @@ class _SearchBoxState extends ConsumerState<SearchBox> {
           Expanded(
               child: Text(
             searchedWord,
-            style: GoogleFonts.nanumMyeongjo(
+            style: TextStyle(fontFamily: 'Maplestory', 
               fontSize: 12,
               fontWeight: FontWeight.w700,
             ),
@@ -126,24 +125,11 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
   }
 
   void showItemList(
-      {required Map<ToolType, Map<SubCategoryType, dynamic>> itemMap}) {
+      {required Map<ToolType, Map<SubCategoryType, List<Item>>> itemMap}) {
     final List<Item> searchedItemList = [];
 
+    // 모든 도구/서브카테고리는 List<Item>으로 균일하므로 무기도 동일하게 순회한다.
     for (final categoryEntry in itemMap.entries) {
-      if (categoryEntry.key == ToolType.weapon) {
-        for (final weaponCategory in categoryEntry.value.values) {
-          for (final subCategory in weaponCategory) {
-            for (final item in subCategory) {
-              if (myController.text.isNotEmpty &&
-                  (item.name.replaceAll(' ', ''))
-                      .contains(myController.text.replaceAll(' ', ''))) {
-                searchedItemList.add(item);
-              }
-            }
-          }
-        }
-      }
-
       for (final subCategory in categoryEntry.value.values) {
         for (final item in subCategory) {
           if (myController.text.isNotEmpty &&
@@ -161,7 +147,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
             ? Center(
                 child: Text(
                 '검색된 아이템이 없습니다',
-                style: GoogleFonts.nanumMyeongjo(
+                style: TextStyle(fontFamily: 'Maplestory', 
                   fontSize: 15,
                   fontWeight: FontWeight.w700,
                 ),
@@ -231,7 +217,7 @@ class _DetailScreenState extends ConsumerState<DetailScreen> {
                                 margin: const EdgeInsets.all(5),
                                 child: Text(
                                   searchedItemList[index].name,
-                                  style: GoogleFonts.nanumMyeongjo(
+                                  style: TextStyle(fontFamily: 'Maplestory', 
                                       color: const Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 10,
                                       fontWeight: FontWeight.w700),

@@ -22,7 +22,10 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  SubCategoryType get subCategoryType => throw _privateConstructorUsedError;
+  SubCategoryType get subCategoryType =>
+      throw _privateConstructorUsedError; // 무기 세부 분류(예: 'One-Handed Sword'). DB의 'Parent/Child' 포맷에서 Child 부분.
+// 무기가 아닌 아이템은 null.
+  String? get weaponCategory => throw _privateConstructorUsedError;
   Prism? get prism => throw _privateConstructorUsedError;
 
   /// Serializes this Item to a JSON map.
@@ -40,7 +43,11 @@ abstract class $ItemCopyWith<$Res> {
       _$ItemCopyWithImpl<$Res, Item>;
   @useResult
   $Res call(
-      {String id, String name, SubCategoryType subCategoryType, Prism? prism});
+      {String id,
+      String name,
+      SubCategoryType subCategoryType,
+      String? weaponCategory,
+      Prism? prism});
 
   $PrismCopyWith<$Res>? get prism;
 }
@@ -63,6 +70,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? id = null,
     Object? name = null,
     Object? subCategoryType = null,
+    Object? weaponCategory = freezed,
     Object? prism = freezed,
   }) {
     return _then(_value.copyWith(
@@ -78,6 +86,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.subCategoryType
           : subCategoryType // ignore: cast_nullable_to_non_nullable
               as SubCategoryType,
+      weaponCategory: freezed == weaponCategory
+          ? _value.weaponCategory
+          : weaponCategory // ignore: cast_nullable_to_non_nullable
+              as String?,
       prism: freezed == prism
           ? _value.prism
           : prism // ignore: cast_nullable_to_non_nullable
@@ -108,7 +120,11 @@ abstract class _$$ItemImplCopyWith<$Res> implements $ItemCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id, String name, SubCategoryType subCategoryType, Prism? prism});
+      {String id,
+      String name,
+      SubCategoryType subCategoryType,
+      String? weaponCategory,
+      Prism? prism});
 
   @override
   $PrismCopyWith<$Res>? get prism;
@@ -129,6 +145,7 @@ class __$$ItemImplCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? subCategoryType = null,
+    Object? weaponCategory = freezed,
     Object? prism = freezed,
   }) {
     return _then(_$ItemImpl(
@@ -144,6 +161,10 @@ class __$$ItemImplCopyWithImpl<$Res>
           ? _value.subCategoryType
           : subCategoryType // ignore: cast_nullable_to_non_nullable
               as SubCategoryType,
+      weaponCategory: freezed == weaponCategory
+          ? _value.weaponCategory
+          : weaponCategory // ignore: cast_nullable_to_non_nullable
+              as String?,
       prism: freezed == prism
           ? _value.prism
           : prism // ignore: cast_nullable_to_non_nullable
@@ -159,6 +180,7 @@ class _$ItemImpl implements _Item {
       {required this.id,
       required this.name,
       required this.subCategoryType,
+      this.weaponCategory,
       this.prism});
 
   factory _$ItemImpl.fromJson(Map<String, dynamic> json) =>
@@ -170,12 +192,16 @@ class _$ItemImpl implements _Item {
   final String name;
   @override
   final SubCategoryType subCategoryType;
+// 무기 세부 분류(예: 'One-Handed Sword'). DB의 'Parent/Child' 포맷에서 Child 부분.
+// 무기가 아닌 아이템은 null.
+  @override
+  final String? weaponCategory;
   @override
   final Prism? prism;
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, subCategoryType: $subCategoryType, prism: $prism)';
+    return 'Item(id: $id, name: $name, subCategoryType: $subCategoryType, weaponCategory: $weaponCategory, prism: $prism)';
   }
 
   @override
@@ -187,13 +213,15 @@ class _$ItemImpl implements _Item {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.subCategoryType, subCategoryType) ||
                 other.subCategoryType == subCategoryType) &&
+            (identical(other.weaponCategory, weaponCategory) ||
+                other.weaponCategory == weaponCategory) &&
             (identical(other.prism, prism) || other.prism == prism));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, name, subCategoryType, prism);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, subCategoryType, weaponCategory, prism);
 
   /// Create a copy of Item
   /// with the given fields replaced by the non-null parameter values.
@@ -216,6 +244,7 @@ abstract class _Item implements Item {
       {required final String id,
       required final String name,
       required final SubCategoryType subCategoryType,
+      final String? weaponCategory,
       final Prism? prism}) = _$ItemImpl;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$ItemImpl.fromJson;
@@ -225,7 +254,11 @@ abstract class _Item implements Item {
   @override
   String get name;
   @override
-  SubCategoryType get subCategoryType;
+  SubCategoryType
+      get subCategoryType; // 무기 세부 분류(예: 'One-Handed Sword'). DB의 'Parent/Child' 포맷에서 Child 부분.
+// 무기가 아닌 아이템은 null.
+  @override
+  String? get weaponCategory;
   @override
   Prism? get prism;
 

@@ -37,6 +37,15 @@ enum BackgroundType {
   sernium,
 }
 
+/// 무기 장착 모드.
+/// maplestory.io 캐릭터 API의 스탠스가 한손/두손에 따라 갈린다.
+///  - oneHanded: 캐시무기·한손무기 (stand1 / walk1)
+///  - twoHanded: 두손무기 (stand2 / walk2)
+enum WeaponModeType {
+  oneHanded,
+  twoHanded,
+}
+
 @Riverpod(keepAlive: true)
 class ActionSetting extends _$ActionSetting {
   @override
@@ -63,6 +72,19 @@ class BackgroundSetting extends _$BackgroundSetting {
           .changeActionType(ActionType.stand1);
     }
     state = type;
+  }
+}
+
+@Riverpod(keepAlive: true)
+class WeaponMode extends _$WeaponMode {
+  @override
+  WeaponModeType build() {
+    return WeaponModeType.oneHanded;
+  }
+
+  void changeMode(WeaponModeType mode) {
+    if (state == mode) return;
+    state = mode;
   }
 }
 
@@ -124,20 +146,18 @@ class ToolMap extends _$ToolMap {
           toolType: ToolType.weapon,
           currentSubcategoryType: SubCategoryType.cash,
           subCategoryMap: {
+            // nameEn은 DB(weapon_items.sub_category) 필터 키로 쓰인다.
+            // 캐시무기는 'Cash'(평면), 한/두손무기는 'One-Handed Weapon/...' 계층의 대분류.
             SubCategoryType.cash: SubCategory(
                 nameKo: '캐시무기', nameEn: 'Cash', type: SubCategoryType.cash),
             SubCategoryType.oneHanded: SubCategory(
-              nameKo: '한손무기',
-              nameEn: 'oneHanded',
-              type: SubCategoryType.oneHanded,
-              currentWeaponCategoryType: WeaponCategoryType.oneSword,
-            ),
+                nameKo: '한손무기',
+                nameEn: 'One-Handed Weapon',
+                type: SubCategoryType.oneHanded),
             SubCategoryType.twoHanded: SubCategory(
-              nameKo: '두손무기',
-              nameEn: 'twoHanded',
-              type: SubCategoryType.twoHanded,
-              currentWeaponCategoryType: WeaponCategoryType.twoSword,
-            ),
+                nameKo: '두손무기',
+                nameEn: 'Two-Handed Weapon',
+                type: SubCategoryType.twoHanded),
           }),
       ToolType.accessory: const MyTool(
         toolNameKo: '악세',

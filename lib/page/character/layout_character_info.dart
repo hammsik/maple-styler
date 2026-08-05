@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/database/database.dart';
 import 'package:maple_closet/models/equipment.dart';
 import 'package:maple_closet/models/item.dart';
+import 'package:maple_closet/page/character/image_save_sheet.dart';
 import 'package:maple_closet/page/character/layout_character_detail.dart';
 import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/favorite_character_provider.dart';
@@ -175,9 +175,10 @@ class CharacterDetail extends ConsumerWidget {
                                                     currentWearingItemList[
                                                             index]
                                                         .name,
-                                                    style: GoogleFonts
-                                                        .nanumMyeongjo(
-                                                            color: const Color
+                                                    style: const TextStyle(
+                                                            fontFamily:
+                                                                'Maplestory',
+                                                            color: Color
                                                                 .fromARGB(
                                                                 255, 0, 0, 0),
                                                             fontSize: 10,
@@ -251,9 +252,10 @@ class CharacterDetail extends ConsumerWidget {
                             ),
                             const SizedBox(height: 10),
                             Expanded(
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: ElevatedButton(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
                                   onPressed: () async {
                                     await userFavoriteDB
                                         .into(userFavoriteDB
@@ -286,22 +288,52 @@ class CharacterDetail extends ConsumerWidget {
                                         255, 230, 222, 218),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
-                                            BorderRadius.circular(12)),
+                                            BorderRadius.circular(8)),
                                     padding: EdgeInsets.zero,
                                   ),
                                   child: const Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Icon(Icons.save_rounded,
-                                          color: Colors.black),
-                                      SizedBox(width: 10),
-                                      Text('코디 저장하기',
+                                          color: Colors.black, size: 20),
+                                      SizedBox(width: 6),
+                                      Text('코디',
                                           style: TextStyle(
                                               color: Colors.black,
-                                              fontSize: 14)),
+                                              fontSize: 13)),
                                     ],
                                   ),
                                 ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () =>
+                                          showImageSaveSheet(context),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 181, 103, 103),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8)),
+                                        padding: EdgeInsets.zero,
+                                      ),
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.image_rounded,
+                                              color: Colors.white, size: 20),
+                                          SizedBox(width: 6),
+                                          Text('이미지',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 13)),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/backgrounds.dart';
 import 'package:maple_closet/page/character/layout_character_info.dart';
@@ -51,11 +50,19 @@ class CharacterBoard extends HookConsumerWidget {
       child: background == BackgroundType.basic
           ? Row(
               children: [
-                AnimatedBuilder(
+                Stack(
+                  children: [
+                    AnimatedBuilder(
                   animation: sizeAnimation,
                   builder: (context, child) {
+                    // 애니메이션 begin(화면 전체 너비)이 좌우 패딩(40)+버튼 간격(10)을
+                    // 넘어 순간적으로 Row 오버플로우가 나므로 사용 가능 폭으로 clamp한다.
+                    final double maxWidth =
+                        MediaQuery.sizeOf(context).width - 52;
                     return SizedBox(
-                      width: sizeAnimation.value.width,
+                      width: sizeAnimation.value.width
+                          .clamp(0.0, maxWidth)
+                          .toDouble(),
                       height: sizeAnimation.value.height,
                       child: child,
                     );
@@ -77,6 +84,13 @@ class CharacterBoard extends HookConsumerWidget {
                           child: const CharacterImage(),
                         ),
                       )),
+                    ),
+                    const Positioned(
+                      bottom: 8,
+                      right: 8,
+                      child: WeaponModeToggle(),
+                    ),
+                  ],
                 ),
                 const SizedBox(width: 10),
                 Expanded(
@@ -141,7 +155,7 @@ class CharacterBoard extends HookConsumerWidget {
                                     Center(
                                       child: Text(
                                         type.value,
-                                        style: GoogleFonts.nanumMyeongjo(
+                                        style: TextStyle(fontFamily: 'Maplestory', 
                                             color: const Color.fromARGB(
                                                 255, 0, 0, 0),
                                             fontSize: 12,
@@ -171,6 +185,11 @@ class CharacterBoard extends HookConsumerWidget {
               children: [
                 BackgroundImage(),
                 CharacterImage(),
+                Positioned(
+                  bottom: 8,
+                  right: 8,
+                  child: WeaponModeToggle(),
+                ),
               ],
             ),
     );
@@ -184,6 +203,8 @@ class CharacterImage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(characterProvider);
     ref.watch(actionSettingProvider);
+    // 무기 모드(한손 stand1 / 두손 stand2)가 바뀌면 캐릭터를 다시 렌더한다.
+    ref.watch(weaponModeProvider);
     final characterImageList =
         ref.read(characterProvider.notifier).getCurrentCharacterImageAsUint();
 
@@ -233,6 +254,64 @@ class CharacterImage extends ConsumerWidget {
           return Image.asset('assets/drummingBunny.gif'); // 로딩 중일 때 표시할 위젯
         }
       },
+    );
+  }
+}
+
+/// 캐릭터 캔버스 우측 하단의 무기 장착 모드 토글.
+/// stand1(한손·기본) <-> stand2(두손). 기본값은 한손(stand1).
+class WeaponModeToggle extends ConsumerWidget {
+  const WeaponModeToggle({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final mode = ref.watch(weaponModeProvider);
+    final bool isTwoHanded = mode == WeaponModeType.twoHanded;
+
+    const accent = Color.fromARGB(255, 181, 103, 103);
+    const surface = Color.fromARGB(255, 245, 240, 237);
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: () => ref.read(weaponModeProvider.notifier).changeMode(
+              isTwoHanded ? WeaponModeType.oneHanded : WeaponModeType.twoHanded,
+            ),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          decoration: BoxDecoration(
+            color: isTwoHanded ? accent : surface,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.15),
+                blurRadius: 6,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.swap_horiz_rounded,
+                size: 16,
+                color: isTwoHanded ? Colors.white : accent,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                isTwoHanded ? '두손' : '한손',
+                style: TextStyle(fontFamily: 'Maplestory', 
+                  color: isTwoHanded ? Colors.white : Colors.black,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

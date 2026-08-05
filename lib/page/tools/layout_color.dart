@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/data/color_palette.dart';
 import 'package:maple_closet/providers/character_provider.dart';
@@ -61,7 +60,7 @@ class ColorLayout extends HookConsumerWidget {
                               ),
                       child: Text(
                         '적용',
-                        style: GoogleFonts.nanumMyeongjo(
+                        style: TextStyle(fontFamily: 'Maplestory', 
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                         ),
@@ -145,7 +144,7 @@ class ColorLayout extends HookConsumerWidget {
                               ),
                       child: Text(
                         '적용',
-                        style: GoogleFonts.nanumMyeongjo(
+                        style: TextStyle(fontFamily: 'Maplestory', 
                           fontSize: 12,
                           fontWeight: FontWeight.w700,
                         ),

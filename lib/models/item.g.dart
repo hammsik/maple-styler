@@ -11,6 +11,7 @@ _$ItemImpl _$$ItemImplFromJson(Map<String, dynamic> json) => _$ItemImpl(
       name: json['name'] as String,
       subCategoryType:
           $enumDecode(_$SubCategoryTypeEnumMap, json['subCategoryType']),
+      weaponCategory: json['weaponCategory'] as String?,
       prism: json['prism'] == null
           ? null
           : Prism.fromJson(json['prism'] as Map<String, dynamic>),
@@ -21,6 +22,7 @@ Map<String, dynamic> _$$ItemImplToJson(_$ItemImpl instance) =>
       'id': instance.id,
       'name': instance.name,
       'subCategoryType': _$SubCategoryTypeEnumMap[instance.subCategoryType]!,
+      'weaponCategory': instance.weaponCategory,
       'prism': instance.prism,
     };
 

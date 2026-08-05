@@ -76,10 +76,11 @@ class ItemDatabase extends _$ItemDatabase {
   MigrationStrategy get migration {
     return MigrationStrategy(
       onUpgrade: (Migrator m, int from, int to) async {
-        if (from < 3) {
-          // 새로운 db를 _openItemDBConnection()에서 추가해서 쓰는 대신, 기존거 제거
-          deleteDatabase("items.db");
-        }
+        // 아이템 카탈로그 DB는 assets에서 통째로 새로 복사하는 방식이라
+        // 스키마/데이터 변경 시 파일명을 버전으로 올려(item_v3.db) 항상 새 파일을 받게 한다.
+        // (아래는 레거시 파일 정리 — 실제 데이터 교체는 파일명 변경으로 이뤄짐)
+        deleteDatabase('items.db'); // v2
+        deleteDatabase('item.db'); // v1
       },
     );
   }
@@ -126,7 +127,10 @@ LazyDatabase _openItemDBConnection() {
     // put the database file, called db.sqlite here, into the documents folder
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
-    final file = File(p.join(dbFolder.path, 'item.db'));
+    // 스키마/데이터 버전을 파일명에 인코딩. 변경 시 이 파일명을 올려서
+    // 모든 구버전 사용자가 assets의 최신 DB를 새로 복사받도록 한다.
+    // (구버전: item.db / items.db, v3부터 무기 테이블 포함)
+    final file = File(p.join(dbFolder.path, 'item_v3.db'));
 
     if (!await file.exists()) {
       // Extract the pre-populated database file from assets

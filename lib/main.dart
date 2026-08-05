@@ -17,6 +17,7 @@ class MapleStyler extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Maplestory',
       ),
       home: UpgradeAlert(
         showIgnore: false,

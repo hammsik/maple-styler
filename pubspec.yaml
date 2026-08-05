@@ -26,6 +26,7 @@ dependencies:
   json_annotation: ^4.9.0
   flutter_animate: ^4.5.0
   upgrader: ^11.3.1
+  gal: ^2.3.0
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
@@ -34,9 +35,9 @@ dev_dependencies:
   change_app_package_name: ^1.1.0
   drift_dev: ^2.13.0
   build_runner: ^2.4.13
-  riverpod_generator: ^2.4.0
-  custom_lint: ^0.6.4
-  riverpod_lint: ^2.3.10
+  # riverpod_generator: ^2.4.0
+  # custom_lint: ^0.6.4
+  # riverpod_lint: ^2.3.10
   freezed: ^2.5.7
   json_serializable: ^6.8.0
 flutter_launcher_icons:
@@ -69,3 +70,7 @@ flutter:
     - assets/map/icon/icon_sernium.jpg
     - assets/maple_styler_item_db.sqlite
     - assets/drummingBunny.gif
+  fonts:
+    - family: Maplestory
+      fonts:
+        - asset: assets/fonts/MaplestoryLight.ttf

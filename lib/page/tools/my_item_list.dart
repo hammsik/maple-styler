@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/providers/character_provider.dart';
@@ -87,7 +86,7 @@ class ItemList extends HookConsumerWidget {
                         margin: const EdgeInsets.all(5),
                         child: Text(
                           itemList[index].name,
-                          style: GoogleFonts.nanumMyeongjo(
+                          style: TextStyle(fontFamily: 'Maplestory', 
                               color: const Color.fromARGB(255, 0, 0, 0),
                               fontSize: 10,
                               fontWeight: FontWeight.w700),

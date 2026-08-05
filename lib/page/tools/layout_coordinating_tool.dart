@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:maple_closet/models/item.dart';
 import 'package:maple_closet/models/tool.dart';
 import 'package:maple_closet/page/tools/layout_color.dart';
 import 'package:maple_closet/page/tools/layout_favorite.dart';
@@ -13,6 +13,7 @@ import 'my_search_box.dart';
 import 'my_tool_buttons.dart';
 import 'my_undo_and_redo.dart';
 import 'my_item_list.dart';
+import 'my_weapon_item_list.dart';
 
 class CoordinatingTools extends ConsumerWidget {
   const CoordinatingTools({
@@ -25,7 +26,7 @@ class CoordinatingTools extends ConsumerWidget {
         ref.watch(toolMapProvider)[ref.watch(toolTypeSettingProvider)]!;
 
     return DefaultTextStyle(
-      style: GoogleFonts.nanumMyeongjo(
+      style: TextStyle(fontFamily: 'Maplestory', 
           color: const Color.fromARGB(255, 0, 0, 0),
           fontSize: 12,
           fontWeight: FontWeight.w700),
@@ -82,36 +83,42 @@ class CoordinatingTools extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(12),
                   color: const Color.fromARGB(255, 230, 222, 218),
                 ),
-                child: Column(
-                  children: [
-                    if (currentTool.toolType == ToolType.weapon &&
-                        currentTool.currentSubcategoryType !=
-                            SubCategoryType.cash)
-                      const SizedBox(height: 8),
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: ref.watch(mapleItemListProvider).when(
-                              data: (map) => ItemList(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: ref.watch(mapleItemListProvider).when(
+                        data: (map) {
+                          final List<Item> itemList = map[currentTool
+                                  .toolType]?[
+                                  currentTool.currentSubcategoryType] ??
+                              <Item>[];
+                          // 한/두손무기는 세부 분류 필터가 붙은 리스트를 사용
+                          final bool isSubdividedWeapon =
+                              currentTool.toolType == ToolType.weapon &&
+                                  currentTool.currentSubcategoryType !=
+                                      SubCategoryType.cash;
+                          return isSubdividedWeapon
+                              ? WeaponItemList(
+                                  key: ValueKey(
+                                      currentTool.currentSubcategoryType),
+                                  itemList: itemList,
+                                )
+                              : ItemList(
                                   key: ValueKey(currentTool),
-                                  itemList: map[currentTool.toolType]![
-                                          currentTool.currentSubcategoryType] ??
-                                      []),
-                              error: (error, stackTrace) => Center(
-                                child: Text(
-                                    '에러가 발생했습니다. 에러코드: ${error.toString()}'),
-                              ),
-                              loading: () => const Center(
-                                child: SizedBox(
-                                  width: 30,
-                                  height: 30,
-                                  child: CircularProgressIndicator(),
-                                ),
-                              ),
-                            ),
+                                  itemList: itemList,
+                                );
+                        },
+                        error: (error, stackTrace) => Center(
+                          child: Text(
+                              '에러가 발생했습니다. 에러코드: ${error.toString()}'),
+                        ),
+                        loading: () => const Center(
+                          child: SizedBox(
+                            width: 30,
+                            height: 30,
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
                       ),
-                    ),
-                  ],
                 ),
               ),
             ),

@@ -9,6 +9,18 @@ import 'package:maple_closet/models/tool.dart';
 
 part 'equipment.freezed.dart';
 
+// 저장된 무기 배열([id, name, subCategory?])에서 서브카테고리를 복원한다.
+// 레거시 데이터(원소 2개)나 값이 없으면 기본 cash로 처리한다.
+SubCategoryType _weaponSubCategoryFromJson(dynamic weaponJson) {
+  if (weaponJson is List && weaponJson.length > 2 && weaponJson[2] != 'null') {
+    return SubCategoryType.values.firstWhere(
+      (e) => e.name == weaponJson[2],
+      orElse: () => SubCategoryType.cash,
+    );
+  }
+  return SubCategoryType.cash;
+}
+
 // 코디 아이템을 모아놓은 맵
 @freezed
 class Equipment with _$Equipment {
@@ -102,12 +114,17 @@ class Equipment with _$Equipment {
               subCategoryType: SubCategoryType.overall,
             )
           : null,
-      // cash는 레거시... 지금은 Weapon으로 바뀜. 그러나 이전 버전 사용자를 위해 남김
-      weapon: json['Cash']![0] != 'null'
+      // 'Cash'는 레거시 키. 지금은 'Weapon'으로 저장하지만,
+      // 이전 버전 사용자가 저장한 데이터('Cash')도 읽을 수 있도록 둘 다 지원.
+      // 3번째 원소에 무기 서브카테고리(cash/oneHanded/twoHanded)를 저장해
+      // 두손무기 장착 모드가 저장/불러오기 후에도 유지되도록 한다(없으면 cash).
+      weapon: (json['Weapon'] ?? json['Cash'])?[0] != null &&
+              (json['Weapon'] ?? json['Cash'])![0] != 'null'
           ? Item(
-              id: json['Cash']![0],
-              name: json['Cash']![1],
-              subCategoryType: SubCategoryType.cash,
+              id: (json['Weapon'] ?? json['Cash'])![0],
+              name: (json['Weapon'] ?? json['Cash'])![1],
+              subCategoryType:
+                  _weaponSubCategoryFromJson(json['Weapon'] ?? json['Cash']),
             )
           : null,
       top: json['Top']![0] != 'null'
@@ -196,7 +213,12 @@ extension ExtensionForToJson on Equipment {
       'Head': [head.id, head.name],
       'Hat': [hat?.id ?? 'null', hat?.name ?? 'null'],
       'Overall': [overAll?.id ?? 'null', overAll?.name ?? 'null'],
-      'Weapon': [weapon?.id ?? 'null', weapon?.name ?? 'null'],
+      // 3번째 원소: 무기 서브카테고리(장착 모드 복원용)
+      'Weapon': [
+        weapon?.id ?? 'null',
+        weapon?.name ?? 'null',
+        weapon?.subCategoryType.name ?? 'null',
+      ],
       'Top': [top?.id ?? 'null', top?.name ?? 'null'],
       'Bottom': [bottom?.id ?? 'null', bottom?.name ?? 'null'],
       'Cape': [cape?.id ?? 'null', cape?.name ?? 'null'],

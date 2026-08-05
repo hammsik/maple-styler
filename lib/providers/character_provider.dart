@@ -176,14 +176,41 @@ class Character extends _$Character with CharacterMethod {
 
     final type = at ?? ref.read(actionSettingProvider);
     const baseUrl = 'https://maplestory.io/api/Character/';
-    final motion = type.toString().split('.').last[0] == '_'
-        ? '${type.toString().split('.').last.substring(1)}/animated?bgColor=230,222,218,255'
-        : '${type.toString().split('.').last}/0?renderMode=2';
+
+    // ActionType 이름에서 애니메이션 이름 추출 (앞의 '_'는 animated(GIF) 표식)
+    final String rawName = type.toString().split('.').last;
+    final bool isAnimated = rawName.startsWith('_');
+    String animation = isAnimated ? rawName.substring(1) : rawName;
+
+    // 두손무기 모드면 스탠스를 두손용으로 치환 (stand1->stand2, walk1->walk2, swingO1->swingT1)
+    if (ref.read(weaponModeProvider) == WeaponModeType.twoHanded) {
+      animation = _toTwoHandedAnimation(animation);
+    }
+
+    final motion = isAnimated
+        ? '$animation/animated?bgColor=230,222,218,255'
+        : '$animation/0?renderMode=2';
 
     return [
       '$baseUrl${itemsBodyList[0]}/$motion',
       '$baseUrl${itemsBodyList[1]}/$motion',
     ];
+  }
+
+  // 한손 기준 애니메이션을 두손무기용으로 치환한다.
+  // 대기/걷기 스탠스는 1<->2로 갈리고, 스윙 공격은 한손(swingO)<->두손(swingT).
+  // 그 외(피격/점프/엎드리기/앉기/비행 등)는 공용이라 그대로 둔다.
+  String _toTwoHandedAnimation(String animation) {
+    switch (animation) {
+      case 'stand1':
+        return 'stand2';
+      case 'walk1':
+        return 'walk2';
+      case 'swingO1':
+        return 'swingT1';
+      default:
+        return animation;
+    }
   }
 
   Item? getCurrentItemBySubCategory({required SubCategoryType type}) {
