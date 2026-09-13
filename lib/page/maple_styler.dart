@@ -7,6 +7,59 @@ import 'package:maple_closet/page/character/layout_character_board.dart';
 import 'package:maple_closet/page/tools/layout_coordinating_tool.dart';
 import 'package:maple_closet/page/header/layout_custom_app_bar.dart';
 
+/// 이번 실행(세션)에서 점검 공지를 이미 띄웠는지 여부.
+bool _maintenanceNoticeShown = false;
+
+/// 서버 점검 종료 시각. 한국시간(KST=UTC+9) 2026-09-16 09:00 → UTC 2026-09-16 00:00.
+/// 이 시각 이후에는 공지 팝업을 띄우지 않는다.
+final DateTime _maintenanceEndUtc = DateTime.utc(2026, 9, 16, 0, 0);
+
+/// 앱 실행 시 서버 점검 공지 다이얼로그를 (세션당 1회) 띄운다.
+void _maybeShowMaintenanceNotice(BuildContext context) {
+  if (_maintenanceNoticeShown) return;
+  // 점검 종료 시각이 지났으면 더 이상 띄우지 않는다.
+  if (!DateTime.now().toUtc().isBefore(_maintenanceEndUtc)) return;
+  _maintenanceNoticeShown = true;
+
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    if (!context.mounted) return;
+    showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => AlertDialog(
+        backgroundColor: const Color.fromARGB(255, 245, 240, 237),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: const Text(
+          '🛠️ 서버 점검 안내',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+        ),
+        content: const Text(
+          '성능 개선을 위한 서버 점검으로 인해\n'
+          '캐릭터/아이템 이미지가 정상적으로 표시되지 않을 수 있습니다.\n\n'
+          '• 점검 종료(예정): 9월 16일(화) 오전 9시\n\n'
+          '점검이 끝나면 정상적으로 이용하실 수 있습니다.\n'
+          '이용에 불편을 드려 죄송합니다. 🙇',
+          style: TextStyle(fontSize: 14, height: 1.5),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(dialogContext).pop(),
+            style: TextButton.styleFrom(
+              foregroundColor: const Color.fromARGB(255, 181, 103, 103),
+            ),
+            child: const Text(
+              '확인',
+              style: TextStyle(fontWeight: FontWeight.w700),
+            ),
+          ),
+        ],
+      ),
+    );
+  });
+}
+
 class MapleStylerHome extends ConsumerWidget {
   const MapleStylerHome({super.key});
 
@@ -45,6 +98,9 @@ class MapleStylerHome extends ConsumerWidget {
     ]);
 
     print('main page has been build');
+
+    // 서버 점검 공지 팝업 (점검 종료 시각 이후에는 자동으로 표시되지 않음)
+    _maybeShowMaintenanceNotice(context);
 
     return PopScope(
       canPop: false,

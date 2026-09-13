@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -6,6 +8,7 @@ import 'package:maple_closet/data/backgrounds.dart';
 import 'package:maple_closet/page/character/layout_character_info.dart';
 import 'package:maple_closet/providers/character_provider.dart';
 import 'package:maple_closet/providers/setting_provider.dart';
+import 'package:maple_closet/providers/toast_provider.dart';
 
 class CharacterBoard extends HookConsumerWidget {
   final double height;
@@ -211,6 +214,20 @@ class CharacterImage extends ConsumerWidget {
     return FutureBuilder(
       future: characterImageList, // 이미지를 불러오는 Future
       builder: (context, snapshot) {
+        // API 응답이 지연(타임아웃)되면 안내 토스트를 띄운다.
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasError &&
+            snapshot.error is TimeoutException) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (!context.mounted) return;
+            ref.read(customToastProvider.notifier).showCustomToast(
+                  context,
+                  type: ToastType.error,
+                  message: '캐릭터 생성이 지연되고 있습니다. 잠시 후 다시 시도해주세요.',
+                );
+          });
+          return Image.asset('assets/drummingBunny.gif');
+        }
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           return Stack(
